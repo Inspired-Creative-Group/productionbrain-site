@@ -6,12 +6,27 @@ that page happens here, not in `icg-website`.**
 Live at <https://theproductionbrain.ai>. Static HTML on GitHub Pages, deploys on push
 to `main`, usually inside 30 seconds.
 
+## Brand: OPEN QUESTION as of 2026-09-11
+
+**Juan's decision, 2026-09-11: The Production Brain is being launched as its own company
+with its own brand, deliberately NOT ICG's.** So `BRAND_TRUTH.md` — the 60/30/10 black,
+gray and `#E8000D`, Space Grotesk and Inter — is **not** automatically the law here any
+more. The page currently still wears ICG's clothes because it was born inside the agency
+site this evening. That is inheritance, not a decision.
+
+Until the new identity exists, do not "fix" this page toward ICG brand compliance and do
+not invent a replacement palette. Ask Juan.
+
+The ICG **sacred lines** (`We produce it. You own it.`, `No shortcuts, no AI slop.`, and
+the rest) belong to the agency site and have no standing here.
+
 ## Before you touch the copy
 
-Load the **`website-copy-audit`** skill. It governs this page exactly as it governs the
-agency site: sacred lines, no em dashes, no AI tells, customer is the hero, and the word
-count goes down or stays flat. Product marketing context, the ICP and the things that are
-**not true yet and must never be claimed**, are in `.claude/product-marketing.md`.
+Load the **`website-copy-audit`** skill for its craft rules, which do still apply: no em
+dashes, no AI tells, customer is the hero, and the word count goes down or stays flat.
+Ignore its ICG-brand and sacred-line sections for this page, per the note above. Product
+marketing context, the ICP and the things that are **not true yet and must never be
+claimed**, are in `.claude/product-marketing.md` and remain accurate.
 
 ## The domain
 
