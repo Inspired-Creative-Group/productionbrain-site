@@ -1,4 +1,4 @@
-# productionbrain.ai
+# theproductionbrain.ai
 
 The Production Brain product page. Static HTML on GitHub Pages, no build step, same
 as `icg-website`. Deploys on push to `main`.
@@ -8,7 +8,7 @@ as `icg-website`. Deploys on push to `main`.
 also means a redesign cannot break the agency site, and the two stop sharing a
 stylesheet they both want to change.
 
-**Canonical home.** `https://productionbrain.ai/`.
+**Canonical home.** `https://theproductionbrain.ai/`.
 `inspiredcreativegroupinc.com/production-brain.html` redirects here, so every link
 already sent in outreach keeps working. `productionbrain.com` forwards here at the
 registrar.
