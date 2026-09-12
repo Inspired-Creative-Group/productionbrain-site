@@ -170,32 +170,33 @@
    headline on top. The photo was extended 450px upward (deterministic, a
    per-column gradient into the page's own ground) so the type has somewhere
    to sit that is not on the machine, and every label and wire coordinate was
-   shifted to match: 3600x1800 became 3600x2250. */
+   shifted to match: 3600x1800 became 3600x2650. */
 @media (min-width:1001px){
   .partners-hero{display:block;min-height:0;padding:0;position:relative}
   .mm-machine{margin:0;max-width:none}
 
-  /* the veil. Weighted to the top, where the type lands, and a soft vignette
-     so the wings fall away and the box in the middle stays the brightest
-     thing in the frame. */
+  /* Juan: the fade has to belong to the whole picture, not to the label text.
+     Two corrections. The figure carries ONE opacity, so the photograph, the
+     wires and the labels all recede by the same amount instead of the type
+     being singled out. And the top and bottom fade is a mask on the figure,
+     so the entire composite goes transparent and the page itself shows
+     through — rather than a black wash painted over it, which at the top of
+     the frame had nothing to act on but the words. */
+  .mm-machine{
+    opacity:.78;
+    -webkit-mask-image:linear-gradient(180deg,
+      transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
+      #000 76%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.22) 96%, transparent 100%);
+    mask-image:linear-gradient(180deg,
+      transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
+      #000 76%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.22) 96%, transparent 100%)
+  }
+  /* the only thing left painted on top is the vignette that drops the wings
+     away so the box stays the brightest object in the frame */
   .mm-machine::after{
     content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
-    background:
-      /* the join at the top and the bottom is exactly the page colour, so the
-         picture has no edge — it emerges out of the page and sinks back in */
-      linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,.92) 8%,
-                              rgba(10,10,10,.55) 18%, rgba(10,10,10,0) 32%),
-      linear-gradient(0deg,   #0A0A0A 0%, rgba(10,10,10,.90) 5%,
-                              rgba(10,10,10,.55) 12%, rgba(10,10,10,.20) 19%,
-                              rgba(10,10,10,0) 27%),
-      /* the wings fall away so the box stays the brightest thing in frame */
-      radial-gradient(118% 70% at 50% 66%, rgba(11,9,7,0) 32%, rgba(11,9,7,.55) 100%),
-      /* a light hold over the band the copy sits in */
-      linear-gradient(180deg, rgba(11,9,7,.34) 26%, rgba(11,9,7,0) 46%)
+    background:radial-gradient(118% 72% at 50% 66%, rgba(11,9,7,0) 34%, rgba(11,9,7,.5) 100%)
   }
-  /* the labels are background now, not content */
-  .mm-wires{opacity:.58}
-  .mm-labels{opacity:.62}
 
   .mm-over{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-start;
            padding-top:calc(var(--nav-height) + 3.4vw)}
