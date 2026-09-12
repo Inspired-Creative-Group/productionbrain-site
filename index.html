@@ -283,13 +283,12 @@
       transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
       #000 85%, rgba(0,0,0,.66) 91%, rgba(0,0,0,.20) 96.5%, transparent 100%)
   }
-  /* The label and wire layer sits back another 30% from the photograph. This is
-     NOT the mistake from earlier — that was a top/bottom blend into the page
-     that had nothing to act on but the words. This is the diagram layer being
-     deliberately quieter than the machine it annotates, so the headline has no
-     competition. Net on screen: .62 x .70 = .43. */
+  /* The diagram layer's strength relative to the photograph. Juan is tuning
+     this by eye: .70 read too faint, so it came back up 20%. Net on screen is
+     .62 x .84 = .52. Only this number moves — the photograph stays at .62 so
+     the machine keeps its place as the brightest object in the frame. */
   .mm-wires,
-  .mm-labels{opacity:.70}
+  .mm-labels{opacity:.84}
 
   /* the only thing left painted on top is the vignette that drops the wings
      away so the box stays the brightest object in the frame */
