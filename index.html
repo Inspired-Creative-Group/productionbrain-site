@@ -91,7 +91,7 @@
   --mm-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   container-type:inline-size;
   position:relative;z-index:1;width:100%;max-width:2200px;margin:clamp(1.5rem,3vw,3rem) auto 0;
-  aspect-ratio:3600/3070;overflow:hidden;background:#14110E;font-family:var(--mm-mono)
+  aspect-ratio:4005/3070;overflow:hidden;background:#14110E;font-family:var(--mm-mono)
 }
 .mm-machine img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .mm-machine .mm-wires,.mm-machine .mm-labels{position:absolute;inset:0;width:100%;height:100%}
@@ -384,40 +384,40 @@
                 <circle cx="63" cy="194" r="3.4"/>
               </svg>
 
-              <svg class="mm-wires" viewBox="0 0 3600 3070" preserveAspectRatio="none" aria-hidden="true">
+              <svg class="mm-wires" viewBox="0 0 4005 3070" preserveAspectRatio="none" aria-hidden="true">
                 <!-- IN: six sources, one way, stopping at the machine's left edge -->
                 <g class="mm-wire">
-                  <path d="M 790 1156.0 H 830 Q 880 1156.0 880 1206.0 V 1830.0 H 935"/>
-                  <path d="M 790 1354.0 H 850 Q 900 1354.0 900 1404.0 V 1850.0 H 935"/>
-                  <path d="M 790 1552.0 H 870 Q 920 1552.0 920 1602.0 V 1870.0 H 935"/>
-                  <path d="M 790 2074.0 H 870 Q 920 2074.0 920 2024.0 V 1960.0 H 935"/>
-                  <path d="M 790 2272.0 H 850 Q 900 2272.0 900 2222.0 V 1980.0 H 935"/>
-                  <path d="M 790 2470.0 H 830 Q 880 2470.0 880 2420.0 V 2000.0 H 935"/>
+                  <path d="M 850 1156 H 1070 Q 1120 1156 1120 1206 V 1830 H 1340"/>
+                  <path d="M 850 1354 H 1130 Q 1180 1354 1180 1404 V 1850 H 1340"/>
+                  <path d="M 850 1552 H 1190 Q 1240 1552 1240 1602 V 1870 H 1340"/>
+                  <path d="M 850 2074 H 1190 Q 1240 2074 1240 2024 V 1960 H 1340"/>
+                  <path d="M 850 2272 H 1130 Q 1180 2272 1180 2222 V 1980 H 1340"/>
+                  <path d="M 850 2470 H 1070 Q 1120 2470 1120 2420 V 2000 H 1340"/>
                 </g>
                 <g class="mm-dot">
-                  <circle cx="935" cy="1830" r="9"/><circle cx="935" cy="1850" r="9"/>
-                  <circle cx="935" cy="1870" r="9"/><circle cx="935" cy="1960" r="9"/>
-                  <circle cx="935" cy="1980" r="9"/><circle cx="935" cy="2000" r="9"/>
+                  <circle cx="1340" cy="1830" r="9"/><circle cx="1340" cy="1850" r="9"/>
+                  <circle cx="1340" cy="1870" r="9"/><circle cx="1340" cy="1960" r="9"/>
+                  <circle cx="1340" cy="1980" r="9"/><circle cx="1340" cy="2000" r="9"/>
                 </g>
                 <!-- OUT: the agents, two way -->
                 <g class="mm-wire mm-two">
-                  <path d="M 2260 1855.0 H 2440 Q 2540 1855.0 2540 1755.0 V 1280.0 H 2890"/>
-                  <path d="M 2260 1875.0 H 2500 Q 2590 1875.0 2590 1805.0 V 1510.0 H 2890"/>
-                  <path d="M 2260 1895.0 H 2560 Q 2640 1895.0 2640 1845.0 V 1740.0 H 2890"/>
-                  <path d="M 2260 1925.0 H 2500 Q 2590 1925.0 2590 1975.0 V 2070.0 H 2890"/>
+                  <path d="M 2665 1855.0 H 2845 Q 2945 1855.0 2945 1755.0 V 1280.0 H 3295"/>
+                  <path d="M 2665 1875.0 H 2905 Q 2995 1875.0 2995 1805.0 V 1510.0 H 3295"/>
+                  <path d="M 2665 1895.0 H 2965 Q 3045 1895.0 3045 1845.0 V 1740.0 H 3295"/>
+                  <path d="M 2665 1925.0 H 2905 Q 2995 1925.0 2995 1975.0 V 2070.0 H 3295"/>
                 </g>
                 <g class="mm-dot mm-two">
-                  <circle cx="2260" cy="1855" r="9"/><circle cx="2260" cy="1875" r="9"/>
-                  <circle cx="2260" cy="1895" r="9"/><circle cx="2260" cy="1925" r="9"/>
+                  <circle cx="2665" cy="1855" r="9"/><circle cx="2665" cy="1875" r="9"/>
+                  <circle cx="2665" cy="1895" r="9"/><circle cx="2665" cy="1925" r="9"/>
                 </g>
                 <!-- the laptops hang off the AGENTS, not off the machine -->
                 <g class="mm-wire mm-two mm-thin">
-                  <path d="M 3330 1350.0 V 2340.0"/><path d="M 3330 1580.0 V 2340.0"/>
-                  <path d="M 3330 1810.0 V 2340.0"/><path d="M 3330 2140.0 V 2340.0"/>
+                  <path d="M 3735 1350.0 V 2340.0"/><path d="M 3735 1580.0 V 2340.0"/>
+                  <path d="M 3735 1810.0 V 2340.0"/><path d="M 3735 2140.0 V 2340.0"/>
                 </g>
-                <g class="mm-wire mm-thin"><path d="M 3330 2340.0 H 3120"/></g>
-                <circle class="mm-dot mm-two" cx="3330" cy="2340" r="10"/>
-                <circle class="mm-dot" cx="3120" cy="2340" r="9"/>
+                <g class="mm-wire mm-thin"><path d="M 3735 2340.0 H 3525"/></g>
+                <circle class="mm-dot mm-two" cx="3735" cy="2340" r="10"/>
+                <circle class="mm-dot" cx="3525" cy="2340" r="9"/>
               </svg>
 
               <div class="mm-labels">
