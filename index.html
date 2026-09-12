@@ -92,7 +92,7 @@
   --mm-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   container-type:inline-size;
   position:relative;z-index:1;width:100%;max-width:2200px;margin:clamp(1.5rem,3vw,3rem) auto 0;
-  aspect-ratio:72/53;overflow:hidden;background:#14110E;font-family:var(--mm-mono)
+  aspect-ratio:3600/3070;overflow:hidden;background:#14110E;font-family:var(--mm-mono)
 }
 .mm-machine img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .mm-machine .mm-wires,.mm-machine .mm-labels{position:absolute;inset:0;width:100%;height:100%}
@@ -209,10 +209,10 @@
     opacity:.62;
     -webkit-mask-image:linear-gradient(180deg,
       transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
-      #000 70%, rgba(0,0,0,.62) 83%, rgba(0,0,0,.18) 92%, transparent 98%);
+      #000 85%, rgba(0,0,0,.66) 91%, rgba(0,0,0,.20) 96.5%, transparent 100%);
     mask-image:linear-gradient(180deg,
       transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
-      #000 70%, rgba(0,0,0,.62) 83%, rgba(0,0,0,.18) 92%, transparent 98%)
+      #000 85%, rgba(0,0,0,.66) 91%, rgba(0,0,0,.20) 96.5%, transparent 100%)
   }
   /* the only thing left painted on top is the vignette that drops the wings
      away so the box stays the brightest object in the frame */
@@ -315,7 +315,7 @@
                 <circle cx="63" cy="194" r="3.4"/>
               </svg>
 
-              <svg class="mm-wires" viewBox="0 0 3600 2650" preserveAspectRatio="none" aria-hidden="true">
+              <svg class="mm-wires" viewBox="0 0 3600 3070" preserveAspectRatio="none" aria-hidden="true">
                 <!-- IN: six sources, one way, stopping at the machine's left edge -->
                 <g class="mm-wire">
                   <path d="M 790 1156.0 H 830 Q 880 1156.0 880 1206.0 V 1830.0 H 935"/>
@@ -352,28 +352,28 @@
               </svg>
 
               <div class="mm-labels">
-                <div class="mm-grp mm-l" style="left:20.5%;top:32.00%">What feeds it</div>
-                <div class="mm-row mm-l" style="left:20.5%;top:43.62%"><span class="mm-nm">Documents and notes</span>
+                <div class="mm-grp mm-l" style="left:20.5%;top:27.62%">What feeds it</div>
+                <div class="mm-row mm-l" style="left:20.5%;top:37.65%"><span class="mm-nm">Documents and notes</span>
                   <span class="mm-marks"><svg><use href="#i-notion"/></svg><svg><use href="#i-googledocs"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:51.09%"><span class="mm-nm">Files</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:44.10%"><span class="mm-nm">Files</span>
                   <span class="mm-marks"><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:58.57%"><span class="mm-nm">Chat and email</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:50.56%"><span class="mm-nm">Chat and email</span>
                   <span class="mm-marks"><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:78.26%"><span class="mm-nm">Meetings</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meetings</span>
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:85.74%"><span class="mm-nm">Project tracker</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:74.01%"><span class="mm-nm">Project tracker</span>
                   <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:93.21%"><span class="mm-nm">Your own folders</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:80.46%"><span class="mm-nm">Your own folders</span>
                   <span class="mm-marks"><svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 014.5 5h4.2l1.8 2h9A1.5 1.5 0 0121 8.5v10a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.5v-12z"/></svg></span></div>
 
-                <div class="mm-grp mm-wrap" style="left:80.3%;top:38.87%">What asks and adds</div>
-                <div class="mm-row mm-two" style="left:80.3%;top:48.29%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">Claude Code</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:57.04%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:65.61%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:78.09%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">claude.ai</span></div>
+                <div class="mm-grp mm-wrap" style="left:80.3%;top:33.55%">What asks and adds</div>
+                <div class="mm-row mm-two" style="left:80.3%;top:41.68%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">Claude Code</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:49.24%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:56.63%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:67.41%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">claude.ai</span></div>
 
-                <div class="mm-grp mm-l" style="left:86.0%;top:84.04%;font-size:clamp(13px,1.38cqw,21px);letter-spacing:.18em;color:var(--mm-faint)">Through the agents</div>
-                <div class="mm-row mm-l" style="left:86.0%;top:88.28%"><span class="mm-nm">Your editors' laptops</span></div>
+                <div class="mm-grp mm-l" style="left:86.0%;top:72.54%;font-size:clamp(13px,1.38cqw,21px);letter-spacing:.18em;color:var(--mm-faint)">Through the agents</div>
+                <div class="mm-row mm-l" style="left:86.0%;top:76.20%"><span class="mm-nm">Your editors' laptops</span></div>
               </div>
         </figure>
     </section>
