@@ -106,7 +106,8 @@
 
 .mm-row{position:absolute;display:flex;align-items:center;gap:.62em;white-space:nowrap;
         transform:translateY(-50%);font-size:clamp(13px,1.53cqw,24px)}
-.mm-row.mm-l{transform:translate(-100%,-50%);flex-direction:column;align-items:flex-end;gap:.3em}
+.mm-row.mm-l{transform:translate(-100%,-50%);flex-direction:column-reverse;
+              align-items:flex-end;gap:.16em}
 .mm-row .mm-nm{color:var(--mm-ink);letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.95)}
 .mm-marks{display:flex;align-items:center;gap:.5em}
 .mm-marks svg{width:1.5em;height:1.5em;fill:var(--mm-faint);
@@ -165,6 +166,11 @@
   .mm-marks svg{width:1.4em;height:1.4em}
 }
 
+/* One arrival, not four. */
+@keyframes mm-hero-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.partners-hero{animation:mm-hero-in .8s cubic-bezier(.16,1,.3,1) both}
+@media (prefers-reduced-motion:reduce){.partners-hero{animation:none}}
+
 /* ── HERO AS ONE BANNER ──────────────────────────────────────────────────
    Juan: use the machine picture as the hero background, faded, with the
    headline on top. The photo was extended 450px upward (deterministic, a
@@ -175,6 +181,13 @@
   .partners-hero{display:block;min-height:0;padding:0;position:relative}
   .mm-machine{margin:0;max-width:none}
 
+  /* the label now sits under its own icons, so the gap inside a pair has to
+     read as much tighter than the gap between pairs. The row pitch is fixed
+     by where the wires land, so the row itself gets shorter: 55px tall with
+     24px between rows, against about 3px inside one. */
+  .mm-row.mm-l .mm-nm{line-height:1}
+  .mm-row.mm-l .mm-marks svg{width:1.34em;height:1.34em}
+
   /* Juan: the fade has to belong to the whole picture, not to the label text.
      Two corrections. The figure carries ONE opacity, so the photograph, the
      wires and the labels all recede by the same amount instead of the type
@@ -183,7 +196,7 @@
      through — rather than a black wash painted over it, which at the top of
      the frame had nothing to act on but the words. */
   .mm-machine{
-    opacity:.78;
+    opacity:.62;
     -webkit-mask-image:linear-gradient(180deg,
       transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
       #000 76%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.22) 96%, transparent 100%);
@@ -247,10 +260,10 @@
         <div class="mm-over">
           <div class="container">
             <div class="partners-hero-content">
-                <p class="mm-kicker gsap-animate">Stop being your AI's memory.</p>
-                <h1 class="partners-hero-title gsap-animate">The Production <span class="text-accent">Brain.</span></h1>
-                <p class="partners-hero-subtitle mm-lede gsap-animate">One machine in your studio that remembers, checks, and runs on local models.</p>
-                <div class="partners-hero-ctas gsap-animate-cta">
+                <p class="mm-kicker">Stop being your AI's memory.</p>
+                <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
+                <p class="partners-hero-subtitle mm-lede">One machine in your studio that remembers, checks, and runs on local models.</p>
+                <div class="partners-hero-ctas">
                     <a href="#mm-contact" class="btn btn-primary">Get a price for my studio →</a>
                     <a href="#mm-proof" class="btn btn-ghost">Watch the proof (14 min) →</a>
                 </div>
@@ -329,7 +342,7 @@
               </svg>
 
               <div class="mm-labels">
-                <div class="mm-grp mm-l" style="left:20.5%;top:37.17%">What feeds it</div>
+                <div class="mm-grp mm-l" style="left:20.5%;top:32.00%">What feeds it</div>
                 <div class="mm-row mm-l" style="left:20.5%;top:43.62%"><span class="mm-nm">Documents and notes</span>
                   <span class="mm-marks"><svg><use href="#i-notion"/></svg><svg><use href="#i-googledocs"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:51.09%"><span class="mm-nm">Files</span>
@@ -340,7 +353,7 @@
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:85.74%"><span class="mm-nm">Project tracker</span>
                   <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:93.21%"><span class="mm-nm">Your own folder</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:93.21%"><span class="mm-nm">Your own folders</span>
                   <span class="mm-marks"><svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 014.5 5h4.2l1.8 2h9A1.5 1.5 0 0121 8.5v10a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.5v-12z"/></svg></span></div>
 
                 <div class="mm-grp mm-wrap" style="left:80.3%;top:38.87%">What asks and adds</div>
