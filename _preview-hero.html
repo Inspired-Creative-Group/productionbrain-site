@@ -41,6 +41,48 @@
   .wire.thin{stroke-width:1.8;stroke-opacity:.8}
   .dot{fill:var(--line)}
   .dot.two{fill:var(--brass)}
+
+  /* ============ PHONE ============
+     Nothing about the wide layout survives here. The picture is 2:1 with the
+     machine in the middle and the two lists in the wings — at 390px those wings
+     are about 80px each. So the phone gets a different drawing of the same idea:
+     the machine on its own, cropped tighter, and the two groups stacked beneath
+     it on ONE rail that runs down from the machine and ticks off at every item.
+     One wire, branching — which is what the wide version says too. */
+  @media (max-width:760px){
+    .hero{aspect-ratio:auto;overflow:visible;display:block}
+    .hero > img{position:relative;inset:auto;width:100%;height:auto;
+                aspect-ratio:4/3;object-fit:cover;object-position:45% 53%;
+                border-radius:2px}
+    .wires{display:none}   /* the routing is meaningless without the wings */
+
+    .hero .labels{position:relative;inset:auto;width:100%;height:auto;
+                  padding:30px 18px 34px 34px}
+
+    /* the single trunk, dropping out of the machine above */
+    .labels::before{content:'';position:absolute;left:16px;top:-14px;bottom:38px;
+                    width:2px;background:var(--line);opacity:.55}
+
+    .grp,.row{position:static !important;left:auto !important;top:auto !important;
+              transform:none !important;text-align:left !important;
+              white-space:normal}
+    .grp{display:flex;align-items:center;gap:10px;margin:0 0 14px;
+         font-size:14px !important;letter-spacing:.16em !important}
+    .grp + .grp,.row + .grp{margin-top:30px}
+    .grp::before{content:'';width:18px;height:2px;margin-left:-18px;
+                 background:currentColor;opacity:.85;flex:none}
+
+    .row{flex-direction:row !important;align-items:center;gap:.7em;
+         font-size:15px;padding:7px 0}
+    /* every row reads the same way on a phone: tick, name, logos.
+       the agents keep their brass tick so the two-way group still reads apart. */
+    .row::before{content:'';width:18px;height:2px;margin-left:-18px;
+                 background:var(--line);flex:none;order:-1}
+    .row.two::before{background:var(--brass);opacity:.9}
+    .row .nm{flex:1;order:1}
+    .row .marks{order:2}
+    .marks svg{width:1.4em;height:1.4em}
+  }
 </style>
 
 <div class="hero">
