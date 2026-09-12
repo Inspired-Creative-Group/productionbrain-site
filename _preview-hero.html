@@ -41,6 +41,7 @@
   .wire.thin{stroke-width:1.8;stroke-opacity:.8}
   .dot{fill:var(--line)}
   .dot.two{fill:var(--brass)}
+  .pipe{display:none}   /* phone only — see the media query */
 
   /* ============ PHONE ============
      Nothing about the wide layout survives here. The picture is 2:1 with the
@@ -56,12 +57,22 @@
                 border-radius:2px}
     .wires{display:none}   /* the routing is meaningless without the wings */
 
-    .hero .labels{position:relative;inset:auto;width:100%;height:auto;
-                  padding:30px 18px 34px 34px}
+    /* the connector: it leaves the machine's left side, elbows down, and hands
+       off to the rail below at exactly the same x. 6.5% of a 400-unit viewBox
+       is 26, which is where the rail sits, so the two read as one wire. */
+    .pipe{display:block;position:absolute;top:0;left:0;width:100%;
+          aspect-ratio:4/3;pointer-events:none}
+    .pipe path{fill:none;stroke:var(--line);stroke-width:2;stroke-opacity:.7;
+               vector-effect:non-scaling-stroke;stroke-linecap:round;
+               stroke-linejoin:round}
+    .pipe circle{fill:var(--line)}
 
-    /* the single trunk, dropping out of the machine above */
-    .labels::before{content:'';position:absolute;left:16px;top:-14px;bottom:38px;
-                    width:2px;background:var(--line);opacity:.55}
+    .hero .labels{position:relative;inset:auto;width:100%;height:auto;
+                  padding:30px 18px 34px calc(6.5% + 18px)}
+
+    /* the trunk, continuing the connector down the whole list */
+    .labels::before{content:'';position:absolute;left:6.5%;top:0;bottom:38px;
+                    width:2px;background:var(--line);opacity:.7}
 
     .grp,.row{position:static !important;left:auto !important;top:auto !important;
               transform:none !important;text-align:left !important;
@@ -87,6 +98,13 @@
 
 <div class="hero">
   <img src="assets/hero-machine-wide.jpg" alt="The Production Brain, a compact machine on a studio desk">
+
+  <!-- phone only: the machine has to be physically attached to the list below it,
+       the same way the wide version attaches its wires to the box. -->
+  <svg class="pipe" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M 63 194 H 42 Q 26 194 26 210 V 300"/>
+    <circle cx="63" cy="194" r="3.4"/>
+  </svg>
 
   <svg class="wires" viewBox="0 0 3600 1800" preserveAspectRatio="none" aria-hidden="true">
     <!-- IN: six sources, one way, stopping at the machine's left edge -->
