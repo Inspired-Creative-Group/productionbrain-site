@@ -1,0 +1,35 @@
+{
+  "filename": "hero-machine-v2.jpg",
+  "previous_version": "hero-machine.jpg",
+  "created_at": "2026-09-11",
+  "provider": "fal.ai",
+  "model": "fal-ai/nano-banana-pro",
+  "underlying_model": "Gemini 3 Pro Image",
+  "generation_params": {
+    "aspect_ratio": "16:9",
+    "resolution": "2K",
+    "output_format": "jpeg",
+    "num_images": 1
+  },
+  "raw_output_dimensions": "2752x1536",
+  "post_processing": "symmetric vertical crop to 2:1 (cropped 80px top / 80px bottom via ffmpeg), Lanczos downscale to 2400x1200, exported as JPEG q95",
+  "final_dimensions": "2400x1200",
+  "cost_usd": 0.15,
+  "regenerated": false,
+  "v1_issues_fixed": [
+    "Removed ambiguous acoustic-panel-wall and monitor shapes from background; background is now a fully featureless warm near-black gradient with no structure of any kind",
+    "Corrected chassis proportions from near-cube to low-and-wide (approx 22cm x 22cm x 9cm, width ~2.5x height), read clearly as a squat compact desktop unit",
+    "Unified the housing to a single brushed-aluminium material and tone across front face, sides and top; eliminated the darker front-panel two-tone look from v1"
+  ],
+  "qa_checks": {
+    "text_or_lettering_visible": false,
+    "logo_or_wordmark_visible": false,
+    "reads_as_specific_real_product": false,
+    "background_structure_visible": false,
+    "proportions_low_and_wide": true,
+    "single_material_confirmed": true,
+    "notes": "First generation passed all corrected criteria: clean gradient background, low-wide proportions, single-material aluminium housing, cool rim light separating unit from background, right ~45% of frame kept empty for compositing. No regeneration needed."
+  },
+  "usage": "Hero background image v2 for productionbrain-site homepage, right 45% of frame reserved for compositing vector connection lines/labels",
+  "prompt_brief": "Regeneration of original compact desktop computer hero shot correcting background ambiguity, chassis proportions, and material consistency per client feedback on v1"
+}

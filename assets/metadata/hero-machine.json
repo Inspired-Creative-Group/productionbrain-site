@@ -1,0 +1,27 @@
+{
+  "filename": "hero-machine.jpg",
+  "created_at": "2026-09-11",
+  "provider": "fal.ai",
+  "model": "fal-ai/nano-banana-pro",
+  "underlying_model": "Gemini 3 Pro Image",
+  "generation_params": {
+    "aspect_ratio": "16:9",
+    "resolution": "4K",
+    "output_format": "png",
+    "num_images": 1
+  },
+  "raw_output_dimensions": "5504x3072",
+  "post_processing": "center-weighted vertical crop to 2:1 (cropped 160px top / 160px bottom), downscaled to 2400x1200, exported as JPEG q95",
+  "final_dimensions": "2400x1200",
+  "cost_usd": 0.30,
+  "generation_time_seconds": 39.6,
+  "regenerated": false,
+  "qa_checks": {
+    "text_or_lettering_visible": false,
+    "logo_or_wordmark_visible": false,
+    "reads_as_specific_real_product": false,
+    "notes": "Original unbranded compact desktop unit design, no manufacturer resemblance. First generation passed QA, no regeneration needed."
+  },
+  "usage": "Hero background image for productionbrain-site homepage, right 45% of frame reserved for compositing vector connection lines/labels",
+  "prompt_brief": "Photoreal hero image of original compact desktop computer unit in a dark color-grading suite at night, low-key warm/cool lighting, Leica/Teenage Engineering ad quality bar"
+}

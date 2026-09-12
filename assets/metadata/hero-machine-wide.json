@@ -1,0 +1,28 @@
+{
+  "filename": "hero-machine-wide.jpg",
+  "source_file": "hero-machine-v2.jpg",
+  "created_at": "2026-09-11",
+  "method": "deterministic canvas extension (no generative model) -- classical image processing, not AI outpaint",
+  "reason_no_ai_outpaint": "Nano Banana / Gemini image-edit models regenerate the full frame from a reference image; they have no mask-locked outpaint mode that guarantees byte-for-byte preservation of unmasked pixels or guaranteed re-placement of the source content at an exact, predictable offset/scale. Given the client-approved-exact-pixels requirement, an AI pass could not be trusted not to redraw the machine, so the brief's own stated fallback (composite original onto a larger canvas, extend the gradient) was used from the start rather than risking a discard-and-retry AI generation.",
+  "pipeline": [
+    "1. Canvas expanded from 2400x1200 to 3600x1800 (exactly 1.5x in each axis), original image pasted centered with zero scaling -- this alone brings the machine from ~55% to ~36.7% of frame width, matching the ~37% target with no resize of the subject at all.",
+    "2. Original 2400x1200 region is byte-identical in memory to the source (no crop/resize/regrade applied to it) prior to final JPEG encode.",
+    "3. Background extension built from: (a) edge-replicated padding of the source, (b) a heavily Gaussian-blurred (radius 40) copy of that padding for a smooth low-frequency gradient continuation, blended in via a distance-based weight that is exactly 0 at the true frame boundary and rises smoothly outward (zero discontinuity at the seam by construction), (c) a very subtle extra darkening (max 4%) toward the outer corners to match the brief's 'darker toward the corners' note, (d) matched synthetic grain (band-pass residual std measured per row/column from the real edge pixels, smoothed, then reproduced as correlated blurred noise at 0.4x measured amplitude) so the extension doesn't read as suspiciously flat next to the photo's real grain.",
+    "4. The original 2400x1200 pixel block is pasted back over the composite with zero exceptions before the final save -- nothing in that region passes through the blur/grain/darken steps.",
+    "5. Exported as a single flattened JPEG, quality 95."
+  ],
+  "final_dimensions": "3600x1800",
+  "aspect_ratio": "2:1 (unchanged)",
+  "machine_width_fraction": "~36.7% of frame (target was ~37%)",
+  "cost_usd": 0,
+  "model": "none -- numpy/PIL classical image processing only",
+  "verification": {
+    "pixel_diff_vs_source_in_original_region": "max channel delta 13/255, mean delta 0.49/255, 61% of pixels byte-identical -- entirely attributable to a second JPEG q95 encode pass (unavoidable with a flattened-JPEG deliverable), not to any content change, redraw, or relight",
+    "seam_at_normal_display_scale_1200_1800px": "not visible -- checked against resized previews at both widths",
+    "seam_at_1_to_1_pixel_inspection": "wall/background region (top half): seam is essentially invisible, near-flat gradient made this the easy case. Desk region (bottom corners, where the source photo has visible fine material grain): a soft, low-contrast transition in grain character remains detectable on close inspection (roughly 800px-wide crop at native res) in the bottom-left and bottom-right corners specifically -- not a hard line, no color/tone step, no repeated/tiled pattern, no new objects, but not perfectly invisible under pixel-peeping either.",
+    "no_new_objects_check": "passed -- no added cables, furniture, text, logos, vignette ring, or repeated texture pattern",
+    "cable_check": "passed -- the single braided cable exits the original frame at a point where it already blends into the near-black background; edge-extension in that column carries no visible cable continuation",
+    "retries": "6 internal iterations before settling on this version; two earlier attempts (heavier blur+uniform grain, and mirror-tiled real texture) were rejected for producing a visible seam or a repeating wallpaper-like pattern respectively"
+  },
+  "honest_caveat": "This is the deterministic composite fallback described in the brief, used deliberately instead of generative outpainting for the reasons above. It holds up cleanly at normal viewing/display sizes. At full-resolution 1:1 pixel inspection, the two lower corners (where the source photo's own desk-surface grain is strongest) show a faint, soft grain-character transition -- visible if you go looking for it at that zoom level, not visible at a glance or at web display size."
+}
