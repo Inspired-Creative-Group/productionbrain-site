@@ -178,8 +178,18 @@
    to sit that is not on the machine, and every label and wire coordinate was
    shifted to match: 3600x1800 became 3600x2650. */
 @media (min-width:1001px){
-  .partners-hero{display:block;min-height:0;padding:0;position:relative}
+  .partners-hero{display:block;min-height:0;padding:0;position:relative;background:transparent}
   .mm-machine{margin:0;max-width:none}
+
+  /* The hero used to paint its own #0A0A0A behind everything while the page
+     below it is the body's #000. The picture faded correctly — into a ground
+     ten levels lighter than the one on the other side of the section edge, so
+     the fade ended in a hard line. The glow stays, the ground goes. */
+  .partners-hero-bg{
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(232,0,13,.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, rgba(232,0,13,.03) 0%, transparent 50%)
+  }
 
   /* the label now sits under its own icons, so the gap inside a pair has to
      read as much tighter than the gap between pairs. The row pitch is fixed
@@ -199,10 +209,10 @@
     opacity:.62;
     -webkit-mask-image:linear-gradient(180deg,
       transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
-      #000 76%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.22) 96%, transparent 100%);
+      #000 70%, rgba(0,0,0,.62) 83%, rgba(0,0,0,.18) 92%, transparent 98%);
     mask-image:linear-gradient(180deg,
       transparent 0%, rgba(0,0,0,.28) 6%, rgba(0,0,0,.78) 15%, #000 24%,
-      #000 76%, rgba(0,0,0,.72) 88%, rgba(0,0,0,.22) 96%, transparent 100%)
+      #000 70%, rgba(0,0,0,.62) 83%, rgba(0,0,0,.18) 92%, transparent 98%)
   }
   /* the only thing left painted on top is the vignette that drops the wings
      away so the box stays the brightest object in the frame */
