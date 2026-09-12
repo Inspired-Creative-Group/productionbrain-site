@@ -92,7 +92,7 @@
   --mm-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   container-type:inline-size;
   position:relative;z-index:1;width:100%;max-width:2200px;margin:clamp(1.5rem,3vw,3rem) auto 0;
-  aspect-ratio:16/10;overflow:hidden;background:#14110E;font-family:var(--mm-mono)
+  aspect-ratio:72/53;overflow:hidden;background:#14110E;font-family:var(--mm-mono)
 }
 .mm-machine img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .mm-machine .mm-wires,.mm-machine .mm-labels{position:absolute;inset:0;width:100%;height:100%}
@@ -181,11 +181,17 @@
   .mm-machine::after{
     content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
     background:
-      linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,.65) 5%, rgba(10,10,10,0) 13%),
-      radial-gradient(120% 78% at 50% 68%, rgba(11,9,7,0) 34%, rgba(11,9,7,.55) 100%),
-      linear-gradient(180deg,
-        rgba(11,9,7,.90) 0%, rgba(11,9,7,.86) 14%, rgba(11,9,7,.66) 27%,
-        rgba(11,9,7,.30) 40%, rgba(11,9,7,0) 55%)
+      /* the join at the top and the bottom is exactly the page colour, so the
+         picture has no edge — it emerges out of the page and sinks back in */
+      linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,.92) 8%,
+                              rgba(10,10,10,.55) 18%, rgba(10,10,10,0) 32%),
+      linear-gradient(0deg,   #0A0A0A 0%, rgba(10,10,10,.90) 5%,
+                              rgba(10,10,10,.55) 12%, rgba(10,10,10,.20) 19%,
+                              rgba(10,10,10,0) 27%),
+      /* the wings fall away so the box stays the brightest thing in frame */
+      radial-gradient(118% 70% at 50% 66%, rgba(11,9,7,0) 32%, rgba(11,9,7,.55) 100%),
+      /* a light hold over the band the copy sits in */
+      linear-gradient(180deg, rgba(11,9,7,.34) 26%, rgba(11,9,7,0) 46%)
   }
   /* the labels are background now, not content */
   .mm-wires{opacity:.58}
@@ -285,65 +291,65 @@
                 <circle cx="63" cy="194" r="3.4"/>
               </svg>
 
-              <svg class="mm-wires" viewBox="0 0 3600 2250" preserveAspectRatio="none" aria-hidden="true">
+              <svg class="mm-wires" viewBox="0 0 3600 2650" preserveAspectRatio="none" aria-hidden="true">
                 <!-- IN: six sources, one way, stopping at the machine's left edge -->
                 <g class="mm-wire">
-                  <path d="M 790 756  H 830 Q 880 756 880 806 V 1430 H 935"/>
-                  <path d="M 790 954  H 850 Q 900 954 900 1004 V 1450 H 935"/>
-                  <path d="M 790 1152 H 870 Q 920 1152 920 1202 V 1470 H 935"/>
-                  <path d="M 790 1674 H 870 Q 920 1674 920 1624 V 1560 H 935"/>
-                  <path d="M 790 1872 H 850 Q 900 1872 900 1822 V 1580 H 935"/>
-                  <path d="M 790 2070 H 830 Q 880 2070 880 2020 V 1600 H 935"/>
+                  <path d="M 790 1156.0 H 830 Q 880 1156.0 880 1206.0 V 1830.0 H 935"/>
+                  <path d="M 790 1354.0 H 850 Q 900 1354.0 900 1404.0 V 1850.0 H 935"/>
+                  <path d="M 790 1552.0 H 870 Q 920 1552.0 920 1602.0 V 1870.0 H 935"/>
+                  <path d="M 790 2074.0 H 870 Q 920 2074.0 920 2024.0 V 1960.0 H 935"/>
+                  <path d="M 790 2272.0 H 850 Q 900 2272.0 900 2222.0 V 1980.0 H 935"/>
+                  <path d="M 790 2470.0 H 830 Q 880 2470.0 880 2420.0 V 2000.0 H 935"/>
                 </g>
                 <g class="mm-dot">
-                  <circle cx="935" cy="1430" r="9"/><circle cx="935" cy="1450" r="9"/>
-                  <circle cx="935" cy="1470" r="9"/><circle cx="935" cy="1560" r="9"/>
-                  <circle cx="935" cy="1580" r="9"/><circle cx="935" cy="1600" r="9"/>
+                  <circle cx="935" cy="1830" r="9"/><circle cx="935" cy="1850" r="9"/>
+                  <circle cx="935" cy="1870" r="9"/><circle cx="935" cy="1960" r="9"/>
+                  <circle cx="935" cy="1980" r="9"/><circle cx="935" cy="2000" r="9"/>
                 </g>
                 <!-- OUT: the agents, two way -->
                 <g class="mm-wire mm-two">
-                  <path d="M 2260 1455 H 2440 Q 2540 1455 2540 1355 V 880  H 2890"/>
-                  <path d="M 2260 1475 H 2500 Q 2590 1475 2590 1405 V 1110 H 2890"/>
-                  <path d="M 2260 1495 H 2560 Q 2640 1495 2640 1445 V 1340 H 2890"/>
-                  <path d="M 2260 1525 H 2500 Q 2590 1525 2590 1575 V 1670 H 2890"/>
+                  <path d="M 2260 1855.0 H 2440 Q 2540 1855.0 2540 1755.0 V 1280.0 H 2890"/>
+                  <path d="M 2260 1875.0 H 2500 Q 2590 1875.0 2590 1805.0 V 1510.0 H 2890"/>
+                  <path d="M 2260 1895.0 H 2560 Q 2640 1895.0 2640 1845.0 V 1740.0 H 2890"/>
+                  <path d="M 2260 1925.0 H 2500 Q 2590 1925.0 2590 1975.0 V 2070.0 H 2890"/>
                 </g>
                 <g class="mm-dot mm-two">
-                  <circle cx="2260" cy="1455" r="9"/><circle cx="2260" cy="1475" r="9"/>
-                  <circle cx="2260" cy="1495" r="9"/><circle cx="2260" cy="1525" r="9"/>
+                  <circle cx="2260" cy="1855" r="9"/><circle cx="2260" cy="1875" r="9"/>
+                  <circle cx="2260" cy="1895" r="9"/><circle cx="2260" cy="1925" r="9"/>
                 </g>
                 <!-- the laptops hang off the AGENTS, not off the machine -->
                 <g class="mm-wire mm-two mm-thin">
-                  <path d="M 3330 950  V 1940"/><path d="M 3330 1180 V 1940"/>
-                  <path d="M 3330 1410 V 1940"/><path d="M 3330 1740 V 1940"/>
+                  <path d="M 3330 1350.0 V 2340.0"/><path d="M 3330 1580.0 V 2340.0"/>
+                  <path d="M 3330 1810.0 V 2340.0"/><path d="M 3330 2140.0 V 2340.0"/>
                 </g>
-                <g class="mm-wire mm-thin"><path d="M 3330 1940 H 3120"/></g>
-                <circle class="mm-dot mm-two" cx="3330" cy="1940" r="10"/>
-                <circle class="mm-dot" cx="3120" cy="1940" r="9"/>
+                <g class="mm-wire mm-thin"><path d="M 3330 2340.0 H 3120"/></g>
+                <circle class="mm-dot mm-two" cx="3330" cy="2340" r="10"/>
+                <circle class="mm-dot" cx="3120" cy="2340" r="9"/>
               </svg>
 
               <div class="mm-labels">
-                <div class="mm-grp mm-l" style="left:20.5%;top:26.0%">What feeds it</div>
-                <div class="mm-row mm-l" style="left:20.5%;top:33.6%"><span class="mm-nm">Documents and notes</span>
+                <div class="mm-grp mm-l" style="left:20.5%;top:37.17%">What feeds it</div>
+                <div class="mm-row mm-l" style="left:20.5%;top:43.62%"><span class="mm-nm">Documents and notes</span>
                   <span class="mm-marks"><svg><use href="#i-notion"/></svg><svg><use href="#i-googledocs"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:42.4%"><span class="mm-nm">Files</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:51.09%"><span class="mm-nm">Files</span>
                   <span class="mm-marks"><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:51.2%"><span class="mm-nm">Chat and email</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:58.57%"><span class="mm-nm">Chat and email</span>
                   <span class="mm-marks"><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:74.4%"><span class="mm-nm">Meetings</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:78.26%"><span class="mm-nm">Meetings</span>
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:83.2%"><span class="mm-nm">Project tracker</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:85.74%"><span class="mm-nm">Project tracker</span>
                   <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:92.0%"><span class="mm-nm">Your own folder</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:93.21%"><span class="mm-nm">Your own folder</span>
                   <span class="mm-marks"><svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 014.5 5h4.2l1.8 2h9A1.5 1.5 0 0121 8.5v10a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.5v-12z"/></svg></span></div>
 
-                <div class="mm-grp mm-wrap" style="left:80.3%;top:28.0%">What asks and adds</div>
-                <div class="mm-row mm-two" style="left:80.3%;top:39.1%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">Claude Code</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:49.4%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:59.5%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:74.2%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">claude.ai</span></div>
+                <div class="mm-grp mm-wrap" style="left:80.3%;top:38.87%">What asks and adds</div>
+                <div class="mm-row mm-two" style="left:80.3%;top:48.29%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">Claude Code</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:57.04%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:65.61%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:78.09%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">claude.ai</span></div>
 
-                <div class="mm-grp mm-l" style="left:86.0%;top:81.2%;font-size:clamp(13px,1.38cqw,21px);letter-spacing:.18em;color:var(--mm-faint)">Through the agents</div>
-                <div class="mm-row mm-l" style="left:86.0%;top:86.2%"><span class="mm-nm">Your editors' laptops</span></div>
+                <div class="mm-grp mm-l" style="left:86.0%;top:84.04%;font-size:clamp(13px,1.38cqw,21px);letter-spacing:.18em;color:var(--mm-faint)">Through the agents</div>
+                <div class="mm-row mm-l" style="left:86.0%;top:88.28%"><span class="mm-nm">Your editors' laptops</span></div>
               </div>
         </figure>
     </section>
