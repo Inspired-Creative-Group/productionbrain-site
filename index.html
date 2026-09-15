@@ -63,7 +63,7 @@
         .mm-lines p { color:#CCC; margin:0; font-size:0.98rem; }
         @media (max-width: 900px) { .mm-tiers { grid-template-columns: 1fr; } .mm-lines { grid-template-columns: 1fr; } .mm-panel td:first-child { white-space: normal; } }
         /* Does it pay for itself: reuses the card and the form fields. */
-        .mm-roi { max-width: 900px; margin: 3rem auto 0; padding: 1.75rem; }
+        .mm-roi { max-width: 1040px; margin: 3rem auto 0; padding: 1.75rem; }
         .mm-roi h3 { font-family:'Space Grotesk', sans-serif; font-size: 1.5rem; color:#fff; margin: 0 0 0.5rem; text-align:center; }
         .mm-roi-lead { color:#CCC; text-align:center; max-width: 640px; margin: 0 auto; font-size: 1.05rem; }
         .mm-roi-inputs { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
@@ -71,20 +71,21 @@
         .mm-roi .form-group input:focus { border-color: var(--color-red) !important; }
         .mm-roi-math { text-align:center; color:#CCC; max-width: 660px; margin: 1.25rem auto 0; }
         .mm-roi-math strong { color:#fff; }
-        .mm-roi-tiers { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
+        .mm-roi-tiers { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem; }
         .mm-roi-tier { border:1px solid var(--color-border); border-radius:10px; padding: 1.1rem 1.2rem; background: rgba(255,255,255,.02); }
         .mm-roi-tier h4 { font-family:'Space Grotesk', sans-serif; font-size: 1.15rem; color:#fff; margin: 0 0 0.25rem; }
         .mm-roi-row { padding: 0.65rem 0; border-top: 1px solid #222; }
         .mm-roi-row:first-of-type { border-top: 0; }
         .mm-roi-label { display:block; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:#7A7A7A; margin-bottom:0.2rem; }
-        .mm-roi-big { display:block; font-family:'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight:700; color:#fff; line-height:1.2; }
+        .mm-roi-big { display:block; font-family:'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight:700; color:#fff; line-height:1.25; }
         .mm-roi-big.is-muted { color:#777; font-size: 1rem; font-weight:500; }
         .mm-roi-small { display:block; color:#999; font-size: 0.85rem; margin-top: 0.2rem; }
         .mm-roi-bar { display:block; height:6px; border-radius:3px; background:#222; margin-top:0.55rem; overflow:hidden; }
         .mm-roi-bar i { display:block; height:100%; width:0; background: var(--color-red); transition: width .4s ease; }
         .mm-roi-scale { display:flex; justify-content:space-between; font-size:0.7rem; color:#666; margin-top:0.25rem; }
         .mm-roi-fine { color:#7A7A7A; font-size: 0.8rem; line-height: 1.5; text-align:center; margin: 1.25rem 0 0; }
-        @media (max-width: 700px) { .mm-roi { padding: 1.25rem; } .mm-roi-inputs, .mm-roi-tiers { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .mm-roi-tiers { grid-template-columns: 1fr; } }
+        @media (max-width: 700px) { .mm-roi { padding: 1.25rem; } .mm-roi-inputs { grid-template-columns: 1fr; } }
     
 /* Hero hierarchy: the pain line sits above the name as a kicker, and the line that
    explains the product is no longer a third the size of the headline. */
@@ -630,12 +631,13 @@
                 </div>
                 <p class="mm-roi-math" id="roiMath" aria-live="polite"></p>
                 <div class="mm-roi-tiers" id="roiTiers" aria-live="polite"></div>
-                <p class="mm-roi-fine">Hours only become money when you bill them, so we count 60%. 48 working weeks. Care starts on day 91. The Mac counts as a cost, though you keep it. Company uses its starting price. The two-hour line assumes $100 an hour, five people on Studio and ten on Company. An estimate, not a promise.</p>
+                <p class="mm-roi-fine">Hours only become money when you bill them, so we count 60%. 48 working weeks. Care starts on day 91. The Mac counts as a cost, though you keep it. Solo is worked out for one person. Company uses its starting price. The two-hour line assumes $100 an hour, five people on Studio and ten on Company. An estimate, not a promise.</p>
             </div>
             <script>
             (function() {
-                // Solo is left out on purpose: time alone does not carry it yet. Research pending.
+                // Solo is always worked out for one person, whatever the team size says.
                 var tiers = [
+                    { name: 'Solo',    from: '',      build: 5900,  mac: 5399,  macText: '$5,399',        monthly: 575, solo: true },
                     { name: 'Studio',  from: '',      build: 12000, mac: 9499,  macText: '$9,499',        monthly: 1350 },
                     { name: 'Company', from: 'from ', build: 25000, mac: 19000, macText: 'about $19,000', monthly: 2750 }
                 ];
@@ -668,15 +670,16 @@
                             html += row('Your time back is worth', 'Waiting on your numbers', '', true);
                             return html + '</div>';
                         }
-                        html += row('Your time back is worth', money(yearly) + ' a year');
+                        var worth = p.solo ? h * WEEKS * r * BILLED : yearly;
+                        html += row('Your time back is worth', money(worth) + ' a year', p.solo ? '<span class="mm-roi-small">For one person.</span>' : '');
                         var month = 0;
                         for (var m = 1; m <= HORIZON; m++) {
-                            if (yearly / 12 * m >= upfront + p.monthly * Math.max(0, m - FREE_MONTHS)) { month = m; break; }
+                            if (worth / 12 * m >= upfront + p.monthly * Math.max(0, m - FREE_MONTHS)) { month = m; break; }
                         }
                         var bar = '<span class="mm-roi-bar"><i style="width:' + (month ? month / HORIZON * 100 : 100) + '%;' + (month ? '' : 'background:#333') + '"></i></span>' +
                             '<span class="mm-roi-scale"><span>Today</span><span>3 years</span></span>';
                         html += row('Pays for itself in', month ? month + (month === 1 ? ' month' : ' months') : 'Not within three years', bar, !month);
-                        var net = yearly * 3 - (upfront + p.monthly * (HORIZON - FREE_MONTHS));
+                        var net = worth * 3 - (upfront + p.monthly * (HORIZON - FREE_MONTHS));
                         html += row('After three years', money(net) + (net >= 0 ? ' ahead' : ' behind'), '', net < 0);
                         return html + '</div>';
                     }).join('');
