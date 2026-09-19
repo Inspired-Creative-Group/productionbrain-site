@@ -141,6 +141,7 @@
               filter:drop-shadow(0 1px 5px rgba(0,0,0,.9))}
 .mm-row.mm-two .mm-marks svg{fill:var(--mm-brass)}
 .mm-row.mm-two .mm-nm{color:#fff}
+.mm-later{font-style:normal;font-weight:400;font-size:.72em;letter-spacing:.06em;color:var(--mm-faint);white-space:nowrap}
 
 /* The viewBox is 3600 wide and renders far narrower, so a plain stroke-width
    gets scaled down below a real pixel and the wires vanish. non-scaling-stroke
@@ -459,20 +460,20 @@
                 <div class="mm-row mm-l" style="left:20.5%;top:37.65%"><span class="mm-nm">Documents and notes</span>
                   <span class="mm-marks"><svg><use href="#i-notion"/></svg><svg><use href="#i-googledocs"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:44.10%"><span class="mm-nm">Files</span>
-                  <span class="mm-marks"><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
+                  <span class="mm-marks"><em class="mm-later">at setup</em><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:50.56%"><span class="mm-nm">Chat and email</span>
-                  <span class="mm-marks"><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
+                  <span class="mm-marks"><em class="mm-later">at setup</em><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meetings</span>
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:74.01%"><span class="mm-nm">Project tracker</span>
-                  <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
+                  <span class="mm-marks"><em class="mm-later">at setup</em><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:80.46%"><span class="mm-nm">Your own folders</span>
                   <span class="mm-marks"><svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 014.5 5h4.2l1.8 2h9A1.5 1.5 0 0121 8.5v10a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.5v-12z"/></svg></span></div>
 
                 <div class="mm-grp mm-wrap" style="left:80.3%;top:33.55%">What asks and adds</div>
                 <div class="mm-row mm-two" style="left:80.3%;top:41.68%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">Claude Code</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:49.24%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:56.63%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:49.24%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex <em class="mm-later">at setup</em></span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:56.63%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor <em class="mm-later">at setup</em></span></div>
                 <div class="mm-row mm-two" style="left:80.3%;top:67.41%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">claude.ai</span></div>
 
                 <div class="mm-grp mm-l" style="left:86.0%;top:72.54%;font-size:clamp(13px,1.38cqw,21px);letter-spacing:.18em;color:var(--mm-faint)">Through the agents</div>
@@ -518,11 +519,11 @@
                 <h2 class="section-title">It keeps. It checks.<br><span class="text-accent">It moves with you.</span></h2>
             </div>
             <ul class="mm-lines">
-                <li class="gsap-animate"><h3>Every agent reads the same memory.</h3><p>Claude, Codex, Cursor, and whatever replaces them.</p></li>
-                <li class="gsap-animate"><h3>Checks its notes every night.</h3><p>Stale, duplicated, or two people disagreeing. Flagged for you, never deleted. On your models.</p></li>
-                <li class="gsap-animate"><h3>Nothing leaves.</h3><p>Local models on your own machine. A private, encrypted network.</p></li>
+                <li class="gsap-animate"><h3>Every agent reads the same memory.</h3><p>Claude today. Codex, Cursor and others plug into the same door.</p></li>
+                <li class="gsap-animate"><h3>Checks its notes every night.</h3><p>Stale, duplicated, or two notes that disagree. Flagged for you, never deleted. On your models.</p></li>
+                <li class="gsap-animate"><h3>The brain's own work never leaves.</h3><p>Your AI tools see only what they ask for. Local models, a private encrypted network.</p></li>
             </ul>
-            <p class="mm-plain gsap-animate">It never touches your project files. It remembers what your team decided.</p>
+            <p class="mm-plain gsap-animate">It never touches your project files. It remembers what was decided.</p>
         </div>
     </section>
 
@@ -543,14 +544,14 @@
             <div class="section-header gsap-animate">
                 <span class="section-label">What it catches</span>
                 <h2 class="section-title">Six weeks in.<br><span class="text-accent">What a Tuesday looks like.</span></h2>
-                <p class="section-subtitle">You sit down and it has already been through last night. These are the kinds of things it brings you.</p>
+                <p class="section-subtitle">You sit down and it has already been through last night. Once your email and tracker are connected, these are the kinds of things it brings you.</p>
             </div>
             <ul class="mm-lines">
                 <li class="gsap-animate"><h3>The track was cleared for social only.</h3><p>The client said so in an email in March. The brief says music approved. In August the broadcast cut ships with it.</p></li>
                 <li class="gsap-animate"><h3>You already promised that category away.</h3><p>January's contract has an exclusivity clause. In September someone starts a deck for a competitor. Nobody has opened the contract since it was signed.</p></li>
                 <li class="gsap-animate"><h3>The spec came off last year's sheet.</h3><p>The broadcaster wants one loudness number. Your tracker has another. Delivery gets rejected at five on the Friday of a long weekend.</p></li>
             </ul>
-            <p class="mm-plain gsap-animate">It finds all three the same way. Two things you already stored, that disagree. Nobody is at fault and nobody would have caught it.</p>
+            <p class="mm-plain gsap-animate">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
         </div>
     </section>
 
@@ -706,7 +707,7 @@
                     </button>
                     <div class="partners-faq-answer">
                         <div class="mm-panel">
-                            <p>An integration brings one of your tools into the brain on a schedule. You pick which.</p>
+                            <p>An integration connects one of your tools, built at setup. You pick which.</p>
                             <table>
                                 <tr><th>Category</th><th>Examples</th></tr>
                                 <tr><td>Your AI tool</td><td>Claude Code, Codex, Cursor, claude.ai. Two-way: your agents ask it and write to it.</td></tr>
@@ -719,7 +720,7 @@
                             </table>
                             <p style="margin-top:1rem">Has an export or an API? It's on the menu.</p>
                             <p>Solo includes any three. Studio any six. Each extra is about $1,000. Writing back into your tools is priced on request.</p>
-                            <p>Your AI tool and your meetings run on our brain today. The rest is built and tested at setup, covered by the guarantee.</p>
+                            <p>Your AI tool and meeting recordings run on our brain today. The rest is built and tested at setup, covered by the guarantee.</p>
                         </div>
                     </div>
                 </div>
@@ -737,15 +738,15 @@
             <div class="partners-faq-list">
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>Two editors in the same project?</span><span class="partners-faq-icon">+</span></button>
-                    <div class="partners-faq-answer"><p>Your editing tools own the files and the locks. The brain remembers what each editor decided, and flags it when their notes disagree.</p></div>
+                    <div class="partners-faq-answer"><p>Your editing tools own the files and the locks. The brain remembers the decisions, and flags it when two notes disagree.</p></div>
                 </div>
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>Does anything leave our building?</span><span class="partners-faq-icon">+</span></button>
-                    <div class="partners-faq-answer"><p>Not by default. The models run on the machine. We reach it over a private, encrypted network. Firms that allow no third-party service can have that network self-hosted.</p></div>
+                    <div class="partners-faq-answer"><p>The brain's own work never leaves. The models run on the machine. Your AI tools see only what they ask for. We reach it over a private, encrypted network. Firms that allow no third-party service can have that network self-hosted.</p></div>
                 </div>
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>Do we change how we work?</span><span class="partners-faq-icon">+</span></button>
-                    <div class="partners-faq-answer"><p>No. Keep your tools. The brain remembers what is in them.</p></div>
+                    <div class="partners-faq-answer"><p>No. Keep your tools. We connect the ones that matter at setup.</p></div>
                 </div>
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>I don't work in these tools myself.</span><span class="partners-faq-icon">+</span></button>
@@ -753,7 +754,7 @@
                 </div>
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>What if it breaks?</span><span class="partners-faq-icon">+</span></button>
-                    <div class="partners-faq-answer"><p>We see it before you do. Every night one encrypted copy comes to us and a second to cloud storage. We hold it, we cannot read it, only you have the key. We test the restore. The hardware is covered by Apple. Keep your own Time Machine drive in the office if you want a third copy, though that one is yours to watch.</p></div>
+                    <div class="partners-faq-answer"><p>We watch its health dashboard remotely. Every night one encrypted copy comes to us and a second to cloud storage. We hold it, we cannot read it, only you have the key. We test the restore. The hardware is covered by Apple. Keep your own Time Machine drive in the office if you want a third copy, though that one is yours to watch.</p></div>
                 </div>
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>Who buys the machine?</span><span class="partners-faq-icon">+</span></button>
