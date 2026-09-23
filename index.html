@@ -55,6 +55,10 @@
         .mm-panel td:first-child { color:#fff; white-space: nowrap; }
         .mm-panel p { color:#CCC; }
         .mm-center { text-align:center; }
+        /* No menu on this site: the bar carries the logo and the one action. */
+        .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+        .nav .nav-cta-btn { display:inline-flex; align-items:center; padding:0.7rem 1.4rem; font-size:0.9rem; white-space:nowrap; }
+        @media (max-width: 768px) { .nav .nav-cta-btn { padding:0.6rem 1.1rem; font-size:0.85rem; } }
         .mm-founding { padding: 1.25rem 1.35rem; margin-top: 1.5rem; }
         .mm-founding h3 { font-family:'Space Grotesk', sans-serif; font-size: 1.15rem; color:#fff; margin: 0 0 0.5rem; }
         .mm-founding p { color:#CCC; font-size: 0.95rem; margin: 0 0 0.6rem; }
@@ -356,21 +360,10 @@
 
     <nav class="nav" id="nav">
         <div class="nav-inner">
-            <a href="https://inspiredcreativegroupinc.com/index.html#hero" class="nav-logo">
+            <a href="/" class="nav-logo">
                 <img src="assets/logo.png" alt="Inspired Creative Group Inc." />
             </a>
-            <div class="nav-links" id="navLinks">
-                <a href="https://inspiredcreativegroupinc.com/index.html" class="nav-link">Home</a>
-                <a href="https://inspiredcreativegroupinc.com/index.html#about" class="nav-link">About</a>
-                <a href="https://inspiredcreativegroupinc.com/index.html#services" class="nav-link">Services</a>
-                <a href="/" class="nav-link active">The Production Brain</a>
-                <a href="#mm-contact" class="btn btn-primary nav-cta-btn">Request pricing</a>
-            </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <a href="#mm-contact" class="btn btn-primary nav-cta-btn">Request pricing</a>
         </div>
     </nav>
 
@@ -755,14 +748,6 @@
     <script>
     (function() {
         'use strict';
-        var toggle = document.getElementById('navToggle');
-        var navLinks = document.getElementById('navLinks');
-        if (toggle && navLinks) {
-            toggle.addEventListener('click', function() { navLinks.classList.toggle('open'); toggle.classList.toggle('active'); });
-            navLinks.querySelectorAll('.nav-link').forEach(function(link) {
-                link.addEventListener('click', function() { navLinks.classList.remove('open'); toggle.classList.remove('active'); });
-            });
-        }
         document.querySelectorAll('.partners-faq-toggle').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var item = btn.closest('.partners-faq-item');
