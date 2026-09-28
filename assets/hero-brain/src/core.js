@@ -13,6 +13,13 @@ const FIT_RADIUS = 560;      // what has to fit in the canvas: nodes, halos and 
 const FOV = 50;
 const GROW_SPEED = .18, HOLD_SPEED = .45;   // OrbitControls autoRotateSpeed units, as in the demo
 
+// The demo's replay runs on its own 29 s clock. Real time is mapped onto it so the first
+// seconds move fast and the last ones settle: u in 0..1 of real time -> 1 - (1-u)^warp.
+function warpTime(elapsed, duration, speed, warp) {
+  const real = duration / speed;
+  const u = Math.min(1, Math.max(0, elapsed) / real);
+  return duration * (1 - Math.pow(1 - u, warp));
+}
 function num(v, d) { const n = parseFloat(v); return Number.isFinite(n) ? n : d; }
 function readSettings(el) {
   const d = el.dataset;
@@ -26,6 +33,10 @@ function readSettings(el) {
     // the wide crop phones get is a different picture, so the box sits somewhere else
     boxXPhone: num(d.boxXPhone, 44), boxYPhone: num(d.boxYPhone, 39), sizePhone: num(d.sizePhone, 42),
     mode: d.mode === 'loop' ? 'loop' : 'hold',
+    speed: num(d.speed, 1.8),     // how much faster than the demo's 29 s the brain fills in
+    warp: num(d.warp, 1.6),       // >1 front-loads the growth: fast early, easing into the full shape
+    turn: num(d.turn, 1.5),       // rotation, as a multiple of the demo's speeds
+    pulse: d.pulse !== '0',       // the heartbeat across the hero before the first node
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
     phone: d.phone || 'off',      // 'off' | 'light'
     opacity: num(d.opacity, .85),
@@ -115,6 +126,13 @@ export function start(el) {
   const canvas = renderer.domElement;
   canvas.setAttribute('aria-hidden', 'true');
   el.appendChild(canvas);
+  // The heartbeat: two rings and a soft flash, centred on the brain, sized to reach the
+  // corners of the hero. CSS-animated, so it costs the GPU nothing worth counting.
+  const beat = document.createElement('div');
+  beat.className = 'hero-brain-beat';
+  beat.innerHTML = '<i class="hero-brain-flash"></i><i class="hero-brain-ring"></i><i class="hero-brain-ring hero-brain-ring-2"></i>';
+  el.appendChild(beat);
+  const PULSE_LEAD = .55;   // seconds between the first beat and the first node
 
   // ---- data: the public demo brain, nothing else ----
   const colorOf = Object.fromEntries(DATA.sources.map((x) => [x.id, new THREE.Color(x.color)]));
@@ -175,15 +193,19 @@ export function start(el) {
   const white = new THREE.Color('#F2EDE6');
 
   // ---- growth (the demo's replay, verbatim in growth.js) ----
+  const still = motion.matches;    // reduced motion: one fully grown frame, nothing moves
   let plan, elapsed = 0, angle = .35, phase = 'grow', holdSince = 0, fading = false;
   function reset() {
     for (const n of nodes) { n.x = n.home.x; n.y = n.home.y; n.z = n.home.z; }
     plan = planGrowth(nodes, links);
     for (const r of plan.records) { r.origin = null; r.node.x = r.node.y = r.node.z = 0; }
-    elapsed = 0; phase = 'grow';
+    elapsed = (s.pulse && !still) ? -PULSE_LEAD : 0; phase = 'grow';
+  }
+  function heartbeat() {
+    if (!s.pulse || still || !visible) return;
+    beat.classList.remove('is-beating'); void beat.offsetWidth; beat.classList.add('is-beating');
   }
   reset();
-  const still = motion.matches;    // reduced motion: one fully grown frame, nothing moves
 
   function paint(t) {
     const done = t >= plan.duration;
@@ -256,6 +278,10 @@ export function start(el) {
     canvas.style.left = `${Math.round(cx - px / 2 - mount.left)}px`;
     canvas.style.top = `${Math.round(top - mount.top)}px`;
     canvas.style.width = canvas.style.height = `${px}px`;
+    const reach = Math.ceil(2 * Math.hypot(Math.max(cx - mount.left, mount.right - cx), Math.max(top + px / 2 - mount.top, mount.bottom - top - px / 2)));
+    beat.style.left = `${Math.round(cx - mount.left)}px`;
+    beat.style.top = `${Math.round(top + px / 2 - mount.top)}px`;
+    beat.style.setProperty('--reach', `${reach}px`);
     if (px !== side) {
       side = px;
       renderer.setSize(px, px, false);
@@ -281,19 +307,20 @@ export function start(el) {
     let done = phase !== 'grow';
     if (phase === 'grow') {
       elapsed += dt;
-      done = paint(Math.min(plan.duration, elapsed));
+      done = paint(warpTime(elapsed, plan.duration, s.speed, s.warp));
       if (done) { phase = 'hold'; holdSince = now; }
-      angle += dt * 2 * Math.PI / 60 * GROW_SPEED;
+      angle += dt * 2 * Math.PI / 60 * GROW_SPEED * s.turn;
     } else {
-      angle += dt * 2 * Math.PI / 60 * HOLD_SPEED;
+      angle += dt * 2 * Math.PI / 60 * HOLD_SPEED * s.turn;
       if (s.mode === 'loop' && !fading && now - holdSince > s.holdSeconds * 1000) {
         fading = true; canvas.classList.add('is-fading');
-        setTimeout(() => { reset(); paint(0); aim(0); renderer.render(scene, camera); canvas.classList.remove('is-fading'); fading = false; }, 1500);
+        setTimeout(() => { reset(); paint(0); aim(0); renderer.render(scene, camera); canvas.classList.remove('is-fading'); fading = false; heartbeat(); }, 1500);
       }
     }
-    const t = phase === 'grow' ? elapsed : plan.duration;
+    const t = phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration;
     if (orbitals) { orbitals.update(now / 1000, false, phase === 'grow' ? Math.max(0, (t - 8) / 20) : 1); if (haze) haze.material.opacity *= s.glow; }
     aim(t);
+    canvas.style.visibility = phase === 'grow' && elapsed < 0 ? 'hidden' : '';
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
   }
@@ -324,8 +351,8 @@ export function start(el) {
   window.heroBrain = {
     settings: s,
     set(patch) { Object.assign(s, patch); side = 0; relayout(); el.style.setProperty('--hero-brain-opacity', String(s.opacity)); },
-    replay() { reset(); fading = false; canvas.classList.remove('is-fading'); if (still) renderStill(); },
-    state() { return { elapsed, phase, running, visible, onScreen, frames, side, still }; },
+    replay() { reset(); fading = false; canvas.classList.remove('is-fading'); if (still) renderStill(); else heartbeat(); },
+    state() { return { elapsed, growthTime: phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration, phase, running, visible, onScreen, frames, side, still }; },
     snap() {
       renderer.render(scene, camera);
       const gl = renderer.getContext(), w = gl.drawingBufferWidth, h = gl.drawingBufferHeight;
@@ -338,7 +365,7 @@ export function start(el) {
 
   place();
   if (still) renderStill(); else { paint(0); aim(0); renderer.render(scene, camera); }
-  requestAnimationFrame(() => { canvas.classList.add('is-on'); sync(); });
+  requestAnimationFrame(() => { canvas.classList.add('is-on'); heartbeat(); sync(); });
 }
 
 try {

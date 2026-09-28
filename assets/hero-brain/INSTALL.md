@@ -51,6 +51,10 @@ All are percentages of the **painted photo** (object-fit: cover is accounted for
 | `data-box-y` | 51 | top edge of the box, % of the photo's height |
 | `data-size` | 30 | side of the brain's square frame, % of the photo's width |
 | `data-lift` | -10 | gap between the box top and the bottom of the frame, % of the photo's height. Negative dips the frame into the box, so the brain reads as projected from it. |
+| `data-speed` | 1.8 | how much faster than the demo's 29 s the brain fills in (1 = the demo's pace) |
+| `data-warp` | 1.6 | front-loading: above 1 the first seconds move fast and the last ones settle; 1 = linear |
+| `data-turn` | 1.5 | rotation speed, as a multiple of the demo's |
+| `data-pulse` | 1 | the heartbeat: two rings and a flash from the box across the whole hero, then the first node. `0` turns it off. Never runs under reduced motion. |
 | `data-mode` | hold | `hold`: grow once, keep turning. `loop`: hold `data-hold-seconds` (8), fade out, regrow. |
 | `data-phone` | light | below 1000px (the wide crop): `light` = the busiest half of the nodes, no halos, lower pixel ratio. `off` = no brain on phones. |
 | `data-box-x-phone`, `data-box-y-phone`, `data-size-phone` | 44, 39, 42 | the same anchors for the wide crop |
