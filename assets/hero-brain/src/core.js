@@ -56,6 +56,10 @@ function readSettings(el) {
     signals: num(d.signals, 40), // sparks travelling node to node along lit links (0 = none)
     breath: d.breath !== '0',    // the whole brain expands and settles every N heartbeats
     breathEvery: num(d.breathEvery, 6),
+    lights: d.lights !== '0',    // the machine's own lights, on the photo, driven by the brain
+    // where they sit, as % of the painted photo: the status LED and the three ports
+    lightsAt: (d.lightsAt || '48.1,64.75;59.7,62.5;61.25,62.5;62.8,62.5').split(';').map((pair) => pair.split(',').map(Number)),
+    lightsAtPhone: (d.lightsAtPhone || '42.3,63.2;55.1,59;56.9,59;58.6,59').split(';').map((pair) => pair.split(',').map(Number)),
     labels: d.labels !== '0',    // name the selected note and its neighbours
     interactive: d.interactive !== '0',  // drag to turn, tap a node to light up its connections (once grown)
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
@@ -160,6 +164,13 @@ export function start(el) {
   labels.className = 'hero-brain-labels';
   el.appendChild(labels);
   const labelEl = new Map();
+  // The machine's lights: one status LED and three ports on the box front. DOM glows
+  // placed on the photo, brightness written every frame from what the brain is doing.
+  const lightsLayer = document.createElement('div');
+  lightsLayer.className = 'hero-brain-lights';
+  el.appendChild(lightsLayer);
+  const lightEls = s.lightsAt.map((_, i) => { const l = document.createElement('i'); l.className = i === 0 ? 'hero-brain-led' : 'hero-brain-port'; lightsLayer.appendChild(l); return l; });
+  const lightLevel = s.lightsAt.map(() => 0);   // current brightness, eased
 
   // ---- data: the public demo brain, nothing else ----
   const colorOf = Object.fromEntries(DATA.sources.map((x) => [x.id, new THREE.Color(x.color)]));
@@ -343,6 +354,10 @@ export function start(el) {
       }
       sp.u += dt * sp.rate;
       if (sp.u >= 1) {
+        // A signal reached a node: the machine shows it on one of its ports.
+        // Not every arrival: one in six, so the ports blink instead of staying lit.
+        const port = 1 + (byId.get(sp.to).i % 3);
+        if (port < lightLevel.length && Math.random() < .16) lightLevel[port] = 1;
         const next = pickFrom(sp.to, sp.link);
         if (next) launch(sp, next, sp.to); else { sp.link = null; sp.wait = .2 + Math.random() * 1.2; sparkAlpha.setX(i, 0); sparkHaloAlpha.setX(i, 0); continue; }
       }
@@ -382,6 +397,15 @@ export function start(el) {
     canvas.style.top = `${Math.round(top - mount.top)}px`;
     canvas.style.width = canvas.style.height = `${px}px`;
     labels.style.left = canvas.style.left; labels.style.top = canvas.style.top; labels.style.width = labels.style.height = `${px}px`;
+    const at = narrow ? s.lightsAtPhone : s.lightsAt;
+    lightEls.forEach((l, i) => {
+      const [lx, ly] = at[i] || at[0];
+      const size = pr.width * (i === 0 ? .012 : .014);
+      l.style.left = `${Math.round(pr.left + pr.width * lx / 100 - mount.left)}px`;
+      l.style.top = `${Math.round(pr.top + pr.height * ly / 100 - mount.top)}px`;
+      l.style.width = l.style.height = `${Math.round(size)}px`;
+      l.style.display = s.lights && show ? 'block' : 'none';
+    });
     const reach = Math.ceil(2 * Math.hypot(Math.max(cx - mount.left, mount.right - cx), Math.max(top + px / 2 - mount.top, mount.bottom - top - px / 2)));
     beat.style.left = `${Math.round(cx - mount.left)}px`;
     beat.style.top = `${Math.round(top + px / 2 - mount.top)}px`;
@@ -525,6 +549,15 @@ export function start(el) {
     }
     brain.scale.setScalar(s.breath && phase !== 'grow' ? 1 + .07 * breathCurve(now / 1000, s.breathEvery) : 1);
     if (elapsed >= 0) moveSparks(dt);
+    if (s.lights) {
+      // The LED breathes with the heart and lifts while the brain is growing; the ports
+      // flash when a signal lands and fade out over a third of a second.
+      const h = s.heart ? heartCurve(now / 1000) : 0;
+      const busy = phase === 'grow' ? .35 : 0;
+      lightLevel[0] += ((elapsed < 0 ? 0 : .45 + .4 * h + busy) - lightLevel[0]) * Math.min(1, dt * 12);
+      for (let i = 1; i < lightLevel.length; i++) lightLevel[i] = Math.max(0, lightLevel[i] - dt * 4.5);
+      lightEls.forEach((l, i) => { l.style.opacity = Math.min(1, lightLevel[i]).toFixed(3); });
+    }
     aim(t);
     placeLabels();
     canvas.style.visibility = phase === 'grow' && elapsed < 0 ? 'hidden' : '';
@@ -552,6 +585,7 @@ export function start(el) {
     if (orbitals) { orbitals.update(4, false, 1); if (haze) haze.material.opacity *= s.glow; }
     aim(plan.duration);
     placeLabels();
+    if (s.lights) lightEls.forEach((l, i) => { l.style.opacity = i === 0 ? '.6' : '.25'; });
     renderer.render(scene, camera);
   }
 

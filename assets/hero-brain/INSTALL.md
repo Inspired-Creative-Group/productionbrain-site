@@ -63,6 +63,8 @@ All are percentages of the **painted photo** (object-fit: cover is accounted for
 | `data-labels` | 1 | with a node selected, name it and up to nine of its busiest neighbours (decluttered, never overlapping). `0` hides them. |
 | `data-signals` | 40 | sparks that travel node to node along the lit links and hop onward at each node (14 at most on phones). `0` for none. With a note selected they run only on its connections. |
 | `data-breath` | 1 | the whole brain expands quickly and settles back to size on every `data-breath-every` (6) heartbeats, on the heart's own clock. `0` keeps it still. |
+| `data-lights` | 1 | the machine's own lights on the photo: the status LED breathes with the heart and lifts while the brain grows; the three ports flash when a signal lands. `0` for none. |
+| `data-lights-at`, `data-lights-at-phone` | see defaults | where the lights sit, `x,y;x,y;...` as % of the painted photo, LED first then the ports. Re-measure if the photo changes. |
 | `data-heart` | 1 | the wireframe core at the centre beats like a resting heart, about 62 a minute. `0` keeps it still. |
 | `data-interactive` | 1 | once grown: drag to turn it (with a little inertia; auto-turn resumes after 4 s), tap a node to light up everything it connects to, tap empty space to clear. `0` makes it a pure picture again. |
 | `data-mode` | hold | `hold`: grow once, keep turning. `loop`: hold `data-hold-seconds` (8), fade out, regrow. |

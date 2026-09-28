@@ -27,6 +27,15 @@
 .hero-brain-labels span.is-selected{font-size:14px;font-weight:600}
 @media (max-width:1000px){.hero-brain-labels span{font-size:11px}.hero-brain-labels span.is-selected{font-size:12px}}
 
+/* The machine's lights. A warm status LED and three cool ports, each a soft glow the
+   script brightens and dims. Sized and placed from the photo, like everything else. */
+.hero-brain-lights{position:absolute;inset:0;pointer-events:none}
+.hero-brain-lights i{position:absolute;display:none;border-radius:50%;opacity:0;transform:translate(-50%,-50%);will-change:opacity}
+.hero-brain-led{background:radial-gradient(circle,#fff5df 0%,rgba(255,190,110,.95) 22%,rgba(255,150,60,.45) 46%,rgba(255,130,40,0) 72%);
+  box-shadow:0 0 .6em .2em rgba(255,160,70,.45)}
+.hero-brain-port{background:radial-gradient(circle,#f4fbff 0%,rgba(190,225,255,.85) 20%,rgba(120,180,255,.35) 45%,rgba(80,150,255,0) 70%)}
+@media (prefers-reduced-motion:reduce){.hero-brain-lights i{transition:none}}
+
 /* The heartbeat. Two rings and a flash centred on the brain, --reach wide so the
    outer ring crosses the whole hero. Only runs while .is-beating is on. */
 .hero-brain-beat{position:absolute;width:0;height:0;pointer-events:none;--reach:2000px}
