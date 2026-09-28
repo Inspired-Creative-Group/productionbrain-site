@@ -26,6 +26,15 @@ function heartCurve(t, period = .97) {
   const bump = (c, w, h) => h * Math.exp(-((u - c) * (u - c)) / (2 * w * w));
   return bump(.09, .038, 1) + bump(.27, .05, .55);
 }
+// The breath: a quick expansion on every Nth heartbeat, then a slow settle back to
+// normal size, timed off the same clock as the heart so the two agree.
+function breathCurve(t, every = 6, period = .97) {
+  const P = every * period;
+  const local = (((t - .09 * period) % P) + P) % P;
+  if (local < .34) { const u = local / .34; return 1 - Math.pow(1 - u, 3); }
+  const u = Math.min(1, (local - .34) / 1.9);
+  return 1 - u * u * (3 - 2 * u);
+}
 function num(v, d) { const n = parseFloat(v); return Number.isFinite(n) ? n : d; }
 function readSettings(el) {
   const d = el.dataset;
@@ -44,6 +53,9 @@ function readSettings(el) {
     turn: num(d.turn, 1.5),       // rotation, as a multiple of the demo's speeds
     pulse: d.pulse !== '0',       // the heartbeat across the hero before the first node
     heart: d.heart !== '0',      // the core beats like a heart
+    signals: num(d.signals, 40), // sparks travelling node to node along lit links (0 = none)
+    breath: d.breath !== '0',    // the whole brain expands and settles every N heartbeats
+    breathEvery: num(d.breathEvery, 6),
     labels: d.labels !== '0',    // name the selected note and its neighbours
     interactive: d.interactive !== '0',  // drag to turn, tap a node to light up its connections (once grown)
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
@@ -171,6 +183,8 @@ export function start(el) {
 
   // ---- scene ----
   const scene = new THREE.Scene();
+  const brain = new THREE.Group();   // everything that breathes
+  scene.add(brain);
   const camera = new THREE.PerspectiveCamera(FOV, 1, 1, 8000);
   const N = nodes.length;
   const positions = new THREE.BufferAttribute(new Float32Array(N * 3), 3).setUsage(THREE.DynamicDrawUsage);
@@ -194,11 +208,33 @@ export function start(el) {
   linkGeo.setAttribute('position', linkPos); linkGeo.setAttribute('tint', linkTint);
   const lines = new THREE.LineSegments(linkGeo, additive(new THREE.ShaderMaterial({ vertexShader: lineVert, fragmentShader: lineFrag })));
   lines.frustumCulled = false;
-  scene.add(lines);
+  brain.add(lines);
   const halos = light ? null : makePoints(haloSize, haloAlpha, haloFrag);
-  if (halos) scene.add(halos);
-  scene.add(makePoints(coreSize, coreAlpha, coreFrag));
-  const orbitals = s.rings ? makeOrbitals(scene, { ring1: '#D9963A', ring2: '#F2EDE6', glow: '#D9963A' }) : null;
+  if (halos) brain.add(halos);
+  brain.add(makePoints(coreSize, coreAlpha, coreFrag));
+  const orbitals = s.rings ? makeOrbitals(brain, { ring1: '#D9963A', ring2: '#F2EDE6', glow: '#D9963A' }) : null;
+
+  // Signals: sparks that run along lit links and hop onward at each node.
+  const M = light ? Math.min(s.signals, 14) : s.signals;
+  const sparkPos = new THREE.BufferAttribute(new Float32Array(Math.max(1, M) * 3), 3).setUsage(THREE.DynamicDrawUsage);
+  const sparkColor = new THREE.BufferAttribute(new Float32Array(Math.max(1, M) * 3), 3);
+  const sparkSize = new THREE.BufferAttribute(new Float32Array(Math.max(1, M)), 1).setUsage(THREE.DynamicDrawUsage);
+  const sparkAlpha = new THREE.BufferAttribute(new Float32Array(Math.max(1, M)), 1).setUsage(THREE.DynamicDrawUsage);
+  const sparkHaloSize = new THREE.BufferAttribute(new Float32Array(Math.max(1, M)), 1).setUsage(THREE.DynamicDrawUsage);
+  const sparkHaloAlpha = new THREE.BufferAttribute(new Float32Array(Math.max(1, M)), 1).setUsage(THREE.DynamicDrawUsage);
+  for (let i = 0; i < M; i++) sparkColor.setXYZ(i, 1, .97, .9);
+  const makeSparks = (size, alpha, frag) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', sparkPos); g.setAttribute('color', sparkColor);
+    g.setAttribute('size', size); g.setAttribute('alpha', alpha);
+    const p = new THREE.Points(g, additive(new THREE.ShaderMaterial({ uniforms: { halfHeight }, vertexShader: spriteVert, fragmentShader: frag })));
+    p.frustumCulled = false; return p;
+  };
+  if (M > 0) { if (!light) brain.add(makeSparks(sparkHaloSize, sparkHaloAlpha, haloFrag)); brain.add(makeSparks(sparkSize, sparkAlpha, coreFrag)); }
+  const sparks = [];
+  const linksOf = new Map(nodes.map((n) => [n.id, []]));
+  for (const l of links) { linksOf.get(l.source).push(l); linksOf.get(l.target).push(l); }
+  const lit = new Set();   // links currently drawn bright enough to carry a signal
   let haze = null, heart = null;
   if (orbitals) {
     // The demo draws these over black; over a photo they only need to add light.
@@ -271,12 +307,52 @@ export function start(el) {
         else if (t > 13 && quiet.has(l)) alpha = .12;
         else if (tree) alpha = .12;
       }
+      if (alpha > .1) lit.add(l); else lit.delete(l);
       linkPos.setXYZ(k, a.x, a.y, a.z); linkPos.setXYZ(k + 1, b.x, b.y, b.z);
       linkTint.setXYZW(k, tint.r, tint.g, tint.b, alpha); linkTint.setXYZW(k + 1, tint.r, tint.g, tint.b, alpha);
       k += 2;
     }
     linkPos.needsUpdate = linkTint.needsUpdate = true;
     return done;
+  }
+
+  // Move the signals. Each runs one link at a steady speed, then picks a lit link
+  // leaving the node it arrived at; with nowhere to go it restarts somewhere lit.
+  const litList = [];
+  function pickFrom(nodeId, avoid) {
+    const options = linksOf.get(nodeId).filter((l) => l !== avoid && lit.has(l));
+    return options.length ? options[Math.floor(Math.random() * options.length)] : null;
+  }
+  function launch(sp, link, fromId) {
+    sp.link = link; sp.from = fromId; sp.to = link.source === fromId ? link.target : link.source;
+    const a = byId.get(sp.from), b = byId.get(sp.to);
+    const len = Math.max(20, Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z));
+    sp.u = 0; sp.rate = Math.min(2.2, Math.max(.45, 300 / len));
+  }
+  function moveSparks(dt) {
+    if (!M) return;
+    litList.length = 0; for (const l of lit) litList.push(l);
+    for (let i = 0; i < M; i++) {
+      let sp = sparks[i];
+      if (!sp) { sp = sparks[i] = { link: null, u: 0, rate: 1, from: null, to: null, wait: Math.random() * 2 }; }
+      if (!sp.link || !lit.has(sp.link)) {
+        sp.wait -= dt;
+        if (sp.wait > 0 || !litList.length) { sparkAlpha.setX(i, 0); sparkHaloAlpha.setX(i, 0); continue; }
+        const l = litList[Math.floor(Math.random() * litList.length)];
+        launch(sp, l, Math.random() < .5 ? l.source : l.target); sp.u = Math.random() * .5;
+      }
+      sp.u += dt * sp.rate;
+      if (sp.u >= 1) {
+        const next = pickFrom(sp.to, sp.link);
+        if (next) launch(sp, next, sp.to); else { sp.link = null; sp.wait = .2 + Math.random() * 1.2; sparkAlpha.setX(i, 0); sparkHaloAlpha.setX(i, 0); continue; }
+      }
+      const a = byId.get(sp.from), b = byId.get(sp.to);
+      const u = sp.u, ease = Math.sin(u * Math.PI);   // brightest mid-link, soft at both nodes
+      sparkPos.setXYZ(i, a.x + (b.x - a.x) * u, a.y + (b.y - a.y) * u, a.z + (b.z - a.z) * u);
+      sparkSize.setX(i, 3.2 + 1.2 * ease); sparkAlpha.setX(i, .35 + .6 * ease);
+      sparkHaloSize.setX(i, 14 + 6 * ease); sparkHaloAlpha.setX(i, .18 + .22 * ease);
+    }
+    sparkPos.needsUpdate = sparkSize.needsUpdate = sparkAlpha.needsUpdate = sparkHaloSize.needsUpdate = sparkHaloAlpha.needsUpdate = true;
   }
 
   // ---- placement: a square of the photo, above the box ----
@@ -335,7 +411,7 @@ export function start(el) {
     let best = null, bestD = 1e9;
     for (const n of nodes) {
       if (coreAlpha.getX(n.i) <= 0) continue;
-      v3.set(n.x, n.y, n.z).project(camera);
+      v3.set(n.x, n.y, n.z).multiplyScalar(brain.scale.x).project(camera);
       if (v3.z > 1) continue;
       const sx = (v3.x + 1) / 2 * r.width, sy = (1 - v3.y) / 2 * r.height;
       const hit = Math.max(9, n.r * 1.4 * r.height / 470 + 6);
@@ -351,7 +427,7 @@ export function start(el) {
     const taken = [];
     for (const n of labelSet) {
       const span = labelEl.get(n.id);
-      v3.set(n.x, n.y, n.z).project(camera);
+      v3.set(n.x, n.y, n.z).multiplyScalar(brain.scale.x).project(camera);
       const sx = (v3.x + 1) / 2 * r.width, sy = (1 - v3.y) / 2 * r.height;
       const w = span.offsetWidth || n.title.length * 6.5 + 10, hgt = 16;
       const lift = Math.round(n.r * 1.4 * r.height / 470 + 10);
@@ -447,6 +523,8 @@ export function start(el) {
       heart.material.opacity = .16 + .34 * h;
       if (haze) haze.material.opacity += .18 * h * s.glow;
     }
+    brain.scale.setScalar(s.breath && phase !== 'grow' ? 1 + .07 * breathCurve(now / 1000, s.breathEvery) : 1);
+    if (elapsed >= 0) moveSparks(dt);
     aim(t);
     placeLabels();
     canvas.style.visibility = phase === 'grow' && elapsed < 0 ? 'hidden' : '';
