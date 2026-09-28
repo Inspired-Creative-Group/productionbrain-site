@@ -1,0 +1,119 @@
+/* The Production Brain brand layer (Sandy, 2026-09-28).
+   Loaded after style.css, partners.css and the page's own styles, so it wins.
+   Maps the inherited ICG variables onto the approved palette in tokens.css.
+   Dark-led: Ink is the base. Ember is the accent and always carries Ink text. */
+
+:root {
+    --color-black:        var(--pb-ink);
+    --color-dark:         var(--pb-ink);
+    --color-surface:      #2B2633;
+    --color-surface-2:    var(--pb-deep-slate);
+    --color-border:       var(--pb-deep-slate);
+    --color-border-light: #554E60;
+
+    --color-red:          var(--pb-ember);
+    --color-red-light:    #F8AB6D;
+    --color-red-glow:     rgba(246, 149, 72, 0.15);
+    --color-red-glow-2:   rgba(246, 149, 72, 0.08);
+
+    --color-gray-100:     var(--pb-mist);
+    --color-gray-200:     #E4E0E9;
+    --color-gray-300:     var(--pb-haze);
+    --color-gray-400:     #ABA4B6;
+    --color-gray-500:     #9790A2;
+    --color-gray-600:     #9790A2;
+
+    --font-heading: 'Manrope', sans-serif;
+    --font-body:    'Manrope', sans-serif;
+}
+
+body { background: var(--pb-ink); }
+
+/* White on Ember fails contrast (2.26:1). Everything sitting on Ember takes Ink (7.33:1). */
+.skip-nav,
+.btn-primary,
+.nav-link--cta,
+.filter-pill.active,
+.footer-social-link:hover,
+.plan-step-num,
+.back-to-top:hover,
+.sticky-contact,
+.hero-video-play {
+    color: var(--pb-ink) !important;
+}
+
+/* Logo: the monogram plus the name in type */
+.nav-logo,
+.footer-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--pb-white);
+}
+.nav-logo img { height: 36px; width: 36px; }
+.footer-logo { height: 36px; width: 36px; margin-bottom: 0; }
+.footer-brand-mark { margin-bottom: var(--space-sm); }
+.pb-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+/* Hero title: large, all caps, one line (Sandy, 2026-09-28).
+   The line is about 11.4x its font size wide, so the size follows the space available.
+   Below 1001px the title spans the container; above, it starts at the centred hero
+   block and may run past it to the right, above the diagram labels. */
+.partners-hero-title {
+    font-size: min(5.5rem, calc((100vw - 56px) / 11.8));
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    white-space: nowrap;
+    margin-bottom: 0.75rem;
+}
+@media (min-width: 1001px) {
+    .partners-hero-title { font-size: min(5.5rem, calc(6.5vw - 6px)); }
+}
+
+/* Copy is left-justified throughout (Sandy, 2026-09-28) */
+.section-header,
+.mm-plain,
+.mm-note,
+.mm-center,
+.mm-roi h3,
+.mm-roi-lead,
+.mm-roi-math,
+.mm-roi-fine,
+.footer-bottom,
+.mm-over .partners-hero-content {
+    text-align: left;
+}
+.section-subtitle,
+.mm-plain,
+.mm-roi-lead,
+.mm-roi-math,
+.mm-over .partners-hero-subtitle {
+    margin-left: 0;
+    margin-right: 0;
+}
+.mm-over .partners-hero-ctas { justify-content: flex-start; }
+
+/* Desktop hero hard left (Sandy, 2026-09-28). The text sits over the top of the
+   machine photo, and hard left it would run into the diagram's left labels
+   ("What feeds it"). The photo moves down just enough to clear them with a 24px gap,
+   fitted to measurements at 1001-1920px (the subtitle wraps below ~1400, so smaller
+   laptops need more): about 228px at 1001, 128px at 1440, none from about 2000. */
+@media (min-width: 1001px) {
+    .mm-over .partners-hero-content { margin-left: 0; margin-right: 0; }
+    .mm-machine { margin-top: max(0px, calc(455px - 22.7vw)); }
+}
+
+/* Small phones: the nav has room for the monogram and the button, not the name too.
+   The hero title right below carries the name. */
+@media (max-width: 440px) {
+    .nav .pb-wordmark { display: none; }
+    .nav .nav-cta-btn { width: auto; flex: 0 0 auto; }
+}

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/pb-monogram.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -15,12 +16,12 @@
       gtag('js', new Date());
       gtag('config', 'G-P07TX5YY6H');
     </script>
-    <title>The Production Brain | Your studio's memory, on local models, yours to keep. Inspired Creative Group Inc.</title>
-    <meta name="description" content="What your agents remember isn't yours. The Production Brain: your studio's memory, on local models, yours to keep.">
-    <meta property="og:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta property="og:description" content="What your agents remember isn't yours. Your studio's memory, on local models, yours to keep.">
-    <meta name="twitter:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta name="twitter:description" content="What your agents remember isn't yours. Your studio's memory, on local models, yours to keep.">
+    <title>The Production Brain | Your studio's memory, on local models, yours to keep.</title>
+    <meta name="description" content="The Production Brain connects every AI tool to remember, recall, learn and grow, locally.">
+    <meta property="og:title" content="The Production Brain">
+    <meta property="og:description" content="Connects every AI tool to remember, recall, learn and grow, locally.">
+    <meta name="twitter:title" content="The Production Brain">
+    <meta name="twitter:description" content="Connects every AI tool to remember, recall, learn and grow, locally.">
     <meta name="twitter:image" content="https://inspiredcreativegroupinc.com/assets/og-image.jpg">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://theproductionbrain.ai/">
@@ -29,7 +30,7 @@
     <link rel="canonical" href="https://theproductionbrain.ai/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="partners.css">
     <style>
@@ -37,14 +38,14 @@
         .mm-plain { font-size: 1.05rem; color: #CCCCCC; max-width: 720px; margin: 0.75rem auto 0; text-align:center; }
         .mm-tiers { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
         .mm-tier { padding: 1.5rem; }
-        .mm-tier h3 { font-family:'Space Grotesk', sans-serif; font-size: 1.25rem; margin: 0 0 0.25rem; color:#fff; }
+        .mm-tier h3 { font-family:var(--font-heading); font-size: 1.25rem; margin: 0 0 0.25rem; color:#fff; }
         .mm-tier .mm-who { color:#999; font-size:0.9rem; margin-bottom: 1rem; }
-        .mm-tier .mm-price { font-family:'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color:#fff; line-height:1.1; }
+        .mm-tier .mm-price { font-family:var(--font-heading); font-size: 1.6rem; font-weight: 700; color:#fff; line-height:1.1; }
         .mm-tier .mm-price small { display:block; font-size: 0.85rem; font-weight: 400; color:#999; margin-top:0.25rem; }
         .mm-tier .mm-hw { margin-top: 1rem; padding: 0.75rem 0.9rem; border:1px dashed #2E2E2E; border-radius:8px; background:rgba(255,255,255,.02); }
         .mm-tier .mm-hw-label { display:block; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:#7A7A7A; margin-bottom:0.35rem; }
         .mm-tier .mm-hw-item { display:block; color:#CCC; font-size:0.9rem; }
-        .mm-tier .mm-hw strong { display:block; font-family:'Space Grotesk', sans-serif; font-weight:700; color:#fff; font-size:1rem; margin-top:0.1rem; }
+        .mm-tier .mm-hw strong { display:block; font-family:var(--font-heading); font-weight:700; color:#fff; font-size:1rem; margin-top:0.1rem; }
         .mm-tier ul { list-style:none; padding:0; margin: 1rem 0 0; }
         .mm-tier li { padding: 0.4rem 0; border-top: 1px solid #222; color:#CCC; font-size:0.95rem; }
         .mm-note { color:#999; font-size:0.9rem; text-align:center; margin-top:1.5rem; }
@@ -60,7 +61,7 @@
         .nav .nav-cta-btn { display:inline-flex; align-items:center; padding:0.7rem 1.4rem; font-size:0.9rem; white-space:nowrap; }
         @media (max-width: 768px) { .nav .nav-cta-btn { padding:0.6rem 1.1rem; font-size:0.85rem; } }
         .mm-founding { padding: 1.25rem 1.35rem; margin-top: 1.5rem; }
-        .mm-founding h3 { font-family:'Space Grotesk', sans-serif; font-size: 1.15rem; color:#fff; margin: 0 0 0.5rem; }
+        .mm-founding h3 { font-family:var(--font-heading); font-size: 1.15rem; color:#fff; margin: 0 0 0.5rem; }
         .mm-founding p { color:#CCC; font-size: 0.95rem; margin: 0 0 0.6rem; }
         .mm-founding p:last-child { margin-bottom: 0; }
         .mm-check { display:flex; align-items:center; gap: 0.6rem; margin: 0 0 1rem; color:#CCC; font-size: 0.95rem; cursor:pointer; }
@@ -69,12 +70,12 @@
         .mm-video iframe { width:100%; height:100%; border:0; display:block; }
         .mm-lines { list-style:none; padding:0; margin: 2rem auto 0; max-width: 820px; display:grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
         .mm-lines li { padding:1.25rem; }
-        .mm-lines h3 { font-family:'Space Grotesk', sans-serif; font-size:1.15rem; color:#fff; margin:0 0 0.4rem; }
+        .mm-lines h3 { font-family:var(--font-heading); font-size:1.15rem; color:#fff; margin:0 0 0.4rem; }
         .mm-lines p { color:#CCC; margin:0; font-size:0.98rem; }
         @media (max-width: 900px) { .mm-tiers { grid-template-columns: 1fr; } .mm-lines { grid-template-columns: 1fr; } .mm-panel td:first-child { white-space: normal; } }
         /* Does it pay for itself: reuses the card and the form fields. */
         .mm-roi { max-width: 1040px; margin: 3rem auto 0; padding: 1.75rem; }
-        .mm-roi h3 { font-family:'Space Grotesk', sans-serif; font-size: 1.5rem; color:#fff; margin: 0 0 0.5rem; text-align:center; }
+        .mm-roi h3 { font-family:var(--font-heading); font-size: 1.5rem; color:#fff; margin: 0 0 0.5rem; text-align:center; }
         .mm-roi-lead { color:#CCC; text-align:center; max-width: 640px; margin: 0 auto; font-size: 1.05rem; }
         .mm-roi-inputs { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
         .mm-roi .form-group input { border-color: var(--color-border) !important; }
@@ -83,11 +84,11 @@
         .mm-roi-math strong { color:#fff; }
         .mm-roi-tiers { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem; }
         .mm-roi-tier { border:1px solid var(--color-border); border-radius:10px; padding: 1.1rem 1.2rem; background: rgba(255,255,255,.02); }
-        .mm-roi-tier h4 { font-family:'Space Grotesk', sans-serif; font-size: 1.15rem; color:#fff; margin: 0 0 0.25rem; }
+        .mm-roi-tier h4 { font-family:var(--font-heading); font-size: 1.15rem; color:#fff; margin: 0 0 0.25rem; }
         .mm-roi-row { padding: 0.65rem 0; border-top: 1px solid #222; }
         .mm-roi-row:first-of-type { border-top: 0; }
         .mm-roi-label { display:block; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:#7A7A7A; margin-bottom:0.2rem; }
-        .mm-roi-big { display:block; font-family:'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight:700; color:#fff; line-height:1.25; }
+        .mm-roi-big { display:block; font-family:var(--font-heading); font-size: 1.2rem; font-weight:700; color:#fff; line-height:1.25; }
         .mm-roi-big.is-muted { color:#777; font-size: 1rem; font-weight:500; }
         .mm-roi-small { display:block; color:#999; font-size: 0.85rem; margin-top: 0.2rem; }
         .mm-roi-bar { display:block; height:6px; border-radius:3px; background:#222; margin-top:0.55rem; overflow:hidden; }
@@ -255,13 +256,13 @@
 
   .mm-tier--featured:hover{
     border-color:var(--color-red);
-    box-shadow:0 0 56px rgba(232,0,13,.22), var(--shadow-card-hover)
+    box-shadow:0 0 56px rgba(246,149,72,.22), var(--shadow-card-hover)
   }
 }
 
 /* the featured tier is already carrying the accent, so hover deepens what it
    has instead of overwriting it with the neutral border */
-.mm-tier--featured{border-color:var(--color-red);box-shadow:0 0 40px rgba(232,0,13,.12)}
+.mm-tier--featured{border-color:var(--color-red);box-shadow:0 0 40px rgba(246,149,72,.12)}
 .mm-tier--featured::before{opacity:1}
 
 /* No heading recolour. The main site turns its card ICON from red to white on
@@ -295,8 +296,8 @@
      the fade ended in a hard line. The glow stays, the ground goes. */
   .partners-hero-bg{
     background:
-      radial-gradient(ellipse at 30% 50%, rgba(232,0,13,.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 70% 30%, rgba(232,0,13,.03) 0%, transparent 50%)
+      radial-gradient(ellipse at 30% 50%, rgba(246,149,72,.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, rgba(246,149,72,.03) 0%, transparent 50%)
   }
 
   /* the label now sits under its own icons, so the gap inside a pair has to
@@ -354,6 +355,8 @@
 }
 </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <link rel="stylesheet" href="assets/brand/tokens.css">
+    <link rel="stylesheet" href="assets/brand/brand.css">
 </head>
 <body class="partners-page">
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -361,7 +364,8 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="/" class="nav-logo">
-                <img src="assets/logo.png" alt="Inspired Creative Group Inc." />
+                <img src="assets/brand/pb-monogram.svg" alt="" />
+                <span class="pb-wordmark">The Production Brain</span>
             </a>
             <a href="#mm-contact" class="btn btn-primary nav-cta-btn">Request pricing</a>
         </div>
@@ -373,9 +377,8 @@
         <div class="mm-over">
           <div class="container">
             <div class="partners-hero-content">
-                <p class="mm-kicker">What your agents remember isn't yours.</p>
-                <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
-                <p class="partners-hero-subtitle mm-lede">Your studio's memory. On local models. Yours to keep.</p>
+                <h1 class="partners-hero-title">The Production <span class="text-accent">Brain</span></h1>
+                <p class="partners-hero-subtitle mm-lede">Connects Every A.I. Tool to remember, recall, learn and grow LOCALLY</p>
                 <div class="partners-hero-ctas">
                     <a href="#mm-contact" class="btn btn-primary">Request pricing →</a>
                     <a href="#mm-why" class="btn btn-ghost">Why I built it (14 min) →</a>
@@ -708,7 +711,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="assets/logo.png" alt="Inspired Creative Group Inc." class="footer-logo" />
+                    <a href="/" class="footer-brand-mark"><img src="assets/brand/pb-monogram.svg" alt="" class="footer-logo" /><span class="pb-wordmark">The Production Brain</span></a>
                     <p class="footer-tagline">Two decades of creative expertise.<br>Amplified by 40+ AI agents.</p>
                 </div>
                 <div class="footer-links">

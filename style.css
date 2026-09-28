@@ -15,8 +15,8 @@
     
     --color-red:          #E8000D;
     --color-red-light:    #FF2D2D;
-    --color-red-glow:     rgba(232, 0, 13, 0.15);
-    --color-red-glow-2:   rgba(232, 0, 13, 0.08);
+    --color-red-glow:     rgba(246, 149, 72, 0.15);
+    --color-red-glow-2:   rgba(246, 149, 72, 0.08);
     
     --color-white:        #FFFFFF;
     --color-gray-100:     #F5F5F5;
@@ -368,8 +368,8 @@ ul {
     position: absolute;
     inset: 0;
     background-image: 
-        linear-gradient(rgba(232, 0, 13, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232, 0, 13, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(246, 149, 72, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(246, 149, 72, 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
     -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
@@ -531,7 +531,7 @@ ul {
 
 .hero-video-wrapper:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(232, 0, 13, 0.2);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(246, 149, 72, 0.2);
 }
 
 .hero-video-thumb {
@@ -550,7 +550,7 @@ ul {
     transform: translate(-50%, -50%);
     width: 72px;
     height: 72px;
-    background: rgba(232, 0, 13, 0.9);
+    background: rgba(246, 149, 72, 0.9);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -558,13 +558,13 @@ ul {
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease, background 0.2s ease;
-    box-shadow: 0 4px 20px rgba(232, 0, 13, 0.4);
+    box-shadow: 0 4px 20px rgba(246, 149, 72, 0.4);
     z-index: 2;
 }
 
 .hero-video-play:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    background: rgba(232, 0, 13, 1);
+    background: rgba(246, 149, 72, 1);
 }
 
 .hero-video-play svg {
@@ -1383,7 +1383,7 @@ ul {
 
 .ai-cap-icon {
     margin-bottom: 0.75rem;
-    color: var(--color-accent, #ff2d2d);
+    color: var(--color-accent, #F8AB6D);
     transition: color 0.3s ease;
 }
 
@@ -1798,8 +1798,8 @@ a.work-card {
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 0.2rem 0.6rem;
-    background: rgba(232, 0, 13, 0.2);
-    border: 1px solid rgba(232, 0, 13, 0.4);
+    background: rgba(246, 149, 72, 0.2);
+    border: 1px solid rgba(246, 149, 72, 0.4);
     border-radius: 3px;
     color: var(--color-red-light);
 }
@@ -1944,11 +1944,11 @@ a.work-card {
 }
 
 .testimonial-card--featured {
-    border-color: rgba(232, 0, 13, 0.3);
+    border-color: rgba(246, 149, 72, 0.3);
 }
 
 .testimonial-card--featured:hover {
-    border-color: rgba(232, 0, 13, 0.5);
+    border-color: rgba(246, 149, 72, 0.5);
 }
 
 .testimonial-quote {
@@ -2522,7 +2522,7 @@ a.work-card {
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 900;
-    box-shadow: 0 4px 20px rgba(232, 0, 13, 0.3);
+    box-shadow: 0 4px 20px rgba(246, 149, 72, 0.3);
 }
 
 .sticky-contact.visible {
@@ -2533,7 +2533,7 @@ a.work-card {
 .sticky-contact:hover {
     background: var(--color-red-light);
     transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(232, 0, 13, 0.4);
+    box-shadow: 0 6px 30px rgba(246, 149, 72, 0.4);
 }
 
 /* ═══════════════════════════════════════════════════════════════
