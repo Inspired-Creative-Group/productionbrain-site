@@ -1,0 +1,11 @@
+/* Injected by hero-brain.core.js so the page needs no stylesheet link. */
+.hero-brain{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero-brain canvas{
+  position:absolute;display:block;pointer-events:none;
+  opacity:0;transition:opacity 1.1s ease;
+  /* Plain compositing on purpose. The canvas is premultiplied and additive inside,
+     so the light already sums onto the photo; mix-blend-mode: plus-lighter looked
+     the same and gave headless Chrome blank frames. */
+}
+.hero-brain canvas.is-on{opacity:var(--hero-brain-opacity,.85)}
+.hero-brain canvas.is-fading{transition-duration:1.4s;opacity:0}
