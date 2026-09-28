@@ -20,6 +20,12 @@ function warpTime(elapsed, duration, speed, warp) {
   const u = Math.min(1, Math.max(0, elapsed) / real);
   return duration * (1 - Math.pow(1 - u, warp));
 }
+// A resting heartbeat: a strong beat and a softer one, about 62 a minute, smooth.
+function heartCurve(t, period = .97) {
+  const u = (t % period) / period;
+  const bump = (c, w, h) => h * Math.exp(-((u - c) * (u - c)) / (2 * w * w));
+  return bump(.09, .038, 1) + bump(.27, .05, .55);
+}
 function num(v, d) { const n = parseFloat(v); return Number.isFinite(n) ? n : d; }
 function readSettings(el) {
   const d = el.dataset;
@@ -37,6 +43,8 @@ function readSettings(el) {
     warp: num(d.warp, 1.6),       // >1 front-loads the growth: fast early, easing into the full shape
     turn: num(d.turn, 1.5),       // rotation, as a multiple of the demo's speeds
     pulse: d.pulse !== '0',       // the heartbeat across the hero before the first node
+    heart: d.heart !== '0',      // the core beats like a heart
+    labels: d.labels !== '0',    // name the selected note and its neighbours
     interactive: d.interactive !== '0',  // drag to turn, tap a node to light up its connections (once grown)
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
     phone: d.phone || 'off',      // 'off' | 'light'
@@ -134,10 +142,16 @@ export function start(el) {
   beat.innerHTML = '<i class="hero-brain-flash"></i><i class="hero-brain-ring"></i><i class="hero-brain-ring hero-brain-ring-2"></i>';
   el.appendChild(beat);
   const PULSE_LEAD = .55;   // seconds between the first beat and the first node
+  // Labels: the demo names the selected note and its neighbours. DOM text over the
+  // canvas, moved with the projection, decluttered so nothing overlaps.
+  const labels = document.createElement('div');
+  labels.className = 'hero-brain-labels';
+  el.appendChild(labels);
+  const labelEl = new Map();
 
   // ---- data: the public demo brain, nothing else ----
   const colorOf = Object.fromEntries(DATA.sources.map((x) => [x.id, new THREE.Color(x.color)]));
-  let nodes = DATA.nodes.map((n) => ({ id: n.id, source: n.s, degree: n.d }));
+  let nodes = DATA.nodes.map((n) => ({ id: n.id, source: n.s, degree: n.d, title: n.t || '' }));
   if (light) {
     // Phones: the busiest half of the brain, which keeps its shape and halves the work.
     nodes = nodes.filter((n) => n.degree >= 2);
@@ -185,11 +199,12 @@ export function start(el) {
   if (halos) scene.add(halos);
   scene.add(makePoints(coreSize, coreAlpha, coreFrag));
   const orbitals = s.rings ? makeOrbitals(scene, { ring1: '#D9963A', ring2: '#F2EDE6', glow: '#D9963A' }) : null;
-  let haze = null;
+  let haze = null, heart = null;
   if (orbitals) {
     // The demo draws these over black; over a photo they only need to add light.
     scene.traverse((o) => {
       if (o instanceof THREE.Sprite) haze = o;
+      if (o.geometry && o.geometry.type === 'IcosahedronGeometry') heart = o;
       if (o.material && o !== lines && !(o instanceof THREE.Points)) { o.material.blending = THREE.AdditiveBlending; o.material.depthTest = false; o.material.depthWrite = false; }
     });
   }
@@ -290,6 +305,7 @@ export function start(el) {
     canvas.style.left = `${Math.round(cx - px / 2 - mount.left)}px`;
     canvas.style.top = `${Math.round(top - mount.top)}px`;
     canvas.style.width = canvas.style.height = `${px}px`;
+    labels.style.left = canvas.style.left; labels.style.top = canvas.style.top; labels.style.width = labels.style.height = `${px}px`;
     const reach = Math.ceil(2 * Math.hypot(Math.max(cx - mount.left, mount.right - cx), Math.max(top + px / 2 - mount.top, mount.bottom - top - px / 2)));
     beat.style.left = `${Math.round(cx - mount.left)}px`;
     beat.style.top = `${Math.round(top + px / 2 - mount.top)}px`;
@@ -328,8 +344,43 @@ export function start(el) {
     }
     return best;
   }
+  let labelSet = [];
+  function placeLabels() {
+    if (!labelSet.length) return;
+    const r = canvas.getBoundingClientRect();
+    const taken = [];
+    for (const n of labelSet) {
+      const span = labelEl.get(n.id);
+      v3.set(n.x, n.y, n.z).project(camera);
+      const sx = (v3.x + 1) / 2 * r.width, sy = (1 - v3.y) / 2 * r.height;
+      const w = span.offsetWidth || n.title.length * 6.5 + 10, hgt = 16;
+      const lift = Math.round(n.r * 1.4 * r.height / 470 + 10);
+      const box = { l: sx - w / 2, r: sx + w / 2, t: sy - lift - hgt, b: sy - lift };
+      // Labels may overhang the canvas (the hero clips them); the selected one always shows.
+      const inside = v3.z < 1 && box.l > -r.width * .7 && box.r < r.width * 1.7 && box.t > -40 && box.b < r.height + 40;
+      const clash = taken.some((o) => box.l < o.r + 6 && box.r > o.l - 6 && box.t < o.b + 3 && box.b > o.t - 3);
+      const show = inside && (!clash || n === selected);
+      span.style.visibility = show ? 'visible' : 'hidden';
+      if (show) { taken.push(box); span.style.transform = `translate(${Math.round(sx)}px, ${Math.round(sy - lift)}px) translate(-50%, -100%)`; }
+    }
+  }
+  function setLabels(n) {
+    labels.textContent = ''; labelEl.clear(); labelSet = [];
+    if (!n || !s.labels) return;
+    const near = [...neighbours.get(n.id)].map((id) => byId.get(id)).filter(Boolean).sort((a, b) => b.degree - a.degree).slice(0, 9);
+    labelSet = [n, ...near];
+    for (const m of labelSet) {
+      const span = document.createElement('span');
+      span.textContent = m.title.length > 42 ? m.title.slice(0, 40).replace(/\s+\S*$/, '') + '…' : m.title;
+      span.className = m === n ? 'is-selected' : '';
+      span.style.color = m === n ? '#fff' : (colorOf[m.source] ? '#' + colorOf[m.source].getHexString() : '#fff');
+      labels.appendChild(span); labelEl.set(m.id, span);
+    }
+    placeLabels();
+  }
   function select(n) {
     selected = n;
+    setLabels(n);
     canvas.classList.toggle('has-selection', !!n);
     if (phase !== 'grow') { paint(plan.duration); if (still) renderStill(); }
   }
@@ -390,7 +441,14 @@ export function start(el) {
     }
     const t = phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration;
     if (orbitals) { orbitals.update(now / 1000, false, phase === 'grow' ? Math.max(0, (t - 8) / 20) : 1); if (haze) haze.material.opacity *= s.glow; }
+    if (heart && s.heart && elapsed >= 0) {
+      const h = heartCurve(now / 1000);
+      heart.scale.setScalar(1 + .16 * h);
+      heart.material.opacity = .16 + .34 * h;
+      if (haze) haze.material.opacity += .18 * h * s.glow;
+    }
     aim(t);
+    placeLabels();
     canvas.style.visibility = phase === 'grow' && elapsed < 0 ? 'hidden' : '';
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
@@ -415,6 +473,7 @@ export function start(el) {
     paint(plan.duration);
     if (orbitals) { orbitals.update(4, false, 1); if (haze) haze.material.opacity *= s.glow; }
     aim(plan.duration);
+    placeLabels();
     renderer.render(scene, camera);
   }
 

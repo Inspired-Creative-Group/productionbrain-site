@@ -19,6 +19,14 @@
 .mm-over .partners-hero-content{pointer-events:auto}
 .hero-brain canvas.is-fading{transition-duration:1.4s;opacity:0}
 
+/* Labels for the selected note and its neighbours. Positioned by the script. */
+.hero-brain-labels{position:absolute;pointer-events:none;overflow:visible}
+.hero-brain-labels span{position:absolute;left:0;top:0;white-space:nowrap;visibility:hidden;
+  font:500 12px/1.2 'Inter',system-ui,sans-serif;letter-spacing:.01em;opacity:.94;
+  text-shadow:0 0 6px #000,0 0 14px #000,0 1px 2px #000;will-change:transform}
+.hero-brain-labels span.is-selected{font-size:14px;font-weight:600}
+@media (max-width:1000px){.hero-brain-labels span{font-size:11px}.hero-brain-labels span.is-selected{font-size:12px}}
+
 /* The heartbeat. Two rings and a flash centred on the brain, --reach wide so the
    outer ring crosses the whole hero. Only runs while .is-beating is on. */
 .hero-brain-beat{position:absolute;width:0;height:0;pointer-events:none;--reach:2000px}
