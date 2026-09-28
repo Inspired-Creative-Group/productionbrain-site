@@ -58,8 +58,8 @@ function readSettings(el) {
     breathEvery: num(d.breathEvery, 6),
     lights: d.lights !== '0',    // the machine's own lights, on the photo, driven by the brain
     // where they sit, as % of the painted photo: the status LED and the three ports
-    lightsAt: (d.lightsAt || '48.1,64.75;59.7,62.5;61.25,62.5;62.8,62.5').split(';').map((pair) => pair.split(',').map(Number)),
-    lightsAtPhone: (d.lightsAtPhone || '42.3,63.2;55.1,59;56.9,59;58.6,59').split(';').map((pair) => pair.split(',').map(Number)),
+    lightsAt: (d.lightsAt || '48.13,64.74;59.7,62.62;61.27,62.39;62.78,62.08').split(';').map((pair) => pair.split(',').map(Number)),
+    lightsAtPhone: (d.lightsAtPhone || '42.28,63.14;55.0,59.5;56.9,59.2;58.6,59.6').split(';').map((pair) => pair.split(',').map(Number)),
     labels: d.labels !== '0',    // name the selected note and its neighbours
     interactive: d.interactive !== '0',  // drag to turn, tap a node to light up its connections (once grown)
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
@@ -400,7 +400,7 @@ export function start(el) {
     const at = narrow ? s.lightsAtPhone : s.lightsAt;
     lightEls.forEach((l, i) => {
       const [lx, ly] = at[i] || at[0];
-      const size = pr.width * (i === 0 ? .012 : .014);
+      const size = pr.width * (i === 0 ? .03 : .026);
       l.style.left = `${Math.round(pr.left + pr.width * lx / 100 - mount.left)}px`;
       l.style.top = `${Math.round(pr.top + pr.height * ly / 100 - mount.top)}px`;
       l.style.width = l.style.height = `${Math.round(size)}px`;
