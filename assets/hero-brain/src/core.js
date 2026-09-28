@@ -37,6 +37,7 @@ function readSettings(el) {
     warp: num(d.warp, 1.6),       // >1 front-loads the growth: fast early, easing into the full shape
     turn: num(d.turn, 1.5),       // rotation, as a multiple of the demo's speeds
     pulse: d.pulse !== '0',       // the heartbeat across the hero before the first node
+    interactive: d.interactive !== '0',  // drag to turn, tap a node to light up its connections (once grown)
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
     phone: d.phone || 'off',      // 'off' | 'light'
     opacity: num(d.opacity, .85),
@@ -146,6 +147,8 @@ export function start(el) {
   composeGlobe(nodes, DATA.sources);
   for (const n of nodes) { n.r = Math.min(11, 2.2 + Math.sqrt(n.degree || 0) * .85); n.home = { x: n.x, y: n.y, z: n.z }; }
   // Which links stay drawn once the brain is grown (the demo's "quiet" set).
+  const neighbours = new Map(nodes.map((n) => [n.id, new Set()]));
+  for (const l of links) { neighbours.get(l.source).add(l.target); neighbours.get(l.target).add(l.source); }
   const quiet = new Set();
   links.forEach((l, i) => {
     const a = byId.get(l.source), b = byId.get(l.target);
@@ -194,7 +197,8 @@ export function start(el) {
 
   // ---- growth (the demo's replay, verbatim in growth.js) ----
   const still = motion.matches;    // reduced motion: one fully grown frame, nothing moves
-  let plan, elapsed = 0, angle = .35, phase = 'grow', holdSince = 0, fading = false;
+  let plan, elapsed = 0, angle = .35, pitch = .04, phase = 'grow', holdSince = 0, fading = false;
+  let selected = null, spin = 0, spinY = 0, lastTouch = 0, dragging = false;   // interaction
   function reset() {
     for (const n of nodes) { n.x = n.home.x; n.y = n.home.y; n.z = n.home.z; }
     plan = planGrowth(nodes, links);
@@ -223,10 +227,15 @@ export function start(el) {
       n.x = p.x; n.y = p.y; n.z = p.z;
       positions.setXYZ(i, p.x, p.y, p.z);
       const appear = done ? 1 : Math.min(1, Math.max(.05, (t - r.born) / .6));
-      coreSize.setX(i, n.r * 2 * (.3 + .7 * appear));
-      coreAlpha.setX(i, .95 * appear);
-      haloSize.setX(i, n.r * 2 * (3.2 + 3 * (1 - appear)));
-      haloAlpha.setX(i, .30 + .35 * (1 - appear));
+      // With a node selected, the demo's rule: it and its neighbours stay lit, the rest recede.
+      const isSel = selected && selected.id === n.id;
+      const near = selected && neighbours.get(selected.id).has(n.id);
+      const dim = selected && !isSel && !near;
+      const scale = isSel ? 1.5 : near ? 1.15 : 1;
+      coreSize.setX(i, n.r * 2 * (.3 + .7 * appear) * scale);
+      coreAlpha.setX(i, (dim ? .19 : isSel ? 1 : .95) * appear);
+      haloSize.setX(i, n.r * 2 * (3.2 + 3 * (1 - appear)) * scale);
+      haloAlpha.setX(i, dim ? 0 : (isSel ? .5 : .30) + .35 * (1 - appear));
     }
     positions.needsUpdate = coreSize.needsUpdate = coreAlpha.needsUpdate = haloSize.needsUpdate = haloAlpha.needsUpdate = true;
 
@@ -235,7 +244,10 @@ export function start(el) {
       const a = byId.get(l.source), b = byId.get(l.target);
       const ra = plan.byNode.get(a.id), rb = plan.byNode.get(b.id);
       let alpha = 0, tint = colorOf[b.source] || white;
-      if (done) {
+      if (done && selected) {
+        if (a === selected || b === selected) { alpha = .72; tint = colorOf[selected.source] || white; }
+        else if (quiet.has(l)) { alpha = .05; tint = white; }
+      } else if (done) {
         if (quiet.has(l)) { alpha = l.kind === 'bridge' ? .18 : .2; tint = l.kind === 'bridge' ? white : (colorOf[a.source] || white); }
       } else if (ra && rb && Math.max(ra.born, rb.born) <= t) {
         const age = t - Math.max(ra.born, rb.born);
@@ -293,8 +305,64 @@ export function start(el) {
 
   function aim(t) {
     const d = distance * (.56 + .44 * Math.min(1, t / 26));
-    camera.position.set(Math.sin(angle) * d, d * .04, Math.cos(angle) * d);
+    camera.position.set(Math.sin(angle) * Math.cos(pitch) * d, Math.sin(pitch) * d, Math.cos(angle) * Math.cos(pitch) * d);
     camera.lookAt(0, 0, 0);
+  }
+
+  // ---- interaction: drag to turn, tap a node to see what it connects to ----
+  // Only once the brain is grown, like the demo. The hit test projects the nodes
+  // itself (304 points), which is cheaper and truer to the sprites than a raycaster.
+  const v3 = new THREE.Vector3();
+  function nodeAt(clientX, clientY) {
+    const r = canvas.getBoundingClientRect();
+    const px = clientX - r.left, py = clientY - r.top;
+    let best = null, bestD = 1e9;
+    for (const n of nodes) {
+      if (coreAlpha.getX(n.i) <= 0) continue;
+      v3.set(n.x, n.y, n.z).project(camera);
+      if (v3.z > 1) continue;
+      const sx = (v3.x + 1) / 2 * r.width, sy = (1 - v3.y) / 2 * r.height;
+      const hit = Math.max(9, n.r * 1.4 * r.height / 470 + 6);
+      const dd = Math.hypot(sx - px, sy - py);
+      if (dd < hit && dd < bestD) { best = n; bestD = dd; }
+    }
+    return best;
+  }
+  function select(n) {
+    selected = n;
+    canvas.classList.toggle('has-selection', !!n);
+    if (phase !== 'grow') { paint(plan.duration); if (still) renderStill(); }
+  }
+  function live() { return s.interactive && visible && phase !== 'grow' && !fading; }
+  if (s.interactive) {
+    canvas.classList.add('is-interactive');
+    let downX = 0, downY = 0, lastX = 0, lastY = 0, moved = false, pointerId = null;
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!live() || e.button > 0) return;
+      pointerId = e.pointerId; downX = lastX = e.clientX; downY = lastY = e.clientY; moved = false; spin = spinY = 0;
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointermove', (e) => {
+      if (pointerId === e.pointerId) {
+        const dx = e.clientX - lastX, dy = e.clientY - lastY; lastX = e.clientX; lastY = e.clientY;
+        if (!moved && Math.hypot(e.clientX - downX, e.clientY - downY) > 6) { moved = true; dragging = true; canvas.classList.add('is-dragging'); }
+        if (moved) {
+          angle -= dx * .006; pitch = Math.max(-1.2, Math.min(1.2, pitch + dy * .004));
+          spin = -dx * .006; spinY = dy * .004; lastTouch = performance.now();
+          if (still) renderStill();
+        }
+      } else if (live() && e.pointerType === 'mouse') {
+        canvas.classList.toggle('is-over', !!nodeAt(e.clientX, e.clientY));
+      }
+    });
+    const up = (e) => {
+      if (pointerId !== e.pointerId) return;
+      pointerId = null; dragging = false; canvas.classList.remove('is-dragging');
+      lastTouch = performance.now();
+      if (!moved && live()) select(nodeAt(e.clientX, e.clientY));
+    };
+    canvas.addEventListener('pointerup', up);
+    canvas.addEventListener('pointercancel', up);
   }
 
   // ---- loop, and when to stop it ----
@@ -311,10 +379,13 @@ export function start(el) {
       if (done) { phase = 'hold'; holdSince = now; }
       angle += dt * 2 * Math.PI / 60 * GROW_SPEED * s.turn;
     } else {
-      angle += dt * 2 * Math.PI / 60 * HOLD_SPEED * s.turn;
-      if (s.mode === 'loop' && !fading && now - holdSince > s.holdSeconds * 1000) {
+      const idle = performance.now() - lastTouch > 4000;
+      if (dragging) { /* the hand owns the camera */ }
+      else if (Math.abs(spin) > .0004 || Math.abs(spinY) > .0004) { angle += spin; pitch = Math.max(-1.2, Math.min(1.2, pitch + spinY)); spin *= .94; spinY *= .94; }
+      else if (idle && !selected) { angle += dt * 2 * Math.PI / 60 * HOLD_SPEED * s.turn; pitch += (.04 - pitch) * Math.min(1, dt * .6); }
+      if (s.mode === 'loop' && !selected && idle && !fading && now - holdSince > s.holdSeconds * 1000) {
         fading = true; canvas.classList.add('is-fading');
-        setTimeout(() => { reset(); paint(0); aim(0); renderer.render(scene, camera); canvas.classList.remove('is-fading'); fading = false; heartbeat(); }, 1500);
+        setTimeout(() => { select(null); reset(); paint(0); aim(0); renderer.render(scene, camera); canvas.classList.remove('is-fading'); fading = false; heartbeat(); }, 1500);
       }
     }
     const t = phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration;
@@ -351,8 +422,9 @@ export function start(el) {
   window.heroBrain = {
     settings: s,
     set(patch) { Object.assign(s, patch); side = 0; relayout(); el.style.setProperty('--hero-brain-opacity', String(s.opacity)); },
-    replay() { reset(); fading = false; canvas.classList.remove('is-fading'); if (still) renderStill(); else heartbeat(); },
-    state() { return { elapsed, growthTime: phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration, phase, running, visible, onScreen, frames, side, still }; },
+    replay() { select(null); reset(); fading = false; canvas.classList.remove('is-fading'); if (still) renderStill(); else heartbeat(); },
+    select(id) { select(id ? byId.get(id) || null : null); },
+    state() { return { selected: selected && selected.id, angle: +angle.toFixed(3), pitch: +pitch.toFixed(3), elapsed, growthTime: phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration, phase, running, visible, onScreen, frames, side, still }; },
     snap() {
       renderer.render(scene, camera);
       const gl = renderer.getContext(), w = gl.drawingBufferWidth, h = gl.drawingBufferHeight;

@@ -8,6 +8,15 @@
      the same and gave headless Chrome blank frames. */
 }
 .hero-brain canvas.is-on{opacity:var(--hero-brain-opacity,.85)}
+/* Interaction: only the canvas square takes the pointer, the rest of the mount stays
+   transparent to clicks. Vertical touch still scrolls the page; a sideways drag turns
+   the brain. The hero's text overlay covers the whole section, so it has to let the
+   pointer through everywhere except the text itself. */
+.hero-brain canvas.is-interactive{pointer-events:auto;touch-action:pan-y;cursor:grab}
+.hero-brain canvas.is-interactive.is-over{cursor:pointer}
+.hero-brain canvas.is-interactive.is-dragging{cursor:grabbing}
+.mm-over{pointer-events:none}
+.mm-over .partners-hero-content{pointer-events:auto}
 .hero-brain canvas.is-fading{transition-duration:1.4s;opacity:0}
 
 /* The heartbeat. Two rings and a flash centred on the brain, --reach wide so the

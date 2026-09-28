@@ -40,6 +40,11 @@ Requirements on the hero, and nothing else:
 - `data-avoid` (optional) selects the element the brain must never overlap: today the
   buttons. The brain shrinks to stay under it. Leave it empty (`data-avoid=""`) to turn
   that off.
+- **Interaction needs the pointer to reach the canvas.** The current hero's text overlay
+  (`.mm-over`) covers the whole section, so the injected stylesheet sets
+  `.mm-over{pointer-events:none}` and re-enables it on `.partners-hero-content`. If the
+  redesign uses a different overlay, mirror those two rules for it (or set
+  `data-interactive="0"`).
 
 ## The numbers, and how to re-set them if the photo changes
 
@@ -55,6 +60,7 @@ All are percentages of the **painted photo** (object-fit: cover is accounted for
 | `data-warp` | 1.6 | front-loading: above 1 the first seconds move fast and the last ones settle; 1 = linear |
 | `data-turn` | 1.5 | rotation speed, as a multiple of the demo's |
 | `data-pulse` | 1 | the heartbeat: two rings and a flash from the box across the whole hero, then the first node. `0` turns it off. Never runs under reduced motion. |
+| `data-interactive` | 1 | once grown: drag to turn it (with a little inertia; auto-turn resumes after 4 s), tap a node to light up everything it connects to, tap empty space to clear. `0` makes it a pure picture again. |
 | `data-mode` | hold | `hold`: grow once, keep turning. `loop`: hold `data-hold-seconds` (8), fade out, regrow. |
 | `data-phone` | light | below 1000px (the wide crop): `light` = the busiest half of the nodes, no halos, lower pixel ratio. `off` = no brain on phones. |
 | `data-box-x-phone`, `data-box-y-phone`, `data-size-phone` | 44, 39, 42 | the same anchors for the wide crop |
