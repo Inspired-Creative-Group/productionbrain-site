@@ -59,7 +59,7 @@ function readSettings(el) {
     lights: d.lights !== '0',    // the machine's own lights, on the photo, driven by the brain
     // where they sit, as % of the painted photo: the status LED and the three ports
     lightsAt: (d.lightsAt || '48.13,64.74;59.7,62.62;61.27,62.39;62.78,62.08').split(';').map((pair) => pair.split(',').map(Number)),
-    lightsAtPhone: (d.lightsAtPhone || '42.28,63.14;55.0,59.5;56.9,59.2;58.6,59.6').split(';').map((pair) => pair.split(',').map(Number)),
+    lightsAtPhone: (d.lightsAtPhone || '42.28,63.14;55.18,59.54;56.9,59.11;58.87,59.95').split(';').map((pair) => pair.split(',').map(Number)),
     labels: d.labels !== '0',    // name the selected note and its neighbours
     interactive: d.interactive !== '0',  // drag to turn, tap a node to light up its connections (once grown)
     holdSeconds: num(d.holdSeconds, 8),  // loop mode: how long the grown brain stays before it fades
@@ -76,11 +76,15 @@ function paintedRect(img) {
   const r = img.getBoundingClientRect();
   const nw = img.naturalWidth, nh = img.naturalHeight;
   if (!nw || !nh || !r.width || !r.height) return r;
-  const fit = getComputedStyle(img).objectFit;
-  if (fit !== 'cover') return r;
+  const cs = getComputedStyle(img);
+  if (cs.objectFit !== 'cover') return r;
   const scale = Math.max(r.width / nw, r.height / nh);
   const w = nw * scale, h = nh * scale;
-  return { left: r.left + (r.width - w) / 2, top: r.top + (r.height - h) / 2, width: w, height: h, right: 0, bottom: 0 };
+  // object-position decides which part of the picture survives the crop (the phone
+  // hero uses 45% 53%). Percentages only; keywords and lengths fall back to centre.
+  const pos = (cs.objectPosition || '50% 50%').split(/\s+/).map((v) => v.endsWith('%') ? parseFloat(v) / 100 : NaN);
+  const px = Number.isFinite(pos[0]) ? pos[0] : .5, py = Number.isFinite(pos[1]) ? pos[1] : .5;
+  return { left: r.left + (r.width - w) * px, top: r.top + (r.height - h) * py, width: w, height: h, right: 0, bottom: 0 };
 }
 
 const spriteVert = `
