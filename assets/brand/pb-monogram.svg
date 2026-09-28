@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="111.407 201.611 389.381 389.381" role="img" aria-label="The Production Brain">
+  <g transform="matrix(1 0 0 -1 0 792.602)">
+    <path fill="#6A6376" transform="translate(111.8173 590.9911)" d="M0 0L303.307 0C350.617 0 388.97 -38.353 388.97 -85.664L388.97 -303.717C388.97 -351.028 350.617 -389.381 303.307 -389.381L85.254 -389.381C37.943 -389.381 -0.41 -351.028 -0.41 -303.717Z"/>
+    <g fill="none" stroke="#F69548" stroke-width="51.602" stroke-linejoin="round" stroke-linecap="round">
+      <path transform="translate(258.308 489.7522)" d="M0 0L0 -186.903"/>
+      <path transform="translate(258.308 489.7522)" d="M0 0L66.195 0C92.001 0 112.92 -20.92 112.92 -46.726C112.92 -72.532 92.001 -93.451 66.195 -93.451L0 -93.451"/>
+      <path transform="translate(258.308 396.3009)" d="M0 0L73.982 0C99.788 0 120.708 -20.92 120.708 -46.726C120.708 -72.532 99.788 -93.451 73.982 -93.451L0 -93.451"/>
+    </g>
+    <g fill="none" stroke="#FFFFFF" stroke-width="52.224" stroke-linejoin="miter" stroke-linecap="square">
+      <path transform="translate(258.0081 489.7522)" d="M0 0L0 -186.903"/>
+      <path transform="translate(258.0081 489.7522)" d="M0 0L66.195 0C92.001 0 112.92 -20.92 112.92 -46.726C112.92 -72.532 92.001 -93.451 66.195 -93.451L0 -93.451"/>
+    </g>
+  </g>
+</svg>
