@@ -420,6 +420,12 @@
         @media (max-width:768px) { .nav .mm-nav-brand { gap:.45rem; min-width:0; } .nav .mm-nav-brand img { height:26px; } .nav .mm-nav-name { font-size:.72rem; } .nav .mm-nav-by { font-size:.56rem; margin-top:.1rem; }
             .nav .nav-cta-btn { padding:.55rem .8rem; font-size:.72rem; flex:0 0 auto; width:auto; } }
         @media (max-width:360px) { .nav .nav-inner { padding-left:12px; padding-right:12px; } .nav .mm-nav-brand img { height:22px; } .nav .mm-nav-name { font-size:.62rem; letter-spacing:.01em; } .nav .mm-nav-by { font-size:.5rem; } .nav .nav-cta-btn { padding:.5rem .6rem; font-size:.64rem; } }
+        /* Footer: the same PB lockup as the menu bar, with the hero subtitle under it (Sandy, 2026-09-29) */
+        .footer .mm-footer-brand { display:inline-flex; align-items:center; gap:.7rem; text-decoration:none; margin-bottom:1rem; }
+        .footer .mm-footer-brand img { height:36px; width:auto; }
+        .footer .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
+        .footer .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
+        .footer .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
     </style>
 </head>
 <body class="partners-page">
@@ -879,8 +885,11 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="assets/logo.png" alt="Inspired Creative Group Inc." class="footer-logo" />
-                    <p class="footer-tagline">Human-directed. AI-powered. <span class="text-accent">Made to connect.</span></p>
+                    <a href="/" class="mm-footer-brand" aria-label="The Production Brain, home">
+                        <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
+                        <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
+                    </a>
+                    <p class="footer-tagline">Connects every AI tool to remember, recall, learn and grow LOCALLY.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Navigation</h4>
