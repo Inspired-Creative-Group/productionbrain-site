@@ -23,7 +23,8 @@
     el.dataset.heroBrainStarted = '1';
     var s = document.createElement('script');
     s.type = 'module';
-    s.src = base + 'hero-brain.core.js';
+    // The build stamps its own hash here, so a new renderer is never served from cache.
+    s.src = base + 'hero-brain.core.js?v=' + __HERO_BRAIN_V__;
     document.head.appendChild(s);
   }
   function idle() {
