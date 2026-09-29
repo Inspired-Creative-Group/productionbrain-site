@@ -385,16 +385,11 @@
         @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.28); opacity:1; } }
         #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
         @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
-        /* What it does: the brain's nucleus, big and beating, behind the cards (Sandy, 2026-09-29) */
-        #mm-what { background:#0b0806; }
+        /* What it does: the brain's nucleus turning behind plain cards; no glow on or behind them (Sandy, 2026-09-29) */
+        #mm-what { background:#0a0a0a; }
         #mm-what .mm-nucleus { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
         #mm-what > .container { position:relative; z-index:1; }
-        #mm-what .value-prop-card { background:rgba(12,10,9,.72); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
-        /* a soft red glow behind each card, steady (Sandy, 2026-09-29) */
-        #mm-what .value-prop-card { border-color:rgba(232,0,13,.22); box-shadow:0 0 70px -12px rgba(232,0,13,.5), 0 24px 60px -24px rgba(232,0,13,.55); }
-        #mm-what .value-prop-card:hover { box-shadow:0 0 90px -10px rgba(232,0,13,.62), 0 28px 70px -24px rgba(232,0,13,.65); }
-        @media (max-width:768px) { #mm-what .value-prop-card, #mm-what .value-prop-card:hover { box-shadow:0 0 36px -14px rgba(232,0,13,.45); } }
-        /* How it arrives cards get the same outline, glow and see-through finish as What it does (Sandy, 2026-09-29) */
+        /* How it arrives cards: soft red outline, red glow and see-through finish (Sandy, 2026-09-29) */
         #mm-how .plan-step { border-color:rgba(232,0,13,.22); background:rgba(12,10,9,.72); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
             box-shadow:0 0 70px -12px rgba(232,0,13,.5), 0 24px 60px -24px rgba(232,0,13,.55); }
         #mm-how .plan-step:hover { box-shadow:0 0 90px -10px rgba(232,0,13,.62), 0 28px 70px -24px rgba(232,0,13,.65); }
@@ -1050,7 +1045,7 @@
     })();
     </script>
     <!-- What it does: the nucleus. A geodesic wireframe sphere in the hero brain's amber, turning slowly,
-         with faint rings growing out of it every 2.4 s. Its size and glow hold steady (no beat: Sandy found
+         with faint rings growing out of it every 2.4 s. No glow behind it (Sandy, 2026-09-29). Its size holds steady (no beat: Sandy found
          the pulse distracting, 2026-09-29). Canvas 2D, no library. Paused off screen; one still frame under
          reduced motion. -->
     <script>
@@ -1087,12 +1082,6 @@
             var cx = W * (phone ? 0.55 : 0.62), cy = phone ? Math.min(H * 0.3, W * 0.95) : H * 0.52;
             var R = (phone ? W * 0.62 : Math.min(W, H) * 0.44) * (1 + 0.06 * b);
             ctx.clearRect(0, 0, W, H);
-            // warm glow behind the core, stronger on the beat
-            var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.2);
-            g.addColorStop(0, 'rgba(217,150,58,.26)');
-            g.addColorStop(0.35, 'rgba(160,96,34,.12)');
-            g.addColorStop(1, 'rgba(60,34,14,0)');
-            ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
             // a ring leaves on each first beat
             var cyc = Math.floor(s / 2.4);
             if (!still && cyc !== lastBeat) { lastBeat = cyc; rings.push(s); }
@@ -1124,13 +1113,6 @@
                 ctx.fillStyle = 'rgba(242,190,110,' + al.toFixed(3) + ')';
                 ctx.beginPath(); ctx.arc(p[0], p[1], (phone ? 1.6 : 2.2) * (0.8 + 0.4 * (p[2] + 1) / 2), 0, Math.PI * 2); ctx.fill();
             });
-            // the heart at the centre
-            var hr = R * 0.06;
-            var hg = ctx.createRadialGradient(cx, cy, 0, cx, cy, hr * 3);
-            hg.addColorStop(0, 'rgba(255,230,190,.42)');
-            hg.addColorStop(0.3, 'rgba(236,162,70,.22)');
-            hg.addColorStop(1, 'rgba(217,150,58,0)');
-            ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(cx, cy, hr * 3, 0, Math.PI * 2); ctx.fill();
             if (running) raf = requestAnimationFrame(frame);
         }
         function start() { if (running || still) return; running = true; raf = requestAnimationFrame(frame); }
