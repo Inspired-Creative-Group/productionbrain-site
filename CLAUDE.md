@@ -59,3 +59,11 @@ a fast scroll leaves elements un-revealed and reads as a bug that is not there.
 The hero background: a generated image of a Mac Studio in a working studio, replacing the
 gradient. Agreed 2026-09-11, not started. Harder than it sounds, a Mac Studio is a small
 silver box and it has to be the subject of a photograph containing people.
+
+## Hero brain overlay (branch `feature/hero-brain-overlay`, 2026-09-28)
+
+The `/demo` brain growing live over the machine photo. Lives entirely in
+`assets/hero-brain/` (read its `INSTALL.md`); the only page edit is one commented block in
+`index.html`. **Merged to `main` and live on 2026-09-28 on Juan's word**, superseding the
+morning's plan to hold it for the redesign. Sandy's `redesign/sandy` picks it up when she
+merges `origin/main` (her branch rule). Do not touch her branch.
