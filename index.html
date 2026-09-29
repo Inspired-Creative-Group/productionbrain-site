@@ -411,6 +411,11 @@
             #mm-how .mm-steps li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); }
             #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, rgba(10,10,10,.85) 0%, rgba(10,10,10,.6) 40%, rgba(10,10,10,0) 65%); }
         }
+        /* Menu bar: the PB mark and the product name replace the ICG logo (Sandy, 2026-09-29). The footer keeps ICG's logo. */
+        .nav .mm-nav-brand { display:flex; align-items:center; gap:.7rem; text-decoration:none; }
+        .nav .mm-nav-brand img { height:36px; width:auto; }
+        .nav .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
+        @media (max-width:768px) { .nav .mm-nav-brand { gap:.5rem; } .nav .mm-nav-brand img { height:28px; } .nav .mm-nav-name { font-size:.78rem; } }
     </style>
 </head>
 <body class="partners-page">
@@ -418,8 +423,9 @@
 
     <nav class="nav" id="nav">
         <div class="nav-inner">
-            <a href="/" class="nav-logo">
-                <img src="assets/logo.png" alt="Inspired Creative Group Inc." />
+            <a href="/" class="nav-logo mm-nav-brand" aria-label="The Production Brain, home">
+                <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
+                <span class="mm-nav-name">The Production Brain</span>
             </a>
             <a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a>
         </div>
