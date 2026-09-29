@@ -385,6 +385,12 @@
         @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.28); opacity:1; } }
         #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
         @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
+        /* What it does: the hero brain, zoomed in, behind the cards (Sandy, 2026-09-29) */
+        #mm-what { background:#0b0806; }
+        #mm-what .mm-brain-stage { position:absolute; inset:0; pointer-events:none; }
+        #mm-what .mm-what-brain { z-index:0; }
+        #mm-what > .container { position:relative; z-index:1; }
+        #mm-what .value-prop-card { background:rgba(12,10,9,.72); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
     </style>
 </head>
 <body class="partners-page">
@@ -580,7 +586,12 @@
     <!-- WHAT IT DOES (ICG value-prop layout)     -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section value-prop" id="mm-what">
-        <img class="section-bg" src="assets/backgrounds/valueprop-bg.jpg" alt="" loading="lazy" aria-hidden="true" style="opacity:0.15">
+        <!-- The hero brain again, zoomed in, as this section's moving background. Same renderer as the hero
+             (assets/hero-brain/), started a second time on the stage below; no clicks, no labels, no machine lights. -->
+        <div class="mm-brain-stage" aria-hidden="true"></div>
+        <div class="hero-brain mm-what-brain" data-image="#mm-what .mm-brain-stage" data-avoid="" data-box-x="62" data-box-x-phone="55"
+             data-lift="0" data-mode="hold" data-phone="light" data-lights="0" data-labels="0" data-interactive="0"
+             data-frame-wide="4" data-frame-below="1.2" data-opacity=".7" data-glow="1" aria-hidden="true"></div>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">What it does</span>
@@ -1032,6 +1043,46 @@
                 entries.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); });
             }).observe(sec);
         }
+    })();
+    </script>
+    <!-- What it does: start a second copy of the hero brain once the section is near.
+         It waits for the hero's own loader to add the renderer, then imports that same file (no second download). -->
+    <script type="module">
+    (function() {
+        var mount = document.querySelector('.mm-what-brain');
+        var stage = document.querySelector('#mm-what .mm-brain-stage');
+        if (!mount || !stage || !('IntersectionObserver' in window)) return;
+        var phone = window.matchMedia('(max-width:1000px)');
+        function place(handle) {
+            var w = stage.clientWidth, h = stage.clientHeight;
+            var size = phone.matches ? 190 : 115;              /* the brain's frame, % of the section width: zoomed in */
+            var boxY = (h / 2 + (size / 100) * w / 2) / h * 100; /* so its centre sits mid-section */
+            var v = { size: size, sizePhone: size, boxY: boxY, boxYPhone: boxY };
+            if (handle) { handle.set(v); return; }
+            mount.dataset.size = size; mount.dataset.sizePhone = size;
+            mount.dataset.boxY = boxY.toFixed(2); mount.dataset.boxYPhone = boxY.toFixed(2);
+        }
+        function whenCore(cb, tries) {
+            var s = document.querySelector('script[type="module"][src*="hero-brain.core.js"]');
+            if (s) return cb(s.src);
+            if ((tries || 0) < 60) setTimeout(function() { whenCore(cb, (tries || 0) + 1); }, 500);
+        }
+        var io = new IntersectionObserver(function(entries) {
+            if (!entries.some(function(e) { return e.isIntersecting; })) return;
+            io.disconnect();
+            whenCore(function(src) {
+                import(src).then(function(mod) {
+                    place();
+                    var heroHandle = window.heroBrain;   /* keep the hero's console handle pointing at the hero */
+                    mod.start(mount);
+                    var mine = window.heroBrain;
+                    window.mmWhatBrain = mine;
+                    if (heroHandle) window.heroBrain = heroHandle;
+                    if (mine) window.addEventListener('resize', function() { place(mine); }, { passive: true });
+                }).catch(function() {});
+            });
+        }, { rootMargin: '600px 0px' });
+        io.observe(mount);
     })();
     </script>
     <script src="gsap-animations.js"></script>
