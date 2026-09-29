@@ -371,6 +371,20 @@
         .contact-info .mm-sub-label { margin-top: 2.5rem; }
         .contact-info .mm-sub-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 700; line-height: 1.15; color:#fff; margin: 0.5rem 0 0.9rem; }
         .mm-founding .mm-offer-close { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid #2a2a2a; color:#fff; }
+        /* Problem section: rays drawn in code; a glow runs in along each line to the red centre (Sandy, 2026-09-29) */
+        #mm-problem { background:#242424; }
+        #mm-problem::after { display:none; }
+        .mm-rays { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+        .mm-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+        .mm-ray { fill:none; stroke:rgba(255,255,255,.2); stroke-width:1; vector-effect:non-scaling-stroke; }
+        .mm-pulse { fill:none; stroke-linecap:round; stroke-dasharray:5 200; stroke-dashoffset:5; animation:mm-ray-in var(--d) linear var(--delay) infinite; }
+        .mm-pulse-halo { stroke:#ff3b2f; stroke-width:9; opacity:.6; filter:url(#mmGlow); }
+        .mm-pulse-core { stroke:#ffe9e4; stroke-width:2.4; }
+        @keyframes mm-ray-in { from { stroke-dashoffset:5; } to { stroke-dashoffset:-100; } }
+        .mm-core { transform-box:view-box; animation:mm-core 2.6s ease-in-out infinite; }
+        @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.28); opacity:1; } }
+        #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
+        @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
     </style>
 </head>
 <body class="partners-page">
@@ -508,7 +522,7 @@
     <!-- PROBLEM (ICG stakes layout)              -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section stakes-section" id="mm-problem">
-        <img class="section-bg" src="assets/backgrounds/stakes-bg.jpg" alt="" loading="lazy" aria-hidden="true">
+        <div class="mm-rays" aria-hidden="true"></div>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">The problem</span>
@@ -959,6 +973,65 @@
             });
         }, { threshold: 0.35 });
         io.observe(section);
+    })();
+    </script>
+    <!-- Problem rays: drawn for the section's real size, with the red centre in the empty space beside the headline.
+         A glow runs in along every line to the centre. Paused while off screen. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-problem');
+        var box = sec && sec.querySelector('.mm-rays');
+        if (!box) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var ANGLES = [-98,-84,-66,-52,-38,-27,-8,6,19,31,47,62,78,95,110,127,146,166,186,203,219,238,256];
+        var TIMES = ANGLES.map(function(_, i) { var d = 4.2 + ((i * 37) % 43) / 10; return [d, -((i * 53) % 71) / 71 * d]; });
+        function el(name, attrs, parent) {
+            var n = document.createElementNS(NS, name);
+            for (var k in attrs) n.setAttribute(k, attrs[k]);
+            if (parent) parent.appendChild(n);
+            return n;
+        }
+        var lastKey = '';
+        function draw() {
+            var w = sec.clientWidth, h = sec.clientHeight;
+            var head = sec.querySelector('.section-header').getBoundingClientRect();
+            var top = sec.getBoundingClientRect().top;
+            var phone = w < 900;
+            var cx = Math.round(w * (phone ? 0.86 : 0.8));
+            var cy = Math.round(phone ? (head.top - top) + 14 : (head.top - top) + head.height / 2);
+            var key = w + 'x' + h + '@' + cx + ',' + cy;
+            if (key === lastKey) return;
+            lastKey = key;
+            box.textContent = '';
+            var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
+            var defs = el('defs', {}, svg);
+            el('feGaussianBlur', { stdDeviation: phone ? 4 : 6 }, el('filter', { id: 'mmGlow', x: '-50%', y: '-50%', width: '200%', height: '200%' }, defs));
+            var grad = el('radialGradient', { id: 'mmCoreGlow' }, defs);
+            el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.9' }, grad);
+            el('stop', { offset: '1', 'stop-color': '#ff4b3e', 'stop-opacity': '0' }, grad);
+            var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
+            el('circle', { 'class': 'mm-ray', cx: cx, cy: cy, r: Math.round(Math.max(w, h) * (phone ? 0.9 : 0.62)) }, svg);
+            var pulses = el('g', { 'class': 'mm-pulses' }, svg);
+            ANGLES.forEach(function(a, i) {
+                var r = a * Math.PI / 180, x = Math.round(cx + Math.cos(r) * reach), y = Math.round(cy + Math.sin(r) * reach);
+                var d = 'M' + x + ' ' + y + 'L' + cx + ' ' + cy;
+                el('path', { 'class': 'mm-ray', d: d }, svg);
+                var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
+                el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
+                el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
+            });
+            var core = el('g', { 'class': 'mm-core', style: 'transform-origin:' + cx + 'px ' + cy + 'px' }, svg);
+            el('circle', { cx: cx, cy: cy, r: phone ? 30 : 46, fill: 'url(#mmCoreGlow)' }, core);
+            el('circle', { cx: cx, cy: cy, r: phone ? 7 : 10, fill: '#ff5245' }, core);
+        }
+        draw();
+        window.addEventListener('load', draw);
+        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); });
+            }).observe(sec);
+        }
     })();
     </script>
     <script src="gsap-animations.js"></script>
