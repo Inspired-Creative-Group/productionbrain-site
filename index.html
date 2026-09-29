@@ -437,6 +437,9 @@
         #mm-how .mm-how-rays { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
         #mm-how .mm-how-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
         #mm-how.is-paused .mm-pulse { animation-play-state:paused; }
+        /* Statement band: symbol field behind the words (Sandy, 2026-09-29) */
+        .statement { background:radial-gradient(ellipse 80% 70% at 50% 50%, #151515 0%, #0a0a0a 70%); }
+        .statement .mm-glyphs { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; pointer-events:none; }
     </style>
 </head>
 <body class="partners-page">
@@ -664,7 +667,9 @@
     <!-- STATEMENT (ICG statement layout)         -->
     <!-- ═══════════════════════════════════════ -->
     <section class="statement">
-        <img class="statement-bg" src="assets/backgrounds/system-bg.jpg" alt="" loading="lazy" aria-hidden="true">
+        <!-- A field of symbols drawn in code (after benjamincreative.me): faint - = + at the edges, * ? @ as it thickens,
+             a lock where it is densest; clear in the middle for the words; drifts slowly and brightens under the pointer. -->
+        <canvas class="mm-glyphs" aria-hidden="true"></canvas>
         <div class="container">
             <img class="statement-mark-logo" src="favicon-512x512.png" alt="" aria-hidden="true" width="96" height="96">
             <p class="statement-line gsap-animate"><span class="statement-row">It never touches your project files.</span><span class="statement-row text-accent">It remembers what was decided.</span></p>
@@ -1255,6 +1260,72 @@
             });
         }, { rootMargin: '600px 0px' });
         io.observe(mount);
+    })();
+    </script>
+    <!-- Statement band: the symbol field. Canvas 2D, about 24 frames a second, paused off screen, one still frame
+         under reduced motion. Symbols by density: - = + * ? @ then a lock drawn as a tiny padlock. -->
+    <script>
+    (function() {
+        var sec = document.querySelector('.statement');
+        var cv = sec && sec.querySelector('.mm-glyphs');
+        if (!cv || !cv.getContext) return;
+        var ctx = cv.getContext('2d');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var GLYPHS = ['-', '=', '+', '*', '?', '@', 'lock'];
+        var STEPS  = [0.08, 0.16, 0.25, 0.34, 0.45, 0.54, 0.61];   /* density at which each symbol takes over: light ones do most of the work */
+        var W = 0, H = 0, dpr = 1, cell = 18, running = false, inView = false, raf = 0, last = 0;
+        var mx = -9999, my = -9999, mGlow = 0;
+        function size() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = sec.clientWidth; H = sec.clientHeight; cell = W < 700 ? 14 : 18;
+            cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        function smooth(a, b, x) { var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+        function lock(x, y, s, a) {
+            ctx.strokeStyle = ctx.fillStyle = 'rgba(255,255,255,' + a + ')';
+            ctx.lineWidth = Math.max(1, s * 0.12);
+            ctx.beginPath(); ctx.arc(x, y - s * 0.12, s * 0.2, Math.PI, 0); ctx.stroke();
+            ctx.fillRect(x - s * 0.3, y - s * 0.1, s * 0.6, s * 0.44);
+        }
+        function frame(now) {
+            if (running) raf = requestAnimationFrame(frame);
+            if (running && now - last < 42) return;   /* ~24 fps is plenty for this */
+            last = now;
+            var t = now / 1000;
+            mGlow += ((mx > -999 ? 1 : 0) - mGlow) * 0.08;
+            ctx.clearRect(0, 0, W, H);
+            ctx.font = '500 ' + Math.round(cell * 0.72) + "px 'IBM Plex Mono', ui-monospace, monospace";
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            var cols = Math.ceil(W / cell), rows = Math.ceil(H / cell), ox = (W - cols * cell) / 2, oy = (H - rows * cell) / 2;
+            for (var j = 0; j < rows; j++) {
+                for (var i = 0; i < cols; i++) {
+                    var x = ox + (i + 0.5) * cell, y = oy + (j + 0.5) * cell;
+                    var u = (x / W) * 2 - 1, v = (y / H) * 2 - 1;
+                    var d = Math.pow(Math.pow(Math.abs(u), 4) + Math.pow(Math.abs(v * 1.05), 4), 0.25);   /* rounded-square distance */
+                    var frameBand = smooth(0.34, 0.66, d) * (1 - smooth(0.95, 1.18, d));                 /* dense frame, clear centre */
+                    var n = 0.5 + 0.25 * Math.sin(u * 3.1 + t * 0.35) * Math.cos(v * 3.7 - t * 0.28) + 0.25 * Math.sin((u + v) * 5.3 - t * 0.5);
+                    var I = frameBand * (0.1 + 0.55 * n);
+                    if (mGlow > 0.01) { var dx = x - mx, dy = y - my; I += mGlow * 0.9 * Math.exp(-(dx * dx + dy * dy) / (2 * 110 * 110)); }
+                    if (I < STEPS[0]) continue;
+                    var k = 0; while (k < STEPS.length - 1 && I >= STEPS[k + 1]) k++;
+                    var a = Math.min(0.55, 0.06 + I * 0.32).toFixed(3);
+                    if (GLYPHS[k] === 'lock') lock(x, y, cell * 0.72, a);
+                    else { ctx.fillStyle = 'rgba(255,255,255,' + a + ')'; ctx.fillText(GLYPHS[k], x, y); }
+                }
+            }
+        }
+        function start() { if (running || still) return; running = true; raf = requestAnimationFrame(frame); }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+        size(); frame(performance.now());
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(function() { frame(performance.now()); });
+        if (window.ResizeObserver) new ResizeObserver(function() { size(); if (!running) frame(performance.now()); }).observe(sec);
+        sec.addEventListener('pointermove', function(e) { var b = sec.getBoundingClientRect(); mx = e.clientX - b.left; my = e.clientY - b.top; });
+        sec.addEventListener('pointerleave', function() { mx = my = -9999; });
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
+        } else { inView = true; start(); }
+        document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
     })();
     </script>
     <script src="gsap-animations.js"></script>
