@@ -471,6 +471,7 @@
         /* Section menu in the top bar (Sandy, 2026-09-29) */
         .nav .mm-nav-actions { display:flex; align-items:center; gap:.75rem; flex:none; }
         .nav .mm-menu .nav-link { white-space:nowrap; }
+        #mm-form { scroll-margin-top:96px; }
         /* Every width now uses the phone-style menu: a menu button opens a full-screen list (Sandy, 2026-09-29) */
         .nav .mm-menu { display:none; position:fixed; inset:0; z-index:9999; background:var(--color-black); flex-direction:column;
                         align-items:center; justify-content:center; gap:1.4rem; padding:2rem 1.5rem; transform:translateZ(0); }
@@ -496,13 +497,13 @@
                 <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
             </a>
             <div class="nav-links mm-menu" id="navLinks">
-                <a href="#mm-problem" class="nav-link">Problem</a>
-                <a href="#mm-why" class="nav-link">Why</a>
+                <a href="#mm-problem" class="nav-link">The problem</a>
+                <a href="#mm-why" class="nav-link">Why it exists</a>
                 <a href="#mm-what" class="nav-link">What it does</a>
                 <a href="#mm-how" class="nav-link">How it arrives</a>
                 <a href="#mm-catches" class="nav-link">What it catches</a>
                 <a href="#mm-integrations" class="nav-link">Integrations</a>
-                <a href="#mm-faq" class="nav-link">FAQ</a>
+                <a href="#mm-faq" class="nav-link">FAQ</a> <a href="#mm-form" class="nav-link">Contact</a>
             </div>
             <div class="mm-nav-actions">
                 <a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a>
@@ -897,7 +898,7 @@
                     <h3 class="mm-sub-title">Ask for your studio's pricing.</h3>
                     <p class="contact-text">Your team, your tools. Pricing and details within a day. If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
                 </div>
-                <div class="contact-form-wrap gsap-animate">
+                <div class="contact-form-wrap gsap-animate" id="mm-form">
                     <form class="contact-form" id="partnersForm" action="https://formspree.io/f/mbdagppd" method="POST">
                         <input type="hidden" name="_subject" value="Production Brain pricing request">
                         <input type="hidden" name="inquiry_type" value="Production Brain">
