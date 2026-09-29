@@ -376,13 +376,13 @@
         #mm-problem::after { display:none; }
         .mm-rays { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
         .mm-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
-        .mm-ray { fill:none; stroke:rgba(255,255,255,.2); stroke-width:1; vector-effect:non-scaling-stroke; }
+        .mm-ray { fill:none; stroke:rgba(255,255,255,.12); stroke-width:1; vector-effect:non-scaling-stroke; }
         .mm-pulse { fill:none; stroke-linecap:round; stroke-dasharray:5 200; stroke-dashoffset:5; animation:mm-ray-in var(--d) linear var(--delay) infinite; }
-        .mm-pulse-halo { stroke:#ff3b2f; stroke-width:9; opacity:.6; filter:url(#mmGlow); }
-        .mm-pulse-core { stroke:#ffe9e4; stroke-width:2.4; }
+        .mm-pulse-halo { stroke:#ff3b2f; stroke-width:6; opacity:.28; filter:url(#mmGlow); }
+        .mm-pulse-core { stroke:rgba(255,226,218,.55); stroke-width:1.6; }
         @keyframes mm-ray-in { from { stroke-dashoffset:5; } to { stroke-dashoffset:-100; } }
         .mm-core { transform-box:view-box; animation:mm-core 2.6s ease-in-out infinite; }
-        @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.28); opacity:1; } }
+        @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.6; } 50% { transform:scale(1.1); opacity:.78; } }
         #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
         @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
         /* What it does: the brain's nucleus turning behind plain cards; no glow on or behind them (Sandy, 2026-09-29) */
@@ -1023,7 +1023,7 @@
         if (!box) return;
         var NS = 'http://www.w3.org/2000/svg';
         var ANGLES = [-98,-84,-66,-52,-38,-27,-8,6,19,31,47,62,78,95,110,127,146,166,186,203,219,238,256];
-        var TIMES = ANGLES.map(function(_, i) { var d = 4.2 + ((i * 37) % 43) / 10; return [d, -((i * 53) % 71) / 71 * d]; });
+        var TIMES = ANGLES.map(function(_, i) { var d = 1.7 * (4.2 + ((i * 37) % 43) / 10); return [d, -((i * 53) % 71) / 71 * d]; });
         function el(name, attrs, parent) {
             var n = document.createElementNS(NS, name);
             for (var k in attrs) n.setAttribute(k, attrs[k]);
@@ -1046,7 +1046,7 @@
             var defs = el('defs', {}, svg);
             el('feGaussianBlur', { stdDeviation: phone ? 4 : 6 }, el('filter', { id: 'mmGlow', x: '-50%', y: '-50%', width: '200%', height: '200%' }, defs));
             var grad = el('radialGradient', { id: 'mmCoreGlow' }, defs);
-            el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.9' }, grad);
+            el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.5' }, grad);
             el('stop', { offset: '1', 'stop-color': '#ff4b3e', 'stop-opacity': '0' }, grad);
             var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
             el('circle', { 'class': 'mm-ray', cx: cx, cy: cy, r: Math.round(Math.max(w, h) * (phone ? 0.9 : 0.62)) }, svg);
@@ -1055,6 +1055,7 @@
                 var r = a * Math.PI / 180, x = Math.round(cx + Math.cos(r) * reach), y = Math.round(cy + Math.sin(r) * reach);
                 var d = 'M' + x + ' ' + y + 'L' + cx + ' ' + cy;
                 el('path', { 'class': 'mm-ray', d: d }, svg);
+                if (i % 2) return;   /* subdued: only every other line carries a glow (Sandy, 2026-09-29) */
                 var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
                 el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
                 el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
