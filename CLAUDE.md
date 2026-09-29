@@ -64,6 +64,6 @@ silver box and it has to be the subject of a photograph containing people.
 
 The `/demo` brain growing live over the machine photo. Lives entirely in
 `assets/hero-brain/` (read its `INSTALL.md`); the only page edit is one commented block in
-`index.html`. **Not merged to main on purpose:** Sandy owns the redesign on
-`origin/redesign/sandy` and pulls this branch in when she is ready. Do not merge it to
-`main` yourself, and do not touch her branch.
+`index.html`. **Merged to `main` and live on 2026-09-28 on Juan's word**, superseding the
+morning's plan to hold it for the redesign. Sandy's `redesign/sandy` picks it up when she
+merges `origin/main` (her branch rule). Do not touch her branch.
