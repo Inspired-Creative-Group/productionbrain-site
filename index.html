@@ -468,19 +468,18 @@
         #mm-integrations .mm-cap-num { font-family:var(--font-heading); font-weight:700; font-size:1.35rem; color:var(--color-red); text-transform:uppercase; }
         #mm-integrations .mm-cap-who { font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:#999; }
         @media (max-width:560px) { #mm-integrations .mm-cap-num { font-size:1.05rem; } #mm-integrations .mm-tier-caps > div + div { padding-left:.6rem; } }
-        /* Section menu in the top bar (Sandy, 2026-09-29): inline on wide screens, a full-screen menu below 1280px */
+        /* Section menu in the top bar (Sandy, 2026-09-29) */
         .nav .mm-nav-actions { display:flex; align-items:center; gap:.75rem; flex:none; }
-        .nav .mm-menu { gap:1.6rem; }
-        .nav .mm-menu .nav-link { font-size:.78rem; white-space:nowrap; }
-        @media (max-width:1279px) {
-            .nav .mm-menu { display:none; position:fixed; inset:0; z-index:9999; background:var(--color-black); flex-direction:column;
-                            align-items:center; justify-content:center; gap:1.4rem; padding:2rem 1.5rem; transform:translateZ(0); }
-            .nav .mm-menu.open { display:flex; }
-            .nav:has(.mm-menu.open) { backdrop-filter:none; -webkit-backdrop-filter:none; }
-            .nav .mm-menu .nav-link { font-size:1.35rem; color:var(--color-gray-300); letter-spacing:.08em; padding:.35rem 0; }
-            .nav .mm-menu .nav-link:hover, .nav .mm-menu .nav-link.active { color:#fff; }
-            .nav .nav-toggle { display:flex; position:relative; z-index:10000; }
-        }
+        .nav .mm-menu .nav-link { white-space:nowrap; }
+        /* Every width now uses the phone-style menu: a menu button opens a full-screen list (Sandy, 2026-09-29) */
+        .nav .mm-menu { display:none; position:fixed; inset:0; z-index:9999; background:var(--color-black); flex-direction:column;
+                        align-items:center; justify-content:center; gap:1.4rem; padding:2rem 1.5rem; transform:translateZ(0); }
+        .nav .mm-menu.open { display:flex; }
+        .nav:has(.mm-menu.open) { backdrop-filter:none; -webkit-backdrop-filter:none; }
+        .nav .mm-menu .nav-link { font-size:1.35rem; color:var(--color-gray-300); letter-spacing:.08em; padding:.35rem 0; }
+        .nav .mm-menu .nav-link:hover, .nav .mm-menu .nav-link.active { color:#fff; }
+        .nav .nav-toggle { display:flex; position:relative; z-index:10000; }
+        @media (min-width:1001px) { .nav .mm-menu { gap:1.6rem; } .nav .mm-menu .nav-link { font-size:1.9rem; } }
         @media (max-width:768px) { .nav .mm-nav-actions { gap:.5rem; } .nav .nav-toggle span { width:20px; }
             .nav .mm-nav-brand img { height:24px; } .nav .mm-nav-name { font-size:.64rem; } .nav .mm-nav-by { font-size:.52rem; }
             .nav .nav-cta-btn { padding:.5rem .65rem; font-size:.64rem; } }
@@ -1456,7 +1455,6 @@
         btn.addEventListener('click', function() { set(!menu.classList.contains('open')); });
         menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { set(false); }); });
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
-        window.addEventListener('resize', function() { if (window.innerWidth >= 1280 && menu.classList.contains('open')) set(false); });
         if (!('IntersectionObserver' in window)) return;
         var links = {}; menu.querySelectorAll('a[href^="#"]').forEach(function(a) { links[a.getAttribute('href').slice(1)] = a; });
         var io = new IntersectionObserver(function(es) {
