@@ -357,6 +357,13 @@
     <style>
         /* ICG layout pass (2026-09-29): the hero keeps its own styles; ICG's style.css drives everything below it. */
         .partners-hero-title { text-transform: uppercase; }
+        /* Hero text left-aligned like the ICG site, headline bigger but one line on desktop (Sandy, 2026-09-29) */
+        @media (min-width:1001px){
+          .mm-over{padding-top:calc(var(--nav-height) + 2vw)}
+          .mm-over .partners-hero-content{max-width:none;margin:0;text-align:left;display:flex;flex-wrap:wrap;align-items:center;column-gap:2.5rem;row-gap:1rem}
+          .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
+          .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
+        }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
         .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
@@ -386,9 +393,6 @@
             <div class="partners-hero-content">
                 <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
                 <p class="partners-hero-subtitle mm-lede">Connects every AI tool to remember, recall, learn and grow LOCALLY.</p>
-                <div class="partners-hero-ctas">
-                    <a href="#mm-why" class="btn btn-ghost">Why I built it (14 min) →</a>
-                </div>
             </div>
           </div>
         </div>
@@ -492,7 +496,7 @@
         <!-- HERO BRAIN OVERLAY. The demo brain growing in the air over the machine. Self-contained
              drop-in: everything lives in assets/hero-brain/ (see its INSTALL.md); delete this block
              to remove it. The numbers are % of the photo: where the box is, how big, how high. -->
-        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".partners-hero-ctas"
+        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".partners-hero-subtitle"
              data-box-x="50" data-box-y="51" data-size="30" data-lift="-10" data-mode="hold" data-phone="light" aria-hidden="true"></div>
         <script src="assets/hero-brain/hero-brain.js?v=2" defer></script>
         <!-- /HERO BRAIN OVERLAY -->
