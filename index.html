@@ -452,6 +452,12 @@
         .statement .mm-br-phone { display:none; }
         @media (min-width:769px) { .statement .statement-line { max-width:none; } .statement .statement-row { white-space:nowrap; } }
         @media (max-width:768px) { .statement .mm-br-phone { display:inline; } }
+        /* Integrations: no accordion, the list shown as it is, on a dark grey card with a fine stipple (Sandy, 2026-09-29) */
+        #mm-integrations .mm-integrations-box { max-width:960px; margin:2rem 0 0; padding:1.75rem 2rem; border-radius:12px;
+            border:1px solid rgba(255,255,255,.08); background-color:#242424;
+            background-image:radial-gradient(rgba(255,255,255,.075) 1px, transparent 1.3px); background-size:6px 6px; }
+        #mm-integrations .mm-integrations-box > p:first-child { margin-top:0; }
+        @media (max-width:768px) { #mm-integrations .mm-integrations-box { padding:1.25rem 1rem; } #mm-integrations .mm-panel td:first-child { white-space:normal; } }
     </style>
 </head>
 <body class="partners-page">
@@ -768,30 +774,20 @@
                 <span class="section-label">Integrations</span>
                 <h2 class="section-title">Works with <span class="text-accent">what you already use.</span></h2>
             </div>
-            <div class="partners-faq-list">
-                <div class="partners-faq-item gsap-animate">
-                    <button class="partners-faq-toggle" aria-expanded="false">
-                        <span>See all integrations</span>
-                        <span class="partners-faq-icon">+</span>
-                    </button>
-                    <div class="partners-faq-answer">
-                        <div class="mm-panel">
-                            <p>An integration connects one of your tools, built at setup. You pick which.</p>
-                            <table>
-                                <tr><th>Category</th><th>Examples</th></tr>
-                                <tr><td>Your AI tool</td><td>Claude Code, Codex, Cursor, claude.ai. Two-way: your agents ask it and write to it.</td></tr>
-                                <tr><td>Documents and notes</td><td>Notion, Google Docs, Coda, Craft, Evernote, Apple Notes</td></tr>
-                                <tr><td>Files</td><td>Google Drive, Dropbox, OneDrive, SharePoint, your file server</td></tr>
-                                <tr><td>Chat</td><td>Slack, Microsoft Teams, Discord, Google Chat</td></tr>
-                                <tr><td>Email</td><td>Gmail, Microsoft 365</td></tr>
-                                <tr><td>Project tracker</td><td>ClickUp, Asana, Trello, Monday, Linear, Jira</td></tr>
-                                <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, Otter, a folder of recordings</td></tr>
-                            </table>
-                            <p style="margin-top:1rem">Has an export or an API? It's on the menu.</p>
-                            <p>Your AI tool and meeting recordings run on our brain today. The rest is built and tested at setup, covered by the guarantee.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="mm-panel mm-integrations-box">
+                <p>An integration connects one of your tools, built at setup. You pick which.</p>
+                <table>
+                    <tr><th>Category</th><th>Examples</th></tr>
+                    <tr><td>Your AI tool</td><td>Claude Code, Codex, Cursor, claude.ai. Two-way: your agents ask it and write to it.</td></tr>
+                    <tr><td>Documents and notes</td><td>Notion, Google Docs, Coda, Craft, Evernote, Apple Notes</td></tr>
+                    <tr><td>Files</td><td>Google Drive, Dropbox, OneDrive, SharePoint, your file server</td></tr>
+                    <tr><td>Chat</td><td>Slack, Microsoft Teams, Discord, Google Chat</td></tr>
+                    <tr><td>Email</td><td>Gmail, Microsoft 365</td></tr>
+                    <tr><td>Project tracker</td><td>ClickUp, Asana, Trello, Monday, Linear, Jira</td></tr>
+                    <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, Otter, a folder of recordings</td></tr>
+                </table>
+                <p style="margin-top:1rem">Has an export or an API? It's on the menu.</p>
+                <p>Your AI tool and meeting recordings run on our brain today. The rest is built and tested at setup, covered by the guarantee.</p>
             </div>
         </div>
     </section>
