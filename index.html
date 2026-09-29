@@ -415,7 +415,11 @@
         .nav .mm-nav-brand { display:flex; align-items:center; gap:.7rem; text-decoration:none; }
         .nav .mm-nav-brand img { height:36px; width:auto; }
         .nav .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
-        @media (max-width:768px) { .nav .mm-nav-brand { gap:.5rem; } .nav .mm-nav-brand img { height:28px; } .nav .mm-nav-name { font-size:.78rem; } }
+        .nav .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
+        .nav .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
+        @media (max-width:768px) { .nav .mm-nav-brand { gap:.45rem; min-width:0; } .nav .mm-nav-brand img { height:26px; } .nav .mm-nav-name { font-size:.72rem; } .nav .mm-nav-by { font-size:.56rem; margin-top:.1rem; }
+            .nav .nav-cta-btn { padding:.55rem .8rem; font-size:.72rem; flex:0 0 auto; width:auto; } }
+        @media (max-width:360px) { .nav .nav-inner { padding-left:12px; padding-right:12px; } .nav .mm-nav-brand img { height:22px; } .nav .mm-nav-name { font-size:.62rem; letter-spacing:.01em; } .nav .mm-nav-by { font-size:.5rem; } .nav .nav-cta-btn { padding:.5rem .6rem; font-size:.64rem; } }
     </style>
 </head>
 <body class="partners-page">
@@ -425,7 +429,7 @@
         <div class="nav-inner">
             <a href="/" class="nav-logo mm-nav-brand" aria-label="The Production Brain, home">
                 <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
-                <span class="mm-nav-name">The Production Brain</span>
+                <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
             </a>
             <a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a>
         </div>
