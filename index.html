@@ -392,7 +392,7 @@
         #mm-what > .container { position:relative; z-index:1; }
         /* How it arrives: Juan's studio at midday, hero machine on the table, as the whole section's background,
            starting at the top (Sandy, 2026-09-29). The steps sit on one simple dark strip so they read over the photo. */
-        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:56.25vw; }
+        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(74vw, 760px); }   /* taller than the photo's 16:9 so the brain has air above the machine */
         #mm-how .mm-how-bg, #mm-how .mm-how-bg img { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
         #mm-how .mm-how-bg img { display:block; object-fit:cover; object-position:50% 0; }
         #mm-how .mm-how-bg::after { content:''; position:absolute; inset:0;
@@ -405,7 +405,7 @@
         #mm-how .mm-steps li + li { border-left:1px solid rgba(255,255,255,.1); }
         #mm-how .mm-step-num { font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--color-red); flex:none; }
         #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
-        @media (max-width:768px) {
+        @media (max-width:1000px) {
             #mm-how { min-height:0; padding-bottom:78vw; }
             #mm-how .mm-how-bg img { object-position:50% 100%; }
             #mm-how .mm-steps { grid-template-columns:1fr; }
@@ -429,6 +429,10 @@
         .footer .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
         /* Why it exists: a plain red outline around the video, no glow (Sandy, 2026-09-29) */
         #mm-why .mm-video, #mm-why .mm-video:hover { border:2px solid var(--color-red); }
+        /* How it arrives: rays converging on the machine, and the hero brain over it (Sandy, 2026-09-29) */
+        #mm-how .mm-how-rays { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+        #mm-how .mm-how-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+        #mm-how.is-paused .mm-pulse { animation-play-state:paused; }
     </style>
 </head>
 <body class="partners-page">
@@ -668,9 +672,19 @@
     <!-- ═══════════════════════════════════════ -->
     <section class="section plan" id="mm-how">
         <picture class="mm-how-bg" aria-hidden="true">
-            <source media="(max-width:768px)" srcset="assets/backgrounds/how-it-arrives-studio-phone.jpg" width="1080" height="1350">
+            <source media="(max-width:1000px)" srcset="assets/backgrounds/how-it-arrives-studio-phone.jpg" width="1080" height="1350">
             <img src="assets/backgrounds/how-it-arrives-studio.jpg" alt="" loading="lazy" decoding="async" width="2560" height="1440">
         </picture>
+        <!-- Lines converging on the machine, a glow running in along some of them (same look as the problem section). -->
+        <div class="mm-how-rays" aria-hidden="true"></div>
+        <!-- The hero's own brain animation, run a second time on this photo: the brain grows above the machine and its
+             lights come alive. Anchors are % of the painted photo (desktop 2560x1440 / phone 1080x1350 crops). -->
+        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid=".mm-steps"
+             data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
+             data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
+             data-lights-at="50.65,86.67;61.4,81.6;62.85,81.6;64.35,81.6"
+             data-lights-at-phone="46.9,85;71.1,82.2;74.3,81.9;77.4,81.7"
+             data-mode="hold" data-phone="light" data-interactive="0" data-labels="0" aria-hidden="true"></div>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">How it arrives</span>
@@ -1156,6 +1170,81 @@
             new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
         } else { inView = true; start(); }
         document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
+    })();
+    </script>
+    <!-- How it arrives: rays drawn to the machine in the photo (its centre measured on the painted image, cover-fit),
+         ending at its edges like cables. Same subdued glows as the problem section. Paused off screen. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-how');
+        var box = sec && sec.querySelector('.mm-how-rays');
+        var img = sec && sec.querySelector('.mm-how-bg img');
+        if (!box || !img) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var ANGLES = [-160,-142,-126,-112,-100,-88,-76,-64,-50,-36,-20,-6,8,24,156,172];
+        var TIMES = ANGLES.map(function(_, i) { var d = 1.7 * (4.2 + ((i * 37) % 43) / 10); return [d, -((i * 53) % 71) / 71 * d]; });
+        function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+        var lastKey = '';
+        function draw() {
+            var w = sec.clientWidth, h = sec.clientHeight, nw = img.naturalWidth, nh = img.naturalHeight;
+            if (!nw || !nh) return;
+            var phone = window.matchMedia('(max-width:1000px)').matches;
+            var r = Math.max(w / nw, h / nh), pw = nw * r, ph = nh * r;
+            var pos = (getComputedStyle(img).objectPosition || '50% 0%').split(' ').map(function(v) { return parseFloat(v) / 100; });
+            var left = (w - pw) * (isNaN(pos[0]) ? .5 : pos[0]), top = (h - ph) * (isNaN(pos[1]) ? 0 : pos[1]);
+            var m = phone ? { x: 50.1, y: 77, half: 32.3 } : { x: 52.05, y: 77, half: 14.55 };   /* machine centre and half-width, % of the photo */
+            var cx = Math.round(left + pw * m.x / 100), cy = Math.round(top + ph * m.y / 100), r0 = Math.round(pw * m.half / 100 * 1.08);
+            var key = w + 'x' + h + '@' + cx + ',' + cy + ',' + r0;
+            if (key === lastKey) return;
+            lastKey = key;
+            box.textContent = '';
+            var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
+            var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
+            var pulses = el('g', { 'class': 'mm-pulses' }, svg);
+            ANGLES.forEach(function(a, i) {
+                var t = a * Math.PI / 180, c = Math.cos(t), sn = Math.sin(t);
+                var d = 'M' + Math.round(cx + c * reach) + ' ' + Math.round(cy + sn * reach) + 'L' + Math.round(cx + c * r0) + ' ' + Math.round(cy + sn * r0 * 0.55);
+                el('path', { 'class': 'mm-ray', d: d }, svg);
+                if (i % 2) return;
+                var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
+                el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
+                el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
+            });
+        }
+        if (img.complete) draw(); else img.addEventListener('load', draw);
+        window.addEventListener('load', draw);
+        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(es) { es.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); }); }).observe(sec);
+        }
+    })();
+    </script>
+    <!-- How it arrives: start a second copy of the hero brain once the section is near. It waits for the hero's own
+         loader to add the renderer, then imports that same file (nothing downloads twice). The hero keeps window.heroBrain. -->
+    <script type="module">
+    (function() {
+        var mount = document.querySelector('.mm-how-brain');
+        var img = document.querySelector('#mm-how .mm-how-bg img');
+        if (!mount || !img || !('IntersectionObserver' in window)) return;
+        function whenCore(cb, tries) {
+            var s = document.querySelector('script[type="module"][src*="hero-brain.core.js"]');
+            if (s) return cb(s.src);
+            if ((tries || 0) < 60) setTimeout(function() { whenCore(cb, (tries || 0) + 1); }, 500);
+        }
+        var io = new IntersectionObserver(function(entries) {
+            if (!entries.some(function(e) { return e.isIntersecting; })) return;
+            io.disconnect();
+            img.loading = 'eager';
+            whenCore(function(src) {
+                import(src).then(function(mod) {
+                    var keep = window.heroBrain;
+                    mod.start(mount);
+                    window.mmHowBrain = window.heroBrain;
+                    if (keep) window.heroBrain = keep;
+                }).catch(function() {});
+            });
+        }, { rootMargin: '600px 0px' });
+        io.observe(mount);
     })();
     </script>
     <script src="gsap-animations.js"></script>
