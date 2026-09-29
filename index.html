@@ -444,6 +444,10 @@
         @keyframes mm-mark-breathe { 0%, 100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.12); opacity:1; } }
         @media (prefers-reduced-motion: reduce) { .statement .mm-pb-mark { animation:none; } }   /* the PB mark replaces ICG's icon here (Sandy, 2026-09-29) */
         #mm-problem .stakes-card-title { line-height:1.15; }   /* tighter leading in the problem card titles (Sandy, 2026-09-29) */
+        /* What it catches: the dot grid with travelling packets (Sandy, 2026-09-29) */
+        #mm-catches .mm-grid { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; pointer-events:none;
+            -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%); mask-image:linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%); }
+        #mm-catches::after { display:none; }
     </style>
 </head>
 <body class="partners-page">
@@ -715,7 +719,9 @@
     <!-- WHAT IT CATCHES (ICG workflow layout)    -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section stakes-section ai-system-section" id="mm-catches">
-        <img class="section-bg" src="assets/backgrounds/system-bg.jpg" alt="" loading="lazy" aria-hidden="true" style="opacity:0.16">
+        <!-- A fine dot grid with a few packets travelling down it, lighting the dots as they pass (after the footer of
+             inngest.com/ai). Drawn in code; fades out towards the top. -->
+        <canvas class="mm-grid" aria-hidden="true"></canvas>
         <div class="container">
             <div class="ai-system gsap-animate">
                 <span class="section-label">What it catches</span>
@@ -1330,6 +1336,66 @@
             new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
         } else { inView = true; start(); }
         document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
+    })();
+    </script>
+    <!-- What it catches: dot grid + packets. The grid is drawn once per size into an offscreen canvas; each frame only
+         repaints the packets. About 30 fps, paused off screen, grid only (no packets) under reduced motion. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-catches');
+        var cv = sec && sec.querySelector('.mm-grid');
+        if (!cv || !cv.getContext) return;
+        var ctx = cv.getContext('2d'), base = document.createElement('canvas'), bctx = base.getContext('2d');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var W = 0, H = 0, dpr = 1, gap = 22, cols = 0, rows = 0, ox = 0, oy = 0, packets = [], running = false, inView = false, raf = 0, last = 0, prev = 0;
+        function size() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = sec.clientWidth; H = sec.clientHeight; gap = W < 700 ? 18 : 22;
+            [cv, base].forEach(function(c) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            cols = Math.ceil(W / gap) + 1; rows = Math.ceil(H / gap) + 1; ox = (W - (cols - 1) * gap) / 2; oy = (H - (rows - 1) * gap) / 2;
+            bctx.clearRect(0, 0, W, H);
+            for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) {
+                var tw = 0.07 + 0.06 * ((i * 7 + j * 13) % 5) / 4;   /* a little unevenness, like the reference */
+                bctx.fillStyle = 'rgba(255,255,255,' + tw.toFixed(3) + ')';
+                bctx.fillRect(ox + i * gap - 0.6, oy + j * gap - 0.6, 1.2, 1.2);
+            }
+            var n = W < 700 ? 7 : 14;
+            packets = [];
+            for (var k = 0; k < n; k++) packets.push(spawn(true));
+        }
+        function spawn(anywhere) {
+            return { c: Math.floor(Math.random() * cols), y: anywhere ? Math.random() * H : -gap * 4,
+                     v: 34 + Math.random() * 46, len: 3 + Math.floor(Math.random() * 4), white: Math.random() < 0.18 };
+        }
+        function frame(now) {
+            if (running) raf = requestAnimationFrame(frame);
+            if (running && now - last < 33) return;
+            var dt = prev ? Math.min(0.1, (now - prev) / 1000) : 0; prev = now; last = now;
+            ctx.clearRect(0, 0, W, H);
+            ctx.drawImage(base, 0, 0, W, H);
+            if (still) return;
+            packets.forEach(function(p, idx) {
+                p.y += p.v * dt;
+                if (p.y - p.len * gap > H) packets[idx] = p = spawn(false);
+                var x = ox + p.c * gap, head = Math.floor((p.y - oy) / gap);
+                for (var t = 0; t < p.len; t++) {
+                    var j = head - t; if (j < 0 || j >= rows) continue;
+                    var y = oy + j * gap, a = (1 - t / p.len) * (t === 0 ? 0.95 : 0.6);
+                    ctx.fillStyle = p.white ? 'rgba(255,255,255,' + a.toFixed(3) + ')' : 'rgba(232,0,13,' + a.toFixed(3) + ')';
+                    var s = t === 0 ? 2.4 : 1.8;
+                    ctx.fillRect(x - s / 2, y - s / 2, s, s);
+                }
+            });
+        }
+        function start() { if (running) return; running = true; prev = 0; raf = requestAnimationFrame(frame); }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+        size(); frame(performance.now());
+        if (window.ResizeObserver) new ResizeObserver(function() { size(); if (!running) frame(performance.now()); }).observe(sec);
+        if ('IntersectionObserver' in window && !still) {
+            new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
+        }
+        document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView && !still) start(); });
     })();
     </script>
     <script src="gsap-animations.js"></script>
