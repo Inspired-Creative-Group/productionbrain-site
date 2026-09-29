@@ -461,6 +461,13 @@
         #mm-integrations .mm-panel th:first-child, #mm-integrations .mm-panel td:first-child { padding-left:0; border-right:1px solid rgba(255,255,255,.14); width:30%; }
         #mm-integrations .mm-panel table + p { margin-top:1.25rem !important; }
         @media (max-width:768px) { #mm-integrations .mm-panel th, #mm-integrations .mm-panel td { padding:.8rem .6rem; } #mm-integrations .mm-panel td:first-child { white-space:normal; width:34%; } }
+        /* Integrations: how many each plan includes, as a ruled row matching the chart (Sandy, 2026-09-29) */
+        #mm-integrations .mm-tier-caps { display:grid; grid-template-columns:repeat(3, 1fr); margin:0 0 2rem; border-top:1px solid rgba(255,255,255,.35); border-bottom:1px solid rgba(255,255,255,.35); }
+        #mm-integrations .mm-tier-caps > div { padding:1rem 1rem 1rem 0; display:flex; flex-direction:column; gap:.2rem; }
+        #mm-integrations .mm-tier-caps > div + div { padding-left:1rem; border-left:1px solid rgba(255,255,255,.14); }
+        #mm-integrations .mm-cap-num { font-family:var(--font-heading); font-weight:700; font-size:1.35rem; color:var(--color-red); text-transform:uppercase; }
+        #mm-integrations .mm-cap-who { font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:#999; }
+        @media (max-width:560px) { #mm-integrations .mm-cap-num { font-size:1.05rem; } #mm-integrations .mm-tier-caps > div + div { padding-left:.6rem; } }
     </style>
 </head>
 <body class="partners-page">
@@ -778,16 +785,21 @@
                 <h2 class="section-title">Works with <span class="text-accent">what you already use.</span></h2>
             </div>
             <div class="mm-panel mm-integrations-box">
-                <p>An integration connects one of your tools, built at setup. You pick which.</p>
+                <p>An integration connects one of your tools, built at setup. You pick which, up to your plan's limit. Your AI tools are always included.</p>
+                <div class="mm-tier-caps">
+                    <div><span class="mm-cap-num">Up to 3</span><span class="mm-cap-who">Solo producer</span></div>
+                    <div><span class="mm-cap-num">Up to 5</span><span class="mm-cap-who">Studio</span></div>
+                    <div><span class="mm-cap-num">6 or more</span><span class="mm-cap-who">Company</span></div>
+                </div>
                 <table>
                     <tr><th>Category</th><th>Examples</th></tr>
                     <tr><td>Your AI tool</td><td>Claude Code, Codex, Cursor, claude.ai. Two-way: your agents ask it and write to it.</td></tr>
-                    <tr><td>Documents and notes</td><td>Notion, Google Docs, Coda, Craft, Evernote, Apple Notes</td></tr>
+                    <tr><td>Documents and notes</td><td>Notion, Google Docs, Coda, Craft, Evernote</td></tr>
                     <tr><td>Files</td><td>Google Drive, Dropbox, OneDrive, SharePoint, your file server</td></tr>
                     <tr><td>Chat</td><td>Slack, Microsoft Teams, Discord, Google Chat</td></tr>
                     <tr><td>Email</td><td>Gmail, Microsoft 365</td></tr>
                     <tr><td>Project tracker</td><td>ClickUp, Asana, Trello, Monday, Linear, Jira</td></tr>
-                    <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, Otter, a folder of recordings</td></tr>
+                    <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, a folder of recordings</td></tr>
                 </table>
                 <p style="margin-top:1rem">Has an export or an API? It's on the menu.</p>
                 <p>Your AI tool and meeting recordings run on our brain today. The rest is built and tested at setup, covered by the guarantee.</p>
