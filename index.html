@@ -452,12 +452,15 @@
         .statement .mm-br-phone { display:none; }
         @media (min-width:769px) { .statement .statement-line { max-width:none; } .statement .statement-row { white-space:nowrap; } }
         @media (max-width:768px) { .statement .mm-br-phone { display:inline; } }
-        /* Integrations: no accordion, the list shown as it is, on a dark grey card with a fine stipple (Sandy, 2026-09-29) */
-        #mm-integrations .mm-integrations-box { max-width:960px; margin:2rem 0 0; padding:1.75rem 2rem; border-radius:12px;
-            border:1px solid rgba(255,255,255,.08); background-color:#242424;
-            background-image:radial-gradient(rgba(255,255,255,.075) 1px, transparent 1.3px); background-size:6px 6px; }
-        #mm-integrations .mm-integrations-box > p:first-child { margin-top:0; }
-        @media (max-width:768px) { #mm-integrations .mm-integrations-box { padding:1.25rem 1rem; } #mm-integrations .mm-panel td:first-child { white-space:normal; } }
+        /* Integrations: no accordion and no box; the list as a clean ruled chart (Sandy, 2026-09-29) */
+        #mm-integrations .mm-integrations-box { max-width:960px; margin:2rem 0 0; padding:0; background:none; border:0; }
+        #mm-integrations .mm-integrations-box > p:first-child { margin:0 0 1.25rem; }
+        #mm-integrations .mm-panel table { border-collapse:collapse; border-top:1px solid rgba(255,255,255,.35); }
+        #mm-integrations .mm-panel th { padding:.8rem 1rem; border-bottom:1px solid rgba(255,255,255,.35); }
+        #mm-integrations .mm-panel td { padding:.95rem 1rem; border-bottom:1px solid rgba(255,255,255,.14); }
+        #mm-integrations .mm-panel th:first-child, #mm-integrations .mm-panel td:first-child { padding-left:0; border-right:1px solid rgba(255,255,255,.14); width:30%; }
+        #mm-integrations .mm-panel table + p { margin-top:1.25rem !important; }
+        @media (max-width:768px) { #mm-integrations .mm-panel th, #mm-integrations .mm-panel td { padding:.8rem .6rem; } #mm-integrations .mm-panel td:first-child { white-space:normal; width:34%; } }
     </style>
 </head>
 <body class="partners-page">
