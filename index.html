@@ -29,7 +29,7 @@
     <link rel="canonical" href="https://theproductionbrain.ai/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="partners.css">
     <style>
@@ -354,6 +354,13 @@
 }
 </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        /* ICG layout pass (2026-09-29): the hero keeps its own styles; ICG's style.css drives everything below it. */
+        .partners-hero-title { text-transform: uppercase; }
+        .mm-video { max-width: 960px; margin: 2rem 0 0; }
+        #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
+        .contact-info .mm-founding { margin-top: 2rem; }
+    </style>
 </head>
 <body class="partners-page">
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -489,80 +496,177 @@
         <!-- /HERO BRAIN OVERLAY -->
     </section>
 
-    <!-- PROBLEM -->
-    <section class="section partners-problem" id="mm-problem">
+    <main id="main-content">
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- PROBLEM (ICG stakes layout)              -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section stakes-section" id="mm-problem">
+        <img class="section-bg" src="assets/backgrounds/stakes-bg.jpg" alt="" loading="lazy" aria-hidden="true">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">The problem</span>
                 <h2 class="section-title">The memory isn't yours.<br><span class="text-accent">That is the problem.</span></h2>
             </div>
-            <ul class="mm-lines">
-                <li class="gsap-animate"><h3>Smart inside a folder. Blind across the job.</h3><p>Claude has no idea what Codex learned this morning. Neither of them read the email that changed the brief.</p></li>
-                <li class="gsap-animate"><h3>What it keeps, you can't see.</h3><p>It kept something. You can't see what. And it gets wiped.</p></li>
-                <li class="gsap-animate"><h3>And it isn't yours.</h3><p>Priced by the seat. Held on their servers. Gone when you leave.</p></li>
-            </ul>
+            <div class="stakes-cards">
+                <div class="stakes-card gsap-animate">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 11a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M5 18h30"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">Smart inside a folder. Blind across the job.</h3>
+                    <p>Claude has no idea what Codex learned this morning. Neither of them read the email that changed the brief.</p>
+                </div>
+                <div class="stakes-card gsap-animate">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">What it keeps, you can't see.</h3>
+                    <p>It kept something. You can't see what. And it gets wiped.</p>
+                </div>
+                <div class="stakes-card gsap-animate">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="18" width="22" height="16" rx="2"/><path d="M14 18v-5a6 6 0 0 1 12 0v5"/><path d="M20 24v4"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">And it isn't yours.</h3>
+                    <p>Priced by the seat. Held on their servers. Gone when you leave.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- WHY IT EXISTS -->
-    <section class="section partners-why" id="mm-why">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHY IT EXISTS (the guide + the video)    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section" id="mm-why">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Why it exists</span>
                 <h2 class="section-title">I became the context manager<br><span class="text-accent">for my own agents.</span></h2>
                 <p class="section-subtitle">Twenty years in production, then I flipped the company to run on AI. Fourteen minutes on what I built instead. The second half is the demo: fresh accounts, nothing pasted in.</p>
             </div>
-            <div class="mm-video gsap-animate">
+            <div class="mm-video">
                 <iframe src="https://www.youtube-nocookie.com/embed/4EOZkllNoDw" title="Your AI's Memory Isn't Yours. So I Built My Own." loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- WHAT IT DOES -->
-    <section class="section partners-why" id="mm-what">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHAT IT DOES (ICG value-prop layout)     -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section value-prop" id="mm-what">
+        <img class="section-bg" src="assets/backgrounds/valueprop-bg.jpg" alt="" loading="lazy" aria-hidden="true" style="opacity:0.15">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">What it does</span>
                 <h2 class="section-title">It keeps. It checks.<br><span class="text-accent">It moves with you.</span></h2>
             </div>
-            <ul class="mm-lines">
-                <li class="gsap-animate"><h3>Every agent reads the same memory.</h3><p>Claude today. Codex, Cursor and others plug into the same door.</p></li>
-                <li class="gsap-animate"><h3>Checks its notes every night.</h3><p>Stale, duplicated, or two notes that disagree. Flagged for you, never deleted. On your models.</p></li>
-                <li class="gsap-animate"><h3>The brain's own work never leaves.</h3><p>Your AI tools see only what they ask for. Local models, a private encrypted network.</p></li>
-            </ul>
-            <p class="mm-plain gsap-animate">It never touches your project files. It remembers what was decided.</p>
+            <div class="value-prop-grid">
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">01</span>
+                    <h3 class="value-prop-title">Every agent reads the same memory.</h3>
+                    <p class="value-prop-desc">Claude today. Codex, Cursor and others plug into the same door.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">02</span>
+                    <h3 class="value-prop-title">Checks its notes every night.</h3>
+                    <p class="value-prop-desc">Stale, duplicated, or two notes that disagree. Flagged for you, never deleted. On your models.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">03</span>
+                    <h3 class="value-prop-title">The brain's own work never leaves.</h3>
+                    <p class="value-prop-desc">Your AI tools see only what they ask for. Local models, a private encrypted network.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- HOW IT ARRIVES -->
-    <section class="section partners-process" id="mm-how">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- STATEMENT (ICG statement layout)         -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="statement">
+        <img class="statement-bg" src="assets/backgrounds/system-bg.jpg" alt="" loading="lazy" aria-hidden="true">
+        <div class="container">
+            <img class="statement-mark-logo" src="favicon-512x512.png" alt="" aria-hidden="true" width="96" height="96">
+            <p class="statement-line gsap-animate"><span class="statement-row">It never touches your project files.</span><span class="statement-row text-accent">It remembers what was decided.</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- HOW IT ARRIVES (ICG plan layout)         -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section plan" id="mm-how">
+        <img class="section-bg section-bg--alive" src="assets/backgrounds/plan-bg.jpg" alt="" loading="lazy" aria-hidden="true" style="opacity:0.18">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">How it arrives</span>
                 <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Customised to how your team works.</span></h2>
-                <p class="section-subtitle">Tell us your tools. We build it, load the models, and bring it working. Maintained remotely over a secure network, with two encrypted copies we keep for you. Three studios this quarter.</p>
             </div>
+            <div class="plan-steps">
+                <div class="plan-step gsap-animate">
+                    <span class="plan-step-num">01</span>
+                    <h3 class="plan-step-title">Tell us your tools.</h3>
+                </div>
+                <div class="plan-step gsap-animate">
+                    <span class="plan-step-num">02</span>
+                    <h3 class="plan-step-title">We build it, load the models, and bring it working.</h3>
+                </div>
+                <div class="plan-step gsap-animate">
+                    <span class="plan-step-num">03</span>
+                    <h3 class="plan-step-title">Maintained remotely</h3>
+                    <p class="plan-step-desc">Over a secure network, with two encrypted copies we keep for you.</p>
+                </div>
+            </div>
+            <p class="mm-plain gsap-animate-cta">Three studios this quarter.</p>
         </div>
     </section>
 
-    <!-- WHAT IT CATCHES -->
-    <section class="section partners-why" id="mm-catches">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHAT IT CATCHES (ICG workflow layout)    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section stakes-section ai-system-section" id="mm-catches">
+        <img class="section-bg" src="assets/backgrounds/system-bg.jpg" alt="" loading="lazy" aria-hidden="true" style="opacity:0.16">
         <div class="container">
-            <div class="section-header gsap-animate">
+            <div class="ai-system gsap-animate">
                 <span class="section-label">What it catches</span>
-                <h2 class="section-title">Six weeks in.<br><span class="text-accent">What a Tuesday looks like.</span></h2>
-                <p class="section-subtitle">You sit down and it has already been through last night. Once your email and tracker are connected, these are the kinds of things it brings you.</p>
+                <h3 class="ai-section-title">Six weeks in.<br> <span class="text-accent">What a Tuesday looks like.</span></h3>
+                <p class="ai-system-intro">You sit down and it has already been through last night. Once your email and tracker are connected, these are the kinds of things it brings you.</p>
+                <div class="ai-layers">
+                    <div class="ai-layer gsap-animate">
+                        <span class="ai-layer-num">01</span>
+                        <div class="ai-layer-content">
+                            <h4>The track was cleared for social only.</h4>
+                            <p>The client said so in an email in March. The brief says music approved. In August the broadcast cut ships with it.</p>
+                        </div>
+                    </div>
+                    <div class="ai-layer gsap-animate">
+                        <span class="ai-layer-num">02</span>
+                        <div class="ai-layer-content">
+                            <h4>You already promised that category away.</h4>
+                            <p>January's contract has an exclusivity clause. In September someone starts a deck for a competitor. Nobody has opened the contract since it was signed.</p>
+                        </div>
+                    </div>
+                    <div class="ai-layer gsap-animate">
+                        <span class="ai-layer-num">03</span>
+                        <div class="ai-layer-content">
+                            <h4>The spec came off last year's sheet.</h4>
+                            <p>The broadcaster wants one loudness number. Your tracker has another. Delivery gets rejected at five on the Friday of a long weekend.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="ai-system-intro mm-after-layers">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
             </div>
-            <ul class="mm-lines">
-                <li class="gsap-animate"><h3>The track was cleared for social only.</h3><p>The client said so in an email in March. The brief says music approved. In August the broadcast cut ships with it.</p></li>
-                <li class="gsap-animate"><h3>You already promised that category away.</h3><p>January's contract has an exclusivity clause. In September someone starts a deck for a competitor. Nobody has opened the contract since it was signed.</p></li>
-                <li class="gsap-animate"><h3>The spec came off last year's sheet.</h3><p>The broadcaster wants one loudness number. Your tracker has another. Delivery gets rejected at five on the Friday of a long weekend.</p></li>
-            </ul>
-            <p class="mm-plain gsap-animate">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
         </div>
     </section>
 
-    <!-- INTEGRATIONS -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- INTEGRATIONS                             -->
+    <!-- ═══════════════════════════════════════ -->
     <section class="section partners-faq" id="mm-integrations">
         <div class="container">
             <div class="section-header gsap-animate">
@@ -597,7 +701,9 @@
         </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- FAQ                                      -->
+    <!-- ═══════════════════════════════════════ -->
     <section class="section partners-faq" id="mm-faq">
         <div class="container">
             <div class="section-header gsap-animate">
@@ -637,22 +743,24 @@
         </div>
     </section>
 
-    <!-- CONTACT -->
-    <section class="section partners-contact" id="mm-contact">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- REQUEST PRICING (ICG contact layout)     -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section contact" id="mm-contact">
         <div class="container">
-            <div class="partners-contact-grid">
-                <div class="partners-contact-text gsap-animate">
+            <div class="contact-grid">
+                <div class="contact-info gsap-animate">
                     <span class="section-label">Request pricing</span>
                     <h2 class="section-title">Pricing for <span class="text-accent">your studio.</span></h2>
-                    <p>Your team, your tools. Pricing and details within a day.</p>
-                    <p>If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
+                    <p class="contact-text">Your team, your tools. Pricing and details within a day.</p>
+                    <p class="contact-text">If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
                     <div class="mm-card mm-founding">
                         <h3>One founding studio.</h3>
                         <p>We build the first one with a single studio, chosen from the applicants. The build fee is waived. You buy the Mac at Apple's price and pay for monthly care. In return: a case study, a testimonial and honest feedback.</p>
                         <p>Applications close October 31. Tick the box on the form to apply.</p>
                     </div>
                 </div>
-                <div class="partners-contact-form-wrapper gsap-animate">
+                <div class="contact-form-wrap gsap-animate">
                     <form class="contact-form" id="partnersForm" action="https://formspree.io/f/mbdagppd" method="POST">
                         <input type="hidden" name="_subject" value="Production Brain pricing request">
                         <input type="hidden" name="inquiry_type" value="Production Brain">
@@ -700,7 +808,7 @@
                         </div>
                         <label class="mm-check"><input type="checkbox" name="founding_application" value="yes"> Apply for the founding studio spot</label>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
-                        <button type="submit" class="btn btn-primary btn-submit" id="partnerSubmitBtn">Request pricing</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Request pricing</button>
                     </form>
                     <div class="form-success" id="partnerFormSuccess" style="display:none;">
                         <div class="form-success-icon">✓</div>
@@ -712,47 +820,48 @@
         </div>
     </section>
 
+    <!-- ═══════════════════════════════════════ -->
+    <!-- FOOTER (ICG footer)                      -->
+    <!-- ═══════════════════════════════════════ -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="assets/logo.png" alt="Inspired Creative Group Inc." class="footer-logo" />
-                    <p class="footer-tagline">Two decades of creative expertise.<br>Amplified by 40+ AI agents.</p>
+                    <p class="footer-tagline">Human-directed. AI-powered. <span class="text-accent">Made to connect.</span></p>
                 </div>
                 <div class="footer-links">
-                    <h4>Navigate</h4>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#home">Home</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#about">About</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#services">Services</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#work">Work</a>
-                    <a href="/">The Production Brain</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#services-creative">Inspired Creative</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#services-ai">Inspired AI Innovation</a>
+                    <h4>Navigation</h4>
+                    <a href="https://inspiredcreativegroupinc.com/#about">About</a>
+                    <a href="https://inspiredcreativegroupinc.com/#services">Services</a>
+                    <a href="https://inspiredcreativegroupinc.com/#work">Our Work</a>
+                    <a href="https://inspiredcreativegroupinc.com/#contact">Contact</a>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#contact">Contact Us</a>
+                    <a href="mailto:info@inspiredcreativegroupinc.com">Email Us</a>
                     <div class="footer-social">
                         <a href="https://www.linkedin.com/in/juanvalenciaproduction/" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 Inspired Creative Group Inc.
+                <p>© 2026 Inspired Creative Group Inc. All rights reserved.<br>
                 <span class="footer-location">Toronto, Ontario · Halifax, Nova Scotia · Working Globally</span></p>
             </div>
         </div>
     </footer>
 
+    </main>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
     <!-- GSAP + Plugins -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
     <script>
     (function() {
         'use strict';
@@ -810,7 +919,41 @@
         }
     })();
     </script>
-    <script src="partners-animations.js"></script>
+    <script>
+    (function() {
+        'use strict';
+        var nav = document.getElementById('nav');
+        var backToTop = document.getElementById('backToTop');
+        var progress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', function() {
+            var y = window.scrollY;
+            if (nav) nav.classList.toggle('scrolled', y > 50);
+            if (backToTop) backToTop.classList.toggle('visible', y > window.innerHeight);
+            if (progress) {
+                var h = document.documentElement.scrollHeight - window.innerHeight;
+                progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+            }
+        }, { passive: true });
+        if (backToTop) backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    })();
+    </script>
+
+    <!-- Statement: each line rises as the section comes into view (same as the ICG site) -->
+    <script>
+    (function() {
+        var section = document.querySelector('.statement');
+        if (!section) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { section.classList.add('is-in'); return; }
+        if (!('IntersectionObserver' in window)) { section.classList.add('is-in'); return; }
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { section.classList.add('is-in'); io.disconnect(); }
+            });
+        }, { threshold: 0.35 });
+        io.observe(section);
+    })();
+    </script>
+    <script src="gsap-animations.js"></script>
     <script>(function(){try{navigator.sendBeacon&&navigator.sendBeacon("https://icg-beacon.beacon-worker.workers.dev/pv",JSON.stringify({p:location.pathname,r:document.referrer||"",t:document.title}))}catch(e){}})();</script>
 </body>
 </html>
