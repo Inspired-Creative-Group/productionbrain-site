@@ -68,6 +68,10 @@ function readSettings(el) {
     rings: d.rings !== '0',
     glow: num(d.glow, .5),        // the warm core haze, 0 to 1
     minSide: num(d.minSide, 140), // below this many pixels the brain stays hidden
+    // the canvas is wider and taller than the brain's frame, so the breath and the rings
+    // never clip and there is empty space to tap out of a selection
+    frameWide: num(d.frameWide, 2.4),   // canvas width as a multiple of the frame side
+    frameBelow: num(d.frameBelow, .45), // extra canvas below the frame, as a fraction of the side
   };
 }
 
@@ -375,7 +379,7 @@ export function start(el) {
   }
 
   // ---- placement: a square of the photo, above the box ----
-  let side = 0, distance = 1, visible = false;
+  let side = 0, distance = 1, visible = false, frameKey = '';
   function place() {
     const mount = el.getBoundingClientRect();
     const pr = paintedRect(img);
@@ -397,10 +401,16 @@ export function start(el) {
     if (show !== visible) { visible = show; canvas.style.display = show ? 'block' : 'none'; }
     if (!show) return;
     const px = Math.round(sidePx);
-    canvas.style.left = `${Math.round(cx - px / 2 - mount.left)}px`;
+    // The brain's frame: a square of side px whose centre is (cx, top + px/2). The canvas
+    // is bigger than the frame; the camera is offset so the brain still sits in the frame.
+    const bcx = cx, bcy = top + px / 2;
+    let W = Math.round(Math.min(mount.width, px * s.frameWide));
+    let left = Math.round(Math.max(mount.left, Math.min(bcx - W / 2, mount.right - W)));
+    let H = Math.round(Math.min(px * (1 + s.frameBelow), mount.bottom - top));
+    canvas.style.left = `${Math.round(left - mount.left)}px`;
     canvas.style.top = `${Math.round(top - mount.top)}px`;
-    canvas.style.width = canvas.style.height = `${px}px`;
-    labels.style.left = canvas.style.left; labels.style.top = canvas.style.top; labels.style.width = labels.style.height = `${px}px`;
+    canvas.style.width = `${W}px`; canvas.style.height = `${H}px`;
+    labels.style.left = canvas.style.left; labels.style.top = canvas.style.top; labels.style.width = `${W}px`; labels.style.height = `${H}px`;
     const at = narrow ? s.lightsAtPhone : s.lightsAt;
     lightEls.forEach((l, i) => {
       const [lx, ly] = at[i] || at[0];
@@ -410,16 +420,23 @@ export function start(el) {
       l.style.width = l.style.height = `${Math.round(size)}px`;
       l.style.display = s.lights && show ? 'block' : 'none';
     });
-    const reach = Math.ceil(2 * Math.hypot(Math.max(cx - mount.left, mount.right - cx), Math.max(top + px / 2 - mount.top, mount.bottom - top - px / 2)));
-    beat.style.left = `${Math.round(cx - mount.left)}px`;
-    beat.style.top = `${Math.round(top + px / 2 - mount.top)}px`;
+    const reach = Math.ceil(2 * Math.hypot(Math.max(bcx - mount.left, mount.right - bcx), Math.max(bcy - mount.top, mount.bottom - bcy)));
+    beat.style.left = `${Math.round(bcx - mount.left)}px`;
+    beat.style.top = `${Math.round(bcy - mount.top)}px`;
     beat.style.setProperty('--reach', `${reach}px`);
-    if (px !== side) {
-      side = px;
-      renderer.setSize(px, px, false);
-      camera.aspect = 1; camera.updateProjectionMatrix();
+    // A virtual view centred on the brain, of which the canvas shows a window. The brain
+    // is fitted to the frame's height, so its size on screen is the frame's, not the canvas's.
+    const ox = bcx - left, oy = bcy - top;
+    const fullW = 2 * Math.max(ox, W - ox), fullH = 2 * Math.max(oy, H - oy);
+    const key = [W, H, px, fullW, fullH, ox, oy].join(',');
+    if (key !== frameKey) {
+      frameKey = key; side = px;
+      renderer.setSize(W, H, false);
+      camera.aspect = fullW / fullH;
+      camera.setViewOffset(fullW, fullH, fullW / 2 - ox, fullH / 2 - oy, W, H);
+      camera.updateProjectionMatrix();
       halfHeight.value = renderer.getDrawingBufferSize(new THREE.Vector2()).y / 2;
-      distance = FIT_RADIUS / (.96 * Math.tan(FOV / 2 * Math.PI / 180));
+      distance = FIT_RADIUS * fullH / (.9 * px * Math.tan(FOV / 2 * Math.PI / 180));
     }
   }
 
@@ -596,7 +613,7 @@ export function start(el) {
   // Tune by eye from the console: heroBrain.set({size: 34, lift: -3}).
   window.heroBrain = {
     settings: s,
-    set(patch) { Object.assign(s, patch); side = 0; relayout(); el.style.setProperty('--hero-brain-opacity', String(s.opacity)); },
+    set(patch) { Object.assign(s, patch); frameKey = ''; relayout(); el.style.setProperty('--hero-brain-opacity', String(s.opacity)); },
     replay() { select(null); reset(); fading = false; canvas.classList.remove('is-fading'); if (still) renderStill(); else heartbeat(); },
     select(id) { select(id ? byId.get(id) || null : null); },
     state() { return { selected: selected && selected.id, angle: +angle.toFixed(3), pitch: +pitch.toFixed(3), elapsed, growthTime: phase === 'grow' ? warpTime(elapsed, plan.duration, s.speed, s.warp) : plan.duration, phase, running, visible, onScreen, frames, side, still }; },
@@ -604,9 +621,10 @@ export function start(el) {
       renderer.render(scene, camera);
       const gl = renderer.getContext(), w = gl.drawingBufferWidth, h = gl.drawingBufferHeight;
       const px = new Uint8Array(w * h * 4); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px);
-      let lit = 0; for (let i = 3; i < px.length; i += 4) if (px[i]) lit++;
+      let lit = 0, x0 = w, x1 = 0, y0 = h, y1 = 0;
+      for (let i = 3; i < px.length; i += 4) if (px[i] > 40) { lit++; const q = (i - 3) / 4, x = q % w, y = (q - x) / w; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
       let alive = 0, sz = 0; for (let i = 0; i < N; i++) { if (coreAlpha.getX(i) > 0) alive++; sz += coreSize.getX(i); }
-      return { lit, of: w * h, alive, meanSize: sz / N, cam: camera.position.toArray().map(Math.round), pos0: [positions.getX(0), positions.getY(0), positions.getZ(0)].map(Math.round), halfHeight: halfHeight.value, distance };
+      return { lit, of: w * h, bbox: [x0, h - 1 - y1, x1, h - 1 - y0], canvas: [w, h], alive, meanSize: sz / N, cam: camera.position.toArray().map(Math.round), pos0: [positions.getX(0), positions.getY(0), positions.getZ(0)].map(Math.round), halfHeight: halfHeight.value, distance };
     },
   };
 

@@ -67,6 +67,7 @@ All are percentages of the **painted photo** (object-fit: cover is accounted for
 | `data-lights-at`, `data-lights-at-phone` | see defaults | where the lights sit, `x,y;x,y;...` as % of the painted photo, LED first then the ports. Re-measure if the photo changes. |
 | `data-heart` | 1 | the wireframe core at the centre beats like a resting heart, about 62 a minute. `0` keeps it still. |
 | `data-interactive` | 1 | once grown: drag to turn it (with a little inertia; auto-turn resumes after 4 s), tap a node to light up everything it connects to, tap empty space to clear. `0` makes it a pure picture again. |
+| `data-frame-wide`, `data-frame-below` | 2.4, .45 | the canvas is wider than the brain's frame (2.4x its side, capped at the hero's width) and reaches below it (0.45x the side), so the breath and the rings never clip and there is empty space to tap out of a selection. The brain itself stays the frame's size and position. |
 | `data-mode` | hold | `hold`: grow once, keep turning. `loop`: hold `data-hold-seconds` (8), fade out, regrow. |
 | `data-phone` | light | below 1000px (the wide crop): `light` = the busiest half of the nodes, no halos, lower pixel ratio. `off` = no brain on phones. |
 | `data-box-x-phone`, `data-box-y-phone`, `data-size-phone` | 44, 39, 42 | the same anchors for the wide crop |
