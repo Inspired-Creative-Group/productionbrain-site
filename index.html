@@ -407,7 +407,7 @@
         #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
         @media (max-width:1000px) {
             /* phones: the whole 4:5 photo at full width, anchored to the bottom (zoomed out, more of the office) */
-            #mm-how { min-height:0; padding-bottom:98vw; }
+            #mm-how { min-height:0; padding-bottom:calc(98vw + 72px); }   /* photo sits low enough that the standing man's head clears the steps */
             #mm-how .mm-how-bg { top:auto; height:auto; }
             #mm-how .mm-how-bg img { position:relative; inset:auto; height:auto; object-fit:fill; }
             #mm-how .section-header { margin-bottom:1.25rem; }
