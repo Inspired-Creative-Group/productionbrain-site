@@ -406,11 +406,13 @@
         #mm-how .mm-step-num { font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--color-red); flex:none; }
         #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
         @media (max-width:1000px) {
-            #mm-how { min-height:0; padding-bottom:78vw; }
-            #mm-how .mm-how-bg img { object-position:50% 100%; }
+            /* phones: the whole 4:5 photo at full width, anchored to the bottom (zoomed out, more of the office) */
+            #mm-how { min-height:0; padding-bottom:98vw; }
+            #mm-how .mm-how-bg { top:auto; height:auto; }
+            #mm-how .mm-how-bg img { position:relative; inset:auto; height:auto; object-fit:fill; }
             #mm-how .mm-steps { grid-template-columns:1fr; }
             #mm-how .mm-steps li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); }
-            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, rgba(10,10,10,.85) 0%, rgba(10,10,10,.6) 40%, rgba(10,10,10,0) 65%); }
+            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,.55) 22%, rgba(10,10,10,0) 45%); }
         }
         /* Menu bar: the PB mark and the product name replace the ICG logo (Sandy, 2026-09-29). The footer keeps ICG's logo. */
         .nav .mm-nav-brand { display:flex; align-items:center; gap:.7rem; text-decoration:none; }
@@ -1189,9 +1191,15 @@
             var w = sec.clientWidth, h = sec.clientHeight, nw = img.naturalWidth, nh = img.naturalHeight;
             if (!nw || !nh) return;
             var phone = window.matchMedia('(max-width:1000px)').matches;
-            var r = Math.max(w / nw, h / nh), pw = nw * r, ph = nh * r;
-            var pos = (getComputedStyle(img).objectPosition || '50% 0%').split(' ').map(function(v) { return parseFloat(v) / 100; });
-            var left = (w - pw) * (isNaN(pos[0]) ? .5 : pos[0]), top = (h - ph) * (isNaN(pos[1]) ? 0 : pos[1]);
+            var pw, ph, left, top;
+            if (getComputedStyle(img).objectFit === 'cover') {
+                var r = Math.max(w / nw, h / nh); pw = nw * r; ph = nh * r;
+                var pos = (getComputedStyle(img).objectPosition || '50% 0%').split(' ').map(function(v) { return parseFloat(v) / 100; });
+                left = (w - pw) * (isNaN(pos[0]) ? .5 : pos[0]); top = (h - ph) * (isNaN(pos[1]) ? 0 : pos[1]);
+            } else {   /* phones: the photo sits at full width at the bottom */
+                var ib = img.getBoundingClientRect(), sb = sec.getBoundingClientRect();
+                pw = ib.width; ph = ib.height; left = ib.left - sb.left; top = ib.top - sb.top;
+            }
             var m = phone ? { x: 50.1, y: 77, half: 32.3 } : { x: 52.05, y: 77, half: 14.55 };   /* machine centre and half-width, % of the photo */
             var cx = Math.round(left + pw * m.x / 100), cy = Math.round(top + ph * m.y / 100), r0 = Math.round(pw * m.half / 100 * 1.08);
             var key = w + 'x' + h + '@' + cx + ',' + cy + ',' + r0;
