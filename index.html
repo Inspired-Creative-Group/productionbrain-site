@@ -385,10 +385,9 @@
         @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.28); opacity:1; } }
         #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
         @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
-        /* What it does: the hero brain, zoomed in, behind the cards (Sandy, 2026-09-29) */
+        /* What it does: the brain's nucleus, big and beating, behind the cards (Sandy, 2026-09-29) */
         #mm-what { background:#0b0806; }
-        #mm-what .mm-brain-stage { position:absolute; inset:0; pointer-events:none; }
-        #mm-what .mm-what-brain { z-index:0; }
+        #mm-what .mm-nucleus { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
         #mm-what > .container { position:relative; z-index:1; }
         #mm-what .value-prop-card { background:rgba(12,10,9,.72); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
     </style>
@@ -586,12 +585,8 @@
     <!-- WHAT IT DOES (ICG value-prop layout)     -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section value-prop" id="mm-what">
-        <!-- The hero brain again, zoomed in, as this section's moving background. Same renderer as the hero
-             (assets/hero-brain/), started a second time on the stage below; no clicks, no labels, no machine lights. -->
-        <div class="mm-brain-stage" aria-hidden="true"></div>
-        <div class="hero-brain mm-what-brain" data-image="#mm-what .mm-brain-stage" data-avoid="" data-box-x="62" data-box-x-phone="55"
-             data-lift="0" data-mode="hold" data-phone="light" data-lights="0" data-labels="0" data-interactive="0"
-             data-frame-wide="4" data-frame-below="1.2" data-opacity=".7" data-glow="1" aria-hidden="true"></div>
+        <!-- The brain's nucleus, big and beating: drawn in code in the hero brain's colours (see the script at the end). -->
+        <canvas class="mm-nucleus" aria-hidden="true"></canvas>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">What it does</span>
@@ -1045,44 +1040,98 @@
         }
     })();
     </script>
-    <!-- What it does: start a second copy of the hero brain once the section is near.
-         It waits for the hero's own loader to add the renderer, then imports that same file (no second download). -->
-    <script type="module">
+    <!-- What it does: the nucleus. A geodesic wireframe sphere in the hero brain's amber, beating on the
+         hero brain's heart rhythm (a double beat, about 62 a minute), a faint ring going out on each beat,
+         turning slowly. Canvas 2D, no library. Paused off screen; one still frame under reduced motion. -->
+    <script>
     (function() {
-        var mount = document.querySelector('.mm-what-brain');
-        var stage = document.querySelector('#mm-what .mm-brain-stage');
-        if (!mount || !stage || !('IntersectionObserver' in window)) return;
-        var phone = window.matchMedia('(max-width:1000px)');
-        function place(handle) {
-            var w = stage.clientWidth, h = stage.clientHeight;
-            var size = phone.matches ? 190 : 115;              /* the brain's frame, % of the section width: zoomed in */
-            var boxY = (h / 2 + (size / 100) * w / 2) / h * 100; /* so its centre sits mid-section */
-            var v = { size: size, sizePhone: size, boxY: boxY, boxYPhone: boxY };
-            if (handle) { handle.set(v); return; }
-            mount.dataset.size = size; mount.dataset.sizePhone = size;
-            mount.dataset.boxY = boxY.toFixed(2); mount.dataset.boxYPhone = boxY.toFixed(2);
+        var sec = document.getElementById('mm-what');
+        var cv = sec && sec.querySelector('.mm-nucleus');
+        if (!cv || !cv.getContext) return;
+        var ctx = cv.getContext('2d');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // icosahedron, subdivided once: 42 points, 120 edges
+        var t = (1 + Math.sqrt(5)) / 2;
+        var V = [[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]];
+        var F = [[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
+        function norm(v) { var l = Math.hypot(v[0], v[1], v[2]); return [v[0]/l, v[1]/l, v[2]/l]; }
+        V = V.map(norm);
+        var mid = {};
+        function m(a, b) { var k = a < b ? a + '_' + b : b + '_' + a; if (mid[k] == null) { V.push(norm([(V[a][0]+V[b][0])/2, (V[a][1]+V[b][1])/2, (V[a][2]+V[b][2])/2])); mid[k] = V.length - 1; } return mid[k]; }
+        var E = {};
+        F.forEach(function(f) {
+            var a = f[0], b = f[1], c = f[2], ab = m(a,b), bc = m(b,c), ca = m(c,a);
+            [[a,ab],[ab,b],[b,bc],[bc,c],[c,ca],[ca,a],[ab,bc],[bc,ca],[ca,ab]].forEach(function(e) { E[e[0] < e[1] ? e[0]+'_'+e[1] : e[1]+'_'+e[0]] = e; });
+        });
+        E = Object.keys(E).map(function(k) { return E[k]; });
+        // the hero brain's heart: two gaussian bumps on a 0.97 s cycle
+        function beat(s) { var p = (s % 0.97) / 0.97, g = function(c, w, a) { return a * Math.exp(-((p-c)*(p-c)) / (2*w*w)); }; return g(.09,.038,1) + g(.27,.05,.55); }
+        var W = 0, H = 0, dpr = 1, running = false, inView = false, raf = 0, t0 = performance.now(), rings = [], lastBeat = -1;
+        function size() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = sec.clientWidth; H = sec.clientHeight;
+            cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
-        function whenCore(cb, tries) {
-            var s = document.querySelector('script[type="module"][src*="hero-brain.core.js"]');
-            if (s) return cb(s.src);
-            if ((tries || 0) < 60) setTimeout(function() { whenCore(cb, (tries || 0) + 1); }, 500);
-        }
-        var io = new IntersectionObserver(function(entries) {
-            if (!entries.some(function(e) { return e.isIntersecting; })) return;
-            io.disconnect();
-            whenCore(function(src) {
-                import(src).then(function(mod) {
-                    place();
-                    var heroHandle = window.heroBrain;   /* keep the hero's console handle pointing at the hero */
-                    mod.start(mount);
-                    var mine = window.heroBrain;
-                    window.mmWhatBrain = mine;
-                    if (heroHandle) window.heroBrain = heroHandle;
-                    if (mine) window.addEventListener('resize', function() { place(mine); }, { passive: true });
-                }).catch(function() {});
+        function frame(now) {
+            var s = (now - t0) / 1000, b = still ? 0.4 : beat(s);
+            var phone = W < 900;
+            var cx = W * (phone ? 0.55 : 0.62), cy = phone ? Math.min(H * 0.3, W * 0.95) : H * 0.52;
+            var R = (phone ? W * 0.62 : Math.min(W, H) * 0.44) * (1 + 0.06 * b);
+            ctx.clearRect(0, 0, W, H);
+            // warm glow behind the core, stronger on the beat
+            var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.2);
+            g.addColorStop(0, 'rgba(217,150,58,' + (0.34 + 0.22 * b).toFixed(3) + ')');
+            g.addColorStop(0.35, 'rgba(160,96,34,' + (0.16 + 0.08 * b).toFixed(3) + ')');
+            g.addColorStop(1, 'rgba(60,34,14,0)');
+            ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+            // a ring leaves on each first beat
+            var cyc = Math.floor(s / 0.97);
+            if (!still && cyc !== lastBeat) { lastBeat = cyc; rings.push(s); }
+            rings = rings.filter(function(r0) { return s - r0 < 2.2; });
+            rings.forEach(function(r0) {
+                var k = (s - r0) / 2.2, rr = R * (1.05 + 1.6 * (1 - Math.pow(1 - k, 3)));
+                ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(242,237,230,' + (0.16 * (1 - k)).toFixed(3) + ')'; ctx.lineWidth = 1.2; ctx.stroke();
             });
-        }, { rootMargin: '600px 0px' });
-        io.observe(mount);
+            // the wireframe, turning
+            var ay = s * 0.16, ax = 0.35 + Math.sin(s * 0.11) * 0.18;
+            var cyA = Math.cos(ay), syA = Math.sin(ay), cxA = Math.cos(ax), sxA = Math.sin(ax);
+            var P = V.map(function(v) {
+                var x = v[0] * cyA + v[2] * syA, z = -v[0] * syA + v[2] * cyA, y = v[1] * cxA - z * sxA; z = v[1] * sxA + z * cxA;
+                var f = 3.2 / (3.2 - z);
+                return [cx + x * R * f, cy + y * R * f, z];
+            });
+            ctx.lineWidth = phone ? 1 : 1.3;
+            E.forEach(function(e) {
+                var a = P[e[0]], c = P[e[1]], depth = (a[2] + c[2]) / 2; // -1 back .. 1 front
+                var al = (0.12 + 0.5 * (depth + 1) / 2) * (0.75 + 0.35 * b);
+                ctx.strokeStyle = 'rgba(226,160,72,' + Math.min(1, al).toFixed(3) + ')';
+                ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
+            });
+            // the vertices, front ones brighter
+            P.forEach(function(p) {
+                var al = 0.25 + 0.6 * (p[2] + 1) / 2;
+                ctx.fillStyle = 'rgba(242,190,110,' + al.toFixed(3) + ')';
+                ctx.beginPath(); ctx.arc(p[0], p[1], (phone ? 1.6 : 2.2) * (0.8 + 0.4 * (p[2] + 1) / 2), 0, Math.PI * 2); ctx.fill();
+            });
+            // the heart at the centre
+            var hr = R * (0.07 + 0.05 * b);
+            var hg = ctx.createRadialGradient(cx, cy, 0, cx, cy, hr * 3);
+            hg.addColorStop(0, 'rgba(255,236,200,' + (0.75 + 0.25 * b).toFixed(3) + ')');
+            hg.addColorStop(0.3, 'rgba(236,162,70,' + (0.45 + 0.3 * b).toFixed(3) + ')');
+            hg.addColorStop(1, 'rgba(217,150,58,0)');
+            ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(cx, cy, hr * 3, 0, Math.PI * 2); ctx.fill();
+            if (running) raf = requestAnimationFrame(frame);
+        }
+        function start() { if (running || still) return; running = true; raf = requestAnimationFrame(frame); }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+        size(); frame(performance.now());
+        if (window.ResizeObserver) new ResizeObserver(function() { size(); if (!running) frame(performance.now()); }).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
+        } else { inView = true; start(); }
+        document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
     })();
     </script>
     <script src="gsap-animations.js"></script>
