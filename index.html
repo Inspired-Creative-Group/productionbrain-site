@@ -389,17 +389,28 @@
         #mm-what { background:#0a0a0a; }
         #mm-what .mm-nucleus { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
         #mm-what > .container { position:relative; z-index:1; }
-        /* How it arrives: Juan's studio at midday, with the hero machine on the table, as the background (Sandy, 2026-09-29).
-           Dark at the top for the headline and steps, clear at the bottom where the machine sits. */
-        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; padding-bottom:clamp(260px, 30vw, 520px); }
-        /* the whole frame, full width, anchored to the bottom: Juan's framing is kept, nothing cropped at the sides */
-        #mm-how .mm-how-bg { position:absolute; left:0; right:0; bottom:0; z-index:0; pointer-events:none; }
-        #mm-how .mm-how-bg img { display:block; width:100%; height:auto; }
+        /* How it arrives: Juan's studio at midday, hero machine on the table, as the whole section's background,
+           starting at the top (Sandy, 2026-09-29). The steps sit on one simple dark strip so they read over the photo. */
+        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:56.25vw; }
+        #mm-how .mm-how-bg, #mm-how .mm-how-bg img { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+        #mm-how .mm-how-bg img { display:block; object-fit:cover; object-position:50% 0; }
         #mm-how .mm-how-bg::after { content:''; position:absolute; inset:0;
-            background:linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,.86) 22%, rgba(10,10,10,.45) 48%, rgba(10,10,10,0) 70%); }
+            background:linear-gradient(to bottom, rgba(10,10,10,.92) 0%, rgba(10,10,10,.82) 26%, rgba(10,10,10,.4) 42%, rgba(10,10,10,0) 56%); }
         #mm-how > .container { position:relative; z-index:1; }
-        @media (max-width:768px) { #mm-how { padding-bottom:105vw; }
-            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,.7) 30%, rgba(10,10,10,0) 60%); } }
+        #mm-how .section-header { text-shadow:0 2px 22px rgba(0,0,0,.85), 0 1px 3px rgba(0,0,0,.6); }
+        #mm-how .mm-steps { list-style:none; margin:2rem 0 0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr);
+            max-width:1100px; background:rgba(10,10,10,.84); border:1px solid rgba(255,255,255,.1); border-radius:12px; }
+        #mm-how .mm-steps li { display:flex; gap:.9rem; align-items:baseline; padding:1.2rem 1.5rem; }
+        #mm-how .mm-steps li + li { border-left:1px solid rgba(255,255,255,.1); }
+        #mm-how .mm-step-num { font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--color-red); flex:none; }
+        #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
+        @media (max-width:768px) {
+            #mm-how { min-height:0; padding-bottom:78vw; }
+            #mm-how .mm-how-bg img { object-position:50% 100%; }
+            #mm-how .mm-steps { grid-template-columns:1fr; }
+            #mm-how .mm-steps li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); }
+            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, rgba(10,10,10,.85) 0%, rgba(10,10,10,.6) 40%, rgba(10,10,10,0) 65%); }
+        }
     </style>
 </head>
 <body class="partners-page">
@@ -646,21 +657,11 @@
                 <span class="section-label">How it arrives</span>
                 <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Customised to how your team works.</span></h2>
             </div>
-            <div class="plan-steps">
-                <div class="plan-step gsap-animate">
-                    <span class="plan-step-num">01</span>
-                    <h3 class="plan-step-title">Tell us your tools.</h3>
-                </div>
-                <div class="plan-step gsap-animate">
-                    <span class="plan-step-num">02</span>
-                    <h3 class="plan-step-title">We build it, load the models, and bring it working.</h3>
-                </div>
-                <div class="plan-step gsap-animate">
-                    <span class="plan-step-num">03</span>
-                    <h3 class="plan-step-title">Maintained remotely</h3>
-                    <p class="plan-step-desc">Over a secure network, with two encrypted copies we keep for you.</p>
-                </div>
-            </div>
+            <ol class="mm-steps">
+                <li><span class="mm-step-num">01</span><span class="mm-step-text">Tell us your tools.</span></li>
+                <li><span class="mm-step-num">02</span><span class="mm-step-text">We build it, load the models, and bring it working.</span></li>
+                <li><span class="mm-step-num">03</span><span class="mm-step-text">Maintained remotely over a secure network, with two encrypted copies we keep for you.</span></li>
+            </ol>
         </div>
     </section>
 
