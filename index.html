@@ -1040,9 +1040,10 @@
         }
     })();
     </script>
-    <!-- What it does: the nucleus. A geodesic wireframe sphere in the hero brain's amber, beating on the
-         hero brain's heart rhythm (a double beat, about 62 a minute), a faint ring going out on each beat,
-         turning slowly. Canvas 2D, no library. Paused off screen; one still frame under reduced motion. -->
+    <!-- What it does: the nucleus. A geodesic wireframe sphere in the hero brain's amber, turning slowly,
+         with faint rings growing out of it every 2.4 s. Its size and glow hold steady (no beat: Sandy found
+         the pulse distracting, 2026-09-29). Canvas 2D, no library. Paused off screen; one still frame under
+         reduced motion. -->
     <script>
     (function() {
         var sec = document.getElementById('mm-what');
@@ -1064,8 +1065,6 @@
             [[a,ab],[ab,b],[b,bc],[bc,c],[c,ca],[ca,a],[ab,bc],[bc,ca],[ca,ab]].forEach(function(e) { E[e[0] < e[1] ? e[0]+'_'+e[1] : e[1]+'_'+e[0]] = e; });
         });
         E = Object.keys(E).map(function(k) { return E[k]; });
-        // the hero brain's heart: two gaussian bumps on a 0.97 s cycle
-        function beat(s) { var p = (s % 0.97) / 0.97, g = function(c, w, a) { return a * Math.exp(-((p-c)*(p-c)) / (2*w*w)); }; return g(.09,.038,1) + g(.27,.05,.55); }
         var W = 0, H = 0, dpr = 1, running = false, inView = false, raf = 0, t0 = performance.now(), rings = [], lastBeat = -1;
         function size() {
             dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1074,25 +1073,26 @@
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
         function frame(now) {
-            var s = (now - t0) / 1000, b = still ? 0.4 : beat(s);
+            var s = (now - t0) / 1000, b = 0; /* no beat: the sphere and its glow hold steady */
             var phone = W < 900;
             var cx = W * (phone ? 0.55 : 0.62), cy = phone ? Math.min(H * 0.3, W * 0.95) : H * 0.52;
             var R = (phone ? W * 0.62 : Math.min(W, H) * 0.44) * (1 + 0.06 * b);
             ctx.clearRect(0, 0, W, H);
             // warm glow behind the core, stronger on the beat
             var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.2);
-            g.addColorStop(0, 'rgba(217,150,58,' + (0.34 + 0.22 * b).toFixed(3) + ')');
-            g.addColorStop(0.35, 'rgba(160,96,34,' + (0.16 + 0.08 * b).toFixed(3) + ')');
+            g.addColorStop(0, 'rgba(217,150,58,.26)');
+            g.addColorStop(0.35, 'rgba(160,96,34,.12)');
             g.addColorStop(1, 'rgba(60,34,14,0)');
             ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
             // a ring leaves on each first beat
-            var cyc = Math.floor(s / 0.97);
+            var cyc = Math.floor(s / 2.4);
             if (!still && cyc !== lastBeat) { lastBeat = cyc; rings.push(s); }
-            rings = rings.filter(function(r0) { return s - r0 < 2.2; });
+            rings = rings.filter(function(r0) { return s - r0 < 4.8; });
             rings.forEach(function(r0) {
-                var k = (s - r0) / 2.2, rr = R * (1.05 + 1.6 * (1 - Math.pow(1 - k, 3)));
+                var k = (s - r0) / 4.8, rr = R * (0.2 + 2.2 * (1 - Math.pow(1 - k, 2)));
+                var fade = k < 0.12 ? k / 0.12 : 1 - (k - 0.12) / 0.88;
                 ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(242,237,230,' + (0.16 * (1 - k)).toFixed(3) + ')'; ctx.lineWidth = 1.2; ctx.stroke();
+                ctx.strokeStyle = 'rgba(242,214,170,' + (0.2 * fade).toFixed(3) + ')'; ctx.lineWidth = 1.2; ctx.stroke();
             });
             // the wireframe, turning
             var ay = s * 0.16, ax = 0.35 + Math.sin(s * 0.11) * 0.18;
@@ -1116,10 +1116,10 @@
                 ctx.beginPath(); ctx.arc(p[0], p[1], (phone ? 1.6 : 2.2) * (0.8 + 0.4 * (p[2] + 1) / 2), 0, Math.PI * 2); ctx.fill();
             });
             // the heart at the centre
-            var hr = R * (0.07 + 0.05 * b);
+            var hr = R * 0.06;
             var hg = ctx.createRadialGradient(cx, cy, 0, cx, cy, hr * 3);
-            hg.addColorStop(0, 'rgba(255,236,200,' + (0.75 + 0.25 * b).toFixed(3) + ')');
-            hg.addColorStop(0.3, 'rgba(236,162,70,' + (0.45 + 0.3 * b).toFixed(3) + ')');
+            hg.addColorStop(0, 'rgba(255,230,190,.42)');
+            hg.addColorStop(0.3, 'rgba(236,162,70,.22)');
             hg.addColorStop(1, 'rgba(217,150,58,0)');
             ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(cx, cy, hr * 3, 0, Math.PI * 2); ctx.fill();
             if (running) raf = requestAnimationFrame(frame);
