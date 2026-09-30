@@ -372,6 +372,11 @@
           .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
           .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
         }
+        /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
+        @media (max-width:1000px){
+          .partners-hero-title{font-size:clamp(2rem,10.6vw,5rem);line-height:1.02}
+          .partners-hero-title .text-accent{display:block}
+        }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
         .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
