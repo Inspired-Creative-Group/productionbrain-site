@@ -381,6 +381,10 @@
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
         .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
         .mm-founding strong { color:#fff; font-weight:600; }
+        /* Founding offer: the label reads as an offer to act on, not an eyebrow (Juan, 2026-09-30). */
+        .section-label.mm-offer-badge { font-size:1.05rem; letter-spacing:.14em; color:#fff; background:var(--color-red); padding:.55rem 1.1rem; border-radius:4px; margin-bottom:1.1rem; }
+        .section-label.mm-offer-badge::before { display:none; }
+        @media (max-width:768px) { .section-label.mm-offer-badge { font-size:.95rem; } }
         .contact-info .mm-sub-label { margin-top: 2.5rem; }
         .contact-info .mm-sub-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 700; line-height: 1.15; color:#fff; margin: 0.5rem 0 0.9rem; }
         .mm-founding .mm-offer-close { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid #2a2a2a; color:#fff; }
@@ -819,7 +823,6 @@
     <section class="section partners-faq" id="mm-integrations">
         <div class="container">
             <div class="section-header gsap-animate">
-                <span class="section-label">Integrations</span>
                 <h2 class="section-title">Works with <span class="text-accent">what you already use.</span></h2>
             </div>
             <div class="mm-panel mm-integrations-box">
@@ -843,7 +846,6 @@
     <section class="section partners-faq" id="mm-faq">
         <div class="container">
             <div class="section-header gsap-animate">
-                <span class="section-label">Questions</span>
                 <h2 class="section-title">The questions <span class="text-accent">you're about to ask.</span></h2>
             </div>
             <div class="partners-faq-list">
@@ -887,7 +889,7 @@
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info gsap-animate">
-                    <span class="section-label">Founding offer</span>
+                    <span class="section-label mm-offer-badge">Founding offer</span>
                     <h2 class="section-title">One studio gets <span class="text-accent">a free build.</span></h2>
                     <div class="mm-card mm-founding">
                         <p><strong>You get:</strong> the full build, free. We install the brain, load the models and connect your tools.</p>
