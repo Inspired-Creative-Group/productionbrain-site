@@ -174,6 +174,13 @@
   .mm-machine img{position:relative;inset:auto;width:100%;height:auto;
                   aspect-ratio:4/3;object-fit:cover;object-position:45% 53%}
   .mm-wires{display:none}
+  /* Sandy (2026-09-30): the photo's dark warm ground carries on above the picture and fades out gradually
+     up to the subhead, so there is no hard top edge. Colours are the photo's own top row, left to right. */
+  .mm-machine::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:104px;pointer-events:none;
+    background:linear-gradient(90deg,rgb(26,19,11) 0%,rgb(30,20,11) 22%,rgb(18,13,7) 50%,rgb(13,10,4) 75%,rgb(9,8,4) 100%);
+    -webkit-mask-image:linear-gradient(0deg,#000 0%,rgba(0,0,0,.82) 22%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.26) 68%,rgba(0,0,0,.08) 86%,transparent 100%);
+    mask-image:linear-gradient(0deg,#000 0%,rgba(0,0,0,.82) 22%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.26) 68%,rgba(0,0,0,.08) 86%,transparent 100%)}
+  .partners-hero-content{z-index:2}   /* keep the words above that fade */
 
   .mm-pipe{display:block;position:absolute;top:0;left:0;width:100%;
            aspect-ratio:4/3;pointer-events:none}
@@ -364,6 +371,11 @@
           .mm-over .partners-hero-content{max-width:none;margin:0;text-align:left;display:flex;flex-wrap:wrap;align-items:center;column-gap:2.5rem;row-gap:1rem}
           .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
           .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
+        }
+        /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
+        @media (max-width:1000px){
+          .partners-hero-title{font-size:clamp(2rem,10.6vw,5rem);line-height:1.02}
+          .partners-hero-title .text-accent{display:block}
         }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
@@ -1422,6 +1434,7 @@
             if (running) raf = requestAnimationFrame(frame);
             if (running && now - last < 33) return;
             var dt = prev ? Math.min(0.1, (now - prev) / 1000) : 0; prev = now; last = now;
+            if (!W || !H) return;   /* page opened with no width yet (a hidden tab): skip until it has a size */
             ctx.clearRect(0, 0, W, H);
             ctx.drawImage(base, 0, 0, W, H);
             if (still) return;
