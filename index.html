@@ -1422,6 +1422,7 @@
             if (running) raf = requestAnimationFrame(frame);
             if (running && now - last < 33) return;
             var dt = prev ? Math.min(0.1, (now - prev) / 1000) : 0; prev = now; last = now;
+            if (!W || !H) return;   /* page opened with no width yet (a hidden tab): skip until it has a size */
             ctx.clearRect(0, 0, W, H);
             ctx.drawImage(base, 0, 0, W, H);
             if (still) return;
