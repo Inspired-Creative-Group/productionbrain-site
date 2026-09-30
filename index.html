@@ -508,10 +508,7 @@
                 <a href="#mm-integrations" class="nav-link">Integrations</a>
                 <a href="#mm-faq" class="nav-link">FAQ</a> <a href="#mm-form" class="nav-link">Contact</a>
             </div>
-            <div class="mm-nav-actions">
-                <a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a>
-                <button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
-            </div>
+            <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a></div>
         </div>
     </nav>
 
@@ -1450,8 +1447,17 @@
     (function() {
         var menu = document.getElementById('navLinks'), btn = document.getElementById('navToggle');
         if (!menu || !btn) return;
+        /* The box sits under the menu button, which now comes before the FOUNDING OFFER button */
+        function place() {
+            var inner = menu.parentNode.getBoundingClientRect(), b = btn.getBoundingClientRect();
+            var r = inner.right - b.right - 12, w = menu.offsetWidth;
+            if (inner.right - r - w < 12) r = inner.right - w - 12;   /* never past the screen's left edge on a phone */
+            menu.style.right = Math.max(0, Math.round(r)) + 'px';
+        }
+        window.addEventListener('resize', function() { if (menu.classList.contains('open')) place(); });
         function set(open) {
             menu.classList.toggle('open', open); btn.classList.toggle('active', open);
+            if (open) place();
             btn.setAttribute('aria-expanded', open ? 'true' : 'false');
             btn.setAttribute('aria-label', open ? 'Close the section menu' : 'Open the section menu');
         }
