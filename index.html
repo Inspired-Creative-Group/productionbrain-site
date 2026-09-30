@@ -29,7 +29,7 @@
     <link rel="canonical" href="https://theproductionbrain.ai/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="partners.css">
     <style>
@@ -135,7 +135,7 @@
 .mm-machine .mm-wires,.mm-machine .mm-labels{position:absolute;inset:0;width:100%;height:100%}
 .mm-labels{pointer-events:none}
 
-.mm-grp{position:absolute;font-size:clamp(16px,1.98cqw,33px);font-weight:600;letter-spacing:.14em;
+.mm-grp{position:absolute;font-size:clamp(16px,1.98cqw,33px);font-weight:600;letter-spacing:.03em;word-spacing:-.3em;
         text-transform:uppercase;color:var(--mm-brass);white-space:nowrap;
         text-shadow:0 1px 10px rgba(0,0,0,.9)}
 .mm-grp.mm-l{text-align:right;transform:translateX(-100%)}
@@ -189,7 +189,8 @@
   .mm-grp,.mm-row{position:static !important;left:auto !important;top:auto !important;
                   transform:none !important;text-align:left !important;white-space:normal}
   .mm-grp{display:flex;align-items:center;gap:10px;margin:0 0 14px;
-          font-size:14px !important;letter-spacing:.16em !important}
+          font-size:14px !important;letter-spacing:.04em !important}
+  .mm-grp.mm-wrap{max-width:none !important}
   .mm-row + .mm-grp{margin-top:30px}
   .mm-grp::before{content:'';width:18px;height:2px;margin-left:-18px;
                   background:currentColor;opacity:.85;flex:none}
@@ -354,16 +355,162 @@
 }
 </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        /* ICG layout pass (2026-09-29): the hero keeps its own styles; ICG's style.css drives everything below it. */
+        .partners-hero-title { text-transform: uppercase; }
+        /* Hero text left-aligned like the ICG site, headline bigger but one line on desktop (Sandy, 2026-09-29) */
+        @media (min-width:1001px){
+          .mm-over{padding-top:calc(var(--nav-height) + 2vw)}
+          .mm-over .partners-hero-content{max-width:none;margin:0;text-align:left;display:flex;flex-wrap:wrap;align-items:center;column-gap:2.5rem;row-gap:1rem}
+          .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
+          .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
+        }
+        .mm-video { max-width: 960px; margin: 2rem 0 0; }
+        #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
+        .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
+        .mm-founding strong { color:#fff; font-weight:600; }
+        .contact-info .mm-sub-label { margin-top: 2.5rem; }
+        .contact-info .mm-sub-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 700; line-height: 1.15; color:#fff; margin: 0.5rem 0 0.9rem; }
+        .mm-founding .mm-offer-close { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid #2a2a2a; color:#fff; }
+        /* Problem section: rays drawn in code; a glow runs in along each line to the red centre (Sandy, 2026-09-29) */
+        #mm-problem { background:#242424; }
+        #mm-faq { background:#242424; }   /* Questions: same dark grey as The problem (Sandy, 2026-09-29) */
+        #mm-faq .partners-faq-item, #mm-faq .partners-faq-item:first-child { border-color:#fff; }   /* white lines between the questions (Sandy, 2026-09-29) */
+        #mm-problem::after { display:none; }
+        .mm-rays { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+        .mm-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+        .mm-ray { fill:none; stroke:rgba(255,255,255,.12); stroke-width:1; vector-effect:non-scaling-stroke; }
+        .mm-pulse { fill:none; stroke-linecap:round; stroke-dasharray:5 200; stroke-dashoffset:5; animation:mm-ray-in var(--d) linear var(--delay) infinite; }
+        .mm-pulse-halo { stroke:#ff3b2f; stroke-width:6; opacity:.28; filter:url(#mmGlow); }
+        .mm-pulse-core { stroke:rgba(255,226,218,.55); stroke-width:1.6; }
+        @keyframes mm-ray-in { from { stroke-dashoffset:5; } to { stroke-dashoffset:-100; } }
+        .mm-core { transform-box:view-box; animation:mm-core 2.6s ease-in-out infinite; }
+        @keyframes mm-core { 0%,100% { transform:scale(1); opacity:.6; } 50% { transform:scale(1.1); opacity:.78; } }
+        #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
+        @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
+        /* What it does: the brain's nucleus turning behind plain cards; no glow on or behind them (Sandy, 2026-09-29) */
+        #mm-what { background:#0a0a0a; }
+        #mm-what .mm-nucleus { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
+        #mm-what > .container { position:relative; z-index:1; }
+        #mm-what .value-prop-card { background:#242424; }   /* same dark grey as the How it arrives steps box (Sandy, 2026-09-29) */
+        /* How it arrives: Juan's studio at midday, hero machine on the table, as the whole section's background,
+           starting at the top (Sandy, 2026-09-29). The steps sit on one simple dark strip so they read over the photo. */
+        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(74vw, 760px); }   /* taller than the photo's 16:9 so the brain has air above the machine */
+        #mm-how .mm-how-bg, #mm-how .mm-how-bg img { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+        #mm-how .mm-how-bg img { display:block; object-fit:cover; object-position:50% 0; }
+        #mm-how .mm-how-bg::after { content:''; position:absolute; inset:0;
+            background:linear-gradient(to bottom, rgba(10,10,10,.92) 0%, rgba(10,10,10,.82) 26%, rgba(10,10,10,.4) 42%, rgba(10,10,10,0) 56%); }
+        #mm-how > .container { position:relative; z-index:1; }
+        #mm-how .section-header { text-shadow:0 2px 22px rgba(0,0,0,.85), 0 1px 3px rgba(0,0,0,.6); }
+        #mm-how .mm-steps { list-style:none; margin:2rem 0 0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr);
+            max-width:1100px; background:rgba(36,36,36,.9); border:1px solid rgba(255,255,255,.1); border-radius:12px; }
+        #mm-how .mm-steps li { display:flex; gap:.9rem; align-items:baseline; padding:1.2rem 1.5rem; }
+        #mm-how .mm-steps li + li { border-left:1px solid rgba(255,255,255,.1); }
+        #mm-how .mm-step-num { font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--color-red); flex:none; }
+        #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
+        @media (max-width:1000px) {
+            /* phones: the whole 4:5 photo at full width, anchored to the bottom (zoomed out, more of the office) */
+            #mm-how { min-height:0; padding-bottom:calc(98vw + 72px); }   /* photo sits low enough that the standing man's head clears the steps */
+            #mm-how .mm-how-bg { top:auto; height:auto; }
+            #mm-how .mm-how-bg img { position:relative; inset:auto; height:auto; object-fit:fill; }
+            #mm-how .section-header { margin-bottom:1.25rem; }
+            #mm-how .mm-steps { grid-template-columns:1fr; margin-top:0; }
+            #mm-how .mm-steps li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); }
+            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,.55) 22%, rgba(10,10,10,0) 45%); }
+        }
+        /* Menu bar: the PB mark and the product name replace the ICG logo (Sandy, 2026-09-29). The footer keeps ICG's logo. */
+        .nav .mm-nav-brand { display:flex; align-items:center; gap:.7rem; text-decoration:none; }
+        .nav .mm-nav-brand img { height:36px; width:auto; }
+        .nav .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
+        .nav .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
+        .nav .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
+        @media (max-width:768px) { .nav .mm-nav-brand { gap:.45rem; min-width:0; } .nav .mm-nav-brand img { height:26px; } .nav .mm-nav-name { font-size:.72rem; } .nav .mm-nav-by { font-size:.56rem; margin-top:.1rem; }
+            .nav .nav-cta-btn { padding:.55rem .8rem; font-size:.72rem; flex:0 0 auto; width:auto; } }
+        @media (max-width:360px) { .nav .nav-inner { padding-left:12px; padding-right:12px; } .nav .mm-nav-brand img { height:22px; } .nav .mm-nav-name { font-size:.62rem; letter-spacing:.01em; } .nav .mm-nav-by { font-size:.5rem; } .nav .nav-cta-btn { padding:.5rem .6rem; font-size:.64rem; } }
+        /* Footer: the same PB lockup as the menu bar, with the hero subtitle under it (Sandy, 2026-09-29) */
+        .footer .mm-footer-brand { display:inline-flex; align-items:center; gap:.7rem; text-decoration:none; margin-bottom:1rem; }
+        .footer .mm-footer-brand img { height:36px; width:auto; }
+        .footer .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
+        .footer .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
+        .footer .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
+        /* Why it exists: a plain red outline around the video, no glow (Sandy, 2026-09-29) */
+        #mm-why .mm-video, #mm-why .mm-video:hover { border:2px solid var(--color-red); }
+        /* How it arrives: rays converging on the machine, and the hero brain over it (Sandy, 2026-09-29) */
+        #mm-how .mm-how-rays { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+        #mm-how .mm-how-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+        #mm-how.is-paused .mm-pulse { animation-play-state:paused; }
+        /* Statement band: symbol field behind the words (Sandy, 2026-09-29) */
+        .statement { background:radial-gradient(ellipse 80% 70% at 50% 50%, #151515 0%, #0a0a0a 70%); }
+        .statement .mm-glyphs { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; pointer-events:none; }
+        .statement .mm-pb-mark { mix-blend-mode:normal; width:clamp(28px, 2.8vw, 38px); animation:mm-mark-breathe 5s ease-in-out infinite; }
+        @keyframes mm-mark-breathe { 0%, 100% { transform:scale(1); opacity:.85; } 50% { transform:scale(1.12); opacity:1; } }
+        @media (prefers-reduced-motion: reduce) { .statement .mm-pb-mark { animation:none; } }   /* the PB mark replaces ICG's icon here (Sandy, 2026-09-29) */
+        #mm-problem .stakes-card-title { line-height:1.15; }   /* tighter leading in the problem card titles (Sandy, 2026-09-29) */
+        /* What it catches: the dot grid with travelling packets (Sandy, 2026-09-29) */
+        #mm-catches .mm-grid { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; pointer-events:none;
+            -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%); mask-image:linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%); }
+        #mm-catches::after { display:none; }
+        /* Statement: two lines on desktop (Sandy, 2026-09-29), three on phones */
+        .statement .mm-br-phone { display:none; }
+        @media (min-width:769px) { .statement .statement-line { max-width:none; } .statement .statement-row { white-space:nowrap; } }
+        @media (max-width:768px) { .statement .mm-br-phone { display:inline; } }
+        /* Integrations: no accordion and no box; the list as a clean ruled chart (Sandy, 2026-09-29) */
+        #mm-integrations .mm-integrations-box { max-width:960px; margin:2rem 0 0; padding:0; background:none; border:0; }
+        #mm-integrations .mm-integrations-box > p:first-child { margin:0 0 1.25rem; }
+        #mm-integrations .mm-panel table { border-collapse:collapse; border-top:1px solid rgba(255,255,255,.35); }
+        #mm-integrations .mm-panel th { padding:.8rem 1rem; border-bottom:1px solid rgba(255,255,255,.35); }
+        #mm-integrations .mm-panel td { padding:.95rem 1rem; border-bottom:1px solid rgba(255,255,255,.14); }
+        #mm-integrations .mm-panel th:first-child, #mm-integrations .mm-panel td:first-child { padding-left:0; border-right:1px solid rgba(255,255,255,.14); width:30%; }
+        #mm-integrations .mm-panel table + p { margin-top:1.25rem !important; }
+        @media (max-width:768px) { #mm-integrations .mm-panel th, #mm-integrations .mm-panel td { padding:.8rem .6rem; } #mm-integrations .mm-panel td:first-child { white-space:normal; width:34%; } }
+        /* Integrations: how many each plan includes, as a ruled row matching the chart (Sandy, 2026-09-29) */
+        #mm-integrations .mm-tier-caps { display:grid; grid-template-columns:repeat(3, 1fr); margin:0 0 2rem; border-top:1px solid rgba(255,255,255,.35); border-bottom:1px solid rgba(255,255,255,.35); }
+        #mm-integrations .mm-tier-caps > div { padding:1rem 1rem 1rem 0; display:flex; flex-direction:column; gap:.2rem; }
+        #mm-integrations .mm-tier-caps > div + div { padding-left:1rem; border-left:1px solid rgba(255,255,255,.14); }
+        #mm-integrations .mm-cap-num { font-family:var(--font-heading); font-weight:700; font-size:1.35rem; color:var(--color-red); text-transform:uppercase; }
+        #mm-integrations .mm-cap-who { font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:#999; }
+        @media (max-width:560px) { #mm-integrations .mm-cap-num { font-size:1.05rem; } #mm-integrations .mm-tier-caps > div + div { padding-left:.6rem; } }
+        /* Section menu in the top bar (Sandy, 2026-09-29) */
+        .nav .mm-nav-actions { display:flex; align-items:center; gap:.75rem; flex:none; }
+        .nav .mm-menu .nav-link { white-space:nowrap; }
+        #mm-form { scroll-margin-top:96px; }
+        /* Every width: the menu button opens a small box under it, items ranged left (Sandy, 2026-09-29) */
+        .nav .nav-inner { position:relative; }
+        .nav .mm-menu { display:none; position:absolute; top:calc(100% + 6px); right:var(--space-lg); left:auto; bottom:auto; z-index:9999;
+                        min-width:230px; background:#141414; border:1px solid rgba(255,255,255,.12); border-radius:4px;
+                        box-shadow:0 18px 40px rgba(0,0,0,.5); flex-direction:column; align-items:flex-start; justify-content:flex-start;
+                        gap:0; padding:.7rem 1.3rem; text-align:left; transform:none; -webkit-transform:none; }
+        .nav .mm-menu.open { display:flex; }
+        .nav:has(.mm-menu.open) { backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(0,0,0,.95); }
+        .nav .mm-menu .nav-link { font-size:.8rem; color:var(--color-gray-300); letter-spacing:.08em; padding:.55rem 0; align-self:flex-start; }
+        .nav .mm-menu .nav-link:hover, .nav .mm-menu .nav-link.active { color:#fff; }
+        .nav .nav-toggle { display:flex; position:relative; z-index:10000; }
+        @media (max-width:768px) { .nav .mm-menu { right:1rem; padding:.6rem 1.1rem; } }
+        @media (max-width:768px) { .nav .mm-nav-actions { gap:.5rem; } .nav .nav-toggle span { width:20px; }
+            .nav .mm-nav-brand img { height:24px; } .nav .mm-nav-name { font-size:.64rem; } .nav .mm-nav-by { font-size:.52rem; }
+            .nav .nav-cta-btn { padding:.5rem .65rem; font-size:.64rem; } }
+        @media (max-width:360px) { .nav .mm-nav-by { display:none; } .nav .mm-nav-name { font-size:.6rem; } .nav .nav-cta-btn { padding:.45rem .5rem; font-size:.6rem; } }
+    </style>
 </head>
 <body class="partners-page">
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <nav class="nav" id="nav">
         <div class="nav-inner">
-            <a href="/" class="nav-logo">
-                <img src="assets/logo.png" alt="Inspired Creative Group Inc." />
+            <a href="/" class="nav-logo mm-nav-brand" aria-label="The Production Brain, home">
+                <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
+                <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
             </a>
-            <a href="#mm-contact" class="btn btn-primary nav-cta-btn">Request pricing</a>
+            <div class="nav-links mm-menu" id="navLinks">
+                <a href="#mm-problem" class="nav-link">The problem</a>
+                <a href="#mm-why" class="nav-link">Why it exists</a>
+                <a href="#mm-what" class="nav-link">What it does</a>
+                <a href="#mm-how" class="nav-link">How it arrives</a>
+                <a href="#mm-catches" class="nav-link">What it catches</a>
+                <a href="#mm-integrations" class="nav-link">Integrations</a>
+                <a href="#mm-faq" class="nav-link">FAQ</a> <a href="#mm-form" class="nav-link">Contact</a>
+            </div>
+            <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a></div>
         </div>
     </nav>
 
@@ -373,13 +520,8 @@
         <div class="mm-over">
           <div class="container">
             <div class="partners-hero-content">
-                <p class="mm-kicker">What your agents remember isn't yours.</p>
                 <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
-                <p class="partners-hero-subtitle mm-lede">Your studio's memory. On local models. Yours to keep.</p>
-                <div class="partners-hero-ctas">
-                    <a href="#mm-contact" class="btn btn-primary">Request pricing →</a>
-                    <a href="#mm-why" class="btn btn-ghost">Why I built it (14 min) →</a>
-                </div>
+                <p class="partners-hero-subtitle mm-lede">Connects every AI tool to remember, recall, learn and grow LOCALLY.</p>
             </div>
           </div>
         </div>
@@ -435,10 +577,10 @@
                 </g>
                 <!-- OUT: the agents, two way -->
                 <g class="mm-wire mm-two">
-                  <path d="M 2665 1855.0 H 2845 Q 2945 1855.0 2945 1755.0 V 1280.0 H 3295"/>
-                  <path d="M 2665 1875.0 H 2905 Q 2995 1875.0 2995 1805.0 V 1510.0 H 3295"/>
-                  <path d="M 2665 1895.0 H 2965 Q 3045 1895.0 3045 1845.0 V 1740.0 H 3295"/>
-                  <path d="M 2665 1925.0 H 2905 Q 2995 1925.0 2995 1975.0 V 2070.0 H 3295"/>
+                  <path d="M 2665 1855.0 H 2845 Q 2945 1855.0 2945 1755.0 V 1280.0 H 3180"/>
+                  <path d="M 2665 1875.0 H 2905 Q 2995 1875.0 2995 1805.0 V 1510.0 H 3180"/>
+                  <path d="M 2665 1895.0 H 2965 Q 3045 1895.0 3045 1845.0 V 1740.0 H 3180"/>
+                  <path d="M 2665 1925.0 H 2905 Q 2995 1925.0 2995 1975.0 V 2070.0 H 3180"/>
                 </g>
                 <g class="mm-dot mm-two">
                   <circle cx="2665" cy="1855" r="9"/><circle cx="2665" cy="1875" r="9"/>
@@ -446,11 +588,11 @@
                 </g>
                 <!-- the laptops hang off the AGENTS, not off the machine -->
                 <g class="mm-wire mm-two mm-thin">
-                  <path d="M 3735 1350.0 V 2340.0"/><path d="M 3735 1580.0 V 2340.0"/>
-                  <path d="M 3735 1810.0 V 2340.0"/><path d="M 3735 2140.0 V 2340.0"/>
+                  <path d="M 3830 1350.0 V 2340.0"/><path d="M 3830 1580.0 V 2340.0"/>
+                  <path d="M 3830 1810.0 V 2340.0"/><path d="M 3830 2140.0 V 2340.0"/>
                 </g>
-                <g class="mm-wire mm-thin"><path d="M 3735 2340.0 H 3525"/></g>
-                <circle class="mm-dot mm-two" cx="3735" cy="2340" r="10"/>
+                <g class="mm-wire mm-thin"><path d="M 3830 2340.0 H 3525"/></g>
+                <circle class="mm-dot mm-two" cx="3830" cy="2340" r="10"/>
                 <circle class="mm-dot" cx="3525" cy="2340" r="9"/>
               </svg>
 
@@ -459,20 +601,20 @@
                 <div class="mm-row mm-l" style="left:20.5%;top:37.65%"><span class="mm-nm">Documents and notes</span>
                   <span class="mm-marks"><svg><use href="#i-notion"/></svg><svg><use href="#i-googledocs"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:44.10%"><span class="mm-nm">Files</span>
-                  <span class="mm-marks"><em class="mm-later">at setup</em><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
+                  <span class="mm-marks"><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:50.56%"><span class="mm-nm">Chat and email</span>
-                  <span class="mm-marks"><em class="mm-later">at setup</em><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
+                  <span class="mm-marks"><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meetings</span>
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:74.01%"><span class="mm-nm">Project tracker</span>
-                  <span class="mm-marks"><em class="mm-later">at setup</em><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
+                  <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:80.46%"><span class="mm-nm">Your own folders</span>
                   <span class="mm-marks"><svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 014.5 5h4.2l1.8 2h9A1.5 1.5 0 0121 8.5v10a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.5v-12z"/></svg></span></div>
 
-                <div class="mm-grp mm-wrap" style="left:80.3%;top:33.55%">What asks and adds</div>
+                <div class="mm-grp mm-wrap" style="left:80.3%;top:33.55%">What asks<br> and adds</div>
                 <div class="mm-row mm-two" style="left:80.3%;top:41.68%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">Claude Code</span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:49.24%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex <em class="mm-later">at setup</em></span></div>
-                <div class="mm-row mm-two" style="left:80.3%;top:56.63%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor <em class="mm-later">at setup</em></span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:49.24%"><span class="mm-marks"><svg><use href="#i-openai"/></svg></span><span class="mm-nm">Codex</span></div>
+                <div class="mm-row mm-two" style="left:80.3%;top:56.63%"><span class="mm-marks"><svg><use href="#i-cursor"/></svg></span><span class="mm-nm">Cursor</span></div>
                 <div class="mm-row mm-two" style="left:80.3%;top:67.41%"><span class="mm-marks"><svg><use href="#i-claude"/></svg></span><span class="mm-nm">claude.ai</span></div>
 
                 <div class="mm-grp mm-l" style="left:86.0%;top:72.54%;font-size:clamp(13px,1.38cqw,21px);letter-spacing:.18em;color:var(--mm-faint)">Through the agents</div>
@@ -483,121 +625,221 @@
         <!-- HERO BRAIN OVERLAY. The demo brain growing in the air over the machine. Self-contained
              drop-in: everything lives in assets/hero-brain/ (see its INSTALL.md); delete this block
              to remove it. The numbers are % of the photo: where the box is, how big, how high. -->
-        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".partners-hero-ctas"
+        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".partners-hero-subtitle"
              data-box-x="50" data-box-y="51" data-size="30" data-lift="-10" data-mode="hold" data-phone="light" aria-hidden="true"></div>
         <script src="assets/hero-brain/hero-brain.js?v=2" defer></script>
         <!-- /HERO BRAIN OVERLAY -->
     </section>
 
-    <!-- PROBLEM -->
-    <section class="section partners-problem" id="mm-problem">
+    <main id="main-content">
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- PROBLEM (ICG stakes layout)              -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section stakes-section" id="mm-problem">
+        <div class="mm-rays" aria-hidden="true"></div>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">The problem</span>
                 <h2 class="section-title">The memory isn't yours.<br><span class="text-accent">That is the problem.</span></h2>
             </div>
-            <ul class="mm-lines">
-                <li class="gsap-animate"><h3>Smart inside a folder. Blind across the job.</h3><p>Claude has no idea what Codex learned this morning. Neither of them read the email that changed the brief.</p></li>
-                <li class="gsap-animate"><h3>What it keeps, you can't see.</h3><p>It kept something. You can't see what. And it gets wiped.</p></li>
-                <li class="gsap-animate"><h3>And it isn't yours.</h3><p>Priced by the seat. Held on their servers. Gone when you leave.</p></li>
-            </ul>
+            <div class="stakes-cards">
+                <div class="stakes-card gsap-animate">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 11a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M5 18h30"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">Smart inside a folder. Blind across the job.</h3>
+                    <p>Claude has no idea what Codex learned this morning. Neither of them read the email that changed the brief.</p>
+                </div>
+                <div class="stakes-card gsap-animate">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">What it keeps,<br>you can't see.</h3>
+                    <p>It kept something. You can't see what. And it gets wiped.</p>
+                </div>
+                <div class="stakes-card gsap-animate">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="18" width="22" height="16" rx="2"/><path d="M14 18v-5a6 6 0 0 1 12 0v5"/><path d="M20 24v4"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">And it isn't yours.</h3>
+                    <p>Priced by the seat. Held on their servers. Gone when you leave.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- WHY IT EXISTS -->
-    <section class="section partners-why" id="mm-why">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHY IT EXISTS (the guide + the video)    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section" id="mm-why">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Why it exists</span>
                 <h2 class="section-title">I became the context manager<br><span class="text-accent">for my own agents.</span></h2>
                 <p class="section-subtitle">Twenty years in production, then I flipped the company to run on AI. Fourteen minutes on what I built instead. The second half is the demo: fresh accounts, nothing pasted in.</p>
             </div>
-            <div class="mm-video gsap-animate">
+            <div class="mm-video">
                 <iframe src="https://www.youtube-nocookie.com/embed/4EOZkllNoDw" title="Your AI's Memory Isn't Yours. So I Built My Own." loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- WHAT IT DOES -->
-    <section class="section partners-why" id="mm-what">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHAT IT DOES (ICG value-prop layout)     -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section value-prop" id="mm-what">
+        <!-- The brain's nucleus, big and beating: drawn in code in the hero brain's colours (see the script at the end). -->
+        <canvas class="mm-nucleus" aria-hidden="true"></canvas>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">What it does</span>
                 <h2 class="section-title">It keeps. It checks.<br><span class="text-accent">It moves with you.</span></h2>
             </div>
-            <ul class="mm-lines">
-                <li class="gsap-animate"><h3>Every agent reads the same memory.</h3><p>Claude today. Codex, Cursor and others plug into the same door.</p></li>
-                <li class="gsap-animate"><h3>Checks its notes every night.</h3><p>Stale, duplicated, or two notes that disagree. Flagged for you, never deleted. On your models.</p></li>
-                <li class="gsap-animate"><h3>The brain's own work never leaves.</h3><p>Your AI tools see only what they ask for. Local models, a private encrypted network.</p></li>
-            </ul>
-            <p class="mm-plain gsap-animate">It never touches your project files. It remembers what was decided.</p>
+            <div class="value-prop-grid">
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">01</span>
+                    <h3 class="value-prop-title">Every agent reads the same memory.</h3>
+                    <p class="value-prop-desc">Claude today. Codex, Cursor and others plug into the same door.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">02</span>
+                    <h3 class="value-prop-title">Checks its notes every night.</h3>
+                    <p class="value-prop-desc">Stale, duplicated, or two notes that disagree. Flagged for you, never deleted. On your models.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">03</span>
+                    <h3 class="value-prop-title">The brain's own work never leaves.</h3>
+                    <p class="value-prop-desc">Your AI tools see only what they ask for. Local models, a private encrypted network.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- HOW IT ARRIVES -->
-    <section class="section partners-process" id="mm-how">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- STATEMENT (ICG statement layout)         -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="statement">
+        <!-- A field of symbols drawn in code (after benjamincreative.me): faint - = + at the edges, * ? @ as it thickens,
+             a lock where it is densest; clear in the middle for the words; drifts slowly and brightens under the pointer. -->
+        <canvas class="mm-glyphs" aria-hidden="true"></canvas>
+        <div class="container">
+            <img class="statement-mark-logo mm-pb-mark" src="assets/pb-logo.svg" alt="" aria-hidden="true" width="34" height="35">
+            <p class="statement-line gsap-animate"><span class="statement-row mm-st-first">One local intelligence layer<br class="mm-br-phone"> where every AI tool</span><span class="statement-row text-accent">remembers, recalls, learns, and evolves.</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- HOW IT ARRIVES (ICG plan layout)         -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section plan" id="mm-how">
+        <picture class="mm-how-bg" aria-hidden="true">
+            <source media="(max-width:1000px)" srcset="assets/backgrounds/how-it-arrives-studio-phone.jpg" width="1080" height="1350">
+            <img src="assets/backgrounds/how-it-arrives-studio.jpg" alt="" loading="lazy" decoding="async" width="2560" height="1440">
+        </picture>
+        <!-- Lines converging on the machine, a glow running in along some of them (same look as the problem section). -->
+        <div class="mm-how-rays" aria-hidden="true"></div>
+        <!-- The hero's own brain animation, run a second time on this photo: the brain grows above the machine and its
+             lights come alive. Anchors are % of the painted photo (desktop 2560x1440 / phone 1080x1350 crops). -->
+        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid=".mm-steps"
+             data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
+             data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
+             data-lights-at="50.65,86.67;61.4,81.6;62.85,81.6;64.35,81.6"
+             data-lights-at-phone="46.9,85;71.1,82.2;74.3,81.9;77.4,81.7"
+             data-mode="hold" data-phone="light" data-interactive="0" data-labels="0" aria-hidden="true"></div>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">How it arrives</span>
                 <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Customised to how your team works.</span></h2>
-                <p class="section-subtitle">Tell us your tools. We build it, load the models, and bring it working. Maintained remotely over a secure network, with two encrypted copies we keep for you. Three studios this quarter.</p>
             </div>
+            <ol class="mm-steps">
+                <li><span class="mm-step-num">01</span><span class="mm-step-text">Tell us your tools.</span></li>
+                <li><span class="mm-step-num">02</span><span class="mm-step-text">We build it, load the models, and bring it working.</span></li>
+                <li><span class="mm-step-num">03</span><span class="mm-step-text">Maintained remotely over a secure network, with two encrypted copies we keep for you.</span></li>
+            </ol>
         </div>
     </section>
 
-    <!-- WHAT IT CATCHES -->
-    <section class="section partners-why" id="mm-catches">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHAT IT CATCHES (ICG workflow layout)    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section stakes-section ai-system-section" id="mm-catches">
+        <!-- A fine dot grid with a few packets travelling down it, lighting the dots as they pass (after the footer of
+             inngest.com/ai). Drawn in code; fades out towards the top. -->
+        <canvas class="mm-grid" aria-hidden="true"></canvas>
         <div class="container">
-            <div class="section-header gsap-animate">
+            <div class="ai-system gsap-animate">
                 <span class="section-label">What it catches</span>
-                <h2 class="section-title">Six weeks in.<br><span class="text-accent">What a Tuesday looks like.</span></h2>
-                <p class="section-subtitle">You sit down and it has already been through last night. Once your email and tracker are connected, these are the kinds of things it brings you.</p>
+                <h3 class="ai-section-title">Six weeks in.<br> <span class="text-accent">What a Tuesday looks like.</span></h3>
+                <p class="ai-system-intro">You sit down and it has already been through last night. Once your email and tracker are connected, these are the kinds of things it brings you.</p>
+                <div class="ai-layers">
+                    <div class="ai-layer gsap-animate">
+                        <span class="ai-layer-num">01</span>
+                        <div class="ai-layer-content">
+                            <h4>The track was cleared for social only.</h4>
+                            <p>The client said so in an email in March. The brief says music approved. In August the broadcast cut ships with it.</p>
+                        </div>
+                    </div>
+                    <div class="ai-layer gsap-animate">
+                        <span class="ai-layer-num">02</span>
+                        <div class="ai-layer-content">
+                            <h4>You already promised that category away.</h4>
+                            <p>January's contract has an exclusivity clause. In September someone starts a deck for a competitor. Nobody has opened the contract since it was signed.</p>
+                        </div>
+                    </div>
+                    <div class="ai-layer gsap-animate">
+                        <span class="ai-layer-num">03</span>
+                        <div class="ai-layer-content">
+                            <h4>The spec came off last year's sheet.</h4>
+                            <p>The broadcaster wants one loudness number. Your tracker has another. Delivery gets rejected at five on the Friday of a long weekend.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="ai-system-intro mm-after-layers">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
             </div>
-            <ul class="mm-lines">
-                <li class="gsap-animate"><h3>The track was cleared for social only.</h3><p>The client said so in an email in March. The brief says music approved. In August the broadcast cut ships with it.</p></li>
-                <li class="gsap-animate"><h3>You already promised that category away.</h3><p>January's contract has an exclusivity clause. In September someone starts a deck for a competitor. Nobody has opened the contract since it was signed.</p></li>
-                <li class="gsap-animate"><h3>The spec came off last year's sheet.</h3><p>The broadcaster wants one loudness number. Your tracker has another. Delivery gets rejected at five on the Friday of a long weekend.</p></li>
-            </ul>
-            <p class="mm-plain gsap-animate">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
         </div>
     </section>
 
-    <!-- INTEGRATIONS -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- INTEGRATIONS                             -->
+    <!-- ═══════════════════════════════════════ -->
     <section class="section partners-faq" id="mm-integrations">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Integrations</span>
                 <h2 class="section-title">Works with <span class="text-accent">what you already use.</span></h2>
             </div>
-            <div class="partners-faq-list">
-                <div class="partners-faq-item gsap-animate">
-                    <button class="partners-faq-toggle" aria-expanded="false">
-                        <span>See all integrations</span>
-                        <span class="partners-faq-icon">+</span>
-                    </button>
-                    <div class="partners-faq-answer">
-                        <div class="mm-panel">
-                            <p>An integration connects one of your tools, built at setup. You pick which.</p>
-                            <table>
-                                <tr><th>Category</th><th>Examples</th></tr>
-                                <tr><td>Your AI tool</td><td>Claude Code, Codex, Cursor, claude.ai. Two-way: your agents ask it and write to it.</td></tr>
-                                <tr><td>Documents and notes</td><td>Notion, Google Docs, Coda, Craft, Evernote, Apple Notes</td></tr>
-                                <tr><td>Files</td><td>Google Drive, Dropbox, OneDrive, SharePoint, your file server</td></tr>
-                                <tr><td>Chat</td><td>Slack, Microsoft Teams, Discord, Google Chat</td></tr>
-                                <tr><td>Email</td><td>Gmail, Microsoft 365</td></tr>
-                                <tr><td>Project tracker</td><td>ClickUp, Asana, Trello, Monday, Linear, Jira</td></tr>
-                                <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, Otter, a folder of recordings</td></tr>
-                            </table>
-                            <p style="margin-top:1rem">Has an export or an API? It's on the menu.</p>
-                            <p>Your AI tool and meeting recordings run on our brain today. The rest is built and tested at setup, covered by the guarantee.</p>
-                        </div>
-                    </div>
+            <div class="mm-panel mm-integrations-box">
+                <p>The brain works through the AI tool your team already uses, like Claude, Codex or ChatGPT. That connection is always included. Integrations are extra: each one brings another tool into the brain, built at setup. You pick which, up to your plan's limit.</p>
+                <div class="mm-tier-caps">
+                    <div><span class="mm-cap-num">Up to 3</span><span class="mm-cap-who">Solo producer</span></div>
+                    <div><span class="mm-cap-num">Up to 5</span><span class="mm-cap-who">Studio</span></div>
+                    <div><span class="mm-cap-num">6 or more</span><span class="mm-cap-who">Company</span></div>
                 </div>
+                <table>
+                    <tr><th>Category</th><th>Examples</th></tr>
+                    <tr><td>Your AI tool (included)</td><td>Claude Code, claude.ai, ChatGPT, Codex, Cursor, Gemini CLI, Grok, Perplexity</td></tr>
+                    <tr><td>Documents and notes</td><td>Notion, Google Docs, Coda, Craft, Evernote</td></tr>
+                    <tr><td>Files</td><td>Google Drive, Dropbox, OneDrive, SharePoint, your file server</td></tr>
+                    <tr><td>Chat</td><td>Slack, Microsoft Teams, Discord, Google Chat</td></tr>
+                    <tr><td>Email</td><td>Gmail, Microsoft 365</td></tr>
+                    <tr><td>Project tracker</td><td>ClickUp, Asana, Trello, Monday, Linear, Jira</td></tr>
+                    <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, a folder of recordings</td></tr>
+                </table>
+                <p style="margin-top:1rem">Has an export or an API? It's on the menu.</p>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- FAQ                                      -->
+    <!-- ═══════════════════════════════════════ -->
     <section class="section partners-faq" id="mm-faq">
         <div class="container">
             <div class="section-header gsap-animate">
@@ -637,22 +879,27 @@
         </div>
     </section>
 
-    <!-- CONTACT -->
-    <section class="section partners-contact" id="mm-contact">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- REQUEST PRICING (ICG contact layout)     -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section contact" id="founding-offer">
+        <span id="mm-contact" aria-hidden="true"></span>
         <div class="container">
-            <div class="partners-contact-grid">
-                <div class="partners-contact-text gsap-animate">
-                    <span class="section-label">Request pricing</span>
-                    <h2 class="section-title">Pricing for <span class="text-accent">your studio.</span></h2>
-                    <p>Your team, your tools. Pricing and details within a day.</p>
-                    <p>If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
+            <div class="contact-grid">
+                <div class="contact-info gsap-animate">
+                    <span class="section-label">Founding offer</span>
+                    <h2 class="section-title">One studio gets <span class="text-accent">a free build.</span></h2>
                     <div class="mm-card mm-founding">
-                        <h3>One founding studio.</h3>
-                        <p>We build the first one with a single studio, chosen from the applicants. The build fee is waived. You buy the Mac at Apple's price and pay for monthly care. In return: a case study, a testimonial and honest feedback.</p>
-                        <p>Applications close October 31. Tick the box on the form to apply.</p>
+                        <p><strong>You get:</strong> the full build, free. We install the brain, load the models and connect your tools.</p>
+                        <p><strong>You cover:</strong> the Mac at Apple's price, no markup, and the monthly maintenance fee: from $575 USD for a solo producer and $1,350 USD for a single studio, with 30% off for the first year: $402.50 and $945 a month.</p>
+                        <p><strong>We ask:</strong> a case study, a testimonial and honest feedback.</p>
+                        <p class="mm-offer-close">One spot, chosen from the applicants. Tick the box on the form to apply by October 31.</p>
                     </div>
+                    <span class="section-label mm-sub-label">Pricing &amp; Details</span>
+                    <h3 class="mm-sub-title">Ask for your studio's pricing.</h3>
+                    <p class="contact-text">Your team, your tools. Pricing and details within a day. If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
                 </div>
-                <div class="partners-contact-form-wrapper gsap-animate">
+                <div class="contact-form-wrap gsap-animate" id="mm-form">
                     <form class="contact-form" id="partnersForm" action="https://formspree.io/f/mbdagppd" method="POST">
                         <input type="hidden" name="_subject" value="Production Brain pricing request">
                         <input type="hidden" name="inquiry_type" value="Production Brain">
@@ -700,7 +947,7 @@
                         </div>
                         <label class="mm-check"><input type="checkbox" name="founding_application" value="yes"> Apply for the founding studio spot</label>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
-                        <button type="submit" class="btn btn-primary btn-submit" id="partnerSubmitBtn">Request pricing</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Request pricing</button>
                     </form>
                     <div class="form-success" id="partnerFormSuccess" style="display:none;">
                         <div class="form-success-icon">✓</div>
@@ -712,47 +959,56 @@
         </div>
     </section>
 
+    <!-- ═══════════════════════════════════════ -->
+    <!-- FOOTER (ICG footer)                      -->
+    <!-- ═══════════════════════════════════════ -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="assets/logo.png" alt="Inspired Creative Group Inc." class="footer-logo" />
-                    <p class="footer-tagline">Two decades of creative expertise.<br>Amplified by 40+ AI agents.</p>
+                    <a href="/" class="mm-footer-brand" aria-label="The Production Brain, home">
+                        <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
+                        <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
+                    </a>
+                    <p class="footer-tagline">Connects every AI tool to remember, recall,<br>learn and grow LOCALLY.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Navigate</h4>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#home">Home</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#about">About</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#services">Services</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#work">Work</a>
-                    <a href="/">The Production Brain</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#services-creative">Inspired Creative</a>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#services-ai">Inspired AI Innovation</a>
+                    <h4>Navigation</h4>
+                    <!-- Same items as the top menu (Sandy, 2026-09-29) -->
+                    <a href="#mm-problem">The problem</a>
+                    <a href="#mm-why">Why it exists</a>
+                    <a href="#mm-what">What it does</a>
+                    <a href="#mm-how">How it arrives</a>
+                    <a href="#mm-catches">What it catches</a>
+                    <a href="#mm-integrations">Integrations</a>
+                    <a href="#mm-faq">FAQ</a>
+                    <a href="#mm-form">Contact</a>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
-                    <a href="https://inspiredcreativegroupinc.com/index.html#contact">Contact Us</a>
+                    <a href="mailto:info@inspiredcreativegroupinc.com">Email Us</a>
                     <div class="footer-social">
                         <a href="https://www.linkedin.com/in/juanvalenciaproduction/" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 Inspired Creative Group Inc.
+                <p>© 2026 Inspired Creative Group Inc. All rights reserved.<br>
                 <span class="footer-location">Toronto, Ontario · Halifax, Nova Scotia · Working Globally</span></p>
             </div>
         </div>
     </footer>
 
+    </main>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
     <!-- GSAP + Plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
     <script>
     (function() {
         'use strict';
@@ -810,7 +1066,423 @@
         }
     })();
     </script>
-    <script src="partners-animations.js"></script>
+    <script>
+    (function() {
+        'use strict';
+        var nav = document.getElementById('nav');
+        var backToTop = document.getElementById('backToTop');
+        var progress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', function() {
+            var y = window.scrollY;
+            if (nav) nav.classList.toggle('scrolled', y > 50);
+            if (backToTop) backToTop.classList.toggle('visible', y > window.innerHeight);
+            if (progress) {
+                var h = document.documentElement.scrollHeight - window.innerHeight;
+                progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+            }
+        }, { passive: true });
+        if (backToTop) backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    })();
+    </script>
+
+    <!-- Statement: each line rises as the section comes into view (same as the ICG site) -->
+    <script>
+    (function() {
+        var section = document.querySelector('.statement');
+        if (!section) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { section.classList.add('is-in'); return; }
+        if (!('IntersectionObserver' in window)) { section.classList.add('is-in'); return; }
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { section.classList.add('is-in'); io.disconnect(); }
+            });
+        }, { threshold: 0.35 });
+        io.observe(section);
+    })();
+    </script>
+    <!-- Problem rays: drawn for the section's real size, with the red centre in the empty space beside the headline.
+         A glow runs in along every line to the centre. Paused while off screen. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-problem');
+        var box = sec && sec.querySelector('.mm-rays');
+        if (!box) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var ANGLES = [-98,-84,-66,-52,-38,-27,-8,6,19,31,47,62,78,95,110,127,146,166,186,203,219,238,256];
+        var TIMES = ANGLES.map(function(_, i) { var d = 1.7 * (4.2 + ((i * 37) % 43) / 10); return [d, -((i * 53) % 71) / 71 * d]; });
+        function el(name, attrs, parent) {
+            var n = document.createElementNS(NS, name);
+            for (var k in attrs) n.setAttribute(k, attrs[k]);
+            if (parent) parent.appendChild(n);
+            return n;
+        }
+        var lastKey = '';
+        function draw() {
+            var w = sec.clientWidth, h = sec.clientHeight;
+            var head = sec.querySelector('.section-header').getBoundingClientRect();
+            var top = sec.getBoundingClientRect().top;
+            var phone = w < 900;
+            var cx = Math.round(w * (phone ? 0.86 : 0.8));
+            var cy = Math.round(phone ? (head.top - top) + 14 : (head.top - top) + head.height / 2);
+            var key = w + 'x' + h + '@' + cx + ',' + cy;
+            if (key === lastKey) return;
+            lastKey = key;
+            box.textContent = '';
+            var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
+            var defs = el('defs', {}, svg);
+            el('feGaussianBlur', { stdDeviation: phone ? 4 : 6 }, el('filter', { id: 'mmGlow', x: '-50%', y: '-50%', width: '200%', height: '200%' }, defs));
+            var grad = el('radialGradient', { id: 'mmCoreGlow' }, defs);
+            el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.5' }, grad);
+            el('stop', { offset: '1', 'stop-color': '#ff4b3e', 'stop-opacity': '0' }, grad);
+            var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
+            el('circle', { 'class': 'mm-ray', cx: cx, cy: cy, r: Math.round(Math.max(w, h) * (phone ? 0.9 : 0.62)) }, svg);
+            var pulses = el('g', { 'class': 'mm-pulses' }, svg);
+            ANGLES.forEach(function(a, i) {
+                var r = a * Math.PI / 180, x = Math.round(cx + Math.cos(r) * reach), y = Math.round(cy + Math.sin(r) * reach);
+                var d = 'M' + x + ' ' + y + 'L' + cx + ' ' + cy;
+                el('path', { 'class': 'mm-ray', d: d }, svg);
+                if (i % 2) return;   /* subdued: only every other line carries a glow (Sandy, 2026-09-29) */
+                var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
+                el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
+                el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
+            });
+            var core = el('g', { 'class': 'mm-core', style: 'transform-origin:' + cx + 'px ' + cy + 'px' }, svg);
+            el('circle', { cx: cx, cy: cy, r: phone ? 30 : 46, fill: 'url(#mmCoreGlow)' }, core);
+            el('circle', { cx: cx, cy: cy, r: phone ? 7 : 10, fill: '#ff5245' }, core);
+        }
+        draw();
+        window.addEventListener('load', draw);
+        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); });
+            }).observe(sec);
+        }
+    })();
+    </script>
+    <!-- What it does: the nucleus. A geodesic wireframe sphere in the hero brain's amber, turning slowly,
+         with faint rings growing out of it every 2.4 s. No glow behind it (Sandy, 2026-09-29). Its size holds steady (no beat: Sandy found
+         the pulse distracting, 2026-09-29). Canvas 2D, no library. Paused off screen; one still frame under
+         reduced motion. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-what');
+        var cv = sec && sec.querySelector('.mm-nucleus');
+        if (!cv || !cv.getContext) return;
+        var ctx = cv.getContext('2d');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // icosahedron, subdivided once: 42 points, 120 edges
+        var t = (1 + Math.sqrt(5)) / 2;
+        var V = [[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]];
+        var F = [[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
+        function norm(v) { var l = Math.hypot(v[0], v[1], v[2]); return [v[0]/l, v[1]/l, v[2]/l]; }
+        V = V.map(norm);
+        var mid = {};
+        function m(a, b) { var k = a < b ? a + '_' + b : b + '_' + a; if (mid[k] == null) { V.push(norm([(V[a][0]+V[b][0])/2, (V[a][1]+V[b][1])/2, (V[a][2]+V[b][2])/2])); mid[k] = V.length - 1; } return mid[k]; }
+        var E = {};
+        F.forEach(function(f) {
+            var a = f[0], b = f[1], c = f[2], ab = m(a,b), bc = m(b,c), ca = m(c,a);
+            [[a,ab],[ab,b],[b,bc],[bc,c],[c,ca],[ca,a],[ab,bc],[bc,ca],[ca,ab]].forEach(function(e) { E[e[0] < e[1] ? e[0]+'_'+e[1] : e[1]+'_'+e[0]] = e; });
+        });
+        E = Object.keys(E).map(function(k) { return E[k]; });
+        var W = 0, H = 0, dpr = 1, running = false, inView = false, raf = 0, t0 = performance.now(), rings = [], lastBeat = -1;
+        function size() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = sec.clientWidth; H = sec.clientHeight;
+            cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        function frame(now) {
+            var s = (now - t0) / 1000, b = 0; /* no beat: the sphere and its glow hold steady */
+            var phone = W < 900;
+            var cx = W * (phone ? 0.55 : 0.62), cy = phone ? Math.min(H * 0.3, W * 0.95) : H * 0.52;
+            var R = (phone ? W * 0.62 : Math.min(W, H) * 0.44) * (1 + 0.06 * b);
+            ctx.clearRect(0, 0, W, H);
+            // a ring leaves on each first beat
+            var cyc = Math.floor(s / 2.4);
+            if (!still && cyc !== lastBeat) { lastBeat = cyc; rings.push(s); }
+            rings = rings.filter(function(r0) { return s - r0 < 4.8; });
+            rings.forEach(function(r0) {
+                var k = (s - r0) / 4.8, rr = R * (0.2 + 2.2 * (1 - Math.pow(1 - k, 2)));
+                var fade = k < 0.12 ? k / 0.12 : 1 - (k - 0.12) / 0.88;
+                ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(242,214,170,' + (0.2 * fade).toFixed(3) + ')'; ctx.lineWidth = 1.2; ctx.stroke();
+            });
+            // the wireframe, turning
+            var ay = s * 0.16, ax = 0.35 + Math.sin(s * 0.11) * 0.18;
+            var cyA = Math.cos(ay), syA = Math.sin(ay), cxA = Math.cos(ax), sxA = Math.sin(ax);
+            var P = V.map(function(v) {
+                var x = v[0] * cyA + v[2] * syA, z = -v[0] * syA + v[2] * cyA, y = v[1] * cxA - z * sxA; z = v[1] * sxA + z * cxA;
+                var f = 3.2 / (3.2 - z);
+                return [cx + x * R * f, cy + y * R * f, z];
+            });
+            ctx.lineWidth = phone ? 1 : 1.3;
+            E.forEach(function(e) {
+                var a = P[e[0]], c = P[e[1]], depth = (a[2] + c[2]) / 2; // -1 back .. 1 front
+                var al = (0.12 + 0.5 * (depth + 1) / 2) * (0.75 + 0.35 * b);
+                ctx.strokeStyle = 'rgba(226,160,72,' + Math.min(1, al).toFixed(3) + ')';
+                ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
+            });
+            // the vertices, front ones brighter
+            P.forEach(function(p) {
+                var al = 0.25 + 0.6 * (p[2] + 1) / 2;
+                ctx.fillStyle = 'rgba(242,190,110,' + al.toFixed(3) + ')';
+                ctx.beginPath(); ctx.arc(p[0], p[1], (phone ? 1.6 : 2.2) * (0.8 + 0.4 * (p[2] + 1) / 2), 0, Math.PI * 2); ctx.fill();
+            });
+            if (running) raf = requestAnimationFrame(frame);
+        }
+        function start() { if (running || still) return; running = true; raf = requestAnimationFrame(frame); }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+        size(); frame(performance.now());
+        if (window.ResizeObserver) new ResizeObserver(function() { size(); if (!running) frame(performance.now()); }).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
+        } else { inView = true; start(); }
+        document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
+    })();
+    </script>
+    <!-- How it arrives: rays drawn to the machine in the photo (its centre measured on the painted image, cover-fit),
+         ending at its edges like cables. Same subdued glows as the problem section. Paused off screen. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-how');
+        var box = sec && sec.querySelector('.mm-how-rays');
+        var img = sec && sec.querySelector('.mm-how-bg img');
+        if (!box || !img) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var ANGLES = [-160,-142,-126,-112,-100,-88,-76,-64,-50,-36,-20,-6,8,24,156,172];
+        var TIMES = ANGLES.map(function(_, i) { var d = 1.7 * (4.2 + ((i * 37) % 43) / 10); return [d, -((i * 53) % 71) / 71 * d]; });
+        function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+        var lastKey = '';
+        function draw() {
+            var w = sec.clientWidth, h = sec.clientHeight, nw = img.naturalWidth, nh = img.naturalHeight;
+            if (!nw || !nh) return;
+            var phone = window.matchMedia('(max-width:1000px)').matches;
+            var pw, ph, left, top;
+            if (getComputedStyle(img).objectFit === 'cover') {
+                var r = Math.max(w / nw, h / nh); pw = nw * r; ph = nh * r;
+                var pos = (getComputedStyle(img).objectPosition || '50% 0%').split(' ').map(function(v) { return parseFloat(v) / 100; });
+                left = (w - pw) * (isNaN(pos[0]) ? .5 : pos[0]); top = (h - ph) * (isNaN(pos[1]) ? 0 : pos[1]);
+            } else {   /* phones: the photo sits at full width at the bottom */
+                var ib = img.getBoundingClientRect(), sb = sec.getBoundingClientRect();
+                pw = ib.width; ph = ib.height; left = ib.left - sb.left; top = ib.top - sb.top;
+            }
+            var m = phone ? { x: 50.1, y: 77, half: 32.3 } : { x: 52.05, y: 77, half: 14.55 };   /* machine centre and half-width, % of the photo */
+            var cx = Math.round(left + pw * m.x / 100), cy = Math.round(top + ph * m.y / 100), r0 = Math.round(pw * m.half / 100 * 1.08);
+            var key = w + 'x' + h + '@' + cx + ',' + cy + ',' + r0;
+            if (key === lastKey) return;
+            lastKey = key;
+            box.textContent = '';
+            var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
+            var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
+            var pulses = el('g', { 'class': 'mm-pulses' }, svg);
+            ANGLES.forEach(function(a, i) {
+                var t = a * Math.PI / 180, c = Math.cos(t), sn = Math.sin(t);
+                var d = 'M' + Math.round(cx + c * reach) + ' ' + Math.round(cy + sn * reach) + 'L' + Math.round(cx + c * r0) + ' ' + Math.round(cy + sn * r0 * 0.55);
+                el('path', { 'class': 'mm-ray', d: d }, svg);
+                if (i % 2) return;
+                var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
+                el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
+                el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
+            });
+        }
+        if (img.complete) draw(); else img.addEventListener('load', draw);
+        window.addEventListener('load', draw);
+        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(es) { es.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); }); }).observe(sec);
+        }
+    })();
+    </script>
+    <!-- How it arrives: start a second copy of the hero brain once the section is near. It waits for the hero's own
+         loader to add the renderer, then imports that same file (nothing downloads twice). The hero keeps window.heroBrain. -->
+    <script type="module">
+    (function() {
+        var mount = document.querySelector('.mm-how-brain');
+        var img = document.querySelector('#mm-how .mm-how-bg img');
+        if (!mount || !img || !('IntersectionObserver' in window)) return;
+        function whenCore(cb, tries) {
+            var s = document.querySelector('script[type="module"][src*="hero-brain.core.js"]');
+            if (s) return cb(s.src);
+            if ((tries || 0) < 60) setTimeout(function() { whenCore(cb, (tries || 0) + 1); }, 500);
+        }
+        var io = new IntersectionObserver(function(entries) {
+            if (!entries.some(function(e) { return e.isIntersecting; })) return;
+            io.disconnect();
+            img.loading = 'eager';
+            whenCore(function(src) {
+                import(src).then(function(mod) {
+                    var keep = window.heroBrain;
+                    mod.start(mount);
+                    window.mmHowBrain = window.heroBrain;
+                    if (keep) window.heroBrain = keep;
+                }).catch(function() {});
+            });
+        }, { rootMargin: '600px 0px' });
+        io.observe(mount);
+    })();
+    </script>
+    <!-- Statement band: the symbol field. Canvas 2D, about 24 frames a second, paused off screen, one still frame
+         under reduced motion. Symbols by density: - = + * ? @ then a lock drawn as a tiny padlock. -->
+    <script>
+    (function() {
+        var sec = document.querySelector('.statement');
+        var cv = sec && sec.querySelector('.mm-glyphs');
+        if (!cv || !cv.getContext) return;
+        var ctx = cv.getContext('2d');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var GLYPHS = ['-', '=', '+', '*', '?', '@', 'lock'];
+        var STEPS  = [0.08, 0.16, 0.25, 0.34, 0.45, 0.54, 0.61];   /* density at which each symbol takes over: light ones do most of the work */
+        var W = 0, H = 0, dpr = 1, cell = 18, running = false, inView = false, raf = 0, last = 0;
+        var mx = -9999, my = -9999, mGlow = 0;
+        function size() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = sec.clientWidth; H = sec.clientHeight; cell = W < 700 ? 14 : 18;
+            cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        function smooth(a, b, x) { var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+        function lock(x, y, s, a) {
+            ctx.strokeStyle = ctx.fillStyle = 'rgba(255,255,255,' + a + ')';
+            ctx.lineWidth = Math.max(1, s * 0.12);
+            ctx.beginPath(); ctx.arc(x, y - s * 0.12, s * 0.2, Math.PI, 0); ctx.stroke();
+            ctx.fillRect(x - s * 0.3, y - s * 0.1, s * 0.6, s * 0.44);
+        }
+        function frame(now) {
+            if (running) raf = requestAnimationFrame(frame);
+            if (running && now - last < 42) return;   /* ~24 fps is plenty for this */
+            last = now;
+            var t = now / 1000;
+            mGlow += ((mx > -999 ? 1 : 0) - mGlow) * 0.08;
+            ctx.clearRect(0, 0, W, H);
+            ctx.font = '500 ' + Math.round(cell * 0.72) + "px 'IBM Plex Mono', ui-monospace, monospace";
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            var cols = Math.ceil(W / cell), rows = Math.ceil(H / cell), ox = (W - cols * cell) / 2, oy = (H - rows * cell) / 2;
+            for (var j = 0; j < rows; j++) {
+                for (var i = 0; i < cols; i++) {
+                    var x = ox + (i + 0.5) * cell, y = oy + (j + 0.5) * cell;
+                    var u = (x / W) * 2 - 1, v = (y / H) * 2 - 1;
+                    var d = Math.pow(Math.pow(Math.abs(u), 4) + Math.pow(Math.abs(v * 1.05), 4), 0.25);   /* rounded-square distance */
+                    var frameBand = smooth(0.34, 0.66, d) * (1 - smooth(0.95, 1.18, d));                 /* dense frame, clear centre */
+                    var n = 0.5 + 0.25 * Math.sin(u * 3.1 + t * 0.35) * Math.cos(v * 3.7 - t * 0.28) + 0.25 * Math.sin((u + v) * 5.3 - t * 0.5);
+                    var I = frameBand * (0.1 + 0.55 * n);
+                    if (mGlow > 0.01) { var dx = x - mx, dy = y - my; I += mGlow * 0.9 * Math.exp(-(dx * dx + dy * dy) / (2 * 110 * 110)); }
+                    if (I < STEPS[0]) continue;
+                    var k = 0; while (k < STEPS.length - 1 && I >= STEPS[k + 1]) k++;
+                    var a = Math.min(0.55, 0.06 + I * 0.32).toFixed(3);
+                    if (GLYPHS[k] === 'lock') lock(x, y, cell * 0.72, a);
+                    else { ctx.fillStyle = 'rgba(255,255,255,' + a + ')'; ctx.fillText(GLYPHS[k], x, y); }
+                }
+            }
+        }
+        function start() { if (running || still) return; running = true; raf = requestAnimationFrame(frame); }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+        size(); frame(performance.now());
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(function() { frame(performance.now()); });
+        if (window.ResizeObserver) new ResizeObserver(function() { size(); if (!running) frame(performance.now()); }).observe(sec);
+        sec.addEventListener('pointermove', function(e) { var b = sec.getBoundingClientRect(); mx = e.clientX - b.left; my = e.clientY - b.top; });
+        sec.addEventListener('pointerleave', function() { mx = my = -9999; });
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
+        } else { inView = true; start(); }
+        document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
+    })();
+    </script>
+    <!-- What it catches: dot grid + packets. The grid is drawn once per size into an offscreen canvas; each frame only
+         repaints the packets. About 30 fps, paused off screen, grid only (no packets) under reduced motion. -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-catches');
+        var cv = sec && sec.querySelector('.mm-grid');
+        if (!cv || !cv.getContext) return;
+        var ctx = cv.getContext('2d'), base = document.createElement('canvas'), bctx = base.getContext('2d');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var W = 0, H = 0, dpr = 1, gap = 22, cols = 0, rows = 0, ox = 0, oy = 0, packets = [], running = false, inView = false, raf = 0, last = 0, prev = 0;
+        function size() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = sec.clientWidth; H = sec.clientHeight; gap = W < 700 ? 22 : 30;   /* zoomed in (Sandy): bigger spacing, bigger dots */
+            [cv, base].forEach(function(c) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            cols = Math.ceil(W / gap) + 1; rows = Math.ceil(H / gap) + 1; ox = (W - (cols - 1) * gap) / 2; oy = (H - (rows - 1) * gap) / 2;
+            bctx.clearRect(0, 0, W, H);
+            for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) {
+                var tw = 0.07 + 0.06 * ((i * 7 + j * 13) % 5) / 4;   /* a little unevenness, like the reference */
+                bctx.fillStyle = 'rgba(255,255,255,' + tw.toFixed(3) + ')';
+                bctx.fillRect(ox + i * gap - 1.8, oy + j * gap - 1.8, 3.6, 3.6);
+            }
+            var n = W < 700 ? 10 : 20;
+            packets = [];
+            for (var k = 0; k < n; k++) packets.push(spawn(true));
+        }
+        function spawn(anywhere) {
+            return { c: Math.floor(Math.random() * cols), y: anywhere ? Math.random() * H : -gap * 4,
+                     v: 60 + Math.random() * 80, len: 3 + Math.floor(Math.random() * 4), white: Math.random() < 0.18 };
+        }
+        function frame(now) {
+            if (running) raf = requestAnimationFrame(frame);
+            if (running && now - last < 33) return;
+            var dt = prev ? Math.min(0.1, (now - prev) / 1000) : 0; prev = now; last = now;
+            ctx.clearRect(0, 0, W, H);
+            ctx.drawImage(base, 0, 0, W, H);
+            if (still) return;
+            packets.forEach(function(p, idx) {
+                p.y += p.v * dt;
+                if (p.y - p.len * gap > H) packets[idx] = p = spawn(false);
+                var x = ox + p.c * gap, head = Math.floor((p.y - oy) / gap);
+                for (var t = 0; t < p.len; t++) {
+                    var j = head - t; if (j < 0 || j >= rows) continue;
+                    var y = oy + j * gap, a = (1 - t / p.len) * (t === 0 ? 0.95 : 0.6);
+                    ctx.fillStyle = p.white ? 'rgba(255,255,255,' + a.toFixed(3) + ')' : 'rgba(232,0,13,' + a.toFixed(3) + ')';
+                    var s = t === 0 ? 6 : 4.8;
+                    ctx.fillRect(x - s / 2, y - s / 2, s, s);
+                }
+            });
+        }
+        function start() { if (running) return; running = true; prev = 0; raf = requestAnimationFrame(frame); }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+        size(); frame(performance.now());
+        if (window.ResizeObserver) new ResizeObserver(function() { size(); if (!running) frame(performance.now()); }).observe(sec);
+        if ('IntersectionObserver' in window && !still) {
+            new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
+        }
+        document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView && !still) start(); });
+    })();
+    </script>
+    <!-- Top-bar section menu: open/close below 1280px, close on a link or Escape, and mark the section in view. -->
+    <script>
+    (function() {
+        var menu = document.getElementById('navLinks'), btn = document.getElementById('navToggle');
+        if (!menu || !btn) return;
+        /* The box sits under the menu button, which now comes before the FOUNDING OFFER button */
+        function place() {
+            var inner = menu.parentNode.getBoundingClientRect(), b = btn.getBoundingClientRect();
+            var r = inner.right - b.right - 12, w = menu.offsetWidth;
+            if (inner.right - r - w < 12) r = inner.right - w - 12;   /* never past the screen's left edge on a phone */
+            menu.style.right = Math.max(0, Math.round(r)) + 'px';
+        }
+        window.addEventListener('resize', function() { if (menu.classList.contains('open')) place(); });
+        function set(open) {
+            menu.classList.toggle('open', open); btn.classList.toggle('active', open);
+            if (open) place();
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            btn.setAttribute('aria-label', open ? 'Close the section menu' : 'Open the section menu');
+        }
+        btn.addEventListener('click', function() { set(!menu.classList.contains('open')); });
+        menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { set(false); }); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
+        document.addEventListener('click', function(e) { if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) set(false); });
+        if (!('IntersectionObserver' in window)) return;
+        var links = {}; menu.querySelectorAll('a[href^="#"]').forEach(function(a) { links[a.getAttribute('href').slice(1)] = a; });
+        var io = new IntersectionObserver(function(es) {
+            es.forEach(function(e) {
+                if (!e.isIntersecting) return;
+                Object.keys(links).forEach(function(id) { links[id].classList.toggle('active', id === e.target.id); });
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        Object.keys(links).forEach(function(id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    })();
+    </script>
+    <script src="gsap-animations.js"></script>
     <script>(function(){try{navigator.sendBeacon&&navigator.sendBeacon("https://icg-beacon.beacon-worker.workers.dev/pv",JSON.stringify({p:location.pathname,r:document.referrer||"",t:document.title}))}catch(e){}})();</script>
 </body>
 </html>
