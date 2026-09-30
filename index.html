@@ -408,7 +408,12 @@
         #mm-what { background:#0a0a0a; }
         #mm-what .mm-nucleus { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
         #mm-what > .container { position:relative; z-index:1; }
-        #mm-what .value-prop-card { background:#242424; }   /* same dark grey as the How it arrives steps box (Sandy, 2026-09-29) */
+        #mm-what .value-prop-card, #mm-local .value-prop-card { background:#242424; }
+        /* Why local: four cards, 4 across on wide screens, 2 x 2 on tablets (Sandy, 2026-09-30) */
+        #mm-local { background:#0a0a0a; }
+        #mm-local .mm-local-grid { grid-template-columns:repeat(4,1fr); }
+        @media (max-width:1100px) { #mm-local .mm-local-grid { grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:768px) { #mm-local .mm-local-grid { grid-template-columns:1fr; } }   /* same dark grey as the How it arrives steps box (Sandy, 2026-09-29) */
         /* How it arrives: Juan's studio at midday, hero machine on the table, as the whole section's background,
            starting at the top (Sandy, 2026-09-29). The steps sit on one simple dark strip so they read over the photo. */
         #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(74vw, 760px); }   /* taller than the photo's 16:9 so the brain has air above the machine */
@@ -520,7 +525,7 @@
             <div class="nav-links mm-menu" id="navLinks">
                 <a href="#mm-problem" class="nav-link">The problem</a>
                 <a href="#mm-why" class="nav-link">Why it exists</a>
-                <a href="#mm-what" class="nav-link">What it does</a>
+                <a href="#mm-what" class="nav-link">What it does</a> <a href="#mm-local" class="nav-link">Why local</a>
                 <a href="#mm-how" class="nav-link">How it arrives</a>
                 <a href="#mm-catches" class="nav-link">What it catches</a>
                 <a href="#mm-integrations" class="nav-link">Integrations</a>
@@ -726,7 +731,7 @@
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">03</span>
                     <h3 class="value-prop-title">Locally.</h3>
-                    <p class="value-prop-desc">On a Mac Studio in your building, on local models. Your IP stays there, and your memory moves with you when you switch AI tools.</p>
+                    <p class="value-prop-desc">On a Mac Studio in your building, on local models. Your IP stays there.</p>
                 </div>
             </div>
         </div>
@@ -742,6 +747,43 @@
         <div class="container">
             <img class="statement-mark-logo mm-pb-mark" src="assets/pb-logo.svg" alt="" aria-hidden="true" width="34" height="35">
             <p class="statement-line gsap-animate"><span class="statement-row mm-st-first">9:40. The editor saves the client's note.</span><span class="statement-row">11:15. The producer saves what changed.</span><span class="statement-row text-accent">4:30. Ask where the job stands. Get both.</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHY LOCAL (ICG value-prop layout)        -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- Sandy, 2026-09-30. Claims checked against the ICG-Agentic-Memory repo (bridge task c7f80750) and the vault:
+         the brain's own model work runs locally with no cloud key; 128 GB is the proven minimum ("we ship what we run");
+         training is a future option only, worded as "stored so you can". Plan and sources:
+         Production Brain Brand/02-current/2026-09-30-why-local-section-plan.md (Sandy's Mac). -->
+    <section class="section value-prop" id="mm-local">
+        <div class="container">
+            <div class="section-header gsap-animate">
+                <h2 class="section-title">Rent your AI tools.<br><span class="text-accent">Own your memory.</span></h2>
+            </div>
+            <div class="value-prop-grid mm-local-grid">
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">01</span>
+                    <h3 class="value-prop-title">Its own models.</h3>
+                    <p class="value-prop-desc">Every night it reads the day, keeps what matters and checks it, on models that run on your Mac. No cost per use, and nowhere else.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">02</span>
+                    <h3 class="value-prop-title">It outlives your tools.</h3>
+                    <p class="value-prop-desc">Switch from Claude to Codex tomorrow. The memory stays, because it was never inside either.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">03</span>
+                    <h3 class="value-prop-title">Why a Mac Studio.</h3>
+                    <p class="value-prop-desc">The brain needs at least 128 GB of memory to run without issues. A Mac Studio has it, up to 512 GB for bigger teams.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">04</span>
+                    <h3 class="value-prop-title">Where it's going.</h3>
+                    <p class="value-prop-desc">What it keeps is stored so you can one day train a model of your own on how your studio works.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -977,6 +1019,7 @@
                     <a href="#mm-problem">The problem</a>
                     <a href="#mm-why">Why it exists</a>
                     <a href="#mm-what">What it does</a>
+                    <a href="#mm-local">Why local</a>
                     <a href="#mm-how">How it arrives</a>
                     <a href="#mm-catches">What it catches</a>
                     <a href="#mm-integrations">Integrations</a>
