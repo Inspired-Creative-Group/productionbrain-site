@@ -208,8 +208,11 @@
   .mm-row::before{content:'';width:18px;height:2px;margin-left:-18px;
                   background:var(--mm-line);flex:none;order:-1}
   .mm-row.mm-two::before{background:var(--mm-brass);opacity:.9}
-  .mm-row .mm-nm{flex:1;order:1}
-  .mm-row .mm-marks{order:2}
+  .mm-row.mm-l{align-items:center;gap:.7em}   /* What feeds it: text centred on its tick, like the other list (Sandy, 2026-10-01) */
+  .mm-row .mm-nm{flex:0 1 auto;order:1}
+  /* a light grey line runs from each category to its icons (Sandy, 2026-10-01) */
+  .mm-row .mm-marks{order:2;flex:1;justify-content:flex-end}
+  .mm-row .mm-marks::before{content:'';flex:1;height:1px;background:rgba(255,255,255,.16);margin-right:.5em;min-width:12px}
   .mm-marks svg{width:1.4em;height:1.4em}
 }
 
