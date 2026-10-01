@@ -190,7 +190,8 @@
 
   .mm-machine .mm-labels{position:relative;inset:auto;width:100%;height:auto;
                          padding:30px 18px 34px calc(6.5% + 18px)}
-  .mm-labels::before{content:'';position:absolute;left:6.5%;top:0;bottom:53px;   /* ends on the Gemini CLI tick (Sandy, 2026-10-01; was 38px, past it) */
+  .mm-labels::before{content:'';position:absolute;left:calc(6.5% - 1px);top:0;bottom:53px;   /* -1px: centred on the photo's line, which is drawn centred on 6.5% (Sandy, 2026-10-01) */
+                       /* ends on the Gemini CLI tick (Sandy, 2026-10-01; was 38px, past it) */
                      
                      width:2px;background:var(--mm-line);opacity:.7}
 
@@ -208,6 +209,7 @@
   .mm-row::before{content:'';width:18px;height:2px;margin-left:-18px;
                   background:var(--mm-line);flex:none;order:-1}
   .mm-row.mm-two::before{background:var(--mm-brass);opacity:.9}
+  .partners-hero{padding-bottom:0}   /* the list runs straight into The challenge, no black band (Sandy, 2026-10-01) */
   .mm-row.mm-l{align-items:center;gap:.7em}   /* What feeds it: text centred on its tick, like the other list (Sandy, 2026-10-01) */
   .mm-row .mm-nm{flex:0 1 auto;order:1}
   /* a light grey line runs from each category to its icons (Sandy, 2026-10-01) */
