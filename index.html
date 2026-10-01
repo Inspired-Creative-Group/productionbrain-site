@@ -442,7 +442,7 @@
         #mm-problem.is-paused .mm-pulse, #mm-problem.is-paused .mm-core { animation-play-state:paused; }
         @media (prefers-reduced-motion: reduce) { .mm-pulses { display:none; } .mm-core { animation:none; } }
         /* What it does: the brain's nucleus turning behind plain cards; no glow on or behind them (Sandy, 2026-09-29) */
-        #mm-what { background:#0a0a0a; }
+        #mm-what { background:#0d0a07; }   /* a warmer black under the gold glow (Sandy, 2026-10-01) */
         #mm-what .mm-nucleus { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
         #mm-what > .container { position:relative; z-index:1; }
         #mm-what .value-prop-card, #mm-local .value-prop-card { background:#242424; }
@@ -1308,7 +1308,7 @@
     })();
     </script>
     <!-- What it does: the nucleus. A geodesic wireframe sphere in the hero brain's amber, turning slowly,
-         with faint rings growing out of it every 2.4 s. No glow behind it (Sandy, 2026-09-29). Its size holds steady (no beat: Sandy found
+         with faint rings growing out of it every 2.4 s. A wide gold glow behind it, breathing slowly (Sandy, 2026-10-01; she had removed the earlier glow on 2026-09-29). Its size holds steady (no beat: Sandy found
          the pulse distracting, 2026-09-29). Canvas 2D, no library. Paused off screen; one still frame under
          reduced motion. -->
     <script>
@@ -1345,6 +1345,18 @@
             var cx = W * (phone ? 0.55 : 0.62), cy = phone ? Math.min(H * 0.3, W * 0.95) : H * 0.52;
             var R = (phone ? W * 0.62 : Math.min(W, H) * 0.44) * (1 + 0.06 * b);
             ctx.clearRect(0, 0, W, H);
+            // the gold glow (Sandy, 2026-10-01: more warmth, so this section stands apart from the black ones).
+            // One wide amber light behind the sphere, breathing very slowly (9 s), and a faint wash low on the other side.
+            var breathe = still ? 1 : 0.86 + 0.14 * Math.sin(s * Math.PI * 2 / 9);
+            var g = ctx.createRadialGradient(cx, cy, R * 0.15, cx, cy, R * 2.9);
+            g.addColorStop(0, 'rgba(232,160,70,' + (0.30 * breathe).toFixed(3) + ')');
+            g.addColorStop(0.35, 'rgba(214,130,48,' + (0.14 * breathe).toFixed(3) + ')');
+            g.addColorStop(1, 'rgba(180,100,30,0)');
+            ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+            var wx = W * (phone ? 0.1 : 0.12), wy = H * 0.92, wr = Math.max(W, H) * 0.7;
+            var g2 = ctx.createRadialGradient(wx, wy, 0, wx, wy, wr);
+            g2.addColorStop(0, 'rgba(214,140,60,0.10)'); g2.addColorStop(1, 'rgba(214,140,60,0)');
+            ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H);
             // a ring leaves on each first beat
             var cyc = Math.floor(s / 2.4);
             if (!still && cyc !== lastBeat) { lastBeat = cyc; rings.push(s); }
