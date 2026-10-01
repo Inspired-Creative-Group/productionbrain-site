@@ -172,7 +172,7 @@
 @media (max-width:1000px){
   .mm-machine{aspect-ratio:auto;overflow:visible;display:block}
   .mm-machine img{position:relative;inset:auto;width:100%;height:auto;
-                  aspect-ratio:4/3;object-fit:cover;object-position:45% 53%}
+                  aspect-ratio:4/3;object-fit:cover;object-position:33.6% 53%}   /* Mac centred on phones (Sandy, 2026-10-01; was 45%) */
   .mm-wires{display:none}
   /* Sandy (2026-09-30): the photo's dark warm ground carries on above the picture and fades out gradually
      up to the subhead, so there is no hard top edge. Colours are the photo's own top row, left to right. */
@@ -190,7 +190,8 @@
 
   .mm-machine .mm-labels{position:relative;inset:auto;width:100%;height:auto;
                          padding:30px 18px 34px calc(6.5% + 18px)}
-  .mm-labels::before{content:'';position:absolute;left:6.5%;top:0;bottom:38px;
+  .mm-labels::before{content:'';position:absolute;left:6.5%;top:0;bottom:53px;   /* ends on the Gemini CLI tick (Sandy, 2026-10-01; was 38px, past it) */
+                     
                      width:2px;background:var(--mm-line);opacity:.7}
 
   .mm-grp,.mm-row{position:static !important;left:auto !important;top:auto !important;
@@ -207,8 +208,11 @@
   .mm-row::before{content:'';width:18px;height:2px;margin-left:-18px;
                   background:var(--mm-line);flex:none;order:-1}
   .mm-row.mm-two::before{background:var(--mm-brass);opacity:.9}
-  .mm-row .mm-nm{flex:1;order:1}
-  .mm-row .mm-marks{order:2}
+  .mm-row.mm-l{align-items:center;gap:.7em}   /* What feeds it: text centred on its tick, like the other list (Sandy, 2026-10-01) */
+  .mm-row .mm-nm{flex:0 1 auto;order:1}
+  /* a light grey line runs from each category to its icons (Sandy, 2026-10-01) */
+  .mm-row .mm-marks{order:2;flex:1;justify-content:flex-end}
+  .mm-row .mm-marks::before{content:'';flex:1;height:1px;background:rgba(255,255,255,.16);margin-right:.5em;min-width:12px}
   .mm-marks svg{width:1.4em;height:1.4em}
 }
 
@@ -629,8 +633,8 @@
 
               <!-- phone only: the trunk has to start on the machine, not at the edge of the photo -->
               <svg class="mm-pipe" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M 63 194 H 42 Q 26 194 26 210 V 300"/>
-                <circle cx="63" cy="194" r="3.4"/>
+                <path d="M 86 194 H 42 Q 26 194 26 210 V 300"/>
+                <circle cx="86" cy="194" r="3.4"/>
               </svg>
 
               <svg class="mm-wires" viewBox="0 0 4005 3070" preserveAspectRatio="none" aria-hidden="true">
