@@ -390,6 +390,43 @@
         .mm-founding .mm-offer-close { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid #2a2a2a; color:#fff; }
         /* Problem section: rays drawn in code; a glow runs in along each line to the red centre (Sandy, 2026-09-29) */
         #mm-problem { background:#242424; }
+        /* The cost of re-briefing: a calculator with a year of working days that fills red (Sandy, 2026-10-01) */
+        #mm-cost { background:#0a0a0a; padding:clamp(3.5rem,6vw,5.5rem) 0; }   /* tighter than other sections (Sandy, 2026-10-01) */
+        #mm-cost .section-header { margin-bottom:1.5rem; }
+        #mm-cost .mm-calc-lead { max-width:860px; margin:0 0 1.5rem; }
+        #mm-cost .mm-calc-stat { font-family:var(--font-heading); font-size:clamp(1.3rem,2.3vw,1.8rem); line-height:1.3; color:#fff; margin:0 0 .5rem; }
+        #mm-cost .mm-calc-stat span { color:var(--color-red); font-weight:700; }
+        #mm-cost .mm-calc-split { font-size:1.1rem; line-height:1.55; color:var(--color-gray-300); margin:0; }
+        #mm-cost .mm-calc-split strong { color:#fff; }
+        #mm-cost .mm-calc { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:2rem; background:#242424;
+                            border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:1.6rem 1.8rem; }
+        #mm-cost .mm-calc-inputs { display:flex; flex-direction:column; gap:1.1rem; }
+        #mm-cost .mm-calc-field { display:grid; grid-template-columns:1fr auto; align-items:baseline; row-gap:.3rem; }
+        #mm-cost .mm-calc-label { font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:var(--color-gray-300); }
+        #mm-cost .mm-calc-value { font-family:var(--font-heading); font-weight:700; font-size:1.6rem; color:#fff; }
+        #mm-cost .mm-calc-field input[type=range] { grid-column:1 / -1; width:100%; accent-color:var(--color-red); cursor:pointer; }
+        #mm-cost .mm-calc-hint { grid-column:1 / -1; font-size:.8rem; color:var(--color-gray-400); }
+        #mm-cost .mm-calc-rate { font-family:var(--font-heading); font-weight:700; font-size:1.6rem; color:#fff; }
+        #mm-cost .mm-calc-rate input { width:4.2ch; background:transparent; border:0; border-bottom:2px solid var(--color-red); color:#fff;
+                                       font:inherit; padding:0 .1rem; -moz-appearance:textfield; }
+        #mm-cost .mm-calc-rate input::-webkit-outer-spin-button, #mm-cost .mm-calc-rate input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+        #mm-cost .mm-calc-days { font-family:var(--font-heading); font-weight:700; text-transform:uppercase; line-height:1;
+                                 font-size:clamp(2rem,4.2vw,3.6rem); color:#fff; margin:0; }
+        #mm-cost .mm-calc-days span { color:var(--color-red); }
+        #mm-cost .mm-calc-money { font-size:1.05rem; color:var(--color-gray-300); margin:.5rem 0 1rem; }
+        #mm-cost .mm-calc-money span { color:#fff; font-weight:600; }
+        #mm-cost .mm-calc-year { display:grid; grid-template-columns:repeat(40,1fr); gap:3px; }
+        #mm-cost .mm-calc-year i { display:block; aspect-ratio:1; border-radius:2px; background:rgba(255,255,255,.1); transition:background .25s ease; }
+        #mm-cost .mm-calc-year i.on { background:var(--color-red); }
+        #mm-cost .mm-calc-key { display:flex; align-items:center; gap:.45rem; font-size:.75rem; color:var(--color-gray-400); margin:.5rem 0 0; }
+        #mm-cost .mm-calc-key i { width:10px; height:10px; border-radius:2px; background:var(--color-red); display:inline-block; }
+        #mm-cost .mm-calc-quote { margin:1.6rem 0 0; max-width:760px; border:0; padding:0; }
+        #mm-cost .mm-calc-quote p { font-family:var(--font-heading); font-size:clamp(1.15rem,2vw,1.5rem); line-height:1.35; color:#fff; margin:0 0 .4rem; }
+        #mm-cost .mm-calc-quote cite { font-style:normal; font-size:.85rem; letter-spacing:.04em; color:var(--color-gray-400); }
+        #mm-cost .mm-calc-note { font-size:.75rem; color:var(--color-gray-500, #777); margin:1rem 0 0; }
+        #mm-cost .mm-calc-note a { color:var(--color-gray-300); text-decoration:underline; text-underline-offset:2px; }
+        @media (max-width:860px) { #mm-cost .mm-calc { grid-template-columns:1fr; padding:1.25rem; gap:1.4rem; } #mm-cost .mm-calc-year { grid-template-columns:repeat(24,1fr); gap:2px; } }
+        @media (prefers-reduced-motion:reduce) { #mm-cost .mm-calc-year i { transition:none; } }
         #mm-faq { background:#242424; }   /* Questions: same dark grey as The problem (Sandy, 2026-09-29) */
         #mm-faq .partners-faq-item, #mm-faq .partners-faq-item:first-child { border-color:#fff; }   /* white lines between the questions (Sandy, 2026-09-29) */
         #mm-problem::after { display:none; }
@@ -691,6 +728,58 @@
                     <p>Not unless you wrote it down and pointed at it. Each tool keeps its own memory, and neither reads the other's.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- THE COST (re-briefing calculator)        -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- Sandy, 2026-10-01. Default 2.3 h/week/person = time spent feeding AI context, Work AI Index 2026 (Work AI
+         Institute / Glean, 6,000 workers, US/UK/AU, Dec 2025 to Jan 2026). $80/h is Sandy's example rate (editors
+         ~$60, producers ~$100), editable. 48 working weeks, 8-hour days. The quote is Sandy's own first-hand
+         testimony, given 2026-10-01. Plan: Production Brain Brand/02-current/2026-10-01-rebriefing-cost-calculator-plan.md -->
+    <section class="section" id="mm-cost">
+        <div class="container">
+            <div class="section-header gsap-animate">
+                <h2 class="section-title">How long do you spend<br><span class="text-accent">re-briefing your AI?</span></h2>
+            </div>
+            <!-- Work AI Index 2026: 2.3 h/week "feeding the AI context"; context-rich organisations are "64% less likely to
+                 feel worn out by AI" (primary report). 50% vs 18% as reported by productimpactpod.com; 18/50 = 64% less. -->
+            <div class="mm-calc-lead gsap-animate">
+                <p class="mm-calc-stat"><span>6,000</span> workers surveyed. On average, <span>2.3 hours</span> a week go into feeding their AI context.</p>
+                <p class="mm-calc-split"><strong>Half</strong> of them feel worn out by AI that doesn't have the context.</p>
+            </div>
+            <div class="mm-calc gsap-animate">
+                <div class="mm-calc-inputs">
+                    <label class="mm-calc-field">
+                        <span class="mm-calc-label">Hours a week, per person</span>
+                        <span class="mm-calc-value" id="mmCostHoursOut">2.3</span>
+                        <input type="range" id="mmCostHours" min="0.5" max="10" step="0.1" value="2.3" aria-describedby="mmCostNote">
+                        <span class="mm-calc-hint">2.3 is the average</span>
+                    </label>
+                    <label class="mm-calc-field">
+                        <span class="mm-calc-label">People on the team</span>
+                        <span class="mm-calc-value" id="mmCostPeopleOut">5</span>
+                        <input type="range" id="mmCostPeople" min="1" max="30" step="1" value="5">
+                    </label>
+                    <label class="mm-calc-field">
+                        <span class="mm-calc-label">Hourly rate (USD)</span>
+                        <span class="mm-calc-rate">$<input type="number" id="mmCostRate" min="1" max="999" step="1" value="80" inputmode="numeric"></span>
+                        <span class="mm-calc-hint">An example. Change it to yours.</span>
+                    </label>
+                </div>
+                <div class="mm-calc-result" aria-live="polite">
+                    <p class="mm-calc-days"><span id="mmCostDays">69</span> working days<br>a year</p>
+                    <p class="mm-calc-money">About <span id="mmCostMoney">$44,200</span> of your team's time.</p>
+                    <div class="mm-calc-year" id="mmCostYear" aria-hidden="true"></div>
+                    <p class="mm-calc-key" aria-hidden="true"><i></i> one working day</p>
+                </div>
+            </div>
+            <blockquote class="mm-calc-quote gsap-animate">
+                <p>“I don’t re-brief any more. No copy-pasting, no half hour explaining the job. It’s all in the brain.”</p>
+                <cite>Sandy Peic, Creative Director, Inspired Creative Group</cite>
+            </blockquote>
+            <p class="mm-calc-note" id="mmCostNote">Source: <a href="https://www.glean.com/work-ai-institute/reports/work-ai-index" target="_blank" rel="noopener">Work AI Index 2026</a> (Work AI Institute), 6,000 full-time workers in the US, UK and Australia, December 2025 to January 2026. Calculated on 48 working weeks a year.</p>
         </div>
     </section>
 
@@ -1525,6 +1614,32 @@
             });
         }, { rootMargin: '-45% 0px -50% 0px' });
         Object.keys(links).forEach(function(id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    })();
+    </script>
+    <!-- The cost calculator: hours x people x 48 weeks, shown as working days (8 h) and dollars, with a year of
+         240 working days drawn as squares that fill red. The numbers in the markup are the defaults, so the
+         section reads correctly without this script. -->
+    <script>
+    (function() {
+        var h = document.getElementById('mmCostHours'), p = document.getElementById('mmCostPeople'), r = document.getElementById('mmCostRate');
+        var year = document.getElementById('mmCostYear');
+        if (!h || !p || !r || !year) return;
+        var WEEKS = 48, DAY = 8, CELLS = WEEKS * 5;
+        for (var n = 0; n < CELLS; n++) year.appendChild(document.createElement('i'));
+        var cells = year.children;
+        function money(v) { return '$' + (Math.round(v / 100) * 100).toLocaleString('en-US'); }
+        function update() {
+            var hours = parseFloat(h.value) || 0, people = parseInt(p.value, 10) || 0, rate = Math.max(0, parseFloat(r.value) || 0);
+            var total = hours * people * WEEKS, days = Math.round(total / DAY);
+            document.getElementById('mmCostHoursOut').textContent = hours.toFixed(1);
+            document.getElementById('mmCostPeopleOut').textContent = people;
+            document.getElementById('mmCostDays').textContent = days.toLocaleString('en-US');
+            document.getElementById('mmCostMoney').textContent = money(total * rate);
+            /* more lost days than a year has: the whole year goes red */
+            for (var c = 0; c < CELLS; c++) cells[c].classList.toggle('on', c < days);
+        }
+        [h, p, r].forEach(function(el) { el.addEventListener('input', update); });
+        update();
     })();
     </script>
     <script src="gsap-animations.js"></script>
