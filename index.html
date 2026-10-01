@@ -448,7 +448,9 @@
         #mm-what > .container { position:relative; z-index:1; }
         #mm-what .value-prop-card, #mm-local .value-prop-card { background:#242424; }
         /* Why local: four cards, 4 across on wide screens, 2 x 2 on tablets (Sandy, 2026-09-30) */
-        #mm-local { background:#0a0a0a; }
+        /* Locally is one section in two parts (Sandy, 2026-10-01): the photo with the headline, then these four cards with no
+           header of their own and no seam, so the photo reads as flowing into them. */
+        #mm-local { background:#0a0a0a; border-top:0; padding-top:0; margin-top:-1px; }
         #mm-local .mm-local-grid { grid-template-columns:repeat(4,1fr); }
         @media (max-width:1100px) { #mm-local .mm-local-grid { grid-template-columns:repeat(2,1fr); } }
         @media (max-width:768px) { #mm-local .mm-local-grid { grid-template-columns:1fr; } }   /* same dark grey as the How it arrives steps box (Sandy, 2026-09-29) */
@@ -458,7 +460,8 @@
         #mm-how .mm-how-bg, #mm-how .mm-how-bg img { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
         #mm-how .mm-how-bg img { display:block; object-fit:cover; object-position:50% 0; }
         #mm-how .mm-how-bg::after { content:''; position:absolute; inset:0;
-            background:linear-gradient(to bottom, rgba(10,10,10,.92) 0%, rgba(10,10,10,.82) 26%, rgba(10,10,10,.4) 42%, rgba(10,10,10,0) 56%); }
+            background:linear-gradient(to bottom, rgba(10,10,10,.92) 0%, rgba(10,10,10,.82) 26%, rgba(10,10,10,.4) 42%, rgba(10,10,10,0) 56%),
+                       linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,.6) 9%, rgba(10,10,10,0) 22%); }   /* bottom: fades into the four cards below (2026-10-01) */
         #mm-how > .container { position:relative; z-index:1; }
         #mm-how .section-header { text-shadow:0 2px 22px rgba(0,0,0,.85), 0 1px 3px rgba(0,0,0,.6); }
         #mm-how .mm-steps { list-style:none; margin:2rem 0 0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr);
@@ -475,7 +478,8 @@
             #mm-how .section-header { margin-bottom:1.25rem; }
             #mm-how .mm-steps { grid-template-columns:1fr; margin-top:0; }
             #mm-how .mm-steps li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); }
-            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,.55) 22%, rgba(10,10,10,0) 45%); }
+            #mm-how .mm-how-bg::after { background:linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,.55) 22%, rgba(10,10,10,0) 45%),
+                                                   linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0) 18%); }
         }
         /* Menu bar: the PB mark and the product name replace the ICG logo (Sandy, 2026-09-29). The footer keeps ICG's logo. */
         .nav .mm-nav-brand { display:flex; align-items:center; gap:.7rem; text-decoration:none; }
@@ -963,7 +967,7 @@
         <div class="mm-how-rays" aria-hidden="true"></div>
         <!-- The hero's own brain animation, run a second time on this photo: the brain grows above the machine and its
              lights come alive. Anchors are % of the painted photo (desktop 2560x1440 / phone 1080x1350 crops). -->
-        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid=".mm-steps"
+        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid="#mm-how .section-header"
              data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
              data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
              data-lights-at="50.65,86.67;61.52,82.29;62.95,81.97;64.38,81.67"
@@ -972,13 +976,8 @@
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Locally</span>
-                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Customised to how your team works.</span></h2>
+                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">The brain runs on your machine, not in someone's cloud.</span></h2>
             </div>
-            <ol class="mm-steps">
-                <li><span class="mm-step-num">01</span><span class="mm-step-text">Tell us your tools.</span></li>
-                <li><span class="mm-step-num">02</span><span class="mm-step-text">We build it, load the models, and bring it working.</span></li>
-                <li><span class="mm-step-num">03</span><span class="mm-step-text">Maintained remotely over a secure network, with two encrypted copies we keep for you.</span></li>
-            </ol>
         </div>
     </section>
 
@@ -991,9 +990,6 @@
          Production Brain Brand/02-current/2026-09-30-why-local-section-plan.md (Sandy's Mac). -->
     <section class="section value-prop" id="mm-local">
         <div class="container">
-            <div class="section-header gsap-animate">
-                <h2 class="section-title">The brain runs on your machine,<br><span class="text-accent">not in someone's cloud.</span></h2>
-            </div>
             <div class="value-prop-grid mm-local-grid">
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">01</span>
