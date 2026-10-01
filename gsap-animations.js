@@ -34,6 +34,10 @@
     // ─── Override CSS visibility so GSAP end-state = visible ────
     gsap.set('.gsap-animate, .gsap-animate-cta', { visibility: 'visible', opacity: 1 });
 
+    // Faster reveals on this page (Sandy, 2026-10-01: sections felt slow to appear). Every tween, delay and stagger
+    // plays at 1.8x, and the triggers below fire as soon as an element enters the screen (top 96%) instead of 82-90%.
+    gsap.globalTimeline.timeScale(1.8);
+
     var EASE = 'power3.out';
     var IR = true;  // immediateRender for scroll-triggered from()
     var hasSplitText = typeof SplitText !== 'undefined';
@@ -47,7 +51,7 @@
             // Fallback: simple fade up
             if (el) {
                 gsap.from(el, {
-                    scrollTrigger: { trigger: triggerEl || el, start: startPos || 'top 85%' },
+                    scrollTrigger: { trigger: triggerEl || el, start: startPos || 'top 96%' },
                     autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
                 });
             }
@@ -63,7 +67,7 @@
             });
 
             gsap.from(split.lines, {
-                scrollTrigger: { trigger: triggerEl || el, start: startPos || 'top 85%' },
+                scrollTrigger: { trigger: triggerEl || el, start: startPos || 'top 96%' },
                 y: '100%',           // slide up from fully below the mask
                 autoAlpha: 0,
                 stagger: 0.05,       // DESIGN_TRUTH: 2-4 frames = ~0.05s
@@ -167,19 +171,19 @@
         var title = header.querySelector('.section-title');
         if (title && hasSplitText) {
             // Mask reveal on the title text
-            splitTitleReveal(title, header, 'top 85%');
+            splitTitleReveal(title, header, 'top 96%');
             // Fade up the label and subtitle normally
             var label = header.querySelector('.section-label');
             var subtitle = header.querySelector('.section-subtitle');
             if (label) {
                 gsap.from(label, {
-                    scrollTrigger: { trigger: header, start: 'top 85%' },
+                    scrollTrigger: { trigger: header, start: 'top 96%' },
                     autoAlpha: 0, y: 20, duration: 0.6, ease: EASE, immediateRender: IR
                 });
             }
             if (subtitle) {
                 gsap.from(subtitle, {
-                    scrollTrigger: { trigger: header, start: 'top 82%' },
+                    scrollTrigger: { trigger: header, start: 'top 96%' },
                     autoAlpha: 0, y: 30, duration: 0.8, delay: 0.3, ease: EASE, immediateRender: IR
                 });
             }
@@ -188,7 +192,7 @@
         } else {
             // Fallback: simple fade up
             gsap.from(header, {
-                scrollTrigger: { trigger: header, start: 'top 85%' },
+                scrollTrigger: { trigger: header, start: 'top 96%' },
                 autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
             });
         }
@@ -201,7 +205,7 @@
     var aiProblem = document.querySelector('.ai-problem.gsap-animate');
     if (aiProblem) {
         gsap.from(aiProblem, {
-            scrollTrigger: { trigger: aiProblem, start: 'top 82%' },
+            scrollTrigger: { trigger: aiProblem, start: 'top 96%' },
             autoAlpha: 0, y: 80, scale: 0.92, duration: 1.1, ease: EASE, immediateRender: IR
         });
     }
@@ -209,7 +213,7 @@
     var aiSystem = document.querySelector('.ai-system.gsap-animate');
     if (aiSystem) {
         gsap.from(aiSystem, {
-            scrollTrigger: { trigger: aiSystem, start: 'top 85%' },
+            scrollTrigger: { trigger: aiSystem, start: 'top 96%' },
             autoAlpha: 0, y: 50, duration: 1, ease: EASE, immediateRender: IR
         });
     }
@@ -223,7 +227,7 @@
         gsap.set(aiLayerEls, { autoAlpha: 0, x: -100 });
         aiLayerEls.forEach(function(layer, i) {
             gsap.to(layer, {
-                scrollTrigger: { trigger: layer, start: 'top 90%', toggleActions: 'play none none none' },
+                scrollTrigger: { trigger: layer, start: 'top 96%', toggleActions: 'play none none none' },
                 autoAlpha: 1, x: 0,
                 duration: 0.9,
                 delay: Math.min(i, 2) * 0.08,
@@ -237,10 +241,10 @@
         // Mask reveal on the quote text
         var quoteP = aiBottom.querySelector('.ai-quote p');
         if (quoteP && hasSplitText) {
-            splitTitleReveal(quoteP, aiBottom, 'top 85%');
+            splitTitleReveal(quoteP, aiBottom, 'top 96%');
         }
         gsap.from(aiBottom, {
-            scrollTrigger: { trigger: aiBottom, start: 'top 85%' },
+            scrollTrigger: { trigger: aiBottom, start: 'top 96%' },
             autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
         });
     }
@@ -251,7 +255,7 @@
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.stakes-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
-            scrollTrigger: { trigger: card, start: 'top 88%' },
+            scrollTrigger: { trigger: card, start: 'top 96%' },
             autoAlpha: 0, y: 60, scale: 0.9,
             duration: 0.9, delay: i * 0.15, ease: EASE, immediateRender: IR
         });
@@ -261,7 +265,7 @@
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.value-prop-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
-            scrollTrigger: { trigger: card, start: 'top 88%' },
+            scrollTrigger: { trigger: card, start: 'top 96%' },
             autoAlpha: 0, y: 80, scale: 0.85,
             rotation: i === 0 ? -3 : i === 2 ? 3 : 0,
             duration: 1, delay: i * 0.25, ease: 'back.out(1.2)', immediateRender: IR
@@ -274,14 +278,14 @@
     var pillarsIntro = document.querySelector('.pillars-intro.gsap-animate');
     if (pillarsIntro) {
         gsap.from(pillarsIntro, {
-            scrollTrigger: { trigger: pillarsIntro, start: 'top 85%' },
+            scrollTrigger: { trigger: pillarsIntro, start: 'top 96%' },
             autoAlpha: 0, y: 40, duration: 0.8, ease: EASE, immediateRender: IR
         });
     }
 
     gsap.utils.toArray('.pillar-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
-            scrollTrigger: { trigger: card, start: 'top 88%' },
+            scrollTrigger: { trigger: card, start: 'top 96%' },
             autoAlpha: 0, y: 80, scale: 0.85,
             rotation: i === 0 ? -3 : i === 2 ? 3 : 0,
             duration: 1, delay: i * 0.25, ease: 'back.out(1.2)', immediateRender: IR
@@ -295,7 +299,7 @@
     var aboutStory = document.querySelector('.about-story.gsap-animate');
     if (aboutStory) {
         gsap.from(aboutStory, {
-            scrollTrigger: { trigger: aboutStory, start: 'top 85%' },
+            scrollTrigger: { trigger: aboutStory, start: 'top 96%' },
             autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
         });
     }
@@ -307,7 +311,7 @@
 
         // Entrance animation
         gsap.from(member, {
-            scrollTrigger: { trigger: member, start: 'top 82%' },
+            scrollTrigger: { trigger: member, start: 'top 96%' },
             autoAlpha: 0, x: isReverse ? 120 : -120,
             duration: 1.2, ease: 'power4.out', immediateRender: IR
         });
@@ -331,7 +335,7 @@
     var clientLogos = document.querySelector('.about-clients.gsap-animate');
     if (clientLogos) {
         gsap.from(clientLogos, {
-            scrollTrigger: { trigger: clientLogos, start: 'top 88%' },
+            scrollTrigger: { trigger: clientLogos, start: 'top 96%' },
             autoAlpha: 0, y: 60, scale: 0.95, duration: 1.2, ease: 'power4.out', immediateRender: IR
         });
     }
@@ -339,7 +343,7 @@
     var featured = document.querySelector('.about-featured.gsap-animate');
     if (featured) {
         gsap.from(featured, {
-            scrollTrigger: { trigger: featured, start: 'top 85%' },
+            scrollTrigger: { trigger: featured, start: 'top 96%' },
             autoAlpha: 0, y: 50, duration: 1, ease: EASE, immediateRender: IR
         });
     }
@@ -350,7 +354,7 @@
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.plan-step.gsap-animate').forEach(function(step, i) {
         gsap.from(step, {
-            scrollTrigger: { trigger: step, start: 'top 88%' },
+            scrollTrigger: { trigger: step, start: 'top 96%' },
             autoAlpha: 0, y: 60, x: -40,
             duration: 0.9, delay: i * 0.3, ease: 'power4.out', immediateRender: IR
         });
@@ -362,7 +366,7 @@
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.service-block.gsap-animate').forEach(function(block, i) {
         gsap.from(block, {
-            scrollTrigger: { trigger: block, start: 'top 82%' },
+            scrollTrigger: { trigger: block, start: 'top 96%' },
             autoAlpha: 0, x: i % 2 === 0 ? -100 : 100, y: 40,
             duration: 1.1, delay: i * 0.15, ease: 'power4.out', immediateRender: IR
         });
@@ -370,7 +374,7 @@
 
     gsap.utils.toArray('.ai-cap.gsap-animate').forEach(function(cap, i) {
         gsap.from(cap, {
-            scrollTrigger: { trigger: cap, start: 'top 88%' },
+            scrollTrigger: { trigger: cap, start: 'top 96%' },
             autoAlpha: 0, y: 50, scale: 0.88,
             duration: 0.8, delay: i * 0.15, ease: 'back.out(1.1)', immediateRender: IR
         });
@@ -397,14 +401,14 @@
     var workFilters = document.querySelector('.work-filters.gsap-animate');
     if (workFilters) {
         gsap.from(workFilters, {
-            scrollTrigger: { trigger: workFilters, start: 'top 85%' },
+            scrollTrigger: { trigger: workFilters, start: 'top 96%' },
             autoAlpha: 0, y: 40, duration: 0.8, ease: EASE, immediateRender: IR
         });
     }
 
     gsap.utils.toArray('.work-tier-label.gsap-animate, .work-show-all.gsap-animate, .work-tier.gsap-animate').forEach(function(el) {
         gsap.from(el, {
-            scrollTrigger: { trigger: el, start: 'top 90%' },
+            scrollTrigger: { trigger: el, start: 'top 96%' },
             autoAlpha: 0, y: 30, duration: 0.7, ease: EASE, immediateRender: IR
         });
     });
@@ -605,7 +609,7 @@
 
         ScrollTrigger.create({
             trigger: '.testimonials-grid',
-            start: 'top 80%',
+            start: 'top 96%',
             once: true,
             onEnter: function() {
                 // Container entrance — slower, more visible
@@ -635,7 +639,7 @@
     var contactInfo = document.querySelector('.contact-info.gsap-animate');
     if (contactInfo) {
         gsap.from(contactInfo, {
-            scrollTrigger: { trigger: contactInfo, start: 'top 82%' },
+            scrollTrigger: { trigger: contactInfo, start: 'top 96%' },
             autoAlpha: 0, x: -100, duration: 1.1, ease: 'power4.out', immediateRender: IR
         });
     }
@@ -643,7 +647,7 @@
     var contactForm = document.querySelector('.contact-form-wrap.gsap-animate');
     if (contactForm) {
         gsap.from(contactForm, {
-            scrollTrigger: { trigger: contactForm, start: 'top 82%' },
+            scrollTrigger: { trigger: contactForm, start: 'top 96%' },
             autoAlpha: 0, x: 100, duration: 1.1, delay: 0.2, ease: 'power4.out', immediateRender: IR
         });
     }
@@ -654,7 +658,7 @@
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.gsap-animate-cta').forEach(function(cta) {
         gsap.from(cta, {
-            scrollTrigger: { trigger: cta, start: 'top 90%' },
+            scrollTrigger: { trigger: cta, start: 'top 96%' },
             autoAlpha: 0, y: 40, scale: 0.9,
             duration: 0.7, ease: 'back.out(1.3)', immediateRender: IR
         });
@@ -702,7 +706,7 @@
         gsap.from(leadGenHeader, {
             y: 50, autoAlpha: 0, duration: 0.8, ease: 'power3.out',
             immediateRender: true,
-            scrollTrigger: { trigger: leadGenHeader, start: 'top 85%', toggleActions: 'play none none none' }
+            scrollTrigger: { trigger: leadGenHeader, start: 'top 96%', toggleActions: 'play none none none' }
         });
     }
 
@@ -712,7 +716,7 @@
         gsap.from(flowBefore, {
             x: -80, autoAlpha: 0, duration: 0.9, ease: 'power3.out',
             immediateRender: true,
-            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 80%', toggleActions: 'play none none none' }
+            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 96%', toggleActions: 'play none none none' }
         });
     }
 
@@ -722,7 +726,7 @@
         gsap.from(flowArrow, {
             autoAlpha: 0, scale: 0.5, duration: 0.5, delay: 0.4, ease: 'back.out(2)',
             immediateRender: true,
-            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 80%', toggleActions: 'play none none none' }
+            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 96%', toggleActions: 'play none none none' }
         });
     }
 
@@ -732,7 +736,7 @@
         gsap.from(flowAfter, {
             x: 80, autoAlpha: 0, duration: 0.9, delay: 0.2, ease: 'power3.out',
             immediateRender: true,
-            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 80%', toggleActions: 'play none none none' }
+            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 96%', toggleActions: 'play none none none' }
         });
     }
 
@@ -742,7 +746,7 @@
         gsap.from(flowDetails, {
             y: 30, autoAlpha: 0, duration: 0.7, delay: 0.5, ease: 'power2.out',
             immediateRender: true,
-            scrollTrigger: { trigger: flowDetails, start: 'top 90%', toggleActions: 'play none none none' }
+            scrollTrigger: { trigger: flowDetails, start: 'top 96%', toggleActions: 'play none none none' }
         });
     }
 
@@ -752,7 +756,7 @@
         gsap.from(leadGenCta, {
             y: 60, autoAlpha: 0, scale: 0.95, duration: 0.9, ease: 'back.out(1.2)',
             immediateRender: true,
-            scrollTrigger: { trigger: leadGenCta, start: 'top 85%', toggleActions: 'play none none none' }
+            scrollTrigger: { trigger: leadGenCta, start: 'top 96%', toggleActions: 'play none none none' }
         });
     }
 
@@ -762,7 +766,7 @@
     if (faqItems.length) {
         gsap.set(faqItems, { autoAlpha: 0, y: 30 });
         ScrollTrigger.batch(faqItems, {
-            start: 'top 88%',
+            start: 'top 96%',
             onEnter: function(batch) {
                 gsap.to(batch, {
                     autoAlpha: 1, y: 0,
