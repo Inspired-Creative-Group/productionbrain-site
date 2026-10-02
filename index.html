@@ -441,7 +441,7 @@
         .mm-rays svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
         .mm-ray { fill:none; stroke:rgba(255,255,255,.12); stroke-width:1; vector-effect:non-scaling-stroke; }
         .mm-pulse { fill:none; stroke-linecap:round; stroke-dasharray:5 200; stroke-dashoffset:5; animation:mm-ray-in var(--d) linear var(--delay) infinite; }
-        .mm-pulse-halo { stroke:#ff3b2f; stroke-width:6; opacity:.28; filter:url(#mmGlow); }
+        .mm-pulse-halo { stroke:#ff3b2f; stroke-width:4; opacity:.2; }   /* no blur filter: lighter to paint on phones (Sandy, 2026-10-02) */
         .mm-pulse-core { stroke:rgba(255,226,218,.55); stroke-width:1.6; }
         @keyframes mm-ray-in { from { stroke-dashoffset:5; } to { stroke-dashoffset:-100; } }
         .mm-core { transform-box:view-box; animation:mm-core 2.6s ease-in-out infinite; }
@@ -550,6 +550,12 @@
         .nav .mm-nav-actions { display:flex; align-items:center; gap:.75rem; flex:none; }
         .nav .mm-menu .nav-link { white-space:nowrap; }
         #mm-form { scroll-margin-top:96px; }
+        /* readable addresses (Sandy, 2026-10-02): /#the-challenge etc. The anchor is the section's first child, so it lands where the section did */
+        .mm-anchor { position:absolute; top:0; left:0; width:1px; height:1px; overflow:hidden; pointer-events:none; }
+        section:has(> .mm-anchor) { position:relative; }
+        #mm-form { position:relative; }
+        .mm-anchor-form { scroll-margin-top:96px; }   /* sits at the top of the form, inside it, so the contact grid is untouched */
+        .mm-anchor-form { scroll-margin-top:96px; }
         /* Every width: the menu button opens a small box under it, items ranged left (Sandy, 2026-09-29) */
         .nav .nav-inner { position:relative; }
         .nav .mm-menu { display:none; position:absolute; top:calc(100% + 6px); right:var(--space-lg); left:auto; bottom:auto; z-index:9999;
@@ -578,16 +584,16 @@
                 <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
             </a>
             <div class="nav-links mm-menu" id="navLinks">
-                <a href="#mm-problem" class="nav-link">The challenge</a>
-                <a href="#mm-cost" class="nav-link">The cost</a>
-                <a href="#mm-why" class="nav-link">Why it exists</a>
-                <a href="#mm-what" class="nav-link">Remembers</a>
-                <a href="#mm-case" class="nav-link">Recalls</a>
-                <a href="#mm-catches" class="nav-link">Learns &amp; grows</a>
-                <a href="#mm-how" class="nav-link">Locally</a>
-                <a href="#mm-integrations" class="nav-link">Integrations</a>
-                <a href="#mm-faq" class="nav-link">FAQ</a>
-                <a href="#mm-form" class="nav-link">Contact</a>
+                <a href="#the-challenge" class="nav-link">The challenge</a>
+                <a href="#the-cost" class="nav-link">The cost</a>
+                <a href="#why-it-exists" class="nav-link">Why it exists</a>
+                <a href="#remembers" class="nav-link">Remembers</a>
+                <a href="#recalls" class="nav-link">Recalls</a>
+                <a href="#learns-and-grows" class="nav-link">Learns &amp; grows</a>
+                <a href="#locally" class="nav-link">Locally</a>
+                <a href="#integrations" class="nav-link">Integrations</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a></div>
         </div>
@@ -714,14 +720,15 @@
     <!-- PROBLEM (ICG stakes layout)              -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section stakes-section" id="mm-problem">
+        <span id="the-challenge" class="mm-anchor" aria-hidden="true"></span>
         <div class="mm-rays" aria-hidden="true"></div>
         <div class="container">
-            <div class="section-header gsap-animate">
+            <div class="section-header">
                 <span class="section-label">The challenge</span>
                 <h2 class="section-title">Your AI forgets.<br><span class="text-accent">Remembering is on you.</span></h2>
             </div>
             <div class="stakes-cards">
-                <div class="stakes-card gsap-animate">
+                <div class="stakes-card">
                     <div class="stakes-card-icon">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
@@ -730,7 +737,7 @@
                     <h3 class="stakes-card-title">Compaction forgets for you.</h3>
                     <p>The context fills, gets compacted, and the decision from an hour ago is gone.</p>
                 </div>
-                <div class="stakes-card gsap-animate">
+                <div class="stakes-card">
                     <div class="stakes-card-icon">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 11a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M5 18h30"/>
@@ -739,7 +746,7 @@
                     <h3 class="stakes-card-title">Load more,<br>get worse.</h3>
                     <p>Paste in the notes folder to be safe and the agent starts missing and mixing up details.</p>
                 </div>
-                <div class="stakes-card gsap-animate">
+                <div class="stakes-card">
                     <div class="stakes-card-icon">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="18" width="22" height="16" rx="2"/><path d="M14 18v-5a6 6 0 0 1 12 0v5"/><path d="M20 24v4"/>
@@ -782,7 +789,6 @@
             box.textContent = '';
             var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
             var defs = el('defs', {}, svg);
-            el('feGaussianBlur', { stdDeviation: phone ? 4 : 6 }, el('filter', { id: 'mmGlow', x: '-50%', y: '-50%', width: '200%', height: '200%' }, defs));
             var grad = el('radialGradient', { id: 'mmCoreGlow' }, defs);
             el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.5' }, grad);
             el('stop', { offset: '1', 'stop-color': '#ff4b3e', 'stop-opacity': '0' }, grad);
@@ -821,6 +827,7 @@
          ~$60, producers ~$100), editable. 48 working weeks, 8-hour days. The quote is Sandy's own first-hand
          testimony, given 2026-10-01. Plan: Production Brain Brand/02-current/2026-10-01-rebriefing-cost-calculator-plan.md -->
     <section class="section" id="mm-cost">
+        <span id="the-cost" class="mm-anchor" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">The cost</span>
@@ -870,6 +877,7 @@
     <!-- WHY IT EXISTS (the guide + the video)    -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section" id="mm-why">
+        <span id="why-it-exists" class="mm-anchor" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Why it exists</span>
@@ -886,6 +894,7 @@
     <!-- WHAT IT DOES (ICG value-prop layout)     -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section value-prop" id="mm-what">
+        <span id="remembers" class="mm-anchor" aria-hidden="true"></span>
         <!-- The brain's nucleus, big and beating: drawn in code in the hero brain's colours (see the script at the end). -->
         <canvas class="mm-nucleus" aria-hidden="true"></canvas>
         <div class="container">
@@ -917,6 +926,7 @@
     <!-- STATEMENT (ICG statement layout)         -->
     <!-- ═══════════════════════════════════════ -->
     <section class="statement" id="mm-case">
+        <span id="recalls" class="mm-anchor" aria-hidden="true"></span>
         <!-- A field of symbols drawn in code (after benjamincreative.me): faint - = + at the edges, * ? @ as it thickens,
              a lock where it is densest; clear in the middle for the words; drifts slowly and brightens under the pointer. -->
         <canvas class="mm-glyphs" aria-hidden="true"></canvas>
@@ -931,6 +941,7 @@
     <!-- WHAT IT CATCHES (ICG workflow layout)    -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section stakes-section ai-system-section" id="mm-catches">
+        <span id="learns-and-grows" class="mm-anchor" aria-hidden="true"></span>
         <!-- A fine dot grid with a few packets travelling down it, lighting the dots as they pass (after the footer of
              inngest.com/ai). Drawn in code; fades out towards the top. -->
         <canvas class="mm-grid" aria-hidden="true"></canvas>
@@ -971,6 +982,7 @@
     <!-- HOW IT ARRIVES (ICG plan layout)         -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section plan" id="mm-how">
+        <span id="locally" class="mm-anchor" aria-hidden="true"></span>
         <picture class="mm-how-bg" aria-hidden="true">
             <source media="(max-width:1000px)" srcset="assets/backgrounds/how-it-arrives-studio-phone.jpg" width="1080" height="1350">
             <img src="assets/backgrounds/how-it-arrives-studio.jpg" alt="" loading="lazy" decoding="async" width="2560" height="1440">
@@ -1039,6 +1051,7 @@
     <!-- INTEGRATIONS                             -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section partners-faq" id="mm-integrations">
+        <span id="integrations" class="mm-anchor" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Integrations</span>
@@ -1063,6 +1076,7 @@
     <!-- FAQ                                      -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section partners-faq" id="mm-faq">
+        <span id="faq" class="mm-anchor" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">FAQ</span>
@@ -1122,6 +1136,7 @@
                     <p class="contact-text">Your team, your tools. Pricing and details within a day. If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
                 </div>
                 <div class="contact-form-wrap gsap-animate" id="mm-form">
+                    <span id="contact" class="mm-anchor mm-anchor-form" aria-hidden="true"></span>
                     <form class="contact-form" id="partnersForm" action="https://formspree.io/f/mbdagppd" method="POST">
                         <input type="hidden" name="_subject" value="Production Brain pricing request">
                         <input type="hidden" name="inquiry_type" value="Production Brain">
@@ -1197,16 +1212,16 @@
                 <div class="footer-links">
                     <h4>Navigation</h4>
                     <!-- Same items as the top menu, named after the section labels (Sandy, 2026-10-01) -->
-                    <a href="#mm-problem">The challenge</a>
-                    <a href="#mm-cost">The cost</a>
-                    <a href="#mm-why">Why it exists</a>
-                    <a href="#mm-what">Remembers</a>
-                    <a href="#mm-case">Recalls</a>
-                    <a href="#mm-catches">Learns &amp; grows</a>
-                    <a href="#mm-how">Locally</a>
-                    <a href="#mm-integrations">Integrations</a>
-                    <a href="#mm-faq">FAQ</a>
-                    <a href="#mm-form">Contact</a>
+                    <a href="#the-challenge">The challenge</a>
+                    <a href="#the-cost">The cost</a>
+                    <a href="#why-it-exists">Why it exists</a>
+                    <a href="#remembers">Remembers</a>
+                    <a href="#recalls">Recalls</a>
+                    <a href="#learns-and-grows">Learns &amp; grows</a>
+                    <a href="#locally">Locally</a>
+                    <a href="#integrations">Integrations</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
@@ -1653,10 +1668,15 @@
         var io = new IntersectionObserver(function(es) {
             es.forEach(function(e) {
                 if (!e.isIntersecting) return;
-                Object.keys(links).forEach(function(id) { links[id].classList.toggle('active', id === e.target.id); });
+                Object.keys(links).forEach(function(id) { links[id].classList.toggle('active', links[id]._watch === e.target); });
             });
         }, { rootMargin: '-45% 0px -50% 0px' });
-        Object.keys(links).forEach(function(id) { var el = document.getElementById(id); if (el) io.observe(el); });
+        Object.keys(links).forEach(function(id) {
+            var el = document.getElementById(id); if (!el) return;
+            var watch = el.classList.contains('mm-anchor') ? (el.closest('section') || el.nextElementSibling || el) : el;   /* the anchor itself has no height */
+            if (id === 'contact') watch = el.parentElement;
+            links[id]._watch = watch; io.observe(watch);
+        });
     })();
     </script>
     <!-- The cost calculator: hours x people x 48 weeks, shown as working days (8 h) and dollars, with a year of
