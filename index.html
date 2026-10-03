@@ -501,7 +501,9 @@
         .mm-plan-steps li { display:flex; gap:.7rem; align-items:baseline; font-size:.95rem; line-height:1.45; color:var(--color-gray-300); }
         .mm-plan-steps b { font-family:var(--font-heading); font-weight:700; color:var(--color-red); flex:none; }
         .mm-plan-steps strong { display:block; font-family:var(--font-heading); font-weight:700; color:#fff; margin-bottom:.15rem; }
-        .mm-plan-promise { margin:1rem 0 0; font-family:var(--font-heading); font-weight:600; font-size:.98rem; color:#fff; }
+        .mm-plan-promise { margin:1rem 0 0; }
+        .mm-plan-promise + .mm-plan-promise { margin-top:.35rem; }
+        .mm-plan-promise { font-family:var(--font-heading); font-weight:600; font-size:.98rem; color:#fff; }
         @media (max-width:800px) { .mm-plan-steps { grid-template-columns:1fr; gap:.9rem; } }
         @media (max-width:1100px) { #mm-how .mm-steps.mm-get { grid-template-columns:repeat(2,1fr); } #mm-how .mm-get li:nth-child(3) { border-left:0; padding-left:0; } #mm-how .mm-get li:nth-child(n+3) { border-top:1px solid rgba(255,255,255,.1); } }
         @media (max-width:600px) { #mm-how .mm-steps.mm-get { grid-template-columns:1fr; } #mm-how .mm-get li, #mm-how .mm-get li + li { padding:.85rem 0; } #mm-how .mm-get li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); } }
@@ -1059,9 +1061,10 @@
                 <ol class="mm-plan-steps">
                     <li><b>1</b><span><strong>Talk to us.</strong> We check the brain fits your studio, then agree the terms.</span></li>
                     <li><b>2</b><span><strong>We build it.</strong> On your Mac Studio, set up for how your team works.</span></li>
-                    <li><b>3</b><span><strong>Plug it in and create.</strong> It arrives ready, with setup steps. We look after it from day one; you start paying on day 91.</span></li>
+                    <li><b>3</b><span><strong>Plug it in and create.</strong> It arrives ready, with setup steps, and we look after it from day one.</span></li>
                 </ol>
-                <p class="mm-plan-promise">Not a fit after 90 days? We refund the build fee and stop the maintenance. You keep the Mac.</p>
+                <p class="mm-plan-promise">Maintenance starts on day one. The maintenance subscription starts on day 91.</p>
+                <p class="mm-plan-promise">Not a fit after 90 days? We refund the build fee and cancel the subscription. You keep the Mac.</p>
             </div>
             <div class="section-header gsap-animate">
                 <h2 class="section-title">The brain runs on your machine,<br><span class="text-accent">not in someone's cloud.</span></h2>
