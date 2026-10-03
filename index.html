@@ -502,11 +502,28 @@
         #mm-how .mm-ann-label.is-placed { opacity:1; }
         #mm-how .mm-ann-layer { position:absolute; inset:0; z-index:1; pointer-events:none; }
         #mm-how .mm-ann-lines { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
-        #mm-how .mm-ann-lines path { fill:none; stroke:rgba(230,226,218,.55); stroke-width:1; vector-effect:non-scaling-stroke; }
-        #mm-how .mm-ann-lines circle { fill:#fff; }
+        #mm-how .mm-ann-lines path { fill:none; stroke-width:1; vector-effect:non-scaling-stroke; }
+        #mm-how .mm-ann-lines path.line { stroke:rgba(230,226,218,.55); stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .9s cubic-bezier(.22,.8,.2,1) calc(var(--i) * .18s), stroke .25s ease, opacity .25s ease; }
+        #mm-how .mm-ann-lines path.pulse { stroke:#ff4b3e; stroke-width:2; stroke-linecap:round; stroke-dasharray:.07 1.2; stroke-dashoffset:.07; opacity:0; transition:opacity .2s ease; }
+        #mm-how .mm-ann-lines circle { fill:#fff; opacity:0; transform-box:fill-box; transform-origin:center; transition:opacity .4s ease calc(var(--i) * .18s), transform .3s cubic-bezier(.22,.8,.2,1), fill .25s ease; }
         #mm-how .mm-ann-lines circle.halo { fill:rgba(255,255,255,.18); }
-        #mm-how .mm-ann { position:absolute; width:300px; font-family:var(--font-body); font-size:1.06rem; line-height:1.5; color:#d6d6d6; text-shadow:0 1px 10px rgba(0,0,0,.95), 0 0 2px rgba(0,0,0,.8); opacity:0; transition:opacity .4s ease; }
-        #mm-how .mm-ann.is-placed { opacity:1; }
+        #mm-how .mm-ann-layer.is-in path.line { stroke-dashoffset:0; }
+        #mm-how .mm-ann-layer.is-in circle { opacity:1; }
+        /* hover */
+        #mm-how .mm-ann-layer.has-hot path.line:not(.is-hot), #mm-how .mm-ann-layer.has-hot circle:not(.is-hot) { opacity:.3; }
+        #mm-how .mm-ann-lines path.line.is-hot { stroke:#fff; }
+        #mm-how .mm-ann-lines path.pulse.is-hot { opacity:1; animation:mm-ann-run 1.2s linear infinite; }
+        #mm-how .mm-ann-lines circle.dot.is-hot { fill:#ff4b3e; transform:scale(1.5); }
+        #mm-how .mm-ann-lines circle.halo.is-hot { fill:rgba(255,75,62,.3); transform:scale(1.9); }
+        @keyframes mm-ann-run { from { stroke-dashoffset:.07; } to { stroke-dashoffset:-1.13; } }
+        #mm-how .mm-ann { pointer-events:auto; cursor:default; position:absolute; width:300px; font-family:var(--font-body); font-size:1.06rem; line-height:1.5; color:#d6d6d6; text-shadow:0 1px 10px rgba(0,0,0,.95), 0 0 2px rgba(0,0,0,.8); opacity:0; transform:translateX(var(--from, 12px)); transition:opacity .5s ease calc(var(--i) * .18s + .55s), transform .6s cubic-bezier(.22,.8,.2,1) calc(var(--i) * .18s + .55s); }
+        #mm-how .mm-ann-l { --from:-12px; }
+        #mm-how .mm-ann-layer.is-in .mm-ann.is-placed { opacity:1; transform:none; }
+        #mm-how .mm-ann strong { transition:color .25s ease; }
+        #mm-how .mm-ann.is-hot strong { color:#ff4b3e; }
+        #mm-how .mm-ann-layer.has-hot .mm-ann.is-placed:not(.is-hot) { opacity:.45; transition-delay:0s; }
+        #mm-how .mm-ann-layer.has-hot .mm-ann.is-placed { transition-delay:0s; }
+        @media (prefers-reduced-motion: reduce) { #mm-how .mm-ann, #mm-how .mm-ann-lines path, #mm-how .mm-ann-lines circle { transition:none !important; } #mm-how .mm-ann-lines path.pulse { animation:none !important; } }
         #mm-how .mm-ann-layer .mm-ann-l { text-align:right !important; }   /* ICG style.css forces main * left */
         #mm-how .mm-ann strong { display:block; font-family:var(--font-heading); font-size:clamp(1.2rem,1.65vw,1.5rem); font-weight:700; line-height:1.15; letter-spacing:.02em; text-transform:uppercase; color:#fff; margin-bottom:.35rem; }
         #mm-how .mm-how-bg::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -1526,7 +1543,8 @@
         function draw() {
             if (window.innerWidth <= 1000) return;
             var W = sec.clientWidth, H = sec.clientHeight; svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.textContent = '';
-            layer.querySelectorAll('.mm-ann').forEach(function(a) {
+            layer.querySelectorAll('.mm-ann').forEach(function(a, i) {
+                a.dataset.i = i; a.style.setProperty('--i', i);
                 var left = a.classList.contains('mm-ann-l'), d = pt(a.dataset.dot, W, H), t = pt(a.dataset.at, W, H);
                 var edge = Math.max(40, W * 0.045), w = Math.min(300, left ? t[0] - 14 - edge : W - t[0] - 14 - edge); a.style.width = Math.max(170, w) + 'px';
                 var h = a.offsetHeight, gap = 14, ex = left ? t[0] : t[0];
@@ -1537,13 +1555,31 @@
                 var path = 'M ' + d[0] + ' ' + d[1] + ' H ' + (mid + (left ? r : -r));
                 if (bend) path += ' Q ' + mid + ' ' + d[1] + ' ' + mid + ' ' + (d[1] + dir * r) + ' V ' + (ty - dir * r) + ' Q ' + mid + ' ' + ty + ' ' + (mid + (left ? -r : r)) + ' ' + ty;
                 path += ' H ' + ex;
-                el('path', { d: path });
-                el('circle', { cx: d[0], cy: d[1], r: 7, 'class': 'halo' }); el('circle', { cx: d[0], cy: d[1], r: 3 });
+                var hot = a.classList.contains('is-hot') ? ' is-hot' : '';
+                el('path', { d: path, pathLength: 1, 'class': 'line' + hot, 'data-i': i, style: '--i:' + i });
+                el('path', { d: path, pathLength: 1, 'class': 'pulse' + hot, 'data-i': i });
+                el('circle', { cx: d[0], cy: d[1], r: 7, 'class': 'halo' + hot, 'data-i': i, style: '--i:' + i });
+                el('circle', { cx: d[0], cy: d[1], r: 3, 'class': 'dot' + hot, 'data-i': i, style: '--i:' + i });
                 a.classList.add('is-placed');
             });
         }
         draw(); window.addEventListener('load', draw);
         if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        // Entrance: each line draws out of the Mac, then its label fades in, one after another (2026-10-03).
+        // Reduced motion, or no IntersectionObserver: everything is simply shown.
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (still || !('IntersectionObserver' in window)) { layer.classList.add('is-in'); }
+        else { new IntersectionObserver(function(es, io) { es.forEach(function(e) { if (e.isIntersecting) { layer.classList.add('is-in'); io.disconnect(); } }); },
+               { rootMargin: '0px 0px -25% 0px' }).observe(layer.querySelector('.mm-ann') || sec); }
+        // Hover: the label, its line and its dot light up; a red pulse runs from the Mac to the label; the others step back.
+        function hot(i, on) {
+            layer.classList.toggle('has-hot', on);
+            layer.querySelectorAll('[data-i]').forEach(function(n) { n.classList.toggle('is-hot', on && n.getAttribute('data-i') == i); });
+        }
+        layer.querySelectorAll('.mm-ann').forEach(function(a) {
+            a.addEventListener('mouseenter', function() { hot(a.dataset.i, true); });
+            a.addEventListener('mouseleave', function() { hot(a.dataset.i, false); });
+        });
     })();
     </script>
     <!-- How it arrives: rays drawn to the machine in the photo (its centre measured on the painted image, cover-fit),
