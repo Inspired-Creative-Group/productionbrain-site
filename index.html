@@ -112,6 +112,10 @@
   color:var(--color-gray-200);
   max-width:640px;
 }
+.mm-what-it-is{font-size:clamp(.98rem,1.45vw,1.12rem);line-height:1.5;color:var(--color-gray-300);margin:.85rem 0 0}
+.mm-what-it-is span + span::before{content:'|';color:var(--color-red);margin:0 .6em}
+@media (max-width:600px){ .mm-what-it-is span{display:block} .mm-what-it-is span + span::before{content:none} }
+@media (max-width:1000px){ .partners-hero-subtitle.mm-lede{margin-bottom:.7rem} .mm-what-it-is{margin-top:0} }
 @media (max-width:768px){
   .mm-kicker{font-size:1.05rem}
   .partners-hero-subtitle.mm-lede{font-size:1.08rem}
@@ -377,6 +381,7 @@
           .mm-over .partners-hero-content{max-width:none;margin:0;text-align:left;display:flex;flex-wrap:wrap;align-items:center;column-gap:2.5rem;row-gap:1rem}
           .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
           .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
+          .mm-over .mm-what-it-is{flex:0 0 100%;margin:0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
         }
         /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
         @media (max-width:1000px){
@@ -467,7 +472,7 @@
         @media (max-width:768px) { #mm-local .mm-local-grid { grid-template-columns:1fr; } }   /* same dark grey as the How it arrives steps box (Sandy, 2026-09-29) */
         /* How it arrives: Juan's studio at midday, hero machine on the table, as the whole section's background,
            starting at the top (Sandy, 2026-09-29). The steps sit on one simple dark strip so they read over the photo. */
-        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(74vw, 760px); }   /* taller than the photo's 16:9 so the brain has air above the machine */
+        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(74vw, 780px); }   /* taller than the photo's 16:9 so the brain has air above the machine */
         #mm-how .mm-how-bg, #mm-how .mm-how-bg img { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
         #mm-how .mm-how-bg img { display:block; object-fit:cover; object-position:50% 0; }
         #mm-how .mm-how-bg::after { content:''; position:absolute; inset:0;
@@ -481,6 +486,80 @@
         #mm-how .mm-steps li + li { border-left:1px solid rgba(255,255,255,.1); }
         #mm-how .mm-step-num { font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--color-red); flex:none; }
         #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
+        /* What you get (Sandy, 2026-10-03) */
+        #mm-how .mm-get-panel { margin-top:1.6rem; max-width:1100px; background:rgba(28,28,28,.9); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:1.1rem 1.5rem 1.2rem; }
+        #mm-how .mm-get-panel .mm-steps.mm-get { background:none; border:0; border-radius:0; max-width:none; }
+        #mm-how .mm-get li { padding:.9rem 1.2rem .9rem 0; }
+        #mm-how .mm-get li + li { padding-left:1.2rem; }
+        #mm-how .mm-get-panel .mm-get-label { font-size:1.3rem; font-weight:700; letter-spacing:.14em; margin-bottom:.4rem; }
+        #mm-how .mm-get-label { margin:0 0 .2rem; font-family:var(--font-heading); font-size:.8rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.9); }
+        #mm-how .mm-steps.mm-get { margin-top:0; grid-template-columns:repeat(4,1fr); }
+        #mm-how .mm-get .mm-step-text { font-family:var(--font-body); font-weight:400; font-size:1.06rem; line-height:1.5; color:#d6d6d6; }
+        #mm-how .mm-get .mm-step-text strong { display:block; font-family:var(--font-heading); font-weight:700; font-size:1.2rem; line-height:1.15; letter-spacing:.02em; text-transform:uppercase; color:#fff; margin-bottom:.3rem; }
+        /* Annotated machine (desktop) */
+        /* Type matched to the page (Sandy, 2026-10-03; DESIGN_TRUTH 4.2: body never under ~18px on screen, 1.5-2x between levels) */
+        #mm-how .mm-ann-layer .mm-ann-label { position:absolute; margin:0; width:auto; white-space:nowrap; text-align:center !important; font-family:var(--font-heading); font-size:clamp(1.25rem,1.9vw,1.75rem); font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.95); opacity:0; transition:opacity .4s ease; }
+        #mm-how .mm-ann-label.is-placed { opacity:1; }
+        #mm-how .mm-ann-layer { position:absolute; inset:0; z-index:1; pointer-events:none; }
+        #mm-how .mm-ann-lines { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+        #mm-how .mm-ann-lines path { fill:none; stroke-width:1; vector-effect:non-scaling-stroke; }
+        #mm-how .mm-ann-lines path.line { stroke:rgba(230,226,218,.55); stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .9s cubic-bezier(.22,.8,.2,1) calc(var(--i) * .18s), stroke .25s ease, opacity .25s ease; }
+        #mm-how .mm-ann-lines path.pulse { stroke:#ff4b3e; stroke-width:2; stroke-linecap:round; stroke-dasharray:.07 1.2; stroke-dashoffset:.07; opacity:0; transition:opacity .2s ease; }
+        #mm-how .mm-ann-lines circle { fill:#fff; opacity:0; transform-box:fill-box; transform-origin:center; transition:opacity .4s ease calc(var(--i) * .18s), transform .3s cubic-bezier(.22,.8,.2,1), fill .25s ease; }
+        #mm-how .mm-ann-lines circle.halo { fill:rgba(255,255,255,.18); }
+        #mm-how .mm-ann-layer.is-in path.line { stroke-dashoffset:0; }
+        #mm-how .mm-ann-layer.is-in circle { opacity:1; }
+        /* hover */
+        #mm-how .mm-ann-layer.has-hot path.line:not(.is-hot), #mm-how .mm-ann-layer.has-hot circle:not(.is-hot) { opacity:.3; }
+        #mm-how .mm-ann-lines path.line.is-hot { stroke:#fff; }
+        #mm-how .mm-ann-lines path.pulse.is-hot { opacity:1; animation:mm-ann-run 1.2s linear infinite; }
+        #mm-how .mm-ann-lines circle.dot.is-hot { fill:#ff4b3e; transform:scale(1.5); }
+        #mm-how .mm-ann-lines circle.halo.is-hot { fill:rgba(255,75,62,.3); transform:scale(1.9); }
+        @keyframes mm-ann-run { from { stroke-dashoffset:.07; } to { stroke-dashoffset:-1.13; } }
+        #mm-how .mm-ann { pointer-events:auto; cursor:default; position:absolute; width:300px; font-family:var(--font-body); font-size:1.06rem; line-height:1.5; color:#d6d6d6; text-shadow:0 1px 10px rgba(0,0,0,.95), 0 0 2px rgba(0,0,0,.8); opacity:0; transform:translateX(var(--from, 12px)); transition:opacity .5s ease calc(var(--i) * .18s + .55s), transform .6s cubic-bezier(.22,.8,.2,1) calc(var(--i) * .18s + .55s); }
+        #mm-how .mm-ann-l { --from:-12px; }
+        #mm-how .mm-ann-layer.is-in .mm-ann.is-placed { opacity:1; transform:none; }
+        #mm-how .mm-ann strong { transition:color .25s ease; }
+        #mm-how .mm-ann.is-hot strong { color:#ff4b3e; }
+        #mm-how .mm-ann-layer.has-hot .mm-ann.is-placed:not(.is-hot) { opacity:.45; transition-delay:0s; }
+        #mm-how .mm-ann-layer.has-hot .mm-ann.is-placed { transition-delay:0s; }
+        @media (prefers-reduced-motion: reduce) { #mm-how .mm-ann, #mm-how .mm-ann-lines path, #mm-how .mm-ann-lines circle { transition:none !important; } #mm-how .mm-ann-lines path.pulse { animation:none !important; } }
+        #mm-how .mm-ann-layer .mm-ann-l { text-align:right !important; }   /* ICG style.css forces main * left */
+        #mm-how .mm-ann strong { display:block; font-family:var(--font-heading); font-size:clamp(1.2rem,1.65vw,1.5rem); font-weight:700; line-height:1.15; letter-spacing:.02em; text-transform:uppercase; color:#fff; margin-bottom:.35rem; }
+        #mm-how .mm-how-bg::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+            background:linear-gradient(90deg, rgba(10,10,10,.82) 0%, rgba(10,10,10,.45) 22%, rgba(10,10,10,0) 38%, rgba(10,10,10,0) 66%, rgba(10,10,10,.45) 76%, rgba(10,10,10,.82) 100%); }
+        @media (min-width:1001px) { #mm-how .mm-get-panel { display:none; } }
+        @media (max-width:1000px) { #mm-how .mm-ann-layer, #mm-how .mm-ann-label, #mm-how .mm-how-bg::before { display:none; }
+            #mm-how .mm-get-panel { background:none; border:0; border-radius:0; padding:0; margin-top:1rem; } }
+        /* How it works: open, three steps on one line, no box (creative-director review, 2026-10-03) */
+        .mm-plan-panel { max-width:1100px; margin:0 0 clamp(3.5rem,7vw,6rem); padding-top:clamp(1.5rem,3vw,2.5rem); }
+        .mm-plan-label { margin:0 0 .4rem; font-family:var(--font-heading); font-size:clamp(1.25rem,1.9vw,1.75rem); font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#fff; }
+        .mm-plan-steps { list-style:none; margin:1.1rem 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; position:relative; }
+        .mm-plan-steps::before { content:''; position:absolute; left:0; right:0; top:4px; height:1px; background:rgba(255,255,255,.18); }
+        .mm-plan-steps li { position:relative; padding-top:1.5rem; }
+        .mm-plan-steps li::before { content:''; position:absolute; left:0; top:0; width:9px; height:9px; border-radius:50%; background:var(--color-red); box-shadow:0 0 0 4px #0a0a0a; }
+        .mm-plan-steps li { display:flex; gap:.8rem; align-items:baseline; font-size:1.06rem; line-height:1.5; color:#d6d6d6; }
+        .mm-plan-steps b { font-family:var(--font-heading); font-weight:700; font-size:clamp(1.2rem,1.65vw,1.5rem); line-height:1.15; color:var(--color-red); flex:none; }
+        .mm-plan-steps strong { display:block; font-family:var(--font-heading); font-weight:700; font-size:clamp(1.2rem,1.65vw,1.5rem); line-height:1.15; letter-spacing:.02em; text-transform:uppercase; color:#fff; margin-bottom:.35rem; }
+        .mm-plan-promise { margin:1.6rem 0 0; }
+        .mm-plan-promise + .mm-plan-promise { margin-top:.35rem; }
+        .mm-plan-promise { font-family:var(--font-body); font-weight:400; font-size:.95rem; color:#a8a8a8; }
+        .mm-plan-promise + .mm-plan-promise { color:var(--color-gray-300); }
+        /* From first call to first day: the line draws across, each step's dot lands as the line reaches it, then its words
+           rise in; the fine print comes last. Reduced motion or no IntersectionObserver: shown as is. (Sandy, 2026-10-03) */
+        .mm-plan-panel.mm-anim .mm-plan-steps::before { transform:scaleX(0); transform-origin:left center; transition:transform 1.1s cubic-bezier(.22,.8,.2,1); }
+        .mm-plan-panel.mm-anim .mm-plan-steps li::before { transform:scale(0); transition:transform .45s cubic-bezier(.34,1.56,.64,1) calc(var(--s) * .38s + .1s); }
+        .mm-plan-panel.mm-anim .mm-plan-steps li > * { opacity:0; transform:translateY(12px); transition:opacity .5s ease calc(var(--s) * .38s + .3s), transform .6s cubic-bezier(.22,.8,.2,1) calc(var(--s) * .38s + .3s); }
+        .mm-plan-panel.mm-anim .mm-plan-label, .mm-plan-panel.mm-anim .mm-plan-promise { opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .6s cubic-bezier(.22,.8,.2,1); }
+        .mm-plan-panel.mm-anim .mm-plan-promise { transition-delay:1.5s; }
+        .mm-plan-panel.mm-anim .mm-plan-promise + .mm-plan-promise { transition-delay:1.65s; }
+        .mm-plan-panel.mm-anim.is-in .mm-plan-steps::before { transform:none; }
+        .mm-plan-panel.mm-anim.is-in .mm-plan-steps li::before { transform:none; }
+        .mm-plan-panel.mm-anim.is-in .mm-plan-steps li > *, .mm-plan-panel.mm-anim.is-in .mm-plan-label, .mm-plan-panel.mm-anim.is-in .mm-plan-promise { opacity:1; transform:none; }
+        @media (max-width:800px) { .mm-plan-panel.mm-anim .mm-plan-steps::before { transform:scaleY(0); transform-origin:center top; } }
+        @media (max-width:800px) { .mm-plan-steps { grid-template-columns:1fr; gap:1.1rem; padding-left:1.6rem; } .mm-plan-steps::before { left:4px; right:auto; top:4px; bottom:4px; width:1px; height:auto; } .mm-plan-steps li { padding-top:0; } .mm-plan-steps li::before { left:-1.6rem; top:.35rem; } }
+        @media (max-width:1100px) { #mm-how .mm-steps.mm-get { grid-template-columns:repeat(2,1fr); } #mm-how .mm-get li:nth-child(3) { border-left:0; padding-left:0; } #mm-how .mm-get li:nth-child(n+3) { border-top:1px solid rgba(255,255,255,.1); } }
+        @media (max-width:600px) { #mm-how .mm-steps.mm-get { grid-template-columns:1fr; } #mm-how .mm-get li, #mm-how .mm-get li + li { padding:.85rem 0; } #mm-how .mm-get li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); } }
         @media (max-width:1000px) {
             /* phones: the whole 4:5 photo at full width, anchored to the bottom (zoomed out, more of the office) */
             #mm-how { min-height:0; padding-bottom:calc(98vw + 72px); }   /* photo sits low enough that the standing man's head clears the steps */
@@ -607,6 +686,8 @@
             <div class="partners-hero-content">
                 <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
                 <p class="partners-hero-subtitle mm-lede">Connects every AI tool to remember, recall, learn and grow LOCALLY.</p>
+                <!-- What you buy, in one literal line (Sandy, 2026-10-03, after Meghraj's feedback: the page said what it does, not what it is) -->
+                <p class="mm-what-it-is"><span>A Mac Studio in your studio</span><span>Gives your AI tools one memory</span><span>Set up and maintained for you</span></p>
             </div>
           </div>
         </div>
@@ -708,7 +789,7 @@
         <!-- HERO BRAIN OVERLAY. The demo brain growing in the air over the machine. Self-contained
              drop-in: everything lives in assets/hero-brain/ (see its INSTALL.md); delete this block
              to remove it. The numbers are % of the photo: where the box is, how big, how high. -->
-        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".partners-hero-subtitle"
+        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".mm-what-it-is"
              data-box-x="50" data-box-y="51" data-size="30" data-lift="-10" data-mode="hold" data-phone="light" aria-hidden="true"></div>
         <script src="assets/hero-brain/hero-brain.js?v=2" defer></script>
         <!-- /HERO BRAIN OVERLAY -->
@@ -991,22 +1072,39 @@
         <div class="mm-how-rays" aria-hidden="true"></div>
         <!-- The hero's own brain animation, run a second time on this photo: the brain grows above the machine and its
              lights come alive. Anchors are % of the painted photo (desktop 2560x1440 / phone 1080x1350 crops). -->
-        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid=".mm-steps"
+        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid="#mm-how .section-header"
              data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
              data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
              data-lights-at="50.65,86.67;61.52,82.29;62.95,81.97;64.38,81.67"
              data-lights-at-phone="46.9,85;71.11,82.3;74.31,82;77.44,81.67"
              data-mode="hold" data-phone="light" data-interactive="0" data-labels="0" aria-hidden="true"></div>
+        <div class="mm-ann-layer">
+            <svg class="mm-ann-lines" aria-hidden="true"></svg>
+            <div class="mm-ann mm-ann-l" data-dot="45,71" data-at="33,64"><strong>The Mac Studio</strong>Bought for you at Apple's price, or bring your own.</div>
+            <div class="mm-ann mm-ann-l" data-dot="40.5,80" data-at="33,82"><strong>Your tools, connected</strong>Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</div>
+            <div class="mm-ann mm-ann-r" data-dot="58,70.5" data-at="73,64"><strong>The brain, installed</strong>Its own models and your team's memory, on the machine.</div>
+            <div class="mm-ann mm-ann-r" data-dot="66,79" data-at="73,82"><strong>Maintenance</strong>Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</div>
+        </div>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Locally</span>
-                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Customised to how your team works.</span></h2>
+                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Personalized and maintained.</span></h2>
             </div>
-            <ol class="mm-steps">
-                <li><span class="mm-step-num">01</span><span class="mm-step-text">Tell us your tools.</span></li>
-                <li><span class="mm-step-num">02</span><span class="mm-step-text">We build it, load the models, and bring it working.</span></li>
-                <li><span class="mm-step-num">03</span><span class="mm-step-text">Maintained remotely over a secure network, with two encrypted copies we keep for you.</span></li>
+            <!-- What you get, then the plan (Donald Miller: say plainly what they buy; the plan ends where the customer wins).
+                 Every claim is already on the page: Apple price and registration, nightly checks, two encrypted backups (FAQ).
+                 Chats are left out on purpose: Juan's copy pass marks chat and email feeds as "on request". (Sandy, 2026-10-03) -->
+            <!-- Desktop: What you get as an annotated machine, thin lines from the Mac to each label, in the hero's wiring
+                 language (creative-director review, 2026-10-03). Anchors are % of the painted photo (2560x1440, cover, top).
+                 Phones keep the same four items as a plain list (mm-get-panel). -->
+            <div class="mm-get-panel">
+            <p class="mm-get-label">What you get</p>
+            <ol class="mm-steps mm-get">
+                <li><span class="mm-step-num">01</span><span class="mm-step-text"><strong>The Mac Studio</strong> Bought for you at Apple's price, or bring your own.</span></li>
+                <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed</strong> Its own models and your team's memory, on the machine.</span></li>
+                <li><span class="mm-step-num">03</span><span class="mm-step-text"><strong>Your tools, connected</strong> Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</span></li>
+                <li><span class="mm-step-num">04</span><span class="mm-step-text"><strong>Maintenance</strong> Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</span></li>
             </ol>
+            </div>
         </div>
     </section>
 
@@ -1019,6 +1117,18 @@
          Production Brain Brand/02-current/2026-09-30-why-local-section-plan.md (Sandy's Mac). -->
     <section class="section value-prop" id="mm-local">
         <div class="container">
+            <div class="mm-plan-panel">
+                <!-- Miller: a three-step process plan (what really happens with a first client), then an agreement plan that removes the risk.
+                     Details live in the FAQ (Who buys the machine?) so the steps stay short. (Sandy, 2026-10-03) -->
+                <p class="mm-plan-label">From first call to first day</p>
+                <ol class="mm-plan-steps">
+                    <li style="--s:0"><b>1</b><span><strong>Talk to us</strong> We check the brain fits your studio, then agree the terms.</span></li>
+                    <li style="--s:1"><b>2</b><span><strong>We build it</strong> On your Mac Studio, set up for how your team works.</span></li>
+                    <li style="--s:2"><b>3</b><span><strong>Plug it in and create</strong> It arrives ready, with setup steps, and we look after it from day one.</span></li>
+                </ol>
+                <p class="mm-plan-promise">Maintenance starts on day one. The maintenance subscription starts on day 91.</p>
+                <p class="mm-plan-promise">Not a fit after 90 days? We refund the build fee and cancel the subscription. You keep the Mac.</p>
+            </div>
             <div class="section-header gsap-animate">
                 <h2 class="section-title">The brain runs on your machine,<br><span class="text-accent">not in someone's cloud.</span></h2>
             </div>
@@ -1046,6 +1156,15 @@
             </div>
         </div>
     </section>
+    <script>
+    (function() {
+        var panel = document.querySelector('#mm-local .mm-plan-panel');
+        if (!panel || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+        panel.classList.add('mm-anim');   /* only hidden once we know it will be revealed */
+        new IntersectionObserver(function(es, io) { es.forEach(function(e) { if (e.isIntersecting) { panel.classList.add('is-in'); io.disconnect(); } }); },
+            { rootMargin: '0px 0px -20% 0px' }).observe(panel);
+    })();
+    </script>
 
     <!-- ═══════════════════════════════════════ -->
     <!-- INTEGRATIONS                             -->
@@ -1128,7 +1247,6 @@
                     <div class="mm-card mm-founding">
                         <p><strong>You get:</strong> the full build, free. We install the brain, load the models and connect your tools.</p>
                         <p><strong>You cover:</strong> the Mac at Apple's price, no markup, and the monthly maintenance fee: from $575 USD for a solo producer and $1,350 USD for a single studio, with 30% off for the first year: $402.50 and $945 a month.</p>
-                        <p><strong>We ask:</strong> a case study, a testimonial and honest feedback.</p>
                         <p class="mm-offer-close">One spot, chosen from the applicants. Tick the box on the form to apply by October 31.</p>
                     </div>
                     <span class="section-label mm-sub-label">Pricing &amp; Details</span>
@@ -1430,6 +1548,59 @@
             new IntersectionObserver(function(es) { inView = es.some(function(e) { return e.isIntersecting; }); inView ? start() : stop(); }).observe(sec);
         } else { inView = true; start(); }
         document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else if (inView) start(); });
+    })();
+    </script>
+    <!-- Locally (desktop): What you get as an annotated machine. Each label carries a dot on the photo (data-dot) and a label
+         anchor (data-at), both in % of the painted photo (2560x1440, object-fit cover, top). Lines run from the dot,
+         out sideways, then level with the label. Redrawn on resize. (2026-10-03) -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-how'); if (!sec) return;
+        var layer = sec.querySelector('.mm-ann-layer'), svg = sec.querySelector('.mm-ann-lines'); if (!layer || !svg) return;
+        var NS = 'http://www.w3.org/2000/svg', IW = 2560, IH = 1440;
+        function pt(v, W, H) { var sc = Math.max(W / IW, H / IH), pw = IW * sc, ph = IH * sc, ox = (W - pw) / 2;
+            var a = v.split(',').map(parseFloat); return [ox + a[0] / 100 * pw, a[1] / 100 * ph]; }
+        function el(n, at) { var e = document.createElementNS(NS, n); for (var k in at) e.setAttribute(k, at[k]); svg.appendChild(e); return e; }
+        function draw() {
+            if (window.innerWidth <= 1000) return;
+            var W = sec.clientWidth, H = sec.clientHeight; svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.textContent = '';
+            layer.querySelectorAll('.mm-ann').forEach(function(a, i) {
+                a.dataset.i = i; a.style.setProperty('--i', i);
+                var left = a.classList.contains('mm-ann-l'), d = pt(a.dataset.dot, W, H), t = pt(a.dataset.at, W, H);
+                var edge = Math.max(40, W * 0.045), w = Math.min(300, left ? t[0] - 14 - edge : W - t[0] - 14 - edge); a.style.width = Math.max(170, w) + 'px';
+                var h = a.offsetHeight, gap = 14, ex = left ? t[0] : t[0];
+                if (left) { a.style.left = (ex - gap - a.offsetWidth) + 'px'; } else { a.style.left = (ex + gap) + 'px'; }
+                var ty = t[1]; a.style.top = (ty - 14) + 'px';
+                var mid = left ? d[0] - (d[0] - ex) * 0.35 : d[0] + (ex - d[0]) * 0.35, r = 10;
+                var dir = ty < d[1] ? -1 : 1, bend = Math.abs(ty - d[1]) > 2 * r;
+                var path = 'M ' + d[0] + ' ' + d[1] + ' H ' + (mid + (left ? r : -r));
+                if (bend) path += ' Q ' + mid + ' ' + d[1] + ' ' + mid + ' ' + (d[1] + dir * r) + ' V ' + (ty - dir * r) + ' Q ' + mid + ' ' + ty + ' ' + (mid + (left ? -r : r)) + ' ' + ty;
+                path += ' H ' + ex;
+                var hot = a.classList.contains('is-hot') ? ' is-hot' : '';
+                el('path', { d: path, pathLength: 1, 'class': 'line' + hot, 'data-i': i, style: '--i:' + i });
+                el('path', { d: path, pathLength: 1, 'class': 'pulse' + hot, 'data-i': i });
+                el('circle', { cx: d[0], cy: d[1], r: 7, 'class': 'halo' + hot, 'data-i': i, style: '--i:' + i });
+                el('circle', { cx: d[0], cy: d[1], r: 3, 'class': 'dot' + hot, 'data-i': i, style: '--i:' + i });
+                a.classList.add('is-placed');
+            });
+        }
+        draw(); window.addEventListener('load', draw);
+        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        // Entrance: each line draws out of the Mac, then its label fades in, one after another (2026-10-03).
+        // Reduced motion, or no IntersectionObserver: everything is simply shown.
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (still || !('IntersectionObserver' in window)) { layer.classList.add('is-in'); }
+        else { new IntersectionObserver(function(es, io) { es.forEach(function(e) { if (e.isIntersecting) { layer.classList.add('is-in'); io.disconnect(); } }); },
+               { rootMargin: '0px 0px -25% 0px' }).observe(layer.querySelector('.mm-ann') || sec); }
+        // Hover: the label, its line and its dot light up; a red pulse runs from the Mac to the label; the others step back.
+        function hot(i, on) {
+            layer.classList.toggle('has-hot', on);
+            layer.querySelectorAll('[data-i]').forEach(function(n) { n.classList.toggle('is-hot', on && n.getAttribute('data-i') == i); });
+        }
+        layer.querySelectorAll('.mm-ann').forEach(function(a) {
+            a.addEventListener('mouseenter', function() { hot(a.dataset.i, true); });
+            a.addEventListener('mouseleave', function() { hot(a.dataset.i, false); });
+        });
     })();
     </script>
     <!-- How it arrives: rays drawn to the machine in the photo (its centre measured on the painted image, cover-fit),
