@@ -1051,7 +1051,6 @@
              data-mode="hold" data-phone="light" data-interactive="0" data-labels="0" aria-hidden="true"></div>
         <div class="mm-ann-layer">
             <svg class="mm-ann-lines" aria-hidden="true"></svg>
-            <p class="mm-get-label mm-ann-label">What you get</p>
             <div class="mm-ann mm-ann-l" data-dot="45,71" data-at="33,64"><strong>The Mac Studio</strong>Bought for you at Apple's price, or bring your own.</div>
             <div class="mm-ann mm-ann-l" data-dot="40.5,80" data-at="33,82"><strong>Your tools, connected</strong>Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</div>
             <div class="mm-ann mm-ann-r" data-dot="58,70.5" data-at="73,64"><strong>The brain, installed</strong>Its own models and your team's memory, on the machine.</div>
@@ -1092,7 +1091,7 @@
             <div class="mm-plan-panel">
                 <!-- Miller: a three-step process plan (what really happens with a first client), then an agreement plan that removes the risk.
                      Details live in the FAQ (Who buys the machine?) so the steps stay short. (Sandy, 2026-10-03) -->
-                <p class="mm-plan-label">How it works</p>
+                <p class="mm-plan-label">From first call to first day</p>
                 <ol class="mm-plan-steps">
                     <li><b>1</b><span><strong>Talk to us</strong> We check the brain fits your studio, then agree the terms.</span></li>
                     <li><b>2</b><span><strong>We build it</strong> On your Mac Studio, set up for how your team works.</span></li>
@@ -1542,8 +1541,6 @@
                 el('circle', { cx: d[0], cy: d[1], r: 7, 'class': 'halo' }); el('circle', { cx: d[0], cy: d[1], r: 3 });
                 a.classList.add('is-placed');
             });
-            var lab = layer.querySelector('.mm-ann-label');   /* the hub: centred under the Mac, every line comes from the box */
-            if (lab) { var c = pt('52,94.5', W, H); lab.style.left = (c[0] - lab.offsetWidth / 2) + 'px'; lab.style.top = (Math.min(c[1], H - 60) - lab.offsetHeight / 2) + 'px'; lab.classList.add('is-placed'); }
         }
         draw(); window.addEventListener('load', draw);
         if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
