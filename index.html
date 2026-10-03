@@ -392,6 +392,11 @@
           .mm-over .mm-what-it-is{flex:0 0 100%;margin:0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
           .mm-over .mm-hero-name{flex:0 0 100%;margin:-.2rem 0 0}
         }
+        /* Narrow laptops and iPad landscape: the hero text is tighter so the three-part line clears "What feeds it" (2026-10-03) */
+        @media (min-width:1001px) and (max-width:1199px){
+          .mm-over{padding-top:calc(var(--nav-height) + .6vw)}
+          .mm-over .partners-hero-content{row-gap:.45rem}
+        }
         /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
         @media (max-width:1000px){
           .partners-hero-title{font-size:clamp(2rem,10.6vw,5rem);line-height:1.02}
@@ -780,7 +785,7 @@
                   <span class="mm-marks"><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:50.56%"><span class="mm-nm">Chat &amp; email</span>
                   <span class="mm-marks"><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meetings</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meeting transcripts</span>
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:74.01%"><span class="mm-nm">Project tracker</span>
                   <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
@@ -977,7 +982,7 @@
             <div class="section-header gsap-animate">
                 <span class="section-label">Why it exists</span>
                 <h2 class="section-title">I became the context manager<br><span class="text-accent">for my own agents.</span></h2>
-                <p class="section-subtitle">Twenty years in production, then I flipped the company to run on AI. Fourteen minutes on what I built instead. The demo: fresh accounts, nothing pasted in.</p>
+                <p class="section-subtitle">Juan Valencia, twenty years in production. Our studio has run on this brain since June. Watch fresh accounts answer, nothing pasted in.</p>
             </div>
             <div class="mm-video">
                 <iframe src="https://www.youtube-nocookie.com/embed/4EOZkllNoDw" title="Your AI's Memory Isn't Yours. So I Built My Own." loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -1012,7 +1017,7 @@
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">03</span>
                     <h3 class="value-prop-title">Locally.</h3>
-                    <p class="value-prop-desc">On a Mac Studio in your building, with local models organizing your logs so you don't have to.</p>
+                    <p class="value-prop-desc">On a Mac Studio in your building, with local models keeping your studio's notes in order so you don't have to.</p>
                 </div>
             </div>
         </div>
@@ -1090,8 +1095,8 @@
         <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid="#mm-how .section-header"
              data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
              data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
-             data-lights-at="50.65,86.67;61.52,82.29;62.95,81.97;64.38,81.67"
-             data-lights-at-phone="46.9,85;71.11,82.3;74.31,82;77.44,81.67"
+             data-lights-at="50.69,85.02;61.52,82.29;62.95,81.97;64.38,81.67"
+             data-lights-at-phone="47.07,85.01;71.11,82.3;74.31,82;77.44,81.67"
              data-mode="hold" data-phone="light" data-interactive="0" data-labels="0" aria-hidden="true"></div>
         <div class="mm-ann-layer">
             <svg class="mm-ann-lines" aria-hidden="true"></svg>
@@ -1265,9 +1270,9 @@
                         <p><strong>You cover:</strong> the Mac at Apple's price, no markup, and the monthly maintenance fee: from $575 USD for a solo producer and $1,350 USD for a single studio, with 30% off for the first year: $402.50 and $945 a month.</p>
                         <p class="mm-offer-close">One spot, chosen from the applicants. Apply by October 31.</p>
                     </div>
-                    <span class="section-label mm-sub-label">Pricing &amp; Details</span>
-                    <h3 class="mm-sub-title">Ask for your studio's pricing.</h3>
-                    <p class="contact-text">Your team, your tools. Pricing and details within a day. If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
+                    <span class="section-label mm-sub-label">Apply</span>
+                    <h3 class="mm-sub-title">Apply for the free build.</h3>
+                    <p class="contact-text">Your team, your tools. We reply within a day.</p>
                 </div>
                 <div class="contact-form-wrap gsap-animate" id="mm-form">
                     <span id="contact" class="mm-anchor mm-anchor-form" aria-hidden="true"></span>
@@ -1324,7 +1329,7 @@
                     <div class="form-success" id="partnerFormSuccess" style="display:none;">
                         <div class="form-success-icon">✓</div>
                         <h3>Got it.</h3>
-                        <p>Pricing and details within a day.</p>
+                        <p>We reply within a day.</p>
                     </div>
                 </div>
             </div>
