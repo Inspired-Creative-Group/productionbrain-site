@@ -113,8 +113,8 @@
   max-width:640px;
 }
 .mm-cta-row{margin:1.8rem 0 0}
-.mm-hero-cta{margin-top:1.4rem}
-.mm-hero-kicker{text-transform:uppercase;letter-spacing:.14em;font-weight:600;font-size:clamp(.85rem,1.2vw,1rem);color:var(--color-gray-300);margin:0 0 .4rem}
+#mm-local .mm-cloud-line{max-width:720px;margin:1rem 0 0;font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5;color:#d6d6d6;text-align:left}
+.mm-hero-name{font-family:var(--font-heading);text-transform:uppercase;letter-spacing:.06em;font-weight:700;font-size:clamp(1.3rem,2.4vw,2.1rem);line-height:1.1;color:#fff;margin:.6rem 0 0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
 .nav .nav-cta-btn .mm-cta-short{display:none}
 @media (max-width:600px){ .nav .nav-cta-btn .mm-cta-long{display:none} .nav .nav-cta-btn .mm-cta-short{display:inline} }
 .mm-pricing-link{display:block;margin:.9rem auto 0;background:none;border:0;padding:.2rem;color:var(--color-gray-300);font:inherit;font-size:.92rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
@@ -123,7 +123,7 @@
 .mm-what-it-is{font-size:clamp(.98rem,1.45vw,1.12rem);line-height:1.5;color:var(--color-gray-300);margin:.85rem 0 0}
 .mm-what-it-is span + span::before{content:'|';color:var(--color-red);margin:0 .6em}
 @media (max-width:600px){ .mm-what-it-is span{display:block} .mm-what-it-is span + span::before{content:none} }
-@media (max-width:1000px){ .partners-hero-subtitle.mm-lede{margin-bottom:.7rem} .mm-what-it-is{margin-top:0} }
+@media (max-width:1000px){ .mm-what-it-is{margin-top:.55rem} }
 @media (max-width:768px){
   .mm-kicker{font-size:1.05rem}
   .partners-hero-subtitle.mm-lede{font-size:1.08rem}
@@ -390,8 +390,7 @@
           .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
           .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
           .mm-over .mm-what-it-is{flex:0 0 100%;margin:0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
-          .mm-over .mm-hero-kicker{flex:0 0 100%;margin:0 0 -.4rem}
-          .mm-over .mm-hero-cta{flex:0 0 100%;margin:.4rem 0 0}
+          .mm-over .mm-hero-name{flex:0 0 100%;margin:-.2rem 0 0}
         }
         /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
         @media (max-width:1000px){
@@ -697,11 +696,10 @@
           <div class="container">
             <div class="partners-hero-content">
                 <!-- StoryBrand header (2026-10-03 assessment, fix 1): the want first, the product name as a kicker -->
-                <p class="mm-kicker mm-hero-kicker">The Production Brain</p>
                 <h1 class="partners-hero-title">Stop re-briefing <span class="text-accent">your AI.</span></h1>
+                <p class="mm-hero-name">The Production Brain</p>
                 <!-- What you buy, in one literal line (Sandy, 2026-10-03, after Meghraj's feedback: the page said what it does, not what it is) -->
                 <p class="mm-what-it-is"><span>A Mac Studio in your studio</span><span>Gives your AI tools one memory</span><span>Set up and maintained for you</span></p>
-                <div class="mm-cta-row mm-hero-cta"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
             </div>
           </div>
         </div>
@@ -803,7 +801,7 @@
         <!-- HERO BRAIN OVERLAY. The demo brain growing in the air over the machine. Self-contained
              drop-in: everything lives in assets/hero-brain/ (see its INSTALL.md); delete this block
              to remove it. The numbers are % of the photo: where the box is, how big, how high. -->
-        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".mm-hero-cta"
+        <div class="hero-brain" data-hero-brain data-image=".mm-machine img" data-avoid=".mm-what-it-is"
              data-box-x="50" data-box-y="51" data-size="30" data-lift="-10" data-mode="hold" data-phone="light" aria-hidden="true"></div>
         <script src="assets/hero-brain/hero-brain.js?v=2" defer></script>
         <!-- /HERO BRAIN OVERLAY -->
@@ -820,7 +818,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">The challenge</span>
-                <h2 class="section-title">Your AI forgets.<br><span class="text-accent">So you remember for it.</span></h2>
+                <h2 class="section-title">Your AI forgets.<br><span class="text-accent">Remembering is on you.</span></h2>
             </div>
             <div class="stakes-cards">
                 <div class="stakes-card">
@@ -1149,6 +1147,8 @@
             </div>
             <div class="section-header gsap-animate">
                 <h2 class="section-title">Your studio's memory<br><span class="text-accent">belongs to your studio.</span></h2>
+                <!-- the picture: today their memory of you lives in the cloud; here it lives on your desk (Sandy, 2026-10-03) -->
+                <p class="section-subtitle mm-cloud-line">Today, what your AI tools remember about your work sits on their servers. With the brain, it sits on a Mac in your studio.</p>
             </div>
             <div class="value-prop-grid mm-local-grid">
                 <div class="value-prop-card gsap-animate">
