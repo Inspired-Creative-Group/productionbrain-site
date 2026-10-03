@@ -426,6 +426,8 @@
         #mm-cost .mm-calc-days span { color:var(--color-red); }
         #mm-cost .mm-calc-money { font-size:1.05rem; color:var(--color-gray-300); margin:.5rem 0 1rem; }
         #mm-cost .mm-calc-money span { color:#fff; font-weight:600; }
+        #mm-cost .mm-calc-years { display:inline-block; margin:0 0 .6rem; padding:.25rem .6rem; border-radius:4px; background:var(--color-red); font-family:var(--font-heading); font-weight:700; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:#fff; }
+        #mm-cost .mm-calc-years[hidden] { display:none; }
         #mm-cost .mm-calc-year { display:grid; grid-template-columns:repeat(40,1fr); gap:3px; }
         #mm-cost .mm-calc-year i { display:block; aspect-ratio:1; border-radius:2px; background:rgba(255,255,255,.1); transition:background .25s ease; }
         #mm-cost .mm-calc-year i.on { background:var(--color-red); }
@@ -904,8 +906,8 @@
     <!-- THE COST (re-briefing calculator)        -->
     <!-- ═══════════════════════════════════════ -->
     <!-- Sandy, 2026-10-01. Default 2.3 h/week/person = time spent feeding AI context, Work AI Index 2026 (Work AI
-         Institute / Glean, 6,000 workers, US/UK/AU, Dec 2025 to Jan 2026). $80/h is Sandy's example rate (editors
-         ~$60, producers ~$100), editable. 48 working weeks, 8-hour days. The quote is Sandy's own first-hand
+         Institute / Glean, 6,000 workers, US/UK/AU, Dec 2025 to Jan 2026). $85/h is the senior editor rate the launch video
+         also uses (Sandy, 2026-10-03; rate guides put senior editors at $85-150/h), editable. 48 working weeks, 8-hour days. The quote is Sandy's own first-hand
          testimony, given 2026-10-01. Plan: Production Brain Brand/02-current/2026-10-01-rebriefing-cost-calculator-plan.md -->
     <section class="section" id="mm-cost">
         <span id="the-cost" class="mm-anchor" aria-hidden="true"></span>
@@ -935,13 +937,14 @@
                     </label>
                     <label class="mm-calc-field">
                         <span class="mm-calc-label">Hourly rate (USD)</span>
-                        <span class="mm-calc-rate">$<input type="number" id="mmCostRate" min="1" max="999" step="1" value="80" inputmode="numeric"></span>
-                        <span class="mm-calc-hint">An example. Change it to yours.</span>
+                        <span class="mm-calc-rate">$<input type="number" id="mmCostRate" min="1" max="999" step="1" value="85" inputmode="numeric"></span>
+                        <span class="mm-calc-hint">A senior editor's rate. Change it to yours.</span>
                     </label>
                 </div>
                 <div class="mm-calc-result" aria-live="polite">
                     <p class="mm-calc-days"><span id="mmCostDays">69</span> working days<br>a year</p>
-                    <p class="mm-calc-money">About <span id="mmCostMoney">$44,200</span> of your team's time.</p>
+                    <p class="mm-calc-money">About <span id="mmCostMoney">$46,900</span> of your team's time.</p>
+                    <p class="mm-calc-years" id="mmCostYears" hidden></p>
                     <div class="mm-calc-year" id="mmCostYear" aria-hidden="true"></div>
                     <p class="mm-calc-key" aria-hidden="true"><i></i> one working day</p>
                 </div>
@@ -1869,8 +1872,13 @@
             document.getElementById('mmCostPeopleOut').textContent = people;
             document.getElementById('mmCostDays').textContent = days.toLocaleString('en-US');
             document.getElementById('mmCostMoney').textContent = money(total * rate);
-            /* more lost days than a year has: the whole year goes red */
-            for (var c = 0; c < CELLS; c++) cells[c].classList.toggle('on', c < days);
+            /* The grid is one working year (240 days). Past it, a counter keeps the full years and the grid starts again from
+               the top with what is left: "1 working year + 36 days" (Sandy, 2026-10-03). */
+            var years = Math.floor(days / CELLS), rest = days - years * CELLS, lit = years && !rest ? CELLS : rest;
+            var yr = document.getElementById('mmCostYears');
+            yr.hidden = !years;
+            if (years) yr.textContent = years + (years === 1 ? ' working year' : ' working years') + (rest ? ' + ' + rest + (rest === 1 ? ' day' : ' days') : '');
+            for (var c = 0; c < CELLS; c++) cells[c].classList.toggle('on', c < lit);
         }
         [h, p, r].forEach(function(el) { el.addEventListener('input', update); });
         update();
