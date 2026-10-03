@@ -495,11 +495,16 @@
         #mm-how .mm-steps.mm-get { margin-top:0; grid-template-columns:repeat(4,1fr); }
         #mm-how .mm-get .mm-step-text { font-family:var(--font-body); font-weight:400; font-size:.95rem; line-height:1.45; color:var(--color-gray-300); }
         #mm-how .mm-get .mm-step-text strong { display:block; font-family:var(--font-heading); font-weight:700; font-size:1.02rem; color:#fff; margin-bottom:.2rem; }
-        #mm-how .mm-plan { display:flex; flex-wrap:wrap; align-items:baseline; gap:.4rem 1.4rem; margin:.6rem 0 0; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.1); max-width:1100px; font-family:var(--font-heading); font-weight:600; font-size:.95rem; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.9); }
-        #mm-how .mm-plan b { color:var(--color-red); margin-right:.35em; }
-        #mm-how .mm-plan-label { font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--color-gray-300); }
+        .mm-plan-panel { max-width:1100px; margin:0 0 clamp(3rem,6vw,5rem); background:#1c1c1c; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:1.2rem 1.5rem 1.3rem; }
+        .mm-plan-label { margin:0 0 .2rem; font-family:var(--font-heading); font-size:.8rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#fff; }
+        .mm-plan-steps { list-style:none; margin:.3rem 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+        .mm-plan-steps li { display:flex; gap:.7rem; align-items:baseline; font-size:.95rem; line-height:1.45; color:var(--color-gray-300); }
+        .mm-plan-steps b { font-family:var(--font-heading); font-weight:700; color:var(--color-red); flex:none; }
+        .mm-plan-steps strong { display:block; font-family:var(--font-heading); font-weight:700; color:#fff; margin-bottom:.15rem; }
+        .mm-plan-promise { margin:1rem 0 0; font-family:var(--font-heading); font-weight:600; font-size:.98rem; color:#fff; }
+        @media (max-width:800px) { .mm-plan-steps { grid-template-columns:1fr; gap:.9rem; } }
         @media (max-width:1100px) { #mm-how .mm-steps.mm-get { grid-template-columns:repeat(2,1fr); } #mm-how .mm-get li:nth-child(3) { border-left:0; padding-left:0; } #mm-how .mm-get li:nth-child(n+3) { border-top:1px solid rgba(255,255,255,.1); } }
-        @media (max-width:600px) { #mm-how .mm-steps.mm-get { grid-template-columns:1fr; } #mm-how .mm-get li, #mm-how .mm-get li + li { padding:.85rem 0; } #mm-how .mm-get li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); } #mm-how .mm-plan { flex-direction:column; gap:.35rem; } }
+        @media (max-width:600px) { #mm-how .mm-steps.mm-get { grid-template-columns:1fr; } #mm-how .mm-get li, #mm-how .mm-get li + li { padding:.85rem 0; } #mm-how .mm-get li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); } }
         @media (max-width:1000px) {
             /* phones: the whole 4:5 photo at full width, anchored to the bottom (zoomed out, more of the office) */
             #mm-how { min-height:0; padding-bottom:calc(98vw + 72px); }   /* photo sits low enough that the standing man's head clears the steps */
@@ -1021,7 +1026,7 @@
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Locally</span>
-                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">We build it and look after it, so you can create.</span></h2>
+                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Personalized and maintained.</span></h2>
             </div>
             <!-- What you get, then the plan (Donald Miller: say plainly what they buy; the plan ends where the customer wins).
                  Every claim is already on the page: Apple price and registration, nightly checks, two encrypted backups (FAQ).
@@ -1029,12 +1034,11 @@
             <div class="mm-get-panel">
             <p class="mm-get-label">What you get</p>
             <ol class="mm-steps mm-get">
-                <li><span class="mm-step-num">01</span><span class="mm-step-text"><strong>The Mac Studio.</strong> Bought at Apple's price, registered to you.</span></li>
+                <li><span class="mm-step-num">01</span><span class="mm-step-text"><strong>The Mac Studio.</strong> Bought for you at Apple's price, or bring your own.</span></li>
                 <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed.</strong> Its own models and your team's memory, on the machine.</span></li>
-                <li><span class="mm-step-num">03</span><span class="mm-step-text"><strong>Your tools, connected.</strong> Your AI tools, plus the documents, files and meetings you choose.</span></li>
-                <li><span class="mm-step-num">04</span><span class="mm-step-text"><strong>Maintenance.</strong> Updates, nightly checks and two encrypted backups, done remotely by us.</span></li>
+                <li><span class="mm-step-num">03</span><span class="mm-step-text"><strong>Your tools, connected.</strong> Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</span></li>
+                <li><span class="mm-step-num">04</span><span class="mm-step-text"><strong>Maintenance.</strong> Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</span></li>
             </ol>
-            <p class="mm-plan"><span class="mm-plan-label">How it works</span><span><b>1</b> Tell us your tools</span><span><b>2</b> We build and install your brain</span><span><b>3</b> Every AI tool on your team works from one memory</span></p>
             </div>
         </div>
     </section>
@@ -1048,6 +1052,17 @@
          Production Brain Brand/02-current/2026-09-30-why-local-section-plan.md (Sandy's Mac). -->
     <section class="section value-prop" id="mm-local">
         <div class="container">
+            <div class="mm-plan-panel">
+                <!-- Miller: a three-step process plan (what really happens with a first client), then an agreement plan that removes the risk.
+                     Details live in the FAQ (Who buys the machine?) so the steps stay short. (Sandy, 2026-10-03) -->
+                <p class="mm-plan-label">How it works</p>
+                <ol class="mm-plan-steps">
+                    <li><b>1</b><span><strong>Talk to us.</strong> We check the brain fits your studio, then agree the terms.</span></li>
+                    <li><b>2</b><span><strong>We build it.</strong> On your Mac Studio, set up for how your team works.</span></li>
+                    <li><b>3</b><span><strong>Plug it in and create.</strong> It arrives ready, with setup steps. Maintenance starts on day 91.</span></li>
+                </ol>
+                <p class="mm-plan-promise">Not a fit after 90 days? We refund the build fee and stop the maintenance. You keep the Mac.</p>
+            </div>
             <div class="section-header gsap-animate">
                 <h2 class="section-title">The brain runs on your machine,<br><span class="text-accent">not in someone's cloud.</span></h2>
             </div>
@@ -1157,7 +1172,6 @@
                     <div class="mm-card mm-founding">
                         <p><strong>You get:</strong> the full build, free. We install the brain, load the models and connect your tools.</p>
                         <p><strong>You cover:</strong> the Mac at Apple's price, no markup, and the monthly maintenance fee: from $575 USD for a solo producer and $1,350 USD for a single studio, with 30% off for the first year: $402.50 and $945 a month.</p>
-                        <p><strong>We ask:</strong> a case study, a testimonial and honest feedback.</p>
                         <p class="mm-offer-close">One spot, chosen from the applicants. Tick the box on the form to apply by October 31.</p>
                     </div>
                     <span class="section-label mm-sub-label">Pricing &amp; Details</span>
