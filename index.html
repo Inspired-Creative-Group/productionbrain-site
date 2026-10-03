@@ -943,7 +943,7 @@
                     <p class="mm-calc-days"><span id="mmCostDays">69</span> working days<br>a year</p>
                     <p class="mm-calc-money">About <span id="mmCostMoney">$46,900</span> of your team's time.</p>
                     <div class="mm-calc-year" id="mmCostYear" aria-hidden="true"></div>
-                    <p class="mm-calc-key" aria-hidden="true"><i></i> one working day</p>
+                    <p class="mm-calc-key" aria-hidden="true"><i></i> <span id="mmCostKey">one working day</span></p>
                 </div>
             </div>
             <blockquote class="mm-calc-quote gsap-animate">
@@ -1869,8 +1869,13 @@
             document.getElementById('mmCostPeopleOut').textContent = people;
             document.getElementById('mmCostDays').textContent = days.toLocaleString('en-US');
             document.getElementById('mmCostMoney').textContent = money(total * rate);
-            /* more lost days than a year has: the whole year goes red */
-            for (var c = 0; c < CELLS; c++) cells[c].classList.toggle('on', c < days);
+            /* more lost days than the grid holds (240, a working year): each square stands for more days, and the key says
+               how many, so the graph keeps responding however big the team (Sandy, 2026-10-03) */
+            var steps = [1, 2, 3, 4, 5, 10, 15, 20, 25, 50, 100], per = steps[steps.length - 1];
+            for (var k = 0; k < steps.length; k++) { if (days / steps[k] <= CELLS) { per = steps[k]; break; } }
+            var lit = Math.round(days / per);
+            document.getElementById('mmCostKey').textContent = per === 1 ? 'one working day' : 'one square = ' + per + ' working days';
+            for (var c = 0; c < CELLS; c++) cells[c].classList.toggle('on', c < lit);
         }
         [h, p, r].forEach(function(el) { el.addEventListener('input', update); });
         update();
