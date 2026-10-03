@@ -112,7 +112,9 @@
   color:var(--color-gray-200);
   max-width:640px;
 }
-.mm-what-it-is{font-size:clamp(.98rem,1.45vw,1.12rem);line-height:1.5;color:var(--color-gray-300);max-width:620px;margin:.85rem 0 0}
+.mm-what-it-is{font-size:clamp(.98rem,1.45vw,1.12rem);line-height:1.5;color:var(--color-gray-300);margin:.85rem 0 0}
+.mm-what-it-is span + span::before{content:'|';color:var(--color-red);margin:0 .6em}
+@media (max-width:600px){ .mm-what-it-is span{display:block} .mm-what-it-is span + span::before{content:none} }
 @media (max-width:1000px){ .partners-hero-subtitle.mm-lede{margin-bottom:.7rem} .mm-what-it-is{margin-top:0} }
 @media (max-width:768px){
   .mm-kicker{font-size:1.05rem}
@@ -379,7 +381,7 @@
           .mm-over .partners-hero-content{max-width:none;margin:0;text-align:left;display:flex;flex-wrap:wrap;align-items:center;column-gap:2.5rem;row-gap:1rem}
           .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
           .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
-          .mm-over .mm-what-it-is{flex:0 0 100%;margin:0;max-width:620px;text-shadow:0 2px 22px rgba(0,0,0,.85)}
+          .mm-over .mm-what-it-is{flex:0 0 100%;margin:0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
         }
         /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
         @media (max-width:1000px){
@@ -470,7 +472,7 @@
         @media (max-width:768px) { #mm-local .mm-local-grid { grid-template-columns:1fr; } }   /* same dark grey as the How it arrives steps box (Sandy, 2026-09-29) */
         /* How it arrives: Juan's studio at midday, hero machine on the table, as the whole section's background,
            starting at the top (Sandy, 2026-09-29). The steps sit on one simple dark strip so they read over the photo. */
-        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(74vw, 760px); }   /* taller than the photo's 16:9 so the brain has air above the machine */
+        #mm-how { position:relative; overflow:hidden; background:#0a0a0a; min-height:max(84vw, 880px); }   /* taller (was 74vw) so the brain still has air under the What you get panel (2026-10-03) */   /* taller than the photo's 16:9 so the brain has air above the machine */
         #mm-how .mm-how-bg, #mm-how .mm-how-bg img { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
         #mm-how .mm-how-bg img { display:block; object-fit:cover; object-position:50% 0; }
         #mm-how .mm-how-bg::after { content:''; position:absolute; inset:0;
@@ -484,6 +486,20 @@
         #mm-how .mm-steps li + li { border-left:1px solid rgba(255,255,255,.1); }
         #mm-how .mm-step-num { font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--color-red); flex:none; }
         #mm-how .mm-step-text { font-family:var(--font-heading); font-weight:600; font-size:1.02rem; line-height:1.35; color:#fff; }
+        /* What you get (Sandy, 2026-10-03) */
+        #mm-how .mm-get-panel { margin-top:1.6rem; max-width:1100px; background:rgba(28,28,28,.9); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:1.1rem 1.5rem 1.2rem; }
+        #mm-how .mm-get-panel .mm-steps.mm-get { background:none; border:0; border-radius:0; max-width:none; }
+        #mm-how .mm-get li { padding:.9rem 1.2rem .9rem 0; }
+        #mm-how .mm-get li + li { padding-left:1.2rem; }
+        #mm-how .mm-get-label { margin:0 0 .2rem; font-family:var(--font-heading); font-size:.8rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.9); }
+        #mm-how .mm-steps.mm-get { margin-top:0; grid-template-columns:repeat(4,1fr); }
+        #mm-how .mm-get .mm-step-text { font-family:var(--font-body); font-weight:400; font-size:.95rem; line-height:1.45; color:var(--color-gray-300); }
+        #mm-how .mm-get .mm-step-text strong { display:block; font-family:var(--font-heading); font-weight:700; font-size:1.02rem; color:#fff; margin-bottom:.2rem; }
+        #mm-how .mm-plan { display:flex; flex-wrap:wrap; align-items:baseline; gap:.4rem 1.4rem; margin:.6rem 0 0; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.1); max-width:1100px; font-family:var(--font-heading); font-weight:600; font-size:.95rem; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.9); }
+        #mm-how .mm-plan b { color:var(--color-red); margin-right:.35em; }
+        #mm-how .mm-plan-label { font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--color-gray-300); }
+        @media (max-width:1100px) { #mm-how .mm-steps.mm-get { grid-template-columns:repeat(2,1fr); } #mm-how .mm-get li:nth-child(3) { border-left:0; padding-left:0; } #mm-how .mm-get li:nth-child(n+3) { border-top:1px solid rgba(255,255,255,.1); } }
+        @media (max-width:600px) { #mm-how .mm-steps.mm-get { grid-template-columns:1fr; } #mm-how .mm-get li, #mm-how .mm-get li + li { padding:.85rem 0; } #mm-how .mm-get li + li { border-left:0; border-top:1px solid rgba(255,255,255,.1); } #mm-how .mm-plan { flex-direction:column; gap:.35rem; } }
         @media (max-width:1000px) {
             /* phones: the whole 4:5 photo at full width, anchored to the bottom (zoomed out, more of the office) */
             #mm-how { min-height:0; padding-bottom:calc(98vw + 72px); }   /* photo sits low enough that the standing man's head clears the steps */
@@ -611,7 +627,7 @@
                 <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
                 <p class="partners-hero-subtitle mm-lede">Connects every AI tool to remember, recall, learn and grow LOCALLY.</p>
                 <!-- What you buy, in one literal line (Sandy, 2026-10-03, after Meghraj's feedback: the page said what it does, not what it is) -->
-                <p class="mm-what-it-is">A Mac Studio in your studio that gives all your AI tools one memory. We set it up and look after it.</p>
+                <p class="mm-what-it-is"><span>A Mac Studio in your studio</span><span>Gives your AI tools one memory</span><span>Set up and maintained for you</span></p>
             </div>
           </div>
         </div>
@@ -996,7 +1012,7 @@
         <div class="mm-how-rays" aria-hidden="true"></div>
         <!-- The hero's own brain animation, run a second time on this photo: the brain grows above the machine and its
              lights come alive. Anchors are % of the painted photo (desktop 2560x1440 / phone 1080x1350 crops). -->
-        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid=".mm-steps"
+        <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid=".mm-get-panel"
              data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
              data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
              data-lights-at="50.65,86.67;61.52,82.29;62.95,81.97;64.38,81.67"
@@ -1005,13 +1021,21 @@
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Locally</span>
-                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Customised to how your team works.</span></h2>
+                <h2 class="section-title">A Mac Studio in your studio.<br><span class="text-accent">Built for your team, looked after by us.</span></h2>
             </div>
-            <ol class="mm-steps">
-                <li><span class="mm-step-num">01</span><span class="mm-step-text">Tell us your tools.</span></li>
-                <li><span class="mm-step-num">02</span><span class="mm-step-text">We build it, load the models, and bring it working.</span></li>
-                <li><span class="mm-step-num">03</span><span class="mm-step-text">Maintained remotely over a secure network, with two encrypted copies we keep for you.</span></li>
+            <!-- What you get, then the plan (Donald Miller: say plainly what they buy; the plan ends where the customer wins).
+                 Every claim is already on the page: Apple price and registration, nightly checks, two encrypted backups (FAQ).
+                 Chats are left out on purpose: Juan's copy pass marks chat and email feeds as "on request". (Sandy, 2026-10-03) -->
+            <div class="mm-get-panel">
+            <p class="mm-get-label">What you get</p>
+            <ol class="mm-steps mm-get">
+                <li><span class="mm-step-num">01</span><span class="mm-step-text"><strong>The Mac Studio.</strong> Bought at Apple's price, registered to you.</span></li>
+                <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed.</strong> Its own models and your team's memory, on the machine.</span></li>
+                <li><span class="mm-step-num">03</span><span class="mm-step-text"><strong>Your tools, connected.</strong> Your AI tools, plus the documents, files and meetings you choose.</span></li>
+                <li><span class="mm-step-num">04</span><span class="mm-step-text"><strong>Maintenance.</strong> Updates, nightly checks and two encrypted backups, done remotely by us.</span></li>
             </ol>
+            <p class="mm-plan"><span class="mm-plan-label">How it works</span><span><b>1</b> Tell us your tools</span><span><b>2</b> We build and install your brain</span><span><b>3</b> Every AI tool on your team works from one memory</span></p>
+            </div>
         </div>
     </section>
 
