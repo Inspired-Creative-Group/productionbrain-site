@@ -16,11 +16,11 @@
       gtag('config', 'G-P07TX5YY6H');
     </script>
     <title>The Production Brain | Your studio's memory, on local models, yours to keep. Inspired Creative Group Inc.</title>
-    <meta name="description" content="What your agents remember isn't yours. The Production Brain: your studio's memory, on local models, yours to keep.">
+    <meta name="description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
     <meta property="og:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta property="og:description" content="What your agents remember isn't yours. Your studio's memory, on local models, yours to keep.">
+    <meta property="og:description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta name="twitter:description" content="What your agents remember isn't yours. Your studio's memory, on local models, yours to keep.">
+    <meta name="twitter:description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:image" content="https://inspiredcreativegroupinc.com/assets/og-image.jpg">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://theproductionbrain.ai/">
@@ -112,10 +112,18 @@
   color:var(--color-gray-200);
   max-width:640px;
 }
+.mm-cta-row{margin:1.8rem 0 0}
+#mm-local .mm-cloud-line{max-width:720px;margin:1rem 0 0;font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5;color:#d6d6d6;text-align:left}
+.mm-hero-name{font-family:var(--font-heading);text-transform:uppercase;letter-spacing:.06em;font-weight:700;font-size:clamp(1.3rem,2.4vw,2.1rem);line-height:1.1;color:#fff;margin:.6rem 0 0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
+.nav .nav-cta-btn .mm-cta-short{display:none}
+@media (max-width:600px){ .nav .nav-cta-btn .mm-cta-long{display:none} .nav .nav-cta-btn .mm-cta-short{display:inline} }
+.mm-pricing-link{display:block;margin:.9rem auto 0;background:none;border:0;padding:.2rem;color:var(--color-gray-300);font:inherit;font-size:.92rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.mm-pricing-link:hover{color:#fff}
+.mm-pricing-link[hidden]{display:none}
 .mm-what-it-is{font-size:clamp(.98rem,1.45vw,1.12rem);line-height:1.5;color:var(--color-gray-300);margin:.85rem 0 0}
 .mm-what-it-is span + span::before{content:'|';color:var(--color-red);margin:0 .6em}
 @media (max-width:600px){ .mm-what-it-is span{display:block} .mm-what-it-is span + span::before{content:none} }
-@media (max-width:1000px){ .partners-hero-subtitle.mm-lede{margin-bottom:.7rem} .mm-what-it-is{margin-top:0} }
+@media (max-width:1000px){ .mm-what-it-is{margin-top:.55rem} }
 @media (max-width:768px){
   .mm-kicker{font-size:1.05rem}
   .partners-hero-subtitle.mm-lede{font-size:1.08rem}
@@ -382,6 +390,12 @@
           .mm-over .partners-hero-title{flex:0 0 100%;font-size:clamp(3.2rem,5.6vw,6rem);white-space:nowrap;line-height:1.02;margin:0}
           .mm-over .partners-hero-subtitle{flex:0 0 100%;margin:0;max-width:none}
           .mm-over .mm-what-it-is{flex:0 0 100%;margin:0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
+          .mm-over .mm-hero-name{flex:0 0 100%;margin:-.2rem 0 0}
+        }
+        /* Narrow laptops and iPad landscape: the hero text is tighter so the three-part line clears "What feeds it" (2026-10-03) */
+        @media (min-width:1001px) and (max-width:1199px){
+          .mm-over{padding-top:calc(var(--nav-height) + .6vw)}
+          .mm-over .partners-hero-content{row-gap:.45rem}
         }
         /* Phone and tablet: headline bigger, "Brain." on its own line (Sandy, 2026-09-30) */
         @media (max-width:1000px){
@@ -676,7 +690,7 @@
                 <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn">FOUNDING OFFER</a></div>
+            <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn"><span class="mm-cta-long">Apply for the free build</span><span class="mm-cta-short">Apply</span></a></div>
         </div>
     </nav>
 
@@ -686,8 +700,9 @@
         <div class="mm-over">
           <div class="container">
             <div class="partners-hero-content">
-                <h1 class="partners-hero-title">The Production <span class="text-accent">Brain.</span></h1>
-                <p class="partners-hero-subtitle mm-lede">Connects every AI tool to remember, recall, learn and grow LOCALLY.</p>
+                <!-- StoryBrand header (2026-10-03 assessment, fix 1): the want first, the product name as a kicker -->
+                <h1 class="partners-hero-title">Stop re-briefing <span class="text-accent">your AI.</span></h1>
+                <p class="mm-hero-name">The Production Brain</p>
                 <!-- What you buy, in one literal line (Sandy, 2026-10-03, after Meghraj's feedback: the page said what it does, not what it is) -->
                 <p class="mm-what-it-is"><span>A Mac Studio in your studio</span><span>Gives your AI tools one memory</span><span>Set up and maintained for you</span></p>
             </div>
@@ -770,7 +785,7 @@
                   <span class="mm-marks"><svg><use href="#i-googledrive"/></svg><svg><use href="#i-dropbox"/></svg><svg><use href="#i-microsoftonedrive"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:50.56%"><span class="mm-nm">Chat &amp; email</span>
                   <span class="mm-marks"><svg><use href="#i-slack"/></svg><svg><use href="#i-microsoftteams"/></svg><svg><use href="#i-gmail"/></svg></span></div>
-                <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meetings</span>
+                <div class="mm-row mm-l" style="left:20.5%;top:67.55%"><span class="mm-nm">Meeting transcripts</span>
                   <span class="mm-marks"><svg><use href="#i-googlemeet"/></svg><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3.5V7l-4 3.5z"/></svg></span></div>
                 <div class="mm-row mm-l" style="left:20.5%;top:74.01%"><span class="mm-nm">Project tracker</span>
                   <span class="mm-marks"><svg><use href="#i-clickup"/></svg><svg><use href="#i-linear"/></svg><svg><use href="#i-jira"/></svg></span></div>
@@ -817,7 +832,7 @@
                             <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
                         </svg>
                     </div>
-                    <h3 class="stakes-card-title">Compaction forgets for you.</h3>
+                    <h3 class="stakes-card-title">Long sessions lose the start.</h3>
                     <p>The context fills, gets compacted, and the decision from an hour ago is gone.</p>
                 </div>
                 <div class="stakes-card">
@@ -953,6 +968,7 @@
                 <p>“I don’t re-brief any more. No copy-pasting, no half hour explaining the job. It’s all in the brain.”</p>
                 <cite>Sandy Peic, Creative Director, Inspired Creative Group</cite>
             </blockquote>
+            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
             <p class="mm-calc-note" id="mmCostNote">Source: <a href="https://www.glean.com/work-ai-institute/reports/work-ai-index" target="_blank" rel="noopener">Work AI Index 2026</a> (Work AI Institute), 6,000 full-time workers in the US, UK and Australia, December 2025 to January 2026. Calculated on 48 working weeks a year.</p>
         </div>
     </section>
@@ -966,11 +982,12 @@
             <div class="section-header gsap-animate">
                 <span class="section-label">Why it exists</span>
                 <h2 class="section-title">I became the context manager<br><span class="text-accent">for my own agents.</span></h2>
-                <p class="section-subtitle">Twenty years in production, then I flipped the company to run on AI. Fourteen minutes on what I built instead. The demo: fresh accounts, nothing pasted in.</p>
+                <p class="section-subtitle">Juan Valencia, twenty years in production. Our studio has run on this brain since June. Watch fresh accounts answer, nothing pasted in.</p>
             </div>
             <div class="mm-video">
                 <iframe src="https://www.youtube-nocookie.com/embed/4EOZkllNoDw" title="Your AI's Memory Isn't Yours. So I Built My Own." loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
+            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
         </div>
     </section>
 
@@ -1000,7 +1017,7 @@
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">03</span>
                     <h3 class="value-prop-title">Locally.</h3>
-                    <p class="value-prop-desc">On a Mac Studio in your building, on local models. Your IP stays there.</p>
+                    <p class="value-prop-desc">On a Mac Studio in your building, with local models keeping your studio's notes in order so you don't have to.</p>
                 </div>
             </div>
         </div>
@@ -1078,8 +1095,8 @@
         <div class="hero-brain mm-how-brain" data-image="#mm-how .mm-how-bg img" data-avoid="#mm-how .section-header"
              data-box-x="52.05" data-box-y="67.8" data-size="29" data-lift="-10"
              data-box-x-phone="50.1" data-box-y-phone="68" data-size-phone="60"
-             data-lights-at="50.65,86.67;61.52,82.29;62.95,81.97;64.38,81.67"
-             data-lights-at-phone="46.9,85;71.11,82.3;74.31,82;77.44,81.67"
+             data-lights-at="50.69,85.02;61.52,82.29;62.95,81.97;64.38,81.67"
+             data-lights-at-phone="47.07,85.01;71.11,82.3;74.31,82;77.44,81.67"
              data-mode="hold" data-phone="light" data-interactive="0" data-labels="0" aria-hidden="true"></div>
         <div class="mm-ann-layer">
             <svg class="mm-ann-lines" aria-hidden="true"></svg>
@@ -1131,9 +1148,12 @@
                 </ol>
                 <p class="mm-plan-promise">Maintenance starts on day one. The maintenance subscription starts on day 91.</p>
                 <p class="mm-plan-promise">Not a fit after 90 days? We refund the build fee and cancel the subscription. You keep the Mac.</p>
+                <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
             </div>
             <div class="section-header gsap-animate">
-                <h2 class="section-title">The brain runs on your machine,<br><span class="text-accent">not in someone's cloud.</span></h2>
+                <h2 class="section-title">Your studio's memory<br><span class="text-accent">belongs to your studio.</span></h2>
+                <!-- the picture: today their memory of you lives in the cloud; here it lives on your desk (Sandy, 2026-10-03) -->
+                <p class="section-subtitle mm-cloud-line">The brain runs on your machine, not in someone's cloud.</p>
             </div>
             <div class="value-prop-grid mm-local-grid">
                 <div class="value-prop-card gsap-animate">
@@ -1149,7 +1169,7 @@
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">03</span>
                     <h3 class="value-prop-title">Why a Mac Studio.</h3>
-                    <p class="value-prop-desc">The brain needs at least 128 GB of memory to run without issues. A Mac Studio has it, up to 512 GB for bigger teams.</p>
+                    <p class="value-prop-desc">The brain runs its own AI models, and they need a lot of memory and power to run smoothly. A Mac Studio has both, with room to grow with your company.</p>
                 </div>
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">04</span>
@@ -1180,16 +1200,14 @@
                 <h2 class="section-title">Works with <span class="text-accent">what you already use.</span></h2>
             </div>
             <div class="mm-panel mm-integrations-box">
-                <p>Your AI tool is always connected. So is what your agents read: open an email or a ticket in a session and the brain keeps what came of it. At setup we connect up to three places your work lives.</p>
+                <p>Your AI tool is always connected. So is what your agents read: open an email or a ticket in a session and the brain keeps what came of it. At setup we point it at the folders your work already lives in.</p>
                 <table>
                     <tr><th>Category</th><th>Examples</th></tr>
                     <tr><td>Your AI tool (included)</td><td>Claude Code, Codex, Cursor, OpenClaw, Hermes, Gemini CLI, claude.ai, ChatGPT</td></tr>
                     <tr><td>What your agents read (included)</td><td>Email, chat, tickets your AI tool can open</td></tr>
-                    <tr><td>Your folders</td><td>Contracts, briefs, delivery specs, a notes vault, your file server</td></tr>
-                    <tr><td>Documents and notes</td><td>Notion, Google Docs, Google Drive, Dropbox</td></tr>
-                    <tr><td>Meetings</td><td>Zoom or Meet recordings, Fireflies, a folder of recordings</td></tr>
+                    <tr><td>Your folders (included)</td><td>Contracts, briefs, delivery specs, a notes vault, your file server, a synced Google Drive or Dropbox, meeting transcripts</td></tr>
                 </table>
-                <p style="margin-top:1rem">Scheduled feeds from email, chat or a tracker: on request.</p>
+                <p style="margin-top:1rem">Automatic meeting capture and scheduled feeds from Notion, email, chat or a tracker: on request, for an additional price.</p>
             </div>
         </div>
     </section>
@@ -1250,11 +1268,11 @@
                     <div class="mm-card mm-founding">
                         <p><strong>You get:</strong> the full build, free. We install the brain, load the models and connect your tools.</p>
                         <p><strong>You cover:</strong> the Mac at Apple's price, no markup, and the monthly maintenance fee: from $575 USD for a solo producer and $1,350 USD for a single studio, with 30% off for the first year: $402.50 and $945 a month.</p>
-                        <p class="mm-offer-close">One spot, chosen from the applicants. Tick the box on the form to apply by October 31.</p>
+                        <p class="mm-offer-close">One spot, chosen from the applicants. Apply by October 31.</p>
                     </div>
-                    <span class="section-label mm-sub-label">Pricing &amp; Details</span>
-                    <h3 class="mm-sub-title">Ask for your studio's pricing.</h3>
-                    <p class="contact-text">Your team, your tools. Pricing and details within a day. If after 90 days the brain hasn't become part of how you work, we refund the build fee. You keep the Mac.</p>
+                    <span class="section-label mm-sub-label">Apply</span>
+                    <h3 class="mm-sub-title">Apply for the free build.</h3>
+                    <p class="contact-text">Your team, your tools. We reply within a day.</p>
                 </div>
                 <div class="contact-form-wrap gsap-animate" id="mm-form">
                     <span id="contact" class="mm-anchor mm-anchor-form" aria-hidden="true"></span>
@@ -1303,14 +1321,15 @@
                                 <option value="not sure">Not sure</option>
                             </select>
                         </div>
-                        <label class="mm-check"><input type="checkbox" name="founding_application" value="yes"> Apply for the founding studio spot</label>
+                        <label class="mm-check"><input type="checkbox" name="founding_application" value="yes" id="mmFoundingBox" checked> Apply for the founding studio spot (free build)</label>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
-                        <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Request pricing</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Apply for the free build</button>
+                        <button type="button" class="mm-pricing-link" id="mmPricingLink">Or ask for standard pricing</button>
                     </form>
                     <div class="form-success" id="partnerFormSuccess" style="display:none;">
                         <div class="form-success-icon">✓</div>
                         <h3>Got it.</h3>
-                        <p>Pricing and details within a day.</p>
+                        <p>We reply within a day.</p>
                     </div>
                 </div>
             </div>
@@ -1392,6 +1411,11 @@
         var form = document.getElementById('partnersForm');
         var success = document.getElementById('partnerFormSuccess');
         var submitBtn = document.getElementById('partnerSubmitBtn');
+        /* one ask: Apply by default; the secondary link switches the form to a plain pricing request (2026-10-03) */
+        var box = document.getElementById('mmFoundingBox'), plink = document.getElementById('mmPricingLink');
+        function btnLabel() { return box && !box.checked ? 'Request pricing' : 'Apply for the free build'; }
+        if (box) box.addEventListener('change', function() { submitBtn.textContent = btnLabel(); if (plink) plink.hidden = !box.checked; });
+        if (plink) plink.addEventListener('click', function() { box.checked = false; submitBtn.textContent = btnLabel(); plink.hidden = true; });
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1415,11 +1439,11 @@
                             });
                         }
                     } else {
-                        submitBtn.disabled = false; submitBtn.textContent = 'Request pricing';
+                        submitBtn.disabled = false; submitBtn.textContent = btnLabel();
                         alert('Something went wrong. Please try again or email us at info@inspiredcreativegroupinc.com');
                     }
                 }).catch(function() {
-                    submitBtn.disabled = false; submitBtn.textContent = 'Request pricing';
+                    submitBtn.disabled = false; submitBtn.textContent = btnLabel();
                     alert('Connection error. Please try again or email us at info@inspiredcreativegroupinc.com');
                 });
             });
