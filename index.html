@@ -619,6 +619,8 @@
         #mm-catches .mm-grid { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; pointer-events:none;
             -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%); mask-image:linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%); }
         #mm-catches::after { display:none; }
+        /* Sits right under the black Case in point, so less space above the label (Sandy, 2026-10-04) */
+        #mm-catches { padding-top: clamp(1.5rem, 2.5vw, 2.25rem); }
         /* Statement: two lines on desktop (Sandy, 2026-09-29), three on phones */
         .statement .mm-br-phone { display:none; }
         /* The day on a job is three full sentences now, so the type comes down and each row gets air (Sandy, 2026-09-30) */
