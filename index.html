@@ -626,7 +626,7 @@
         /* A soft glow that sweeps left to right, then rests (Sandy, 2026-10-08) */
         .mm-peek::before { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 40%; pointer-events: none;
                            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.26) 50%, rgba(255,255,255,0));
-                           filter: blur(18px); animation: mm-peek-glow 6s cubic-bezier(.45,.05,.4,1) infinite; will-change: transform; }
+                           filter: blur(18px); animation: mm-peek-glow 3.5s cubic-bezier(.45,.05,.4,1) infinite; will-change: transform; }
         @keyframes mm-peek-glow { 0% { transform: translateX(0); } 65%, 100% { transform: translateX(350%); } }
         .mm-peek-link { position: relative; z-index: 1; }
         .mm-peek-link { display: block; color: #fff; text-decoration: none; transition: background-color .25s ease; }
