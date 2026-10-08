@@ -621,6 +621,18 @@
         #mm-catches::after { display:none; }
         /* Sits right under the black Case in point, so less space above the label (Sandy, 2026-10-04) */
         #mm-catches { padding-top: clamp(1.5rem, 2.5vw, 2.25rem); }
+        /* The Vantrell demo band: red, full width, the whole band is the link (Sandy, 2026-10-08) */
+        .mm-peek { position: relative; background: var(--color-red, #E8000D); }
+        .mm-peek-link { display: block; color: #fff; text-decoration: none; transition: background-color .25s ease; }
+        .mm-peek-link:hover, .mm-peek-link:focus-visible { background: rgba(0,0,0,.14); }
+        .mm-peek-link:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+        .mm-peek-inner { display: block; padding-top: clamp(2.6rem, 5vw, 4.2rem); padding-bottom: clamp(2.6rem, 5vw, 4.2rem); }
+        .mm-peek-title { display: block; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; letter-spacing: .01em;
+                         font-size: clamp(1.6rem, 3.6vw, 3.1rem); line-height: 1.08; color: #fff; }
+        .mm-peek-arrow { display: inline-block; transition: transform .25s ease; }
+        .mm-peek-link:hover .mm-peek-arrow, .mm-peek-link:focus-visible .mm-peek-arrow { transform: translateX(.3em); }
+        .mm-peek-text { display: block; margin-top: 1rem; max-width: 46em; font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.6; color: #fff; }
+        @media (prefers-reduced-motion: reduce) { .mm-peek-link, .mm-peek-arrow { transition: none; } }
         /* Statement: two lines on desktop (Sandy, 2026-09-29), three on phones */
         .statement .mm-br-phone { display:none; }
         /* The day on a job is three full sentences now, so the type comes down and each row gets air (Sandy, 2026-09-30) */
@@ -1077,8 +1089,21 @@
                     </div>
                 </div>
                 <p class="ai-system-intro mm-after-layers">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- The Vantrell demo: a red band across the page that is one big link (Sandy, 2026-10-08).
+         Same tab; the demo links back to #inside-a-brain. -->
+    <section class="mm-peek" id="mm-peek">
+        <span id="inside-a-brain" class="mm-anchor" aria-hidden="true"></span>
+        <a class="mm-peek-link" href="demo/">
+            <span class="container mm-peek-inner">
+                <span class="mm-peek-title">Take a look inside a studio’s brain. <span class="mm-peek-arrow" aria-hidden="true">→</span></span>
+                <span class="mm-peek-text">Vantrell Productions is a made-up studio. This is a view of what its brain holds. Nothing for you to maintain: the brain writes and links the notes as the team works.</span>
+            </span>
+        </a>
     </section>
 
     <!-- ═══════════════════════════════════════ -->
