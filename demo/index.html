@@ -18,6 +18,11 @@
        so the backdrop is lighter than the original (Sandy, 2026-10-08). */
     .splash { background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bg-deep) 18%, transparent), color-mix(in srgb, var(--bg-deep) 70%, transparent)); }
     .splash-title, .splash-eyebrow, .splash-stats, .splash-hint { text-shadow: 0 2px 24px rgba(0,0,0,.85); }
+    /* Phones: the brain sits clear of cards. "Need a look" moves above it, the growth box below it (Sandy, 2026-10-08).
+       The script at the end of the page moves them; desktop is untouched. */
+    @media (max-width: 760px) {
+      .shell > .attention, .shell > .demo-caption { position: static; top: auto; left: auto; right: auto; bottom: auto; width: auto; margin: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -203,6 +208,21 @@
         if (now && seen && now !== seen) pill.hidden = false;
         if (now && !seen) seen = now;
       }, 30000);
+    })();
+  </script>
+
+  <script>
+    // Phones: lift the two cards off the brain. The app finds them by id, so moving them changes nothing else.
+    (() => {
+      const mq = matchMedia('(max-width: 760px)');
+      const shell = document.getElementById('shell'), scene = document.getElementById('scene');
+      const att = document.getElementById('attention'), cap = document.getElementById('demo-caption');
+      const home = { att: [att.parentNode, att.nextSibling], cap: [cap.parentNode, cap.nextSibling] };
+      const place = () => {
+        if (mq.matches) { shell.insertBefore(att, scene); scene.after(cap); }
+        else { home.att[0].insertBefore(att, home.att[1]); home.cap[0].insertBefore(cap, home.cap[1]); }
+      };
+      place(); mq.addEventListener('change', place);
     })();
   </script>
 
