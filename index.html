@@ -621,6 +621,16 @@
         #mm-catches::after { display:none; }
         /* Sits right under the black Case in point, so less space above the label (Sandy, 2026-10-04) */
         #mm-catches { padding-top: clamp(1.5rem, 2.5vw, 2.25rem); }
+        /* The Vantrell demo banner, under the three stories (Sandy, 2026-10-08) */
+        .mm-peek { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; gap: clamp(1.5rem, 3vw, 3rem);
+                   margin: 3rem 0 0; padding: clamp(1.25rem, 2.5vw, 2rem); background: rgba(18,18,18,.92); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; }
+        .mm-peek-img { display: block; border-radius: 10px; overflow: hidden; aspect-ratio: 840 / 760; }
+        .mm-peek-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+        .mm-peek:hover .mm-peek-img img { transform: scale(1.03); }
+        .mm-peek-text p { font-size: clamp(1.02rem, 1.35vw, 1.2rem); line-height: 1.6; color: var(--color-gray-300); margin: 0 0 1.5rem; max-width: 34em; }
+        .mm-peek-btn { white-space: normal; text-align: center; }
+        @media (max-width: 760px) { .mm-peek { grid-template-columns: 1fr; } .mm-peek-img { aspect-ratio: 16 / 11; } }
+        @media (prefers-reduced-motion: reduce) { .mm-peek-img img { transition: none; } }
         /* Statement: two lines on desktop (Sandy, 2026-09-29), three on phones */
         .statement .mm-br-phone { display:none; }
         /* The day on a job is three full sentences now, so the type comes down and each row gets air (Sandy, 2026-09-30) */
@@ -1077,6 +1087,15 @@
                     </div>
                 </div>
                 <p class="ai-system-intro mm-after-layers">It finds all three the same way. Two things you already stored, that disagree, flagged for you to check. Nobody is at fault and nobody would have caught it.</p>
+                <!-- The Vantrell demo: a view of an invented studio's brain (Sandy, 2026-10-08). Same tab; the demo links back to #inside-a-brain. -->
+                <div class="mm-peek" id="mm-peek">
+                    <span id="inside-a-brain" class="mm-anchor" aria-hidden="true"></span>
+                    <a class="mm-peek-img" href="demo/" tabindex="-1" aria-hidden="true"><img src="assets/demo-brain-still.jpg" alt="" width="840" height="760" loading="lazy" decoding="async"></a>
+                    <div class="mm-peek-text">
+                        <p>Vantrell Productions is a studio we made up. This is a view of what its brain holds. Nobody keeps it up: the brain writes and links the notes as the team works. Search “loudness” for the spec story above.</p>
+                        <a href="demo/" class="btn btn-primary mm-peek-btn">Take a look inside a studio’s brain</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
