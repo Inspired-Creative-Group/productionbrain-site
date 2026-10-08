@@ -621,16 +621,18 @@
         #mm-catches::after { display:none; }
         /* Sits right under the black Case in point, so less space above the label (Sandy, 2026-10-04) */
         #mm-catches { padding-top: clamp(1.5rem, 2.5vw, 2.25rem); }
-        /* The Vantrell demo band: the brain's graph fills the section, words and button centred over it (Sandy, 2026-10-08) */
-        .mm-peek { position: relative; overflow: hidden; background: #0c0b0d; min-height: clamp(460px, 62vw, 760px); display: grid; place-items: center; }
-        .mm-peek-bg, .mm-peek-bg img { position: absolute; inset: 0; width: 100%; height: 100%; }
-        .mm-peek-bg img { object-fit: cover; object-position: 50% 45%; }
-        .mm-peek::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-                          background: radial-gradient(ellipse 46% 38% at 50% 50%, rgba(8,8,9,.72), rgba(8,8,9,.25) 70%, rgba(8,8,9,0)),
-                                      linear-gradient(#000 0, rgba(0,0,0,0) 14%, rgba(10,10,10,0) 86%, #0a0a0a 100%); }
-        .mm-peek-inner { position: relative; z-index: 1; text-align: center !important; padding-top: 3rem; padding-bottom: 3rem; }
-        .mm-peek-inner p { text-align: center !important; font-size: clamp(1.1rem, 1.7vw, 1.45rem); line-height: 1.55; color: #f2f2f2; max-width: 30em; margin: 0 auto 1.8rem; text-shadow: 0 2px 20px rgba(0,0,0,.9); }
-        .mm-peek-btn { white-space: normal; text-align: center !important; }
+        /* The Vantrell demo band: red, full width, the whole band is the link (Sandy, 2026-10-08) */
+        .mm-peek { position: relative; background: var(--color-red, #E8000D); }
+        .mm-peek-link { display: block; color: #fff; text-decoration: none; transition: background-color .25s ease; }
+        .mm-peek-link:hover, .mm-peek-link:focus-visible { background: rgba(0,0,0,.14); }
+        .mm-peek-link:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+        .mm-peek-inner { display: block; padding-top: clamp(2.6rem, 5vw, 4.2rem); padding-bottom: clamp(2.6rem, 5vw, 4.2rem); }
+        .mm-peek-title { display: block; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; letter-spacing: .01em;
+                         font-size: clamp(1.6rem, 3.6vw, 3.1rem); line-height: 1.08; color: #fff; }
+        .mm-peek-arrow { display: inline-block; transition: transform .25s ease; }
+        .mm-peek-link:hover .mm-peek-arrow, .mm-peek-link:focus-visible .mm-peek-arrow { transform: translateX(.3em); }
+        .mm-peek-text { display: block; margin-top: 1rem; max-width: 46em; font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.6; color: #fff; }
+        @media (prefers-reduced-motion: reduce) { .mm-peek-link, .mm-peek-arrow { transition: none; } }
         /* Statement: two lines on desktop (Sandy, 2026-09-29), three on phones */
         .statement .mm-br-phone { display:none; }
         /* The day on a job is three full sentences now, so the type comes down and each row gets air (Sandy, 2026-09-30) */
@@ -1092,18 +1094,16 @@
         </div>
     </section>
 
-    <!-- The Vantrell demo: a view of an invented studio's brain, full width, the graph as the background (Sandy, 2026-10-08).
+    <!-- The Vantrell demo: a red band across the page that is one big link (Sandy, 2026-10-08).
          Same tab; the demo links back to #inside-a-brain. -->
     <section class="mm-peek" id="mm-peek">
         <span id="inside-a-brain" class="mm-anchor" aria-hidden="true"></span>
-        <picture class="mm-peek-bg" aria-hidden="true">
-            <source media="(max-width:760px)" srcset="assets/demo-brain-wide-1000.jpg" width="1000" height="496">
-            <img src="assets/demo-brain-wide.jpg" alt="" width="2000" height="992" loading="lazy" decoding="async">
-        </picture>
-        <div class="container mm-peek-inner">
-            <p>Vantrell Productions is a made-up studio. This is a view of what its brain holds. Nothing for you to maintain: the brain writes and links the notes as the team works.</p>
-            <a href="demo/" class="btn btn-primary mm-peek-btn">Take a look inside a studio’s brain</a>
-        </div>
+        <a class="mm-peek-link" href="demo/">
+            <span class="container mm-peek-inner">
+                <span class="mm-peek-title">Take a look inside the studio’s brain <span class="mm-peek-arrow" aria-hidden="true">→</span></span>
+                <span class="mm-peek-text">Vantrell Productions is a made-up studio. This is a view of what its brain holds. Nothing for you to maintain: the brain writes and links the notes as the team works.</span>
+            </span>
+        </a>
     </section>
 
     <!-- ═══════════════════════════════════════ -->
