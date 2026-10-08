@@ -622,7 +622,13 @@
         /* Sits right under the black Case in point, so less space above the label (Sandy, 2026-10-04) */
         #mm-catches { padding-top: clamp(1.5rem, 2.5vw, 2.25rem); }
         /* The Vantrell demo band: red, full width, the whole band is the link (Sandy, 2026-10-08) */
-        .mm-peek { position: relative; background: var(--color-red, #E8000D); }
+        .mm-peek { position: relative; overflow: hidden; background: var(--color-red, #E8000D); }
+        /* A soft glow that sweeps left to right, then rests (Sandy, 2026-10-08) */
+        .mm-peek::before { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 40%; pointer-events: none;
+                           background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.26) 50%, rgba(255,255,255,0));
+                           filter: blur(18px); animation: mm-peek-glow 6s cubic-bezier(.45,.05,.4,1) infinite; will-change: transform; }
+        @keyframes mm-peek-glow { 0% { transform: translateX(0); } 65%, 100% { transform: translateX(350%); } }
+        .mm-peek-link { position: relative; z-index: 1; }
         .mm-peek-link { display: block; color: #fff; text-decoration: none; transition: background-color .25s ease; }
         .mm-peek-link:hover, .mm-peek-link:focus-visible { background: rgba(0,0,0,.14); }
         .mm-peek-link:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
@@ -632,7 +638,7 @@
         .mm-peek-arrow { display: inline-block; transition: transform .25s ease; }
         .mm-peek-link:hover .mm-peek-arrow, .mm-peek-link:focus-visible .mm-peek-arrow { transform: translateX(.3em); }
         .mm-peek-text { display: block; margin-top: 1rem; max-width: 46em; font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.6; color: #fff; }
-        @media (prefers-reduced-motion: reduce) { .mm-peek-link, .mm-peek-arrow { transition: none; } }
+        @media (prefers-reduced-motion: reduce) { .mm-peek-link, .mm-peek-arrow { transition: none; } .mm-peek::before { animation: none; display: none; } }
         /* Statement: two lines on desktop (Sandy, 2026-09-29), three on phones */
         .statement .mm-br-phone { display:none; }
         /* The day on a job is three full sentences now, so the type comes down and each row gets air (Sandy, 2026-09-30) */
