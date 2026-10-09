@@ -437,6 +437,19 @@
         @keyframes mm-vsl-ring { 0% { transform: scale(1); opacity: .9; } 80%, 100% { transform: scale(1.6); opacity: 0; } }
         .mm-vsl-cover:hover .mm-vsl-play, .mm-vsl-play:focus-visible { transform: scale(1.07); box-shadow: 0 12px 56px rgba(232,0,13,.65); }
         .mm-vsl-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        /* End card */
+        .mm-vsl-end { display: none; }
+        .mm-vsl-cover.is-end { cursor: default; }
+        .mm-vsl-cover.is-end > .mm-vsl-title, .mm-vsl-cover.is-end > .mm-vsl-play, .mm-vsl-cover.is-end > .mm-vsl-len { display: none; }
+        .mm-vsl-cover.is-end .mm-vsl-end { display: flex; flex-direction: column; align-items: center; gap: clamp(.5rem, 2cqi, 1.4rem); }
+        .mm-vsl-end-title { margin: 0 0 .4em; padding: 0 6cqi; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; line-height: 1.02;
+            letter-spacing: -.01em; color: #fff; font-size: clamp(1.2rem, 5.2cqi, 4.4rem); text-align: center !important; }
+        .mm-vsl-end-title .text-accent { display: block; text-align: center !important; }
+        .mm-vsl-cover .mm-vsl-end-apply { font-size: clamp(.95rem, 1.9cqi, 1.35rem); padding: clamp(.7rem, 1.6cqi, 1.15rem) clamp(1.3rem, 3.4cqi, 2.6rem); box-shadow: 0 10px 40px rgba(232,0,13,.45); }
+        .mm-vsl-end-note { color: var(--color-gray-300); font-size: clamp(.78rem, 1.5cqi, 1.05rem); text-align: center !important; }
+        .mm-vsl-again { margin-top: .2rem; background: none; border: 0; padding: .3rem .6rem; color: var(--color-gray-300); font: inherit; font-size: clamp(.78rem, 1.4cqi, 1rem); cursor: pointer; letter-spacing: .04em; }
+        .mm-vsl-again:hover, .mm-vsl-again:focus-visible { color: #fff; }
+        @container (max-width: 520px) { .mm-vsl-end-title { display: none; } }
         .mm-vsl-len { font-size: clamp(.72rem, 1.5cqi, 1rem); letter-spacing: .18em; text-transform: uppercase; color: var(--color-gray-300); text-align: center !important; }
         .mm-vsl-chapters { list-style: none; margin: 1.2rem auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
         .mm-vsl-chap { display: inline-flex; align-items: baseline; gap: .45em; padding: .45rem .8rem; border-radius: 999px; cursor: pointer;
@@ -899,6 +912,13 @@
                 <h2 class="mm-vsl-title">All you need to know. <span class="text-accent">In 6 minutes.</span></h2>
                 <button type="button" class="mm-vsl-play" id="mmVslPlay" aria-label="Play the video, 6 minutes 5 seconds"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>
                 <span class="mm-vsl-len">Watch &middot; 6:05</span>
+                <!-- End card: shown when the video finishes. The video's last line is "click the button below this video", so the button comes to them. -->
+                <div class="mm-vsl-end">
+                    <p class="mm-vsl-end-title">One studio gets <span class="text-accent">a free build.</span></p>
+                    <a href="#founding-offer" class="btn btn-primary mm-vsl-end-apply" id="mmVslEndApply">Apply for the free build</a>
+                    <span class="mm-vsl-end-note">One spot. Applications close October 31.</span>
+                    <button type="button" class="mm-vsl-again" id="mmVslAgain">&#8635; Watch again</button>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -929,7 +949,7 @@
         // Lift the cover only once the video is really playing, so Vimeo's own thumbnail never flashes in between.
         // If the browser blocks starting with sound (some phones), lift it anyway so Vimeo's play button can be tapped.
         let fallback = null, target = null;
-        const reveal = () => { if (cover.hidden || cover.classList.contains('is-gone')) return; clearTimeout(fallback); cover.classList.remove('is-loading'); cover.classList.add('is-gone'); setTimeout(() => { cover.hidden = true; }, 300); };
+        const reveal = () => { if (cover.hidden || cover.classList.contains('is-gone')) return; clearTimeout(fallback); cover.classList.remove('is-loading'); cover.classList.add('is-gone'); setTimeout(() => { cover.hidden = true; cover.classList.remove('is-end'); }, 300); };
         const start = t => {
           if (!player) { reveal(); return; }
           if (!cover.hidden) { cover.classList.add('is-loading'); clearTimeout(fallback); fallback = setTimeout(reveal, 3500); }
@@ -941,7 +961,9 @@
             : (t != null ? player.setCurrentTime(t) : null)).catch(reveal);
           if (t != null) send('vsl_chapter', { seconds: t });
         };
-        cover.addEventListener('click', () => start(null));
+        // The cover plays the video; on the end card only "Watch again" restarts it (the Apply button is a normal link).
+        cover.addEventListener('click', e => { if (cover.classList.contains('is-end') && !e.target.closest('#mmVslAgain')) return; start(null); });
+        document.getElementById('mmVslEndApply').addEventListener('click', () => send('vsl_endcard_apply'));
         document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => b.addEventListener('click', () => {
           start(+b.dataset.t);
           const st = document.querySelector('#mm-vsl .mm-vsl-stage').getBoundingClientRect();
@@ -960,7 +982,7 @@
         // At the end, our cover comes straight back over Vimeo's "More from…" screen, ready to play again from the start.
         const showCover = () => {
           clearTimeout(fallback); target = null;
-          cover.hidden = false; cover.classList.remove('is-loading');
+          cover.hidden = false; cover.classList.remove('is-loading'); cover.classList.add('is-end');
           void cover.offsetWidth; cover.classList.remove('is-gone');
         };
         player.on('ended', () => {
