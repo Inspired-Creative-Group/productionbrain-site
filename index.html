@@ -407,17 +407,50 @@
         }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         /* The launch video section, right under the hero (Sandy, 2026-10-09) */
-        #mm-vsl { padding-top: clamp(2.5rem, 4vw, 3.5rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
-        /* Wider than the page's 1200px column, centred like a screen. The video is sized by width AND by the
-           screen's height, so title, video and Apply button always fit on one screen (Sandy, 2026-10-09). */
+        /* The launch video: a cinema band right under the hero. The frame is as large as the screen allows
+           (width AND height), our cover sits on it until play, chapters and Apply under it (Sandy, 2026-10-09). */
+        #mm-vsl { position: relative; background: #000; padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(3rem, 6vw, 5rem); }
+        #mm-vsl .mm-vsl-stage { position: relative; aspect-ratio: 16 / 9; margin: 0 auto; container-type: inline-size;
+            width: min(100%, calc((100vh - 310px) * 16 / 9)); width: min(100%, calc((100svh - 310px) * 16 / 9));
+            min-width: min(100%, 560px); border: 1px solid rgba(232,0,13,.55); border-radius: 14px; overflow: hidden; background: #070707; }
+        .mm-vsl-cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: clamp(.8rem, 3.2cqi, 2.4rem); cursor: pointer; text-align: center !important; transition: opacity .45s ease;
+            background:
+              radial-gradient(ellipse 42% 48% at 50% 62%, rgba(232,0,13,.30), rgba(232,0,13,.06) 60%, transparent 75%),
+              radial-gradient(circle, rgba(255,255,255,.075) 1px, transparent 1.5px) 0 0 / 22px 22px,
+              linear-gradient(180deg, #0b0b0b, #050505); }
+        .mm-vsl-cover.is-gone { opacity: 0; pointer-events: none; }
         #mm-vsl .container { max-width: 1440px; }
-        #mm-vsl .mm-vsl-title { margin: 0 0 1.4rem; text-align: center !important; }
-        #mm-vsl .mm-vsl-video { aspect-ratio: auto; margin: 0 auto; border: 2px solid var(--color-red);
-                                width: min(100%, calc((100vh - 300px) * 16 / 9)); width: min(100%, calc((100svh - 300px) * 16 / 9));
-                                min-width: min(100%, 560px); max-width: none; }
-        #mm-vsl .mm-vsl-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .9rem 1.4rem; }
+        @media (min-width: 1300px) { #mm-vsl .mm-vsl-stage { width: min(100%, calc((100vh - 265px) * 16 / 9)); width: min(100%, calc((100svh - 265px) * 16 / 9)); } }
+        .mm-vsl-cover .mm-vsl-title { margin: 0; padding: 0 6cqi; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+            letter-spacing: -.01em; line-height: 1.02; color: #fff; font-size: clamp(1.35rem, 6.2cqi, 5.2rem); text-align: center !important; }
+        .mm-vsl-cover .mm-vsl-title .text-accent { display: block; text-align: center !important; }
+        .mm-vsl-play { position: relative; display: grid; place-items: center; width: clamp(54px, 9.5cqi, 120px); aspect-ratio: 1; border-radius: 50%;
+            border: 0; background: var(--color-red, #E8000D); color: #fff; cursor: pointer; box-shadow: 0 10px 40px rgba(232,0,13,.45);
+            transition: transform .25s ease, box-shadow .25s ease; }
+        .mm-vsl-play svg { width: 44%; margin-left: 8%; }
+        .mm-vsl-play::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(232,0,13,.7); animation: mm-vsl-ring 2.4s ease-out infinite; }
+        @keyframes mm-vsl-ring { 0% { transform: scale(1); opacity: .9; } 80%, 100% { transform: scale(1.6); opacity: 0; } }
+        .mm-vsl-cover:hover .mm-vsl-play, .mm-vsl-play:focus-visible { transform: scale(1.07); box-shadow: 0 12px 56px rgba(232,0,13,.65); }
+        .mm-vsl-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        .mm-vsl-len { font-size: clamp(.72rem, 1.5cqi, 1rem); letter-spacing: .18em; text-transform: uppercase; color: var(--color-gray-300); text-align: center !important; }
+        .mm-vsl-chapters { list-style: none; margin: 1.2rem auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+        .mm-vsl-chap { display: inline-flex; align-items: baseline; gap: .45em; padding: .45rem .8rem; border-radius: 999px; cursor: pointer;
+            border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.03); color: var(--color-gray-300); font: inherit; font-size: .9rem;
+            transition: border-color .2s ease, color .2s ease, background-color .2s ease; }
+        .mm-vsl-chap span { font-family: var(--font-mono, monospace); font-size: .8em; color: var(--color-red); }
+        .mm-vsl-chap:hover, .mm-vsl-chap:focus-visible, .mm-vsl-chap.is-now { border-color: var(--color-red); color: #fff; background: rgba(232,0,13,.10); }
+        #mm-vsl .mm-vsl-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .9rem 1.4rem; margin-top: 1.6rem; }
         #mm-vsl .mm-vsl-note { color: var(--color-gray-300); font-size: .98rem; }
-        @media (max-width: 600px) { #mm-vsl .mm-vsl-title .text-accent { display: block; text-align: center !important; } #mm-vsl .mm-vsl-cta { flex-direction: column; } #mm-vsl .mm-vsl-cta .btn { width: 100%; } #mm-vsl .mm-vsl-note { text-align: center !important; } }
+        @media (max-width: 760px) {
+            #mm-vsl { padding-top: 0; }
+            #mm-vsl .mm-vsl-stage { width: 100%; min-width: 0; border-radius: 0; border-left: 0; border-right: 0; }
+            .mm-vsl-chapters { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: 0; padding: 0 16px .3rem; box-sizing: border-box; scrollbar-width: none; }
+            .mm-vsl-chapters::-webkit-scrollbar { display: none; }
+            .mm-vsl-chap { white-space: nowrap; }
+        }
+        @media (max-width: 600px) { #mm-vsl .mm-vsl-cta { flex-direction: column; } #mm-vsl .mm-vsl-cta .btn { width: 100%; } #mm-vsl .mm-vsl-note { text-align: center !important; } }
+        @media (prefers-reduced-motion: reduce) { .mm-vsl-play::after { animation: none; } .mm-vsl-cover, .mm-vsl-play { transition: none; } }
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
         .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
         .mm-founding strong { color:#fff; font-weight:600; }
@@ -853,13 +886,28 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- THE VIDEO (launch VSL, Vimeo, plays only on theproductionbrain.ai) -->
     <!-- ═══════════════════════════════════════ -->
-    <section class="section" id="mm-vsl">
+    <section class="mm-vsl" id="mm-vsl">
         <span id="watch" class="mm-anchor" aria-hidden="true"></span>
-        <div class="container">
-            <h2 class="section-title mm-vsl-title">All you need to know. <span class="text-accent">In 6 minutes.</span></h2>
-            <div class="mm-video mm-vsl-video">
-                <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1234409510?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Production Brain: Your Studio's Memory, in Your Own Machine"></iframe></div>
+        <!-- A cinema band: the frame is as large as the screen allows. Our own cover sits over the Vimeo player until someone plays it (Sandy, 2026-10-09). -->
+        <div class="mm-vsl-stage">
+            <iframe src="https://player.vimeo.com/video/1234409510?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;color=e8000d" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Production Brain: Your Studio's Memory, in Your Own Machine"></iframe>
+            <div class="mm-vsl-cover" id="mmVslCover">
+                <h2 class="mm-vsl-title">All you need to know. <span class="text-accent">In 6 minutes.</span></h2>
+                <button type="button" class="mm-vsl-play" id="mmVslPlay" aria-label="Play the video, 6 minutes 5 seconds"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>
+                <span class="mm-vsl-len">Watch &middot; 6:05</span>
             </div>
+        </div>
+        <div class="container">
+            <ol class="mm-vsl-chapters" aria-label="Chapters">
+                <li><button type="button" class="mm-vsl-chap" data-t="0"><span>0:00</span>The challenge</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="67"><span>1:07</span>The cost</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="87"><span>1:27</span>Why it exists</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="121"><span>2:01</span>Remembers</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="137"><span>2:17</span>Recalls</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="225"><span>3:45</span>Learns &amp; grows</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="254"><span>4:14</span>Locally</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="319"><span>5:19</span>The offer</button></li>
+            </ol>
             <div class="mm-cta-row mm-vsl-cta">
                 <a href="#founding-offer" class="btn btn-primary mm-apply" id="mmVslApply">Apply for the free build</a>
                 <span class="mm-vsl-note">One spot. Applications close October 31.</span>
@@ -868,16 +916,34 @@
     </section>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
-      // Measure the video: play, 25/50/75% watched, finished, and Apply clicks under it (Google Analytics, already on the page).
+      // The cover, the chapters, and measuring: play, 25/50/75% watched, finished, Apply clicks (Google Analytics, already on the page).
       (() => {
         const send = (name, params) => { try { window.gtag && gtag('event', name, Object.assign({ video_title: 'Launch VSL' }, params || {})); } catch (e) {} };
         document.getElementById('mmVslApply').addEventListener('click', () => send('vsl_apply_click'));
-        const frame = document.querySelector('#mm-vsl iframe');
-        if (!frame || !window.Vimeo) return;
-        const player = new Vimeo.Player(frame), marks = [25, 50, 75], seen = new Set();
-        let started = false;
-        player.on('play', () => { if (!started) { started = true; send('vsl_play'); } });
-        player.on('timeupdate', d => { const pc = d.percent * 100; for (const m of marks) if (pc >= m && !seen.has(m)) { seen.add(m); send('vsl_progress', { percent: m }); } });
+        const frame = document.querySelector('#mm-vsl iframe'), cover = document.getElementById('mmVslCover');
+        const player = (frame && window.Vimeo) ? new Vimeo.Player(frame) : null;
+        // Lift the cover. If the browser blocks starting with sound (some phones), Vimeo's own play button is right there.
+        const reveal = () => { cover.classList.add('is-gone'); setTimeout(() => { cover.hidden = true; }, 450); };
+        const start = t => {
+          reveal();
+          if (!player) return;
+          (t != null ? player.setCurrentTime(t) : Promise.resolve()).then(() => player.play()).catch(() => {});
+          if (t != null) send('vsl_chapter', { seconds: t });
+        };
+        cover.addEventListener('click', () => start(null));
+        document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => b.addEventListener('click', () => {
+          start(+b.dataset.t);
+          const st = document.querySelector('#mm-vsl .mm-vsl-stage').getBoundingClientRect();
+          if (st.top < 60 || st.bottom > innerHeight) window.scrollBy({ top: st.top - 80, behavior: 'smooth' });
+        }));
+        if (!player) return;
+        const marks = [25, 50, 75], seen = new Set(); let started = false;
+        player.on('play', () => { if (!cover.hidden) reveal(); if (!started) { started = true; send('vsl_play'); } });
+        player.on('timeupdate', d => {
+          const pc = d.percent * 100; for (const m of marks) if (pc >= m && !seen.has(m)) { seen.add(m); send('vsl_progress', { percent: m }); }
+          let cur = null; document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => { if (d.seconds >= +b.dataset.t) cur = b; });
+          document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => b.classList.toggle('is-now', b === cur));
+        });
         player.on('ended', () => send('vsl_complete'));
       })();
     </script>
