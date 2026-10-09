@@ -907,7 +907,7 @@
                 <li><button type="button" class="mm-vsl-chap" data-t="67"><span>1:07</span>The cost</button></li>
                 <li><button type="button" class="mm-vsl-chap" data-t="87"><span>1:27</span>Why it exists</button></li>
                 <li><button type="button" class="mm-vsl-chap" data-t="121"><span>2:01</span>Remembers</button></li>
-                <li><button type="button" class="mm-vsl-chap" data-t="137"><span>2:17</span>Recalls</button></li>
+                <li><button type="button" class="mm-vsl-chap" data-t="131.8"><span>2:11</span>Demo</button></li>
                 <li><button type="button" class="mm-vsl-chap" data-t="225"><span>3:45</span>Learns &amp; grows</button></li>
                 <li><button type="button" class="mm-vsl-chap" data-t="254"><span>4:14</span>Locally</button></li>
                 <li><button type="button" class="mm-vsl-chap" data-t="319"><span>5:19</span>The offer</button></li>
@@ -935,7 +935,10 @@
           if (!cover.hidden) { cover.classList.add('is-loading'); clearTimeout(fallback); fallback = setTimeout(reveal, 3500); }
           target = t;
           // Play first, then jump: Vimeo won't start from a jump made before the video has ever played.
-          player.play().then(() => t != null ? player.setCurrentTime(t) : null).catch(reveal);
+          // While it's already playing, just jump (Vimeo's play() never settles when it's already playing).
+          player.getPaused().then(paused => paused
+            ? player.play().then(() => t != null ? player.setCurrentTime(t) : null)
+            : (t != null ? player.setCurrentTime(t) : null)).catch(reveal);
           if (t != null) send('vsl_chapter', { seconds: t });
         };
         cover.addEventListener('click', () => start(null));
