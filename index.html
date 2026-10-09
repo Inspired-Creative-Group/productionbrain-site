@@ -406,6 +406,19 @@
           .partners-hero-title .text-accent{display:block}
         }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
+        /* The launch video section, right under the hero (Sandy, 2026-10-09) */
+        #mm-vsl { padding-top: clamp(2.5rem, 4vw, 3.5rem); }
+        #mm-vsl .mm-vsl-title { margin: 0 0 1.4rem; }
+        #mm-vsl .mm-vsl-video { aspect-ratio: auto; max-width: 960px; margin: 0; border: 2px solid var(--color-red); }
+        #mm-vsl .mm-vsl-cta { display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1.4rem; }
+        #mm-vsl .mm-vsl-note { color: var(--color-gray-300); font-size: .98rem; }
+        .mm-vsl-transcript { margin: 1.6rem 0 0; max-width: 960px; border-top: 1px solid rgba(255,255,255,.12); padding-top: 1rem; }
+        .mm-vsl-transcript summary { cursor: pointer; color: var(--color-gray-300); font-size: .95rem; list-style: none; }
+        .mm-vsl-transcript summary::-webkit-details-marker { display: none; }
+        .mm-vsl-transcript summary::before { content: "+ "; color: var(--color-red); }
+        .mm-vsl-transcript[open] summary::before { content: "\2212  "; }
+        .mm-vsl-transcript-body { margin-top: 1rem; max-width: 46em; }
+        .mm-vsl-transcript-body p { color: var(--color-gray-300); font-size: 1rem; line-height: 1.7; margin: 0 0 .9rem; }
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
         .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
         .mm-founding strong { color:#fff; font-weight:600; }
@@ -839,6 +852,71 @@
     <main id="main-content">
 
     <!-- ═══════════════════════════════════════ -->
+    <!-- THE VIDEO (launch VSL, Vimeo, plays only on theproductionbrain.ai) -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section" id="mm-vsl">
+        <span id="watch" class="mm-anchor" aria-hidden="true"></span>
+        <div class="container">
+            <h2 class="section-title mm-vsl-title">The whole story <span class="text-accent">in six minutes.</span></h2>
+            <div class="mm-video mm-vsl-video">
+                <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1234409510?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Production Brain: Your Studio's Memory, in Your Own Machine"></iframe></div>
+            </div>
+            <div class="mm-cta-row mm-vsl-cta">
+                <a href="#founding-offer" class="btn btn-primary mm-apply" id="mmVslApply">Apply for the free build</a>
+                <span class="mm-vsl-note">One spot. Applications close October 31.</span>
+            </div>
+            <details class="mm-vsl-transcript">
+                <summary>Read the transcript</summary>
+                <div class="mm-vsl-transcript-body">
+                        <p>You’re losing more than a full working day every month just explaining your work to your AI.</p>
+                        <p>That is not me saying it. A 2026 study of 6,000 workers found they spend 2.3 hours a week just feeding context to AI, and half of them said it’s exhausting.</p>
+                        <p>Every new session starts from zero. You explain the project again, what you decided last week, and why again, and pasting in more context doesn’t fix it. The more you feed it, the harder it is for the AI to find what it needs.</p>
+                        <p>And every session has a limit. It’s called the context window, how much your AI can hold in one conversation. When it fills up, it compacts. It summarizes what it thinks it’s important, and the rest is gone.</p>
+                        <p>The process your agent figured out while generating clips and cutting a 30-second video, that’s gone, unless you remember to save it somewhere and you then remember to use it next time.</p>
+                        <p>And if you use different agents for different parts of the company, like Claude for business admin or Codex for production, that’s painful. Codex has no idea what Claude knows or what it did.</p>
+                        <p>So who holds the memory in your studio? You do.</p>
+                        <p>Have you ever added up what that’s costing you in a year? I did. For a team of five at $85 an hour, which is the starting rate of a senior editor in the US, that’s 69 working days, $46,900 every year. That’s shocking.</p>
+                        <p>I spent 20 years in production. Then I flipped my company to run on AI, and I immediately became the context manager of my own agents. I didn’t sign up for this. I wanted to spend my time creating and directing, not managing documents and files and correcting the so-called intelligence.</p>
+                        <p>The AI was incredibly smart about the world, but not my world. I felt like working with a PhD-level assistant with a severe case of amnesia. And if I wanted my company to work better, I had to do something different. So I spent the last six months building a fix.</p>
+                        <p>It’s called the Production Brain, one memory on your studio’s own machine. If something important comes up in the session, you tell your agent, "Save it to the Production Brain," and it’s done. Picture a normal day.</p>
+                        <p>9 AM. Josh, the AI video producer, asks Claude Code what he needs to focus on today. Claude checks his email and finds a reminder from the client about a change. Then it looks in the Production Brain and finds what the producer and the client decided in yesterday’s meeting. Josh gets a full brief of what he has to deliver by the end of the day. Nothing to dig up.</p>
+                        <p>All day, every time he finishes a stage or learns something worth keeping, his agent asks, "Want me to save it to the Production Brain?"</p>
+                        <p>4 PM. The job’s done. Josh says, "Save to the Production Brain, and let’s close the session."</p>
+                        <p>4:30. Samantha, the production lead, is at a cafe. She opens ChatGPT on her phone and asks, "What’s the status of what Josh worked on today?" ChatGPT looks in the Production Brain, reads Josh’s session, and gives her the full picture: where the job stands for the client and what Josh and the agent learned that’ll help the team on the next one.</p>
+                        <p>She reviews it and has it write the client update, and it finds one more thing, a note from a meeting between the CEO and the head of marketing with an action item due Friday. Samantha has ChatGPT write a brief for Josh and Leo, and it goes into the brain. Tomorrow morning, both their agents already know.</p>
+                        <p>A system that knows what you and your team decided when and why. No long briefs, no explaining it all again.</p>
+                        <p>Sounds great, but can you trust what’s in there? We all know AI likes to make stuff up sometimes. Well, every night while everyone sleeps, local models go through it and flag anything stale or anything that doesn’t line up. They run on the machine, so there is no cost per use.</p>
+                        <p>Like the track the client cleared for social only in an email back in March while the brief says music approved. It flags that issue in the morning before the broadcast cut ships with it.</p>
+                        <p>Now the part I think we should all care about the most, your studio’s memory is your intellectual property. Every decision, every client note, every process your agents learned, it should be yours to keep and yours to decide what to do with.</p>
+                        <p>So where does it live today? On a giant corporation’s server that you rent every month. Do you control it? Can you take back the memories they’ve built from your work? Can you bring them with you if you switch AI providers tomorrow? I think we both know the answer.</p>
+                        <p>The Production Brain flips that. It lives on a Mac Studio in your building running its own models. Your AI tools only see what they ask for. The only thing that leaves is an encrypted backup, and only you hold the key.</p>
+                        <p>And it outlives your tools. Switch from Claude to Codex tomorrow, and the memory stays because it was never inside either.</p>
+                        <p>Imagine what you could do with years of your studio’s knowledge all organized in one place. One day you’ll even be able to train your own model on how your studio works on the same machine it ships on.</p>
+                        <p>We’ve all accepted losing hours re-explaining and fixing as part of the price we pay to use AI, and it is not right. Your studio’s time should go into creating, not into managing your AI. And the memory of how you work should be yours to use with whatever tool you want.</p>
+                        <p>I don’t manage context anymore. I’m not married to an AI company either. The Production Brain remembers, so I get to create.</p>
+                        <p>So here’s the deal. We’re looking for a qualified studio to receive a custom build for free plus 30% off maintenance fee for a full year. This offer is for one spot only. Applications close October 31st.</p>
+                        <p>To apply, click the button below this video.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+      // Measure the video: play, 25/50/75% watched, finished, and Apply clicks under it (Google Analytics, already on the page).
+      (() => {
+        const send = (name, params) => { try { window.gtag && gtag('event', name, Object.assign({ video_title: 'Launch VSL' }, params || {})); } catch (e) {} };
+        document.getElementById('mmVslApply').addEventListener('click', () => send('vsl_apply_click'));
+        const frame = document.querySelector('#mm-vsl iframe');
+        if (!frame || !window.Vimeo) return;
+        const player = new Vimeo.Player(frame), marks = [25, 50, 75], seen = new Set();
+        let started = false;
+        player.on('play', () => { if (!started) { started = true; send('vsl_play'); } });
+        player.on('timeupdate', d => { const pc = d.percent * 100; for (const m of marks) if (pc >= m && !seen.has(m)) { seen.add(m); send('vsl_progress', { percent: m }); } });
+        player.on('ended', () => send('vsl_complete'));
+      })();
+    </script>
+
+    <!-- ═══════════════════════════════════════ -->
     <!-- PROBLEM (ICG stakes layout)              -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section stakes-section" id="mm-problem">
@@ -1006,12 +1084,8 @@
             <div class="section-header gsap-animate">
                 <span class="section-label">Why it exists</span>
                 <h2 class="section-title">I became the context manager<br><span class="text-accent">for my own agents.</span></h2>
-                <p class="section-subtitle">Juan Valencia, twenty years in production. Our studio has run on this brain since June. Watch fresh accounts answer, nothing pasted in.</p>
+                <p class="section-subtitle">Juan Valencia, twenty years in production. Our studio has run on this brain since June.</p>
             </div>
-            <div class="mm-video">
-                <iframe src="https://www.youtube-nocookie.com/embed/4EOZkllNoDw" title="Your AI's Memory Isn't Yours. So I Built My Own." loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
         </div>
     </section>
 
