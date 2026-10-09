@@ -414,12 +414,16 @@
             width: min(100%, calc((100vh - 310px) * 16 / 9)); width: min(100%, calc((100svh - 310px) * 16 / 9));
             min-width: min(100%, 560px); border: 1px solid rgba(232,0,13,.55); border-radius: 14px; overflow: hidden; background: #070707; }
         .mm-vsl-cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: clamp(.8rem, 3.2cqi, 2.4rem); cursor: pointer; text-align: center !important; transition: opacity .45s ease;
+            gap: clamp(.8rem, 3.2cqi, 2.4rem); cursor: pointer; text-align: center !important; transition: opacity .3s ease;
             background:
               radial-gradient(ellipse 42% 48% at 50% 62%, rgba(232,0,13,.30), rgba(232,0,13,.06) 60%, transparent 75%),
               radial-gradient(circle, rgba(255,255,255,.075) 1px, transparent 1.5px) 0 0 / 22px 22px,
               linear-gradient(180deg, #0b0b0b, #050505); }
         .mm-vsl-cover.is-gone { opacity: 0; pointer-events: none; }
+        .mm-vsl-cover.is-loading { cursor: progress; }
+        .mm-vsl-cover.is-loading .mm-vsl-play svg { opacity: 0; }
+        .mm-vsl-cover.is-loading .mm-vsl-play::before { content: ""; position: absolute; width: 40%; aspect-ratio: 1; border-radius: 50%; border: 3px solid rgba(255,255,255,.35); border-top-color: #fff; animation: mm-vsl-spin .8s linear infinite; }
+        @keyframes mm-vsl-spin { to { transform: rotate(360deg); } }
         #mm-vsl .container { max-width: 1440px; }
         @media (min-width: 1300px) { #mm-vsl .mm-vsl-stage { width: min(100%, calc((100vh - 265px) * 16 / 9)); width: min(100%, calc((100svh - 265px) * 16 / 9)); } }
         .mm-vsl-cover .mm-vsl-title { margin: 0; padding: 0 6cqi; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
@@ -922,12 +926,16 @@
         document.getElementById('mmVslApply').addEventListener('click', () => send('vsl_apply_click'));
         const frame = document.querySelector('#mm-vsl iframe'), cover = document.getElementById('mmVslCover');
         const player = (frame && window.Vimeo) ? new Vimeo.Player(frame) : null;
-        // Lift the cover. If the browser blocks starting with sound (some phones), Vimeo's own play button is right there.
-        const reveal = () => { cover.classList.add('is-gone'); setTimeout(() => { cover.hidden = true; }, 450); };
+        // Lift the cover only once the video is really playing, so Vimeo's own thumbnail never flashes in between.
+        // If the browser blocks starting with sound (some phones), lift it anyway so Vimeo's play button can be tapped.
+        let fallback = null, target = null;
+        const reveal = () => { if (cover.hidden || cover.classList.contains('is-gone')) return; clearTimeout(fallback); cover.classList.remove('is-loading'); cover.classList.add('is-gone'); setTimeout(() => { cover.hidden = true; }, 300); };
         const start = t => {
-          reveal();
-          if (!player) return;
-          (t != null ? player.setCurrentTime(t) : Promise.resolve()).then(() => player.play()).catch(() => {});
+          if (!player) { reveal(); return; }
+          if (!cover.hidden) { cover.classList.add('is-loading'); clearTimeout(fallback); fallback = setTimeout(reveal, 3500); }
+          target = t;
+          // Play first, then jump: Vimeo won't start from a jump made before the video has ever played.
+          player.play().then(() => t != null ? player.setCurrentTime(t) : null).catch(reveal);
           if (t != null) send('vsl_chapter', { seconds: t });
         };
         cover.addEventListener('click', () => start(null));
@@ -938,8 +946,10 @@
         }));
         if (!player) return;
         const marks = [25, 50, 75], seen = new Set(); let started = false;
-        player.on('play', () => { if (!cover.hidden) reveal(); if (!started) { started = true; send('vsl_play'); } });
+        player.on('play', () => { if (!started) { started = true; send('vsl_play'); } });
+        player.on('playing', () => { if (target == null) reveal(); });
         player.on('timeupdate', d => {
+          if (target != null && d.seconds >= target - 0.5) { reveal(); target = null; }
           const pc = d.percent * 100; for (const m of marks) if (pc >= m && !seen.has(m)) { seen.add(m); send('vsl_progress', { percent: m }); }
           let cur = null; document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => { if (d.seconds >= +b.dataset.t) cur = b; });
           document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => b.classList.toggle('is-now', b === cur));
