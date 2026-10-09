@@ -18,6 +18,12 @@
        so the backdrop is lighter than the original (Sandy, 2026-10-08). */
     .splash { background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bg-deep) 18%, transparent), color-mix(in srgb, var(--bg-deep) 70%, transparent)); }
     .splash-title, .splash-eyebrow, .splash-stats, .splash-hint { text-shadow: 0 2px 24px rgba(0,0,0,.85); }
+    /* Phones: title block, then "need a look", the brain clear of cards, the growth box, then the counts (Sandy, 2026-10-08).
+       The script at the end of the page moves them; desktop is untouched. */
+    @media (max-width: 760px) {
+      .shell > .attention, .shell > .demo-caption { position: static; top: auto; left: auto; right: auto; bottom: auto; width: auto; margin: 14px; }
+      .shell > .rail-hero { padding: 18px 18px 4px; }
+    }
   </style>
 </head>
 <body>
@@ -203,6 +209,23 @@
         if (now && seen && now !== seen) pill.hidden = false;
         if (now && !seen) seen = now;
       }, 30000);
+    })();
+  </script>
+
+  <script>
+    // Phones: the title block first, then "need a look", the brain, the growth box, and the counts after them.
+    // Cards stay off the brain. The app finds everything by id, so moving them changes nothing else. Desktop is untouched.
+    (() => {
+      const mq = matchMedia('(max-width: 760px)');
+      const $ = id => document.getElementById(id);
+      const shell = $('shell'), scene = $('scene'), rail = $('rail'), att = $('attention'), cap = $('demo-caption');
+      const hero = rail.querySelector('.rail-hero');
+      let moved = false;
+      const place = () => {
+        if (mq.matches) { shell.prepend(hero); hero.after(att); att.after(scene); scene.after(cap); cap.after(rail); moved = true; }
+        else if (moved) { rail.prepend(hero); shell.prepend(rail); scene.prepend(att); scene.appendChild(cap); moved = false; }
+      };
+      place(); mq.addEventListener('change', place);
     })();
   </script>
 
