@@ -954,7 +954,18 @@
           let cur = null; document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => { if (d.seconds >= +b.dataset.t) cur = b; });
           document.querySelectorAll('#mm-vsl .mm-vsl-chap').forEach(b => b.classList.toggle('is-now', b === cur));
         });
-        player.on('ended', () => send('vsl_complete'));
+        // At the end, our cover comes straight back over Vimeo's "More from…" screen, ready to play again from the start.
+        const showCover = () => {
+          clearTimeout(fallback); target = null;
+          cover.hidden = false; cover.classList.remove('is-loading');
+          void cover.offsetWidth; cover.classList.remove('is-gone');
+        };
+        player.on('ended', () => {
+          send('vsl_complete');
+          player.getFullscreen().then(f => f && player.exitFullscreen()).catch(() => {});
+          showCover();
+          player.setCurrentTime(0).then(() => player.pause()).catch(() => {});
+        });
       })();
     </script>
 
