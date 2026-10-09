@@ -14,10 +14,9 @@
     .back-to-site { display: inline-block; margin: 0 0 1.4rem; font: 500 13px/1.3 "IBM Plex Sans", system-ui, sans-serif; color: #F2EDE6; text-decoration: none;
                     padding: 7px 12px; border: 1px solid rgba(255,244,230,0.18); border-radius: 999px; }
     .back-to-site:hover, .back-to-site:focus-visible { border-color: #E8000D; color: #fff; }
-    /* Opens on "Watch it grow" (dist/app.js starts it at load): the title sits over the brain as it builds,
-       so the backdrop is lighter than the original (Sandy, 2026-10-08). */
-    .splash { background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bg-deep) 18%, transparent), color-mix(in srgb, var(--bg-deep) 70%, transparent)); }
-    .splash-title, .splash-eyebrow, .splash-stats, .splash-hint { text-shadow: 0 2px 24px rgba(0,0,0,.85); }
+    /* No opening title card: the page opens straight on the brain growing (Sandy, 2026-10-08).
+       The element stays in the page because dist/app.js writes to it and removes it itself. */
+    .splash { display: none !important; }
     /* Phones: title block, then "need a look", the brain clear of cards, the growth box, then the counts (Sandy, 2026-10-08).
        The script at the end of the page moves them; desktop is untouched. */
     @media (max-width: 760px) {
@@ -37,7 +36,7 @@
     }
   </script>
 
-  <!-- Opening title card. The brain starts growing behind it at once; it starts fading at 2 s. -->
+  <!-- Opening title card: hidden by CSS above (Sandy, 2026-10-08); kept because app.js uses it. -->
   <div id="splash" class="splash">
     <div class="splash-inner">
       <div class="splash-eyebrow" id="splash-eyebrow"></div>
