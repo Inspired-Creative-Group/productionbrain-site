@@ -407,11 +407,17 @@
         }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         /* The launch video section, right under the hero (Sandy, 2026-10-09) */
-        #mm-vsl { padding-top: clamp(2.5rem, 4vw, 3.5rem); }
-        #mm-vsl .mm-vsl-title { margin: 0 0 1.4rem; }
-        #mm-vsl .mm-vsl-video { aspect-ratio: auto; max-width: 960px; margin: 0; border: 2px solid var(--color-red); }
-        #mm-vsl .mm-vsl-cta { display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1.4rem; }
+        #mm-vsl { padding-top: clamp(2.5rem, 4vw, 3.5rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
+        /* Wider than the page's 1200px column, centred like a screen. The video is sized by width AND by the
+           screen's height, so title, video and Apply button always fit on one screen (Sandy, 2026-10-09). */
+        #mm-vsl .container { max-width: 1440px; }
+        #mm-vsl .mm-vsl-title { margin: 0 0 1.4rem; text-align: center !important; }
+        #mm-vsl .mm-vsl-video { aspect-ratio: auto; margin: 0 auto; border: 2px solid var(--color-red);
+                                width: min(100%, calc((100vh - 300px) * 16 / 9)); width: min(100%, calc((100svh - 300px) * 16 / 9));
+                                min-width: min(100%, 560px); max-width: none; }
+        #mm-vsl .mm-vsl-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .9rem 1.4rem; }
         #mm-vsl .mm-vsl-note { color: var(--color-gray-300); font-size: .98rem; }
+        @media (max-width: 600px) { #mm-vsl .mm-vsl-title .text-accent { display: block; text-align: center !important; } #mm-vsl .mm-vsl-cta { flex-direction: column; } #mm-vsl .mm-vsl-cta .btn { width: 100%; } #mm-vsl .mm-vsl-note { text-align: center !important; } }
         #mm-how .mm-plain, .ai-system .mm-after-layers { margin: 2rem 0 0; text-align: left; max-width: 720px; }
         .contact-info .mm-founding { margin: 1.5rem 0 1.75rem; }
         .mm-founding strong { color:#fff; font-weight:600; }
