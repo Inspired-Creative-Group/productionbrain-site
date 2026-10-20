@@ -7,13 +7,29 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P07TX5YY6H"></script>
+    <!-- Google tag (gtag.js). Loads only on the live domain, so local previews send nothing (2026-10-20). -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-P07TX5YY6H');
+      (function() {
+        if (!/^(www\.)?theproductionbrain\.ai$/.test(location.hostname)) return;
+        var s = document.createElement('script');
+        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P07TX5YY6H';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-P07TX5YY6H');
+        // Calls to action: every Apply/Contact link to the form is apply_click, the email link is contact_click.
+        // link_location says which one. A sent form is generate_lead (see the form script).
+        var named = { mmVslApply: 'video', mmVslEndApply: 'video_end' };
+        document.addEventListener('click', function(e) {
+          var a = e.target.closest && e.target.closest('a[href="#founding-offer"], a[href="#contact"], a[href^="mailto:"]');
+          if (!a) return;
+          var sec = a.closest('section[id]');
+          var where = named[a.id] || (a.closest('nav') ? 'nav' : a.closest('footer') ? 'footer' : sec ? sec.id.replace(/^mm-/, '') : 'page');
+          var mail = a.getAttribute('href').indexOf('mailto:') === 0;
+          gtag('event', mail ? 'contact_click' : 'apply_click', { link_location: where, link_text: (a.innerText || a.textContent).trim().slice(0, 60), transport_type: 'beacon' });
+        }, true);
+      })();
     </script>
     <title>The Production Brain | Your studio's memory, on local models, yours to keep. Inspired Creative Group Inc.</title>
     <meta name="description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
@@ -1606,6 +1622,7 @@
                 fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } }).then(function(response) {
                     if (response.ok) {
                         form.style.display = 'none'; success.style.display = 'block';
+                        if (window.gtag) gtag('event', 'generate_lead', { form_type: box && !box.checked ? 'pricing_request' : 'founding_application', link_location: 'form', transport_type: 'beacon' });
                         var cfToken = data.get('cf-turnstile-response') || '';
                         if (cfToken) {
                             var gasBody = new URLSearchParams({
