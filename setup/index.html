@@ -59,35 +59,32 @@
         .sg-inside li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-red); }
         .sg-inside strong { color: #fff; font-weight: 600; }
         .sg-form-wrap { padding: 1.5rem; }
+        .sg-form-wrap input, .sg-form-wrap select { font-size: 16px; }
         .sg-form-title { font-family: var(--font-heading); font-weight: 600; color: #fff; font-size: 1.25rem; margin-bottom: .25rem; }
         .sg-form-note { font-size: .85rem; color: var(--color-gray-400); margin-bottom: .25rem; }
-        .sg-opt { color: var(--color-gray-500); font-weight: 400; }
+        .sg-opt { color: #9A9A9A; font-weight: 400; }
         .sg-error { display: none; border: 1px solid var(--color-red); background: rgba(232, 0, 13, .08); border-radius: 6px; padding: .85rem 1rem; color: #fff; font-size: .92rem; }
         .sg-error a { color: #fff; text-decoration: underline; }
         .sg-success { text-align: left; }
         .sg-success h2 { font-family: var(--font-heading); color: #fff; font-size: 1.5rem; margin-bottom: .35rem; }
         .sg-success p { color: #CCCCCC; font-size: .95rem; }
         .sg-dl { display: grid; gap: .75rem; margin: 1.25rem 0; }
-        .sg-dl .btn { width: 100%; text-align: center; }
+        .sg-dl .btn { width: 100%; text-align: center; flex-direction: column; gap: .15rem; }
         .sg-dl small { display: block; font-family: var(--font-body); font-weight: 400; font-size: .75rem; opacity: .8; }
         .sg-tip { border-left: 2px solid var(--color-red); padding-left: .9rem; }
         .sg-credit { border-top: 1px solid var(--color-border); padding: 1.5rem 0 2rem; font-size: .85rem; color: var(--color-gray-500); }
         .sg-credit a { color: #CCCCCC; text-decoration: underline; text-underline-offset: 2px; }
         .sg-credit a:hover { color: #fff; }
-        /* Turnstile's widget is at least 300px wide; below 360px it is scaled to fit. */
         @media (max-width: 359px) {
             .sg-main .container, .sg-top .container, .sg-credit .container { padding: 0 12px; }
             .sg-form-wrap { padding: 1.25rem 12px; }
-            .sg-ts { overflow: hidden; }
-            .sg-ts .cf-turnstile { width: 300px; transform: scale(.88); transform-origin: left top; margin-bottom: -8px; }
         }
         @media (min-width: 900px) {
             .sg-main { padding: 4rem 0 4.5rem; }
-            .sg-grid { grid-template-columns: 1.05fr 1fr; grid-template-areas: "intro form" "inside form"; gap: 1.5rem 4rem; }
+            .sg-grid { grid-template-columns: 1.05fr 1fr; grid-template-areas: "intro form" "inside form"; grid-template-rows: auto 1fr; gap: 1.5rem 4rem; }
             .sg-form-wrap { padding: 2rem; }
         }
     </style>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
     <header class="sg-top">
@@ -104,7 +101,7 @@
             <div class="sg-intro">
                 <span class="sg-kicker">Free guide</span>
                 <h1 class="sg-title">Stop Being the Switchboard</h1>
-                <p class="sg-lede">Connect your AI agent to your production tools, so it sends the jobs and files the results while you direct. Plus a version your agent can follow to set it up with you.</p>
+                <p class="sg-lede">Connect your AI agent to your production tools, so it sends the jobs and saves the results while you direct. Plus a version your agent can follow to set it up with you.</p>
             </div>
             <ul class="sg-inside">
                     <li><strong>Where you type it.</strong> Terminal, PowerShell or the Claude app, click by click.</li>
@@ -175,7 +172,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="sg-ts"><div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible"></div></div>
                     <div class="sg-error" id="sgError" role="alert"></div>
                     <button type="submit" class="btn btn-primary btn-full" id="sgSubmit">Get the free guide</button>
                 </form>
@@ -184,10 +180,10 @@
                     <h2>Here you go.</h2>
                     <p>Two files. Read the guide yourself, or hand the agent edition to your agent.</p>
                     <div class="sg-dl">
-                        <a class="btn btn-primary" id="sgDlPdf" href="ICG_Stop-Being-the-Switchboard_agent-setup-guide_2026-10_v8.pdf" download>Download the guide<small>PDF, 2.5 MB</small></a>
-                        <a class="btn btn-ghost" id="sgDlMd" href="ICG_agent-setup-guide_AGENT-EDITION_2026-10_v8.md" download>Download the agent edition<small>For Claude Code or Codex</small></a>
+                        <a class="btn btn-primary" id="sgDlPdf" data-href="ICG_Stop-Being-the-Switchboard_agent-setup-guide_2026-10_v8.pdf" download>Download the guide <small>PDF, 2.5 MB</small></a>
+                        <a class="btn btn-ghost" id="sgDlMd" data-href="ICG_agent-setup-guide_AGENT-EDITION_2026-10_v8.md" download>Download the agent edition <small>For Claude Code or Codex</small></a>
                     </div>
-                    <p class="sg-tip">Give the agent edition to Claude Code or Codex and say: "Read this, and walk me through connecting my tools, one at a time."</p>
+                    <p class="sg-tip">Give the agent edition to Claude Code or Codex and say: "Read this, and walk me through connecting my tools, one at a time. Ask me before anything that costs money."</p>
                 </div>
             </div>
         </div>
@@ -228,9 +224,12 @@
         }
         window.sgLeadType = leadType;
 
-        function showError(html) { errBox.innerHTML = html; errBox.style.display = 'block'; }
-        function failed() {
+        // Cleared first, then filled a moment later, so screen readers announce a repeated message too.
+        function showError(html) { errBox.innerHTML = ''; errBox.style.display = 'block'; setTimeout(function() { errBox.innerHTML = html; }, 60); }
+        function track(name, params) { try { if (window.gtag) gtag('event', name, params); } catch (e) {} }
+        function failed(reason) {
             btn.disabled = false; btn.textContent = label;
+            track('setup_form_error', { reason: reason, transport_type: 'beacon' });
             var d = new FormData(form);
             var body = 'Please send me the Stop Being the Switchboard guide.\n\nName: ' + (d.get('name') || '') + '\nEmail: ' + (d.get('email') || '') +
                 '\nRole: ' + (d.get('role') || '') + '\nCompany: ' + (d.get('company') || '') + '\nTeam size: ' + (d.get('team_size') || '') + '\nFound via: ' + (d.get('found_via') || src);
@@ -241,7 +240,10 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             errBox.style.display = 'none';
+            ['sgName', 'sgEmail', 'sgCompany'].forEach(function(id) { var el = document.getElementById(id); el.value = el.value.trim(); });
+            form.querySelectorAll('input, select').forEach(function(el) { el.removeAttribute('aria-invalid'); });
             if (!form.checkValidity()) {
+                form.querySelectorAll(':invalid').forEach(function(el) { el.setAttribute('aria-invalid', 'true'); });
                 var bad = form.querySelector(':invalid');
                 showError('Please fill in your name, a valid email, what you do and your team size.');
                 if (bad) bad.focus();
@@ -256,13 +258,14 @@
             var timer = ctrl ? setTimeout(function() { ctrl.abort(); }, 20000) : null;
             fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }, signal: ctrl ? ctrl.signal : undefined }).then(function(response) {
                 if (timer) clearTimeout(timer);
-                if (!response.ok) return failed();
+                if (!response.ok) return failed('http_' + response.status);
+                success.querySelectorAll('a[data-href]').forEach(function(a) { a.setAttribute('href', a.getAttribute('data-href')); });
                 form.style.display = 'none'; success.style.display = 'block';
                 success.focus();
-                if (window.gtag) gtag('event', 'generate_lead', { form_type: 'setup_guide', lead_type: lt, src: src || '(none)', transport_type: 'beacon' });
-            }).catch(function() {
+                track('generate_lead', { form_type: 'setup_guide', lead_type: lt, src: src || '(none)', transport_type: 'beacon' });
+            }).catch(function(err) {
                 if (timer) clearTimeout(timer);
-                failed();
+                failed(err && err.name === 'AbortError' ? 'timeout' : 'network');
             });
         });
     })();
