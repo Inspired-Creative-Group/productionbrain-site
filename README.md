@@ -23,7 +23,7 @@ to be made in both, deliberately.
 
 ## Note for Sandy: the free guide page (added 2026-10-20)
 
-**What.** One new page, `setup/index.html`, plus the two guide files it hands out
+**What.** One new page, `giveaway/index.html` (live at `/giveaway`), plus the two guide files it hands out
 (the "Stop Being the Switchboard" PDF and the agent edition) and one line in
 `sitemap.xml`. Nothing else on the site changed.
 
@@ -38,6 +38,7 @@ No Turnstile here: Formspree doesn't check it, and on this page it would only ga
 agency auto-reply, which this page doesn't send. It uses `style.css` and `partners.css`
 and adds no new fonts or colors; the small layout styles are inline in the page.
 
-**The URL may change.** Juan is choosing a longer-lasting name than `/setup`. To
-rename: move the folder, then update the two lines marked `<!-- SLUG -->` in the page
-and the line in `sitemap.xml`. Everything else follows the folder.
+**Links to share:** `/giveaway?src=yt`, `?src=ig` and `?src=li` tell us where a lead
+came from. To rename the page: move the folder, then update the two lines marked
+`<!-- SLUG -->` in the page and the line in `sitemap.xml`. Everything else follows the
+folder.
