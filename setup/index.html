@@ -237,6 +237,9 @@
             showError('That didn\'t go through. Please try again, or email <a href="' + mailto + '">' + EMAIL + '</a> and we\'ll send you the guide.');
         }
 
+        form.addEventListener('input', function(e) { if (e.target.checkValidity && e.target.checkValidity()) e.target.removeAttribute('aria-invalid'); });
+        form.addEventListener('change', function(e) { if (e.target.checkValidity && e.target.checkValidity()) e.target.removeAttribute('aria-invalid'); });
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             errBox.style.display = 'none';
