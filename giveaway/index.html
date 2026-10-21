@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Free guide page: "Stop Being the Switchboard" (2026-10-20). Viewers of the Tips, Tricks and Advice
+         Shorts type this address to get the guide. The form qualifies the lead (community or ICP).
+         TO CHANGE THE URL: rename this folder, then update the two lines marked SLUG below and the line
+         in /sitemap.xml. Everything else on the page is relative and follows the folder. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- Google tag (gtag.js). Loads only on the live domain, so local previews send nothing (same guard as /index.html). -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function() {
+        if (!/^(www\.)?theproductionbrain\.ai$/.test(location.hostname)) return;
+        var s = document.createElement('script');
+        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P07TX5YY6H';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-P07TX5YY6H');
+      })();
+    </script>
+    <title>Stop Being the Switchboard | Free AI agent setup guide</title>
+    <meta name="description" content="A free guide to connect your AI agent to your production tools, plus a version written for your agent. From the team behind The Production Brain.">
+    <meta property="og:title" content="Stop Being the Switchboard | Free AI agent setup guide">
+    <meta property="og:description" content="Connect your AI agent to Higgsfield, ElevenLabs, Premiere, Resolve and more. Free guide, plus a version your agent can follow.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Production Brain">
+    <meta property="og:url" content="https://theproductionbrain.ai/giveaway/"><!-- SLUG -->
+    <meta property="og:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261009">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://theproductionbrain.ai/giveaway/"><!-- SLUG -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/partners.css">
+    <style>
+        /* Guide page: layout only, on top of style.css and partners.css. No new fonts, no new colors. */
+        .sg-top { border-bottom: 1px solid var(--color-border); }
+        .sg-top .container { display: flex; align-items: center; min-height: 64px; }
+        .sg-brand { display: inline-flex; align-items: center; gap: .6rem; }
+        .sg-brand img { height: 30px; width: auto; }
+        .sg-brand-words { display: flex; flex-direction: column; line-height: 1.1; }
+        .sg-brand-name { font-family: var(--font-heading); font-weight: 700; font-size: .9rem; letter-spacing: .03em; text-transform: uppercase; color: #fff; }
+        .sg-brand-by { font-size: .66rem; color: #a0a0a0; margin-top: .15rem; }
+        .sg-main { padding: 1.5rem 0 3rem; }
+        .sg-grid { display: grid; grid-template-columns: 1fr; grid-template-areas: "intro" "form" "inside"; gap: 1.5rem; align-items: start; }
+        .sg-intro { grid-area: intro; } .sg-inside { grid-area: inside; } .sg-form-wrap { grid-area: form; }
+        .sg-kicker { font-family: var(--font-heading); font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-red); }
+        .sg-title { font-family: var(--font-heading); font-weight: 700; color: #fff; font-size: clamp(1.9rem, 8vw, 3.4rem); line-height: 1.05; letter-spacing: -.01em; margin: .4rem 0 .75rem; }
+        .sg-lede { font-size: 1.05rem; color: #CCCCCC; max-width: 34rem; }
+        .sg-inside { display: grid; gap: .6rem; max-width: 34rem; }
+        .sg-inside li { position: relative; padding-left: 1.1rem; color: #BBBBBB; font-size: .95rem; line-height: 1.55; }
+        .sg-inside li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-red); }
+        .sg-inside strong { color: #fff; font-weight: 600; }
+        .sg-form-wrap { padding: 1.5rem; }
+        .sg-form-wrap input, .sg-form-wrap select { font-size: 16px; }
+        .sg-form-title { font-family: var(--font-heading); font-weight: 600; color: #fff; font-size: 1.25rem; margin-bottom: .25rem; }
+        .sg-form-note { font-size: .85rem; color: var(--color-gray-400); margin-bottom: .25rem; }
+        .sg-opt { color: #9A9A9A; font-weight: 400; }
+        .sg-error { display: none; border: 1px solid var(--color-red); background: rgba(232, 0, 13, .08); border-radius: 6px; padding: .85rem 1rem; color: #fff; font-size: .92rem; }
+        .sg-error a { color: #fff; text-decoration: underline; }
+        .sg-success { text-align: left; }
+        .sg-success h2 { font-family: var(--font-heading); color: #fff; font-size: 1.5rem; margin-bottom: .35rem; }
+        .sg-success p { color: #CCCCCC; font-size: .95rem; }
+        .sg-dl { display: grid; gap: .75rem; margin: 1.25rem 0; }
+        .sg-dl .btn { width: 100%; text-align: center; flex-direction: column; gap: .15rem; }
+        .sg-dl small { display: block; font-family: var(--font-body); font-weight: 400; font-size: .75rem; opacity: .8; }
+        .sg-tip { border-left: 2px solid var(--color-red); padding-left: .9rem; }
+        .sg-credit { border-top: 1px solid var(--color-border); padding: 1.5rem 0 2rem; font-size: .85rem; color: var(--color-gray-500); }
+        .sg-credit a { color: #CCCCCC; text-decoration: underline; text-underline-offset: 2px; }
+        .sg-credit a:hover { color: #fff; }
+        @media (max-width: 359px) {
+            .sg-main .container, .sg-top .container, .sg-credit .container { padding: 0 12px; }
+            .sg-form-wrap { padding: 1.25rem 12px; }
+        }
+        @media (min-width: 900px) {
+            .sg-main { padding: 4rem 0 4.5rem; }
+            .sg-grid { grid-template-columns: 1.05fr 1fr; grid-template-areas: "intro form" "inside form"; grid-template-rows: auto 1fr; gap: 1.5rem 4rem; }
+            .sg-form-wrap { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="sg-top">
+        <div class="container">
+            <a href="/" class="sg-brand" aria-label="The Production Brain, home">
+                <img src="/assets/pb-logo.svg" alt="" width="34" height="35">
+                <span class="sg-brand-words"><span class="sg-brand-name">The Production Brain</span><span class="sg-brand-by">by Inspired Creative Group Inc.</span></span>
+            </a>
+        </div>
+    </header>
+
+    <main class="sg-main">
+        <div class="container sg-grid">
+            <div class="sg-intro">
+                <span class="sg-kicker">Free guide</span>
+                <h1 class="sg-title">Stop Being the Switchboard</h1>
+                <p class="sg-lede">Connect your AI agent to your production tools, so it sends the jobs and saves the results while you direct. Plus a version your agent can follow to set it up with you.</p>
+            </div>
+            <ul class="sg-inside">
+                    <li><strong>Where you type it.</strong> Terminal, PowerShell or the Claude app, click by click.</li>
+                    <li><strong>Your tools.</strong> Higgsfield, ElevenLabs, Premiere, Resolve, Blender and more.</li>
+                    <li><strong>Which model for which job,</strong> and how to run it all as a production office.</li>
+            </ul>
+
+            <div class="contact-form-wrap sg-form-wrap" id="get-the-guide">
+                <form class="contact-form" id="sgForm" action="https://formspree.io/f/mbdagppd" method="POST" novalidate>
+                    <div>
+                        <h2 class="sg-form-title">Get the guide</h2>
+                        <p class="sg-form-note">Both downloads open here as soon as you send this.</p>
+                    </div>
+                    <input type="hidden" name="_subject" id="sgSubject" value="SETUP guide lead">
+                    <input type="hidden" name="inquiry_type" value="Setup guide">
+                    <input type="hidden" name="source_page" id="sgSourcePage" value="">
+                    <input type="hidden" name="lead_type" id="sgLeadType" value="">
+                    <input type="hidden" name="src" id="sgSrc" value="">
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sgName">Name *</label>
+                            <input type="text" id="sgName" name="name" required autocomplete="name" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="sgEmail">Email *</label>
+                            <input type="email" id="sgEmail" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sgRole">What do you do? *</label>
+                            <select id="sgRole" name="role" required>
+                                <option value="" disabled selected>Select one</option>
+                                <option>Producer</option>
+                                <option>Editor</option>
+                                <option>Director</option>
+                                <option>Motion / VFX</option>
+                                <option>Content creator</option>
+                                <option>Agency or studio owner</option>
+                                <option>Marketing team</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sgTeam">Team size *</label>
+                            <select id="sgTeam" name="team_size" required>
+                                <option value="" disabled selected>Select one</option>
+                                <option value="Just me">Just me</option>
+                                <option value="2 to 10">2 to 10</option>
+                                <option value="More than 10">More than 10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sgCompany">Company or studio <span class="sg-opt">(optional)</span></label>
+                            <input type="text" id="sgCompany" name="company" autocomplete="organization" placeholder="Freelance? Leave blank">
+                        </div>
+                        <div class="form-group">
+                            <label for="sgFound">Where did you find us? <span class="sg-opt">(optional)</span></label>
+                            <select id="sgFound" name="found_via">
+                                <option value="" selected>Select one</option>
+                                <option value="YouTube">YouTube</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="LinkedIn">LinkedIn</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sg-error" id="sgError" role="alert"></div>
+                    <button type="submit" class="btn btn-primary btn-full" id="sgSubmit">Get the free guide</button>
+                </form>
+
+                <div class="sg-success" id="sgSuccess" style="display:none;" tabindex="-1">
+                    <h2>Here you go.</h2>
+                    <p>Two files. Read the guide yourself, or hand the agent edition to your agent.</p>
+                    <div class="sg-dl">
+                        <a class="btn btn-primary" id="sgDlPdf" data-href="ICG_Stop-Being-the-Switchboard_agent-setup-guide_2026-10_v8.pdf" download>Download the guide <small>PDF, 2.5 MB</small></a>
+                        <a class="btn btn-ghost" id="sgDlMd" data-href="ICG_agent-setup-guide_AGENT-EDITION_2026-10_v8.md" download>Download the agent edition <small>For Claude Code or Codex</small></a>
+                    </div>
+                    <p class="sg-tip">Give the agent edition to Claude Code or Codex and say: "Read this, and walk me through connecting my tools, one at a time. Ask me before anything that costs money."</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="sg-credit">
+        <div class="container">
+            <p>Made by <a href="https://inspiredcreativegroupinc.com" target="_blank" rel="noopener">Inspired Creative Group</a>. <a href="/">The Production Brain</a> is the centre of our agentic production system.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+        var form = document.getElementById('sgForm');
+        var success = document.getElementById('sgSuccess');
+        var btn = document.getElementById('sgSubmit');
+        var errBox = document.getElementById('sgError');
+        var label = btn.textContent;
+        var EMAIL = 'info@inspiredcreativegroupinc.com';
+
+        // Which page sent this, read from the address so the folder can be renamed freely.
+        var slug = location.pathname.replace(/\/(index\.html)?$/, '').split('/').pop() || 'guide';
+        document.getElementById('sgSourcePage').value = slug;
+
+        // ?src=yt / ig / li pre-fills "Where did you find us?" and is also sent as-is.
+        var SRC = { yt: 'YouTube', youtube: 'YouTube', ig: 'Instagram', instagram: 'Instagram', li: 'LinkedIn', linkedin: 'LinkedIn' };
+        var src = '';
+        try { src = (new URLSearchParams(location.search).get('src') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 32); } catch (e) {}
+        document.getElementById('sgSrc').value = src;
+        if (SRC[src]) document.getElementById('sgFound').value = SRC[src];
+
+        // ICP if the team is 2 or more, or the role buys for a team. Otherwise community.
+        function leadType() {
+            var team = document.getElementById('sgTeam').value;
+            var role = document.getElementById('sgRole').value;
+            return (team === '2 to 10' || team === 'More than 10' || role === 'Agency or studio owner' || role === 'Marketing team') ? 'ICP' : 'community';
+        }
+        window.sgLeadType = leadType;
+
+        // Cleared first, then filled a moment later, so screen readers announce a repeated message too.
+        function showError(html) { errBox.innerHTML = ''; errBox.style.display = 'block'; setTimeout(function() { errBox.innerHTML = html; }, 60); }
+        function track(name, params) { try { if (window.gtag) gtag('event', name, params); } catch (e) {} }
+        function failed(reason) {
+            btn.disabled = false; btn.textContent = label;
+            track('setup_form_error', { reason: reason, transport_type: 'beacon' });
+            var d = new FormData(form);
+            var body = 'Please send me the Stop Being the Switchboard guide.\n\nName: ' + (d.get('name') || '') + '\nEmail: ' + (d.get('email') || '') +
+                '\nRole: ' + (d.get('role') || '') + '\nCompany: ' + (d.get('company') || '') + '\nTeam size: ' + (d.get('team_size') || '') + '\nFound via: ' + (d.get('found_via') || src);
+            var mailto = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('SETUP guide request') + '&body=' + encodeURIComponent(body);
+            showError('That didn\'t go through. Please try again, or email <a href="' + mailto + '">' + EMAIL + '</a> and we\'ll send you the guide.');
+        }
+
+        form.addEventListener('input', function(e) { if (e.target.checkValidity && e.target.checkValidity()) e.target.removeAttribute('aria-invalid'); });
+        form.addEventListener('change', function(e) { if (e.target.checkValidity && e.target.checkValidity()) e.target.removeAttribute('aria-invalid'); });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            errBox.style.display = 'none';
+            ['sgName', 'sgEmail', 'sgCompany'].forEach(function(id) { var el = document.getElementById(id); el.value = el.value.trim(); });
+            form.querySelectorAll('input, select').forEach(function(el) { el.removeAttribute('aria-invalid'); });
+            if (!form.checkValidity()) {
+                form.querySelectorAll(':invalid').forEach(function(el) { el.setAttribute('aria-invalid', 'true'); });
+                var bad = form.querySelector(':invalid');
+                showError('Please fill in your name, a valid email, what you do and your team size.');
+                if (bad) bad.focus();
+                return;
+            }
+            var lt = leadType();
+            document.getElementById('sgLeadType').value = lt;
+            document.getElementById('sgSubject').value = 'SETUP guide lead: ' + lt + (src ? ' (' + src + ')' : '');
+            btn.disabled = true; btn.textContent = 'Sending...';
+            var data = new FormData(form);
+            var ctrl = ('AbortController' in window) ? new AbortController() : null;
+            var timer = ctrl ? setTimeout(function() { ctrl.abort(); }, 20000) : null;
+            fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }, signal: ctrl ? ctrl.signal : undefined }).then(function(response) {
+                if (timer) clearTimeout(timer);
+                if (!response.ok) return failed('http_' + response.status);
+                success.querySelectorAll('a[data-href]').forEach(function(a) { a.setAttribute('href', a.getAttribute('data-href')); });
+                form.style.display = 'none'; success.style.display = 'block';
+                success.focus();
+                track('generate_lead', { form_type: 'setup_guide', lead_type: lt, src: src || '(none)', transport_type: 'beacon' });
+            }).catch(function(err) {
+                if (timer) clearTimeout(timer);
+                failed(err && err.name === 'AbortError' ? 'timeout' : 'network');
+            });
+        });
+    })();
+    </script>
+</body>
+</html>
