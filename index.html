@@ -778,6 +778,23 @@
         .nav .mm-menu .nav-link:hover, .nav .mm-menu .nav-link.active { color:#fff; }
         .nav .nav-toggle { display:flex; position:relative; z-index:10000; }
         @media (max-width:768px) { .nav .mm-menu { right:1rem; padding:.6rem 1.1rem; } }
+        /* ICG item at the bottom of the menu: opens a short panel, like the ICG site's Production Brain item */
+        .nav .mm-menu { max-height:calc(100vh - 90px); max-height:calc(100dvh - 90px); overflow-y:auto; overscroll-behavior:contain; }
+        .nav .mm-menu-icg { width:min(300px, calc(100vw - 4.5rem)); margin-top:.45rem; padding-top:.6rem; border-top:1px solid rgba(255,255,255,.12); }
+        .nav .mm-menu-icg-trigger { display:flex; align-items:center; gap:.5rem; width:100%; background:none; border:0; padding:.35rem 0; cursor:pointer;
+            font-family:var(--font-heading); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--color-gray-300); text-align:left; }
+        .nav .mm-menu-icg-trigger img { width:20px; height:20px; flex:none; }
+        .nav .mm-menu-icg-trigger::after { content:"+"; margin-left:auto; color:var(--color-red); font-size:1rem; line-height:1; }
+        .nav .mm-menu-icg-trigger[aria-expanded="true"]::after { content:"\2212"; }
+        .nav .mm-menu-icg-trigger:hover, .nav .mm-menu-icg-trigger[aria-expanded="true"] { color:#fff; }
+        .nav .mm-menu-icg-panel { display:flex; flex-direction:column; gap:.6rem; padding:.55rem 0 .5rem; }
+        .nav .mm-menu-icg-panel[hidden] { display:none; }
+        .nav .mm-menu-icg-eyebrow { margin:0; font-family:var(--font-heading); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--color-red-light, #FF2D2D); }
+        .nav .mm-menu-icg-copy { margin:0; font-size:.82rem; line-height:1.6; color:var(--color-gray-300); text-transform:none; letter-spacing:0; white-space:normal; }
+        .nav .mm-menu-icg-link { align-self:flex-start; display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-heading); font-size:.7rem; letter-spacing:.08em;
+            text-transform:uppercase; color:#fff; text-decoration:none; border:1px solid var(--color-red); border-radius:999px; padding:.4rem .95rem; transition:background .25s ease; }
+        .nav .mm-menu-icg-link::after { content:"\2192"; }
+        .nav .mm-menu-icg-link:hover, .nav .mm-menu-icg-link:focus-visible { background:var(--color-red); }
         @media (max-width:768px) { .nav .mm-nav-actions { gap:.5rem; } .nav .nav-toggle span { width:20px; }
             .nav .mm-nav-brand img { height:24px; } .nav .mm-nav-name { font-size:.64rem; } .nav .mm-nav-by { font-size:.52rem; }
             .nav .nav-cta-btn { padding:.5rem .65rem; font-size:.64rem; } }
@@ -813,6 +830,18 @@
                 <a href="#integrations" class="nav-link">Integrations</a>
                 <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <!-- Who builds it: ICG item at the bottom of the menu, like the Production Brain item in the ICG site's menu (Sandy, 2026-10-26) -->
+                <div class="mm-menu-icg">
+                    <button type="button" class="mm-menu-icg-trigger" id="mmIcgTrigger" aria-expanded="false" aria-controls="mmIcgPanel">
+                        <img src="assets/icg-mark.png" alt="" width="20" height="20" />
+                        <span>Inspired Creative Group</span>
+                    </button>
+                    <div class="mm-menu-icg-panel" id="mmIcgPanel" hidden>
+                        <p class="mm-menu-icg-eyebrow">Who builds it</p>
+                        <p class="mm-menu-icg-copy">Inspired Creative Group is a full-stack AI production company: video, sound and design, with more than 20 years in production. The Production Brain is what makes that possible, one memory across every AI tool we use. We also build AI workflows for teams that want their own.</p>
+                        <a href="https://inspiredcreativegroupinc.com/" target="_blank" rel="noopener" class="mm-menu-icg-link">Visit Inspired Creative Group</a>
+                    </div>
+                </div>
             </div>
             <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn"><span class="mm-cta-long">Apply for the free build</span><span class="mm-cta-short">Apply</span></a></div>
         </div>
@@ -2076,6 +2105,11 @@
             btn.setAttribute('aria-label', open ? 'Close the section menu' : 'Open the section menu');
         }
         btn.addEventListener('click', function() { set(!menu.classList.contains('open')); });
+        /* The ICG item opens and closes its panel inside the menu (the menu stays open) */
+        var icgT = document.getElementById('mmIcgTrigger'), icgP = document.getElementById('mmIcgPanel');
+        if (icgT && icgP) icgT.addEventListener('click', function() {
+            var open = icgP.hidden; icgP.hidden = !open; icgT.setAttribute('aria-expanded', open ? 'true' : 'false'); place();
+        });
         menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { set(false); }); });
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
         document.addEventListener('click', function(e) { if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) set(false); });
