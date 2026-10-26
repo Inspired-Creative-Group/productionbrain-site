@@ -747,6 +747,16 @@
         @media (max-width:560px) { #mm-integrations .mm-cap-num { font-size:1.05rem; } #mm-integrations .mm-tier-caps > div + div { padding-left:.6rem; } }
         /* Section menu in the top bar (Sandy, 2026-09-29) */
         .nav .mm-nav-actions { display:flex; align-items:center; gap:.75rem; flex:none; }
+        /* ICG co-brand next to the Production Brain logo (Sandy, 2026-10-26) */
+        .nav .mm-nav-left { display:flex; align-items:center; min-width:0; }
+        .nav .mm-nav-icg { display:flex; align-items:center; gap:.55rem; margin-left:1.1rem; padding-left:1.1rem; border-left:1px solid rgba(255,255,255,.2); text-decoration:none; flex:none; }
+        .nav .mm-nav-icg img { width:26px; height:26px; display:block; }
+        .nav .mm-nav-icg-name { font-family:var(--font-body); font-weight:500; font-size:.82rem; letter-spacing:.02em; color:#d0d0d0; white-space:nowrap; transition:color .2s ease; }
+        .nav .mm-nav-icg:hover .mm-nav-icg-name, .nav .mm-nav-icg:focus-visible .mm-nav-icg-name { color:#fff; }
+        @media (min-width:769px) { .nav .mm-nav-by { display:none; } }
+        @media (max-width:1100px) and (min-width:769px) { .nav .mm-nav-icg-name { font-size:.74rem; } }
+        @media (max-width:768px) { .nav .mm-nav-icg { margin-left:.55rem; padding-left:.55rem; } .nav .mm-nav-icg img { width:20px; height:20px; } .nav .mm-nav-icg-name { display:none; } }
+        @media (max-width:360px) { .nav .mm-nav-icg { display:none; } }
         .nav .mm-menu .nav-link { white-space:nowrap; }
         #mm-form { scroll-margin-top:96px; }
         /* readable addresses (Sandy, 2026-10-02): /#the-challenge etc. The anchor is the section's first child, so it lands where the section did */
@@ -778,10 +788,17 @@
 
     <nav class="nav" id="nav">
         <div class="nav-inner">
+            <div class="mm-nav-left">
             <a href="/" class="nav-logo mm-nav-brand" aria-label="The Production Brain, home">
                 <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
                 <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
             </a>
+            <!-- Co-brand: ICG mark + name after the Production Brain logo (Sandy, 2026-10-26). Phones show the mark only. -->
+            <a href="https://inspiredcreativegroupinc.com/" class="mm-nav-icg" target="_blank" rel="noopener" aria-label="Inspired Creative Group Inc. (opens in a new tab)">
+                <img src="assets/icg-mark.png" alt="" width="26" height="26" />
+                <span class="mm-nav-icg-name">Inspired Creative Group Inc.</span>
+            </a>
+            </div>
             <div class="nav-links mm-menu" id="navLinks">
                 <a href="#watch" class="nav-link">The video</a>
                 <a href="#the-challenge" class="nav-link">The challenge</a>
