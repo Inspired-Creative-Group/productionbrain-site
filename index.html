@@ -684,6 +684,11 @@
         /* Footer: the same PB lockup as the menu bar, with the hero subtitle under it (Sandy, 2026-09-29) */
         .footer .mm-footer-brand { display:inline-flex; align-items:center; gap:.7rem; text-decoration:none; margin-bottom:1rem; }
         .footer .mm-footer-brand img { height:36px; width:auto; }
+        .footer .mm-footer-brand { margin-bottom:.7rem; }
+        .footer .mm-footer-icg { display:flex; align-items:center; gap:.5rem; text-decoration:none; margin:0 0 1rem; }
+        .footer .mm-footer-icg img { width:22px; height:22px; flex:none; }
+        .footer .mm-footer-icg span { font-family:var(--font-body); font-size:.86rem; color:#c8c8c8; transition:color .2s ease; }
+        .footer .mm-footer-icg:hover span, .footer .mm-footer-icg:focus-visible span { color:#fff; }
         .footer .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
         .footer .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
         .footer .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
@@ -1587,9 +1592,14 @@
                 <div class="footer-brand">
                     <a href="/" class="mm-footer-brand" aria-label="The Production Brain, home">
                         <img src="assets/pb-logo.svg" alt="" width="34" height="35" />
-                        <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span><span class="mm-nav-by">by Inspired Creative Group Inc.</span></span>
+                        <span class="mm-nav-words"><span class="mm-nav-name">The Production Brain</span></span>
                     </a>
-                    <p class="footer-tagline">A Mac Studio in your studio<br>Gives your AI tools one memory<br>Set up and maintained for you</p>
+                    <!-- ICG mark before "by Inspired Creative Group Inc.", then the one-line description (Sandy, 2026-10-26) -->
+                    <a href="https://inspiredcreativegroupinc.com/" class="mm-footer-icg" target="_blank" rel="noopener" aria-label="by Inspired Creative Group Inc. (opens in a new tab)">
+                        <img src="assets/icg-mark.png" alt="" width="22" height="22" />
+                        <span>by Inspired Creative Group Inc.</span>
+                    </a>
+                    <p class="footer-tagline">A Mac Studio in your studio gives your AI tools one memory, set up and maintained for you.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Navigation</h4>
