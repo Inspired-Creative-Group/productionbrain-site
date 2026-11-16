@@ -31,12 +31,12 @@
         }, true);
       })();
     </script>
-    <title>The Production Brain | Your studio's memory, on local models, yours to keep. Inspired Creative Group Inc.</title>
-    <meta name="description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
+    <title>The Production Brain | One brain for every AI and everyone on your team. Inspired Creative Group Inc.</title>
+    <meta name="description" content="Every AI you use knows a piece of your business. None of them share it. The Production Brain is one brain for every AI and everyone on your team, and you own it. Built and maintained by Inspired Creative Group.">
     <meta property="og:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta property="og:description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
+    <meta property="og:description" content="Every AI you use knows a piece of your business. None of them share it. The Production Brain is one brain for every AI and everyone on your team, and you own it. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta name="twitter:description" content="Stop re-briefing your AI. A Mac Studio in your studio that gives all your AI tools one memory. Built and maintained by Inspired Creative Group.">
+    <meta name="twitter:description" content="Every AI you use knows a piece of your business. None of them share it. The Production Brain is one brain for every AI and everyone on your team, and you own it. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261009">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Production Brain">
@@ -46,9 +46,9 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Production Brain hero: Stop re-briefing your AI. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
+    <meta property="og:image:alt" content="The Production Brain hero: one brain for every AI and everyone on your team. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:alt" content="The Production Brain hero: Stop re-briefing your AI. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
+    <meta name="twitter:image:alt" content="The Production Brain hero: one brain for every AI and everyone on your team. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
     <link rel="canonical" href="https://theproductionbrain.ai/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -425,6 +425,40 @@
           .partners-hero-title{font-size:clamp(2rem,10.6vw,5rem);line-height:1.02}
           .partners-hero-title .text-accent{display:block}
         }
+        /* Message update (2026-11-16): the hero headline is the three-sentence problem line, so it wraps and runs smaller.
+           The answer sits under the product name; the last line says what you get today. Layout is Sandy's to refine. */
+        .partners-hero-title.mm-hero-problem span{display:block}
+        .mm-hero-answer{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.35;color:#fff;margin:.7rem 0 0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
+        @media (min-width:1001px){
+          /* Five rows of text now sit above "What feeds it", so the block starts higher and runs tighter than the one-line headline did. */
+          .mm-over:has(.mm-hero-problem){padding-top:calc(var(--nav-height) + .5vw)}
+          .mm-over .partners-hero-content:has(.mm-hero-problem){row-gap:.4rem}
+          .mm-over .partners-hero-title.mm-hero-problem{font-size:clamp(1.5rem,2.4vw,2.9rem);white-space:normal;line-height:1.06}
+          .mm-over .mm-hero-problem ~ .mm-hero-name{font-size:clamp(1rem,1.45vw,1.5rem);margin:.15rem 0 0}
+          .mm-over .mm-hero-answer{flex:0 0 100%;margin:0;font-size:clamp(1rem,1.4vw,1.4rem);line-height:1.3}
+        }
+        @media (min-width:1001px) and (max-width:1339px){
+          .mm-over:has(.mm-hero-problem){padding-top:calc(var(--nav-height) + .2rem)}
+          .mm-over .partners-hero-content:has(.mm-hero-problem){row-gap:.2rem}
+          .mm-over .partners-hero-title.mm-hero-problem{font-size:2.15vw}
+          .mm-over .mm-hero-problem ~ .mm-what-it-is{font-size:.92rem;line-height:1.35}
+        }
+        @media (max-width:1000px){
+          .partners-hero-title.mm-hero-problem{font-size:clamp(1.45rem,6vw,2.6rem);line-height:1.1}
+        }
+        /* Proof section (2026-11-16): three plain lines beside one screen capture, then the quote. */
+        #mm-proof{background:#0a0a0a}
+        #mm-proof .mm-proof-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:2.5rem;align-items:center}
+        #mm-proof .mm-proof-list p{font-size:1.1rem;line-height:1.55;color:var(--color-gray-300);margin:0 0 1.1rem}
+        #mm-proof .mm-proof-list strong{color:#fff;display:block;font-family:var(--font-heading);font-size:1.2rem}
+        #mm-proof .mm-proof-shot{margin:0}
+        #mm-proof .mm-proof-shot img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid #2a2a2a}
+        #mm-proof .mm-proof-placeholder{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;text-align:center;padding:1.5rem;border:2px dashed var(--color-red);border-radius:8px;color:#fff;font-family:var(--font-heading);letter-spacing:.04em;text-transform:uppercase;font-size:.95rem;line-height:1.5}
+        #mm-proof .mm-proof-shot figcaption{font-size:.85rem;color:var(--color-gray-400);margin:.6rem 0 0}
+        #mm-proof .mm-quote{margin:2.6rem 0 0;max-width:760px;border:0;padding:0}
+        #mm-proof .mm-quote p{font-family:var(--font-heading);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.35;color:#fff;margin:0 0 .4rem}
+        #mm-proof .mm-quote cite{font-style:normal;font-size:.85rem;letter-spacing:.04em;color:var(--color-gray-400)}
+        @media (max-width:860px){ #mm-proof .mm-proof-grid{grid-template-columns:1fr;gap:1.6rem} }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         /* The launch video section, right under the hero (Sandy, 2026-10-09) */
         /* The launch video: a cinema band right under the hero. The frame is as large as the screen allows
@@ -500,45 +534,14 @@
         .mm-founding .mm-offer-close { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid #2a2a2a; color:#fff; }
         /* Problem section: rays drawn in code; a glow runs in along each line to the red centre (Sandy, 2026-09-29) */
         #mm-problem { background:#242424; }
-        /* The cost of re-briefing: a calculator with a year of working days that fills red (Sandy, 2026-10-01) */
+        /* The gap: one figure and a button. The calculator left with the retired pain (2026-11-16). */
         #mm-cost { background:#0a0a0a; padding:clamp(3.5rem,6vw,5.5rem) 0; }   /* tighter than other sections (Sandy, 2026-10-01) */
         #mm-cost .section-header { margin-bottom:1.5rem; }
         #mm-cost .mm-calc-lead { max-width:860px; margin:0 0 1.5rem; }
         #mm-cost .mm-calc-stat { font-family:var(--font-heading); font-size:clamp(1.3rem,2.3vw,1.8rem); line-height:1.3; color:#fff; margin:0 0 .5rem; }
         #mm-cost .mm-calc-stat span { color:var(--color-red); font-weight:700; }
-        #mm-cost .mm-calc-split { font-size:1.1rem; line-height:1.55; color:var(--color-gray-300); margin:0; }
-        #mm-cost .mm-calc-split strong { color:#fff; }
-        #mm-cost .mm-calc { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:2rem; background:#242424;
-                            border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:1.6rem 1.8rem; }
-        #mm-cost .mm-calc-inputs { display:flex; flex-direction:column; gap:1.1rem; }
-        #mm-cost .mm-calc-field { display:grid; grid-template-columns:1fr auto; align-items:baseline; row-gap:.3rem; }
-        #mm-cost .mm-calc-label { font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:var(--color-gray-300); }
-        #mm-cost .mm-calc-value { font-family:var(--font-heading); font-weight:700; font-size:1.6rem; color:#fff; }
-        #mm-cost .mm-calc-field input[type=range] { grid-column:1 / -1; width:100%; accent-color:var(--color-red); cursor:pointer; }
-        #mm-cost .mm-calc-hint { grid-column:1 / -1; font-size:.8rem; color:var(--color-gray-400); }
-        #mm-cost .mm-calc-rate { font-family:var(--font-heading); font-weight:700; font-size:1.6rem; color:#fff; }
-        #mm-cost .mm-calc-rate input { width:4.2ch; background:transparent; border:0; border-bottom:2px solid var(--color-red); color:#fff;
-                                       font:inherit; padding:0 .1rem; -moz-appearance:textfield; }
-        #mm-cost .mm-calc-rate input::-webkit-outer-spin-button, #mm-cost .mm-calc-rate input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
-        #mm-cost .mm-calc-days { font-family:var(--font-heading); font-weight:700; text-transform:uppercase; line-height:1;
-                                 font-size:clamp(2rem,4.2vw,3.6rem); color:#fff; margin:0; }
-        #mm-cost .mm-calc-days span { color:var(--color-red); }
-        #mm-cost .mm-calc-money { font-size:1.05rem; color:var(--color-gray-300); margin:.5rem 0 1rem; }
-        #mm-cost .mm-calc-money span { color:#fff; font-weight:600; }
-        #mm-cost .mm-calc-years { display:inline-block; margin:0 0 .6rem; padding:.25rem .6rem; border-radius:4px; background:var(--color-red); font-family:var(--font-heading); font-weight:700; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:#fff; }
-        #mm-cost .mm-calc-years[hidden] { display:none; }
-        #mm-cost .mm-calc-year { display:grid; grid-template-columns:repeat(40,1fr); gap:3px; }
-        #mm-cost .mm-calc-year i { display:block; aspect-ratio:1; border-radius:2px; background:rgba(255,255,255,.1); transition:background .25s ease; }
-        #mm-cost .mm-calc-year i.on { background:var(--color-red); }
-        #mm-cost .mm-calc-key { display:flex; align-items:center; gap:.45rem; font-size:.75rem; color:var(--color-gray-400); margin:.5rem 0 0; }
-        #mm-cost .mm-calc-key i { width:10px; height:10px; border-radius:2px; background:var(--color-red); display:inline-block; }
-        #mm-cost .mm-calc-quote { margin:1.6rem 0 0; max-width:760px; border:0; padding:0; }
-        #mm-cost .mm-calc-quote p { font-family:var(--font-heading); font-size:clamp(1.15rem,2vw,1.5rem); line-height:1.35; color:#fff; margin:0 0 .4rem; }
-        #mm-cost .mm-calc-quote cite { font-style:normal; font-size:.85rem; letter-spacing:.04em; color:var(--color-gray-400); }
         #mm-cost .mm-calc-note { font-size:.75rem; color:var(--color-gray-500, #777); margin:1rem 0 0; }
         #mm-cost .mm-calc-note a { color:var(--color-gray-300); text-decoration:underline; text-underline-offset:2px; }
-        @media (max-width:860px) { #mm-cost .mm-calc { grid-template-columns:1fr; padding:1.25rem; gap:1.4rem; } #mm-cost .mm-calc-year { grid-template-columns:repeat(24,1fr); gap:2px; } }
-        @media (prefers-reduced-motion:reduce) { #mm-cost .mm-calc-year i { transition:none; } }
         #mm-faq { background:#242424; }
         /* Questions: same dark grey as The problem (Sandy, 2026-09-29) */
         #mm-faq .partners-faq-item, #mm-faq .partners-faq-item:first-child { border-color:#fff; }   /* white lines between the questions (Sandy, 2026-09-29) */
@@ -824,11 +827,12 @@
             </a>
             </div>
             <div class="nav-links mm-menu" id="navLinks">
-                <a href="#watch" class="nav-link">The video</a>
                 <a href="#the-challenge" class="nav-link">The challenge</a>
-                <a href="#the-cost" class="nav-link">The cost</a>
+                <a href="#the-cost" class="nav-link">The gap</a>
                 <a href="#remembers" class="nav-link">Remembers</a>
                 <a href="#recalls" class="nav-link">Recalls</a>
+                <a href="#proof" class="nav-link">Proof</a>
+                <a href="#watch" class="nav-link">The video</a>
                 <a href="#learns-and-grows" class="nav-link">Learns &amp; grows</a>
                 <a href="#inside-a-brain" class="nav-link">Demo</a>
                 <a href="#locally" class="nav-link">Locally</a>
@@ -843,7 +847,7 @@
                     </button>
                     <div class="mm-menu-icg-panel" id="mmIcgPanel" hidden>
                         <p class="mm-menu-icg-eyebrow">Who builds it</p>
-                        <p class="mm-menu-icg-copy">Inspired Creative Group is a full-stack AI production company: video, sound and design, with more than 20 years in production. The Production Brain is what makes that possible, one memory across every AI tool we use. We also build AI workflows for teams that want their own.</p>
+                        <p class="mm-menu-icg-copy">Inspired Creative Group is a full-stack AI production company: video, sound and design, with more than 20 years in production. The Production Brain is what makes that possible, one brain for every AI and everyone on our team. We also build AI workflows for teams that want their own.</p>
                         <a href="https://inspiredcreativegroupinc.com/" target="_blank" rel="noopener" class="mm-menu-icg-link">Visit Inspired Creative Group</a>
                     </div>
                 </div>
@@ -858,11 +862,13 @@
         <div class="mm-over">
           <div class="container">
             <div class="partners-hero-content">
-                <!-- StoryBrand header (2026-10-03 assessment, fix 1): the want first, the product name as a kicker -->
-                <h1 class="partners-hero-title">Stop re-briefing <span class="text-accent">your AI.</span></h1>
+                <!-- Message update (2026-11-16): the locked problem line is the headline, the product name is the kicker -->
+                <h1 class="partners-hero-title mm-hero-problem"><span>Every AI you use knows a piece of your business.</span><span>None of them share it.</span><span class="text-accent">None of it is yours.</span></h1>
                 <p class="mm-hero-name">The Production Brain</p>
                 <!-- What you buy, in one literal line (Sandy, 2026-10-03, after Meghraj's feedback: the page said what it does, not what it is) -->
-                <p class="mm-what-it-is"><span>A Mac Studio in your studio</span><span>Gives your AI tools one memory</span><span>Set up and maintained for you</span></p>
+                <!-- The locked answer, then what you get today (message update, 2026-11-16). The second line is the one that changes if the offer changes. -->
+                <p class="mm-hero-answer">One brain for every AI and everyone on your team. You own it.</p>
+                <p class="mm-what-it-is"><span>It runs on one machine in your studio</span><span>We build it and look after it</span></p>
             </div>
           </div>
         </div>
@@ -973,7 +979,213 @@
     <main id="main-content">
 
     <!-- ═══════════════════════════════════════ -->
-    <!-- THE VIDEO (launch VSL, Vimeo, plays only on theproductionbrain.ai) -->
+    <!-- PROBLEM (ICG stakes layout)              -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section stakes-section" id="mm-problem">
+        <span id="the-challenge" class="mm-anchor" aria-hidden="true"></span>
+        <div class="mm-rays" aria-hidden="true"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">The challenge</span>
+                <h2 class="section-title">Every AI knows a piece.<br><span class="text-accent">You're the go-between.</span></h2>
+            </div>
+            <div class="stakes-cards">
+                <div class="stakes-card">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">Codex doesn't know what Claude did.</h3>
+                    <p>Each AI keeps its own memory, and none reads another's. You carry it across.</p>
+                </div>
+                <div class="stakes-card">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 11a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M5 18h30"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">Your editor's AI knows things yours doesn't.</h3>
+                    <p>Every AI remembers the person, not the company. What your editor decided yesterday sits in a chat you can't open.</p>
+                </div>
+                <div class="stakes-card">
+                    <div class="stakes-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="18" width="22" height="16" rx="2"/><path d="M14 18v-5a6 6 0 0 1 12 0v5"/><path d="M20 24v4"/>
+                        </svg>
+                    </div>
+                    <h3 class="stakes-card-title">None of it is yours.</h3>
+                    <p>It lives in each vendor's account. Switch tools or lose a person, and what they knew goes too.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Problem rays: drawn for the section's real size, with the red centre in the empty space beside the headline.
+         A glow runs in along every line to the centre. Paused while off screen.
+         Runs right here, after the section, so it doesn't wait for the GSAP downloads at the end of the page (Sandy, 2026-10-01). -->
+    <script>
+    (function() {
+        var sec = document.getElementById('mm-problem');
+        var box = sec && sec.querySelector('.mm-rays');
+        if (!box) return;
+        var NS = 'http://www.w3.org/2000/svg';
+        var ANGLES = [-98,-84,-66,-52,-38,-27,-8,6,19,31,47,62,78,95,110,127,146,166,186,203,219,238,256];
+        var TIMES = ANGLES.map(function(_, i) { var d = 1.7 * (4.2 + ((i * 37) % 43) / 10); return [d, -((i * 53) % 71) / 71 * d]; });
+        function el(name, attrs, parent) {
+            var n = document.createElementNS(NS, name);
+            for (var k in attrs) n.setAttribute(k, attrs[k]);
+            if (parent) parent.appendChild(n);
+            return n;
+        }
+        var lastKey = '';
+        function draw() {
+            var w = sec.clientWidth, h = sec.clientHeight;
+            var head = sec.querySelector('.section-header').getBoundingClientRect();
+            var top = sec.getBoundingClientRect().top;
+            var phone = w < 900;
+            var cx = Math.round(w * (phone ? 0.86 : 0.8));
+            var cy = Math.round(phone ? (head.top - top) + 14 : (head.top - top) + head.height / 2);
+            var key = w + 'x' + h + '@' + cx + ',' + cy;
+            if (key === lastKey) return;
+            lastKey = key;
+            box.textContent = '';
+            var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
+            var defs = el('defs', {}, svg);
+            var grad = el('radialGradient', { id: 'mmCoreGlow' }, defs);
+            el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.5' }, grad);
+            el('stop', { offset: '1', 'stop-color': '#ff4b3e', 'stop-opacity': '0' }, grad);
+            var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
+            el('circle', { 'class': 'mm-ray', cx: cx, cy: cy, r: Math.round(Math.max(w, h) * (phone ? 0.9 : 0.62)) }, svg);
+            var pulses = el('g', { 'class': 'mm-pulses' }, svg);
+            ANGLES.forEach(function(a, i) {
+                var r = a * Math.PI / 180, x = Math.round(cx + Math.cos(r) * reach), y = Math.round(cy + Math.sin(r) * reach);
+                var d = 'M' + x + ' ' + y + 'L' + cx + ' ' + cy;
+                el('path', { 'class': 'mm-ray', d: d }, svg);
+                if (i % 2) return;   /* subdued: only every other line carries a glow (Sandy, 2026-09-29) */
+                var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
+                el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
+                el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
+            });
+            var core = el('g', { 'class': 'mm-core', style: 'transform-origin:' + cx + 'px ' + cy + 'px' }, svg);
+            el('circle', { cx: cx, cy: cy, r: phone ? 30 : 46, fill: 'url(#mmCoreGlow)' }, core);
+            el('circle', { cx: cx, cy: cy, r: phone ? 7 : 10, fill: '#ff5245' }, core);
+        }
+        draw();
+        window.addEventListener('load', draw);
+        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); });
+            }).observe(sec);
+        }
+    })();
+    </script>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- THE GAP (was the cost calculator)        -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- Message update (2026-11-16): the re-briefing calculator and its survey are gone with the retired pain. One figure
+         replaces them: Atlassian Teamwork Lab, 1,002 full-time US knowledge workers, 28 July to 3 August 2026; 77% say it is
+         important that AI thoroughly understands their company's institutional knowledge, 21% believe it does (read at source
+         2026-11-16). The section keeps its id and anchor so old links and analytics still work. -->
+    <section class="section" id="mm-cost">
+        <span id="the-cost" class="mm-anchor" aria-hidden="true"></span>
+        <div class="container">
+            <div class="section-header gsap-animate">
+                <span class="section-label">The gap</span>
+                <h2 class="section-title">AI helps only when<br><span class="text-accent">it knows your business.</span></h2>
+            </div>
+            <div class="mm-calc-lead gsap-animate">
+                <p class="mm-calc-stat"><span>77%</span> of knowledge workers say their AI needs to know their company's history and decisions.</p>
+                <p class="mm-calc-stat"><span>21%</span> say it does.</p>
+            </div>
+            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
+            <p class="mm-calc-note" id="mmCostNote">Source: <a href="https://www.atlassian.com/blog/ai-at-work/want-more-confidence-in-ai-give-it-more-context" target="_blank" rel="noopener">Atlassian Teamwork Lab</a>, 1,002 full-time US knowledge workers, July 28 to August 3, 2026.</p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- WHAT IT DOES (ICG value-prop layout)     -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section value-prop" id="mm-what">
+        <span id="remembers" class="mm-anchor" aria-hidden="true"></span>
+        <!-- The brain's nucleus, big and beating: drawn in code in the hero brain's colours (see the script at the end). -->
+        <canvas class="mm-nucleus" aria-hidden="true"></canvas>
+        <div class="container">
+            <div class="section-header gsap-animate">
+                <span class="section-label">Remembers</span>
+                <h2 class="section-title">The brain remembers,<br><span class="text-accent">so you get to create.</span></h2>
+            </div>
+            <div class="value-prop-grid">
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">01</span>
+                    <h3 class="value-prop-title">One brain, every AI.</h3>
+                    <p class="value-prop-desc">Say &ldquo;save&rdquo; and the session's decisions are kept. Any AI you connect, on any computer, can see what was done, when and why.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">02</span>
+                    <h3 class="value-prop-title">Learn and grow.</h3>
+                    <p class="value-prop-desc">Every night it checks its notes: stale, duplicated, or two that disagree. Flagged for you, never deleted. Every job adds to it.</p>
+                </div>
+                <div class="value-prop-card gsap-animate">
+                    <span class="value-prop-num">03</span>
+                    <h3 class="value-prop-title">Yours.</h3>
+                    <p class="value-prop-desc">It runs on a machine in your building, on local models. The files are yours, and they stay when a tool or a person leaves.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- STATEMENT (ICG statement layout)         -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="statement" id="mm-case">
+        <span id="recalls" class="mm-anchor" aria-hidden="true"></span>
+        <!-- A field of symbols drawn in code (after benjamincreative.me): faint - = + at the edges, * ? @ as it thickens,
+             a lock where it is densest; clear in the middle for the words; drifts slowly and brightens under the pointer. -->
+        <canvas class="mm-glyphs" aria-hidden="true"></canvas>
+        <div class="container">
+            <span class="section-label">Recalls</span>
+            <img class="statement-mark-logo mm-pb-mark" src="assets/pb-logo.svg" alt="" aria-hidden="true" width="34" height="35">
+            <p class="statement-line gsap-animate"><span class="statement-row mm-st-first">9:40. The editor asks Claude Code where the cut stands. Nothing to dig up.</span><span class="statement-row">1:00. From her own computer, the designer asks her AI for the research. It hands the job to another AI, and the answer comes back to her.</span><span class="statement-row text-accent">4:30. From a phone, the producer picks up the cut in ChatGPT and writes the client update. No handover.</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- PROOF (message update, 2026-11-16)       -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- Three things that are true on ICG's own brain today: the login stamp on saves (2026-11-15), signed handoffs and
+         the one-writer handoff log (2026-11-13), and the live Agent Deck. Say "signed and logged", never "can't be faked".
+         The quote is Sandy's, reworded from Juan's notes on 2026-11-16: SHE APPROVES THE WORDING BEFORE THIS SHIPS. -->
+    <section class="section" id="mm-proof">
+        <span id="proof" class="mm-anchor" aria-hidden="true"></span>
+        <div class="container">
+            <div class="section-header gsap-animate">
+                <span class="section-label">Proof</span>
+                <h2 class="section-title">Every handoff<br><span class="text-accent">leaves a receipt.</span></h2>
+            </div>
+            <div class="mm-proof-grid">
+                <div class="mm-proof-list gsap-animate">
+                    <p><strong>Who wrote it.</strong> Saves show the person signed in and the AI they used.</p>
+                    <p><strong>Who handed it on.</strong> Every handoff between AI agents is signed and logged. No agent can change the log.</p>
+                    <p><strong>Who's on it now.</strong> One live board shows every agent, on every computer, and what needs a person.</p>
+                </div>
+                <figure class="mm-proof-shot gsap-animate">
+                    <!-- PLACEHOLDER, DO NOT SHIP: replace this div with <img src="assets/proof-agent-deck.jpg" alt="..." width height>
+                         once the Agent Deck demo-view capture of a multi-agent run exists. Sandy's name stays out of frame. -->
+                    <div class="mm-proof-placeholder">Placeholder<br>Agent Deck screen capture goes here</div>
+                    <figcaption>Our own team at work. Private text hidden.</figcaption>
+                </figure>
+            </div>
+            <blockquote class="mm-quote gsap-animate">
+                <p>“I send a job to any agent, on any of our computers or in the cloud, and it comes back done. It’s like working with a real team of intelligent robots.”</p>
+                <cite>Sandy Peic, Creative Director, Inspired Creative Group</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- THE VIDEO (launch VSL, Vimeo, plays only on theproductionbrain.ai). Moved below Proof on 2026-11-16: it tells the earlier story. -->
     <!-- ═══════════════════════════════════════ -->
     <section class="mm-vsl" id="mm-vsl">
         <span id="watch" class="mm-anchor" aria-hidden="true"></span>
@@ -981,7 +1193,7 @@
         <div class="mm-vsl-stage">
             <iframe src="https://player.vimeo.com/video/1234409510?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;color=e8000d&amp;vimeo_logo=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Production Brain: Your Studio's Memory, in Your Own Machine"></iframe>
             <div class="mm-vsl-cover" id="mmVslCover">
-                <h2 class="mm-vsl-title">All you need to know. <span class="text-accent">In 6 minutes.</span></h2>
+                <h2 class="mm-vsl-title">Why we built it. <span class="text-accent">In 6 minutes.</span></h2>
                 <button type="button" class="mm-vsl-play" id="mmVslPlay" aria-label="Play the video, 6 minutes 5 seconds"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>
                 <span class="mm-vsl-len">Watch &middot; 6:05</span>
                 <!-- End card: shown when the video finishes. The video's last line is "click the button below this video", so the button comes to them. -->
@@ -1066,211 +1278,6 @@
       })();
     </script>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- PROBLEM (ICG stakes layout)              -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="section stakes-section" id="mm-problem">
-        <span id="the-challenge" class="mm-anchor" aria-hidden="true"></span>
-        <div class="mm-rays" aria-hidden="true"></div>
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">The challenge</span>
-                <h2 class="section-title">Your AI forgets.<br><span class="text-accent">Remembering is on you.</span></h2>
-            </div>
-            <div class="stakes-cards">
-                <div class="stakes-card">
-                    <div class="stakes-card-icon">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
-                        </svg>
-                    </div>
-                    <h3 class="stakes-card-title">Long sessions lose the start.</h3>
-                    <p>The context fills, gets compacted, and the decision from an hour ago is gone.</p>
-                </div>
-                <div class="stakes-card">
-                    <div class="stakes-card-icon">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 11a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M5 18h30"/>
-                        </svg>
-                    </div>
-                    <h3 class="stakes-card-title">Load more,<br>get worse.</h3>
-                    <p>Paste in the notes folder to be safe and the agent starts missing and mixing up details.</p>
-                </div>
-                <div class="stakes-card">
-                    <div class="stakes-card-icon">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="18" width="22" height="16" rx="2"/><path d="M14 18v-5a6 6 0 0 1 12 0v5"/><path d="M20 24v4"/>
-                        </svg>
-                    </div>
-                    <h3 class="stakes-card-title">Codex doesn't know what Claude did.</h3>
-                    <p>Not unless you wrote it down and pointed at it. Each tool keeps its own memory, and neither reads the other's.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Problem rays: drawn for the section's real size, with the red centre in the empty space beside the headline.
-         A glow runs in along every line to the centre. Paused while off screen.
-         Runs right here, after the section, so it doesn't wait for the GSAP downloads at the end of the page (Sandy, 2026-10-01). -->
-    <script>
-    (function() {
-        var sec = document.getElementById('mm-problem');
-        var box = sec && sec.querySelector('.mm-rays');
-        if (!box) return;
-        var NS = 'http://www.w3.org/2000/svg';
-        var ANGLES = [-98,-84,-66,-52,-38,-27,-8,6,19,31,47,62,78,95,110,127,146,166,186,203,219,238,256];
-        var TIMES = ANGLES.map(function(_, i) { var d = 1.7 * (4.2 + ((i * 37) % 43) / 10); return [d, -((i * 53) % 71) / 71 * d]; });
-        function el(name, attrs, parent) {
-            var n = document.createElementNS(NS, name);
-            for (var k in attrs) n.setAttribute(k, attrs[k]);
-            if (parent) parent.appendChild(n);
-            return n;
-        }
-        var lastKey = '';
-        function draw() {
-            var w = sec.clientWidth, h = sec.clientHeight;
-            var head = sec.querySelector('.section-header').getBoundingClientRect();
-            var top = sec.getBoundingClientRect().top;
-            var phone = w < 900;
-            var cx = Math.round(w * (phone ? 0.86 : 0.8));
-            var cy = Math.round(phone ? (head.top - top) + 14 : (head.top - top) + head.height / 2);
-            var key = w + 'x' + h + '@' + cx + ',' + cy;
-            if (key === lastKey) return;
-            lastKey = key;
-            box.textContent = '';
-            var svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: w, height: h, focusable: 'false' }, box);
-            var defs = el('defs', {}, svg);
-            var grad = el('radialGradient', { id: 'mmCoreGlow' }, defs);
-            el('stop', { offset: '0', 'stop-color': '#ff4b3e', 'stop-opacity': '.5' }, grad);
-            el('stop', { offset: '1', 'stop-color': '#ff4b3e', 'stop-opacity': '0' }, grad);
-            var reach = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy)) + 40;
-            el('circle', { 'class': 'mm-ray', cx: cx, cy: cy, r: Math.round(Math.max(w, h) * (phone ? 0.9 : 0.62)) }, svg);
-            var pulses = el('g', { 'class': 'mm-pulses' }, svg);
-            ANGLES.forEach(function(a, i) {
-                var r = a * Math.PI / 180, x = Math.round(cx + Math.cos(r) * reach), y = Math.round(cy + Math.sin(r) * reach);
-                var d = 'M' + x + ' ' + y + 'L' + cx + ' ' + cy;
-                el('path', { 'class': 'mm-ray', d: d }, svg);
-                if (i % 2) return;   /* subdued: only every other line carries a glow (Sandy, 2026-09-29) */
-                var g = el('g', { style: '--d:' + TIMES[i][0].toFixed(2) + 's;--delay:' + TIMES[i][1].toFixed(2) + 's' }, pulses);
-                el('path', { 'class': 'mm-pulse mm-pulse-halo', pathLength: '100', d: d }, g);
-                el('path', { 'class': 'mm-pulse mm-pulse-core', pathLength: '100', d: d }, g);
-            });
-            var core = el('g', { 'class': 'mm-core', style: 'transform-origin:' + cx + 'px ' + cy + 'px' }, svg);
-            el('circle', { cx: cx, cy: cy, r: phone ? 30 : 46, fill: 'url(#mmCoreGlow)' }, core);
-            el('circle', { cx: cx, cy: cy, r: phone ? 7 : 10, fill: '#ff5245' }, core);
-        }
-        draw();
-        window.addEventListener('load', draw);
-        if (window.ResizeObserver) new ResizeObserver(draw).observe(sec);
-        if ('IntersectionObserver' in window) {
-            new IntersectionObserver(function(entries) {
-                entries.forEach(function(e) { sec.classList.toggle('is-paused', !e.isIntersecting); });
-            }).observe(sec);
-        }
-    })();
-    </script>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- THE COST (re-briefing calculator)        -->
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Sandy, 2026-10-01. Default 2.3 h/week/person = time spent feeding AI context, Work AI Index 2026 (Work AI
-         Institute / Glean, 6,000 workers, US/UK/AU, Dec 2025 to Jan 2026). $85/h is the senior editor rate the launch video
-         also uses (Sandy, 2026-10-03; rate guides put senior editors at $85-150/h), editable. 48 working weeks, 8-hour days. The quote is Sandy's own first-hand
-         testimony, given 2026-10-01. Plan: Production Brain Brand/02-current/2026-10-01-rebriefing-cost-calculator-plan.md -->
-    <section class="section" id="mm-cost">
-        <span id="the-cost" class="mm-anchor" aria-hidden="true"></span>
-        <div class="container">
-            <div class="section-header gsap-animate">
-                <span class="section-label">The cost</span>
-                <h2 class="section-title">How long do you spend<br><span class="text-accent">re-briefing your AI?</span></h2>
-            </div>
-            <!-- Work AI Index 2026: 2.3 h/week "feeding the AI context"; context-rich organisations are "64% less likely to
-                 feel worn out by AI" (primary report). 50% vs 18% as reported by productimpactpod.com; 18/50 = 64% less. -->
-            <div class="mm-calc-lead gsap-animate">
-                <p class="mm-calc-stat"><span>6,000</span> workers surveyed. On average, <span>2.3 hours</span> a week go into feeding their AI context.</p>
-                <p class="mm-calc-split"><strong>Half</strong> of them feel worn out by AI that doesn't have the context.</p>
-            </div>
-            <div class="mm-calc gsap-animate">
-                <div class="mm-calc-inputs">
-                    <label class="mm-calc-field">
-                        <span class="mm-calc-label">Hours a week, per person</span>
-                        <span class="mm-calc-value" id="mmCostHoursOut">2.3</span>
-                        <input type="range" id="mmCostHours" min="0.5" max="10" step="0.1" value="2.3" aria-describedby="mmCostNote">
-                        <span class="mm-calc-hint">2.3 is the average</span>
-                    </label>
-                    <label class="mm-calc-field">
-                        <span class="mm-calc-label">People on the team</span>
-                        <span class="mm-calc-value" id="mmCostPeopleOut">5</span>
-                        <input type="range" id="mmCostPeople" min="1" max="30" step="1" value="5">
-                    </label>
-                    <label class="mm-calc-field">
-                        <span class="mm-calc-label">Hourly rate (USD)</span>
-                        <span class="mm-calc-rate">$<input type="number" id="mmCostRate" min="1" max="999" step="1" value="85" inputmode="numeric"></span>
-                        <span class="mm-calc-hint">A senior editor's rate. Change it to yours.</span>
-                    </label>
-                </div>
-                <div class="mm-calc-result" aria-live="polite">
-                    <p class="mm-calc-days"><span id="mmCostDays">69</span> working days<br>a year</p>
-                    <p class="mm-calc-money">About <span id="mmCostMoney">$46,900</span> of your team's time.</p>
-                    <p class="mm-calc-years" id="mmCostYears" hidden></p>
-                    <div class="mm-calc-year" id="mmCostYear" aria-hidden="true"></div>
-                    <p class="mm-calc-key" aria-hidden="true"><i></i> one working day</p>
-                </div>
-            </div>
-            <blockquote class="mm-calc-quote gsap-animate">
-                <p>“I don’t re-brief any more. No copy-pasting, no half hour explaining the job. It’s all in the brain.”</p>
-                <cite>Sandy Peic, Creative Director, Inspired Creative Group</cite>
-            </blockquote>
-            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
-            <p class="mm-calc-note" id="mmCostNote">Source: <a href="https://www.glean.com/work-ai-institute/reports/work-ai-index" target="_blank" rel="noopener">Work AI Index 2026</a> (Work AI Institute), 6,000 full-time workers in the US, UK and Australia, December 2025 to January 2026. Calculated on 48 working weeks a year.</p>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- WHAT IT DOES (ICG value-prop layout)     -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="section value-prop" id="mm-what">
-        <span id="remembers" class="mm-anchor" aria-hidden="true"></span>
-        <!-- The brain's nucleus, big and beating: drawn in code in the hero brain's colours (see the script at the end). -->
-        <canvas class="mm-nucleus" aria-hidden="true"></canvas>
-        <div class="container">
-            <div class="section-header gsap-animate">
-                <span class="section-label">Remembers</span>
-                <h2 class="section-title">The brain remembers,<br><span class="text-accent">so you get to create.</span></h2>
-            </div>
-            <div class="value-prop-grid">
-                <div class="value-prop-card gsap-animate">
-                    <span class="value-prop-num">01</span>
-                    <h3 class="value-prop-title">Remember and recall.</h3>
-                    <p class="value-prop-desc">Say save and the session's decisions are kept. Any agent, from any project, in any session, knows what was done, when and why, and pulls only what it needs.</p>
-                </div>
-                <div class="value-prop-card gsap-animate">
-                    <span class="value-prop-num">02</span>
-                    <h3 class="value-prop-title">Learn and grow.</h3>
-                    <p class="value-prop-desc">Every night it checks its notes: stale, duplicated, or two that disagree. Flagged for you, never deleted. Every job adds to it.</p>
-                </div>
-                <div class="value-prop-card gsap-animate">
-                    <span class="value-prop-num">03</span>
-                    <h3 class="value-prop-title">Locally.</h3>
-                    <p class="value-prop-desc">On a Mac Studio in your building, with local models keeping your studio's notes in order so you don't have to.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- STATEMENT (ICG statement layout)         -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="statement" id="mm-case">
-        <span id="recalls" class="mm-anchor" aria-hidden="true"></span>
-        <!-- A field of symbols drawn in code (after benjamincreative.me): faint - = + at the edges, * ? @ as it thickens,
-             a lock where it is densest; clear in the middle for the words; drifts slowly and brightens under the pointer. -->
-        <canvas class="mm-glyphs" aria-hidden="true"></canvas>
-        <div class="container">
-            <span class="section-label">Recalls</span>
-            <img class="statement-mark-logo mm-pb-mark" src="assets/pb-logo.svg" alt="" aria-hidden="true" width="34" height="35">
-            <p class="statement-line gsap-animate"><span class="statement-row mm-st-first">9:40. The editor asks Claude Code for the brief and where the cut stands. Nothing to dig up.</span><span class="statement-row">1:00. The editor says save. Everything decided along the way is in the brain.</span><span class="statement-row text-accent">4:30. From a phone, the producer picks it up in ChatGPT and writes the client update. No handover, no call, no message from the editor.</span></p>
-        </div>
-    </section>
 
     <!-- ═══════════════════════════════════════ -->
     <!-- WHAT IT CATCHES (ICG workflow layout)    -->
@@ -1450,7 +1457,7 @@
                 <p>Your AI tool is always connected. So is what your agents read: open an email or a ticket in a session and the brain keeps what's important. At setup we point it at the folders your work already lives in.</p>
                 <table>
                     <tr><th>Category</th><th>Examples</th></tr>
-                    <tr><td>Your AI tool (included)</td><td>Claude Code, Codex, Cursor, OpenClaw, Hermes, Gemini CLI, claude.ai, ChatGPT</td></tr>
+                    <tr><td>Your AI tool (included)</td><td>Claude Code, Codex, Cursor, OpenClaw, Hermes, Gemini CLI, claude.ai, ChatGPT, Grok, Perplexity</td></tr>
                     <tr><td>What your agents read (included)</td><td>Email, chat, tickets your AI tool can open</td></tr>
                     <tr><td>Your folders (included)</td><td>Contracts, briefs, delivery specs, a notes vault, your file server, a synced Google Drive or Dropbox, meeting transcripts</td></tr>
                 </table>
@@ -1473,6 +1480,10 @@
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>Two editors in the same project?</span><span class="partners-faq-icon">+</span></button>
                     <div class="partners-faq-answer"><p>Your editing tools own the files and the locks. The brain remembers the decisions, and flags it when two notes disagree.</p></div>
+                </div>
+                <div class="partners-faq-item gsap-animate">
+                    <button class="partners-faq-toggle" aria-expanded="false"><span>Can everyone on the team see everything?</span><span class="partners-faq-icon">+</span></button>
+                    <div class="partners-faq-answer"><p>Today, yes. Everyone you let in shares one brain. When a freelancer or a partner company should see only one project, we build that project its own brain.</p></div>
                 </div>
                 <div class="partners-faq-item gsap-animate">
                     <button class="partners-faq-toggle" aria-expanded="false"><span>Does anything leave our building?</span><span class="partners-faq-icon">+</span></button>
@@ -1556,18 +1567,6 @@
                             <label for="mmTools">Which AI tools do you use?</label>
                             <input type="text" id="mmTools" name="tools" placeholder="Claude Code, ChatGPT, Cursor...">
                         </div>
-                        <div class="form-group">
-                            <label for="mmHours">Roughly how many hours a week go to re-explaining context to AI?</label>
-                            <select id="mmHours" name="hours_lost_per_week">
-                                <option value="" disabled selected>Select one</option>
-                                <option value="under 1">Under 1</option>
-                                <option value="1-2">1 to 2</option>
-                                <option value="3-5">3 to 5</option>
-                                <option value="6-10">6 to 10</option>
-                                <option value="10+">More than 10</option>
-                                <option value="not sure">Not sure</option>
-                            </select>
-                        </div>
                         <label class="mm-check"><input type="checkbox" name="founding_application" value="yes" id="mmFoundingBox" checked> Apply for the founding studio spot (free build)</label>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
                         <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Apply for the free build</button>
@@ -1599,16 +1598,17 @@
                         <img src="assets/icg-mark.png" alt="" width="22" height="22" />
                         <span>by Inspired Creative Group Inc.</span>
                     </a>
-                    <p class="footer-tagline">A Mac Studio in your studio gives your AI tools one memory, set up and maintained for you.</p>
+                    <p class="footer-tagline">One brain for every AI and everyone on your team. You own it.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Navigation</h4>
                     <!-- Same items as the top menu, named after the section labels (Sandy, 2026-10-01) -->
-                    <a href="#watch">The video</a>
                     <a href="#the-challenge">The challenge</a>
-                    <a href="#the-cost">The cost</a>
+                    <a href="#the-cost">The gap</a>
                     <a href="#remembers">Remembers</a>
                     <a href="#recalls">Recalls</a>
+                    <a href="#proof">Proof</a>
+                    <a href="#watch">The video</a>
                     <a href="#learns-and-grows">Learns &amp; grows</a>
                     <a href="#inside-a-brain">Demo</a>
                     <a href="#locally">Locally</a>
@@ -2137,37 +2137,6 @@
             if (id === 'contact') watch = el.parentElement;
             links[id]._watch = watch; io.observe(watch);
         });
-    })();
-    </script>
-    <!-- The cost calculator: hours x people x 48 weeks, shown as working days (8 h) and dollars, with a year of
-         240 working days drawn as squares that fill red. The numbers in the markup are the defaults, so the
-         section reads correctly without this script. -->
-    <script>
-    (function() {
-        var h = document.getElementById('mmCostHours'), p = document.getElementById('mmCostPeople'), r = document.getElementById('mmCostRate');
-        var year = document.getElementById('mmCostYear');
-        if (!h || !p || !r || !year) return;
-        var WEEKS = 48, DAY = 8, CELLS = WEEKS * 5;
-        for (var n = 0; n < CELLS; n++) year.appendChild(document.createElement('i'));
-        var cells = year.children;
-        function money(v) { return '$' + (Math.round(v / 100) * 100).toLocaleString('en-US'); }
-        function update() {
-            var hours = parseFloat(h.value) || 0, people = parseInt(p.value, 10) || 0, rate = Math.max(0, parseFloat(r.value) || 0);
-            var total = hours * people * WEEKS, days = Math.round(total / DAY);
-            document.getElementById('mmCostHoursOut').textContent = hours.toFixed(1);
-            document.getElementById('mmCostPeopleOut').textContent = people;
-            document.getElementById('mmCostDays').textContent = days.toLocaleString('en-US');
-            document.getElementById('mmCostMoney').textContent = money(total * rate);
-            /* The grid is one working year (240 days). Past it, a counter keeps the full years and the grid starts again from
-               the top with what is left: "1 working year + 36 days" (Sandy, 2026-10-03). */
-            var years = Math.floor(days / CELLS), rest = days - years * CELLS, lit = years && !rest ? CELLS : rest;
-            var yr = document.getElementById('mmCostYears');
-            yr.hidden = !years;
-            if (years) yr.textContent = years + (years === 1 ? ' working year' : ' working years') + (rest ? ' + ' + rest + (rest === 1 ? ' day' : ' days') : '');
-            for (var c = 0; c < CELLS; c++) cells[c].classList.toggle('on', c < lit);
-        }
-        [h, p, r].forEach(function(el) { el.addEventListener('input', update); });
-        update();
     })();
     </script>
     <script src="gsap-animations.js"></script>
