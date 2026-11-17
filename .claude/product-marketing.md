@@ -1,12 +1,15 @@
 # Product marketing context — The Production Brain
-Rewritten 2026-11-16 for the message update (brief: vault `projects/marketing/production-brain-site/2026-11-16-message-update-brief.md`). First written 2026-09-10 as "The Memory Machine". Read by the copywriting / copy-editing / cro skills.
+Rewritten 2026-11-16 and 2026-11-17 for the message update (brief: vault `projects/marketing/production-brain-site/2026-11-16-message-update-brief.md`). First written 2026-09-10 as "The Memory Machine". Read by the copywriting / copy-editing / cro skills.
 
-## The message (locked by Juan, 2026-11-10; do not rewrite)
-- **Problem:** "Every AI you use knows a piece of your business. None of them share it. None of it is yours."
-- **Answer:** "One brain for every AI and everyone on your team. You own it."
-- **Test for any new line:** would it still be true if OpenAI shipped it tomorrow? Lean on the two things a vendor can't offer: it works across every AI tool, and the business owns it.
-- **Retired 2026-11-09:** "your AI forgets", "re-briefing", "every chat starts from zero". Every major AI now remembers its user.
-- A team is people plus AI agents. On the page say "AI" until the Proof section; "AI agents" is introduced there. "Memory" is the vendors' word; ours is "the brain".
+## The message (Juan, 2026-11-17; replaces the line locked 2026-11-10 on this page)
+- **Headline (the problem, as a want):** "Stop being the messenger for your AI tools."
+- **Result line:** "Your company, with every AI sharing one memory. You own it."
+- **The page in four steps:** you are the messenger; one memory they all share; they work together and you carry nothing; you can see and check what they did.
+- **Why the 2026-11-10 line left the hero:** "Every AI you use knows a piece of your business" is a premise readers reject (most feel their AI does not know their company), and "None of it is yours" is a benefit, not a felt pain. Two blind reads on 2026-11-17 scored it lowest for clarity. Ownership stays in the result line.
+- **Test for any new line:** would it still be true if OpenAI shipped it tomorrow? No vendor connects you to its rivals, and the business owns the memory.
+- **Retired 2026-11-09, still retired:** "your AI forgets", "amnesia", "every chat starts from zero". Every major AI now remembers its user. What stays true is that memory never crosses from one tool, or one person, to another.
+- **Agents working together:** say they hand work to each other and nobody copies and pastes. Never "no human in the loop": agents pass the work, a person makes the calls. Never promise "no mistakes"; say they work from the same facts, conflicts are flagged nightly, handoffs are signed and logged, and risky steps wait for a person.
+- **Words:** "AI tools" in the hero and challenge; "AI agents" from the Proof section on. Plain "memory" is fine for ours now (Juan's result line); never "memory layer" or "sync layer".
 
 ## The offer (what the page sells today)
 One brain for the business, on a dedicated machine (a Mac Studio) in the client's studio, built by hand and maintained remotely by ICG over a private encrypted network. It keeps its own notes, checks itself every night for stale or contradicting facts, and never deletes. Build fee plus monthly maintenance; hardware bought by the client at Apple's price; 90-day refund of the build fee on standard pricing.

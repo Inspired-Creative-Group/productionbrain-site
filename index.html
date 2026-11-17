@@ -31,12 +31,12 @@
         }, true);
       })();
     </script>
-    <title>The Production Brain | One brain for every AI and everyone on your team. Inspired Creative Group Inc.</title>
-    <meta name="description" content="Every AI you use knows a piece of your business. None of them share it. The Production Brain is one brain for every AI and everyone on your team, and you own it. Built and maintained by Inspired Creative Group.">
+    <title>The Production Brain | Your company, with every AI sharing one memory. Inspired Creative Group Inc.</title>
+    <meta name="description" content="Stop being the messenger for your AI tools. The Production Brain gives your company one memory that every AI shares, and you own it. Built and maintained by Inspired Creative Group.">
     <meta property="og:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta property="og:description" content="Every AI you use knows a piece of your business. None of them share it. The Production Brain is one brain for every AI and everyone on your team, and you own it. Built and maintained by Inspired Creative Group.">
+    <meta property="og:description" content="Stop being the messenger for your AI tools. The Production Brain gives your company one memory that every AI shares, and you own it. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:title" content="The Production Brain | Inspired Creative Group Inc.">
-    <meta name="twitter:description" content="Every AI you use knows a piece of your business. None of them share it. The Production Brain is one brain for every AI and everyone on your team, and you own it. Built and maintained by Inspired Creative Group.">
+    <meta name="twitter:description" content="Stop being the messenger for your AI tools. The Production Brain gives your company one memory that every AI shares, and you own it. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261009">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Production Brain">
@@ -46,9 +46,9 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Production Brain hero: one brain for every AI and everyone on your team. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
+    <meta property="og:image:alt" content="The Production Brain hero: stop being the messenger for your AI tools. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:alt" content="The Production Brain hero: one brain for every AI and everyone on your team. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
+    <meta name="twitter:image:alt" content="The Production Brain hero: stop being the messenger for your AI tools. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
     <link rel="canonical" href="https://theproductionbrain.ai/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -425,26 +425,27 @@
           .partners-hero-title{font-size:clamp(2rem,10.6vw,5rem);line-height:1.02}
           .partners-hero-title .text-accent{display:block}
         }
-        /* Message update (2026-11-16): the hero headline is the three-sentence problem line, so it wraps and runs smaller.
-           The answer sits under the product name; the last line says what you get today. Layout is Sandy's to refine. */
-        .partners-hero-title.mm-hero-problem span{display:block}
+        /* Message update (2026-11-17): the headline is two lines ("Stop being the messenger" / "for your AI tools."),
+           then the product name, the result in one line, and what you get today. Layout is Sandy's to refine. */
+        .partners-hero-title.mm-hero-problem .text-accent{display:block}
         .mm-hero-answer{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.35;color:#fff;margin:.7rem 0 0;text-shadow:0 2px 22px rgba(0,0,0,.85)}
         @media (min-width:1001px){
-          /* Five rows of text now sit above "What feeds it", so the block starts higher and runs tighter than the one-line headline did. */
-          .mm-over:has(.mm-hero-problem){padding-top:calc(var(--nav-height) + .5vw)}
+          .mm-over:has(.mm-hero-problem){padding-top:calc(var(--nav-height) + .4vw)}
           .mm-over .partners-hero-content:has(.mm-hero-problem){row-gap:.4rem}
-          .mm-over .partners-hero-title.mm-hero-problem{font-size:clamp(1.5rem,2.4vw,2.9rem);white-space:normal;line-height:1.06}
-          .mm-over .mm-hero-problem ~ .mm-hero-name{font-size:clamp(1rem,1.45vw,1.5rem);margin:.15rem 0 0}
+          .mm-over .partners-hero-title.mm-hero-problem{font-size:clamp(2.2rem,3.7vw,4.6rem);line-height:1}
+          .mm-over .mm-hero-problem ~ .mm-hero-name{font-size:clamp(1rem,1.45vw,1.5rem);margin:.2rem 0 0}
           .mm-over .mm-hero-answer{flex:0 0 100%;margin:0;font-size:clamp(1rem,1.4vw,1.4rem);line-height:1.3}
         }
         @media (min-width:1001px) and (max-width:1339px){
-          .mm-over:has(.mm-hero-problem){padding-top:calc(var(--nav-height) + .2rem)}
           .mm-over .partners-hero-content:has(.mm-hero-problem){row-gap:.2rem}
-          .mm-over .partners-hero-title.mm-hero-problem{font-size:2.15vw}
           .mm-over .mm-hero-problem ~ .mm-what-it-is{font-size:.92rem;line-height:1.35}
         }
+        @media (min-width:1001px) and (max-width:1199px){
+          .mm-over .partners-hero-title.mm-hero-problem{font-size:3.1vw}
+          .mm-over .mm-hero-problem ~ .mm-hero-name{font-size:.95rem;margin:.1rem 0 0}
+        }
         @media (max-width:1000px){
-          .partners-hero-title.mm-hero-problem{font-size:clamp(1.45rem,6vw,2.6rem);line-height:1.1}
+          .partners-hero-title.mm-hero-problem{font-size:clamp(1.9rem,8.6vw,4rem);line-height:1.03}
         }
         /* Proof section (2026-11-16): three plain lines beside one screen capture, then the quote. */
         #mm-proof{background:#0a0a0a}
@@ -847,7 +848,7 @@
                     </button>
                     <div class="mm-menu-icg-panel" id="mmIcgPanel" hidden>
                         <p class="mm-menu-icg-eyebrow">Who builds it</p>
-                        <p class="mm-menu-icg-copy">Inspired Creative Group is a full-stack AI production company: video, sound and design, with more than 20 years in production. The Production Brain is what makes that possible, one brain for every AI and everyone on our team. We also build AI workflows for teams that want their own.</p>
+                        <p class="mm-menu-icg-copy">Inspired Creative Group is a full-stack AI production company: video, sound and design, with more than 20 years in production. The Production Brain is what makes that possible, one memory shared by every AI tool we use. We also build AI workflows for teams that want their own.</p>
                         <a href="https://inspiredcreativegroupinc.com/" target="_blank" rel="noopener" class="mm-menu-icg-link">Visit Inspired Creative Group</a>
                     </div>
                 </div>
@@ -862,12 +863,12 @@
         <div class="mm-over">
           <div class="container">
             <div class="partners-hero-content">
-                <!-- Message update (2026-11-16): the locked problem line is the headline, the product name is the kicker -->
-                <h1 class="partners-hero-title mm-hero-problem"><span>Every AI you use knows a piece of your business.</span><span>None of them share it.</span><span class="text-accent">None of it is yours.</span></h1>
+                <!-- Message update (2026-11-17, Juan): the headline names the problem as a want (stop being the messenger), the product name is the kicker -->
+                <h1 class="partners-hero-title mm-hero-problem">Stop being the messenger <span class="text-accent">for your AI tools.</span></h1>
                 <p class="mm-hero-name">The Production Brain</p>
                 <!-- What you buy, in one literal line (Sandy, 2026-10-03, after Meghraj's feedback: the page said what it does, not what it is) -->
-                <!-- The locked answer, then what you get today (message update, 2026-11-16). The second line is the one that changes if the offer changes. -->
-                <p class="mm-hero-answer">One brain for every AI and everyone on your team. You own it.</p>
+                <!-- The result in one line (Juan, 2026-11-17), then what you get today. The last line is the one that changes if the offer changes. -->
+                <p class="mm-hero-answer">Your company, with every AI sharing one memory. You own it.</p>
                 <p class="mm-what-it-is"><span>It runs on one machine in your studio</span><span>We build it and look after it</span></p>
             </div>
           </div>
@@ -987,7 +988,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">The challenge</span>
-                <h2 class="section-title">Every AI knows a piece.<br><span class="text-accent">You're the go-between.</span></h2>
+                <h2 class="section-title">Your AI tools don't talk to each other.<br><span class="text-accent">You're the messenger.</span></h2>
             </div>
             <div class="stakes-cards">
                 <div class="stakes-card">
@@ -996,7 +997,7 @@
                             <path d="M4 20s6-10 16-10 16 10 16 10-6 10-16 10S4 20 4 20z"/><circle cx="20" cy="20" r="4.5"/><path d="M7 33L33 7"/>
                         </svg>
                     </div>
-                    <h3 class="stakes-card-title">Codex doesn't know what Claude did.</h3>
+                    <h3 class="stakes-card-title">ChatGPT doesn't know what Claude did.</h3>
                     <p>Each AI keeps its own memory, and none reads another's. You carry it across.</p>
                 </div>
                 <div class="stakes-card">
@@ -1119,18 +1120,18 @@
             <div class="value-prop-grid">
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">01</span>
-                    <h3 class="value-prop-title">One brain, every AI.</h3>
+                    <h3 class="value-prop-title">One memory, every AI.</h3>
                     <p class="value-prop-desc">Say &ldquo;save&rdquo; and the session's decisions are kept. Any AI you connect, on any computer, can see what was done, when and why.</p>
                 </div>
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">02</span>
-                    <h3 class="value-prop-title">Learn and grow.</h3>
-                    <p class="value-prop-desc">Every night it checks its notes: stale, duplicated, or two that disagree. Flagged for you, never deleted. Every job adds to it.</p>
+                    <h3 class="value-prop-title">They work together.</h3>
+                    <p class="value-prop-desc">Your AI tools hand work to each other, on any computer. Nobody copies and pastes. You're asked when the call is yours.</p>
                 </div>
                 <div class="value-prop-card gsap-animate">
                     <span class="value-prop-num">03</span>
-                    <h3 class="value-prop-title">Yours.</h3>
-                    <p class="value-prop-desc">It runs on a machine in your building, on local models. The files are yours, and they stay when a tool or a person leaves.</p>
+                    <h3 class="value-prop-title">It checks itself.</h3>
+                    <p class="value-prop-desc">Every night it checks its notes: stale, duplicated, or two that disagree. Flagged for you, never deleted. Every job adds to it.</p>
                 </div>
             </div>
         </div>
@@ -1154,21 +1155,23 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- PROOF (message update, 2026-11-16)       -->
     <!-- ═══════════════════════════════════════ -->
-    <!-- Three things that are true on ICG's own brain today: the login stamp on saves (2026-11-15), signed handoffs and
-         the one-writer handoff log (2026-11-13), and the live Agent Deck. Say "signed and logged", never "can't be faked".
+    <!-- Three things that are true on ICG's own brain today: signed handoffs and the one-writer handoff log (2026-11-13),
+         the live session recorder with its nightly outside timestamp (2026-11-14/15), and the live Agent Deck. Say "signed and
+         logged", never "can't be faked", and never that the record covers everything every agent did: it covers handoffs and
+         recorded sessions. Agents pass the work; a person makes the calls (never "no human in the loop").
          The quote is Sandy's, reworded from Juan's notes on 2026-11-16: SHE APPROVES THE WORDING BEFORE THIS SHIPS. -->
     <section class="section" id="mm-proof">
         <span id="proof" class="mm-anchor" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Proof</span>
-                <h2 class="section-title">Every handoff<br><span class="text-accent">leaves a receipt.</span></h2>
+                <h2 class="section-title">They worked all night.<br><span class="text-accent">Here's what they did.</span></h2>
             </div>
             <div class="mm-proof-grid">
                 <div class="mm-proof-list gsap-animate">
-                    <p><strong>Who wrote it.</strong> Saves show the person signed in and the AI they used.</p>
-                    <p><strong>Who handed it on.</strong> Every handoff between AI agents is signed and logged. No agent can change the log.</p>
-                    <p><strong>Who's on it now.</strong> One live board shows every agent, on every computer, and what needs a person.</p>
+                    <p><strong>Who handed what to whom.</strong> Every handoff between AI agents is signed and logged. No agent can change the log.</p>
+                    <p><strong>What got done, and when.</strong> Sessions are recorded as they happen. Every night an outside service time-stamps the record.</p>
+                    <p><strong>What's waiting for you.</strong> One live board shows every agent, on every computer, and every job that needs a person.</p>
                 </div>
                 <figure class="mm-proof-shot gsap-animate">
                     <!-- PLACEHOLDER, DO NOT SHIP: replace this div with <img src="assets/proof-agent-deck.jpg" alt="..." width height>
@@ -1598,7 +1601,7 @@
                         <img src="assets/icg-mark.png" alt="" width="22" height="22" />
                         <span>by Inspired Creative Group Inc.</span>
                     </a>
-                    <p class="footer-tagline">One brain for every AI and everyone on your team. You own it.</p>
+                    <p class="footer-tagline">Your company, with every AI sharing one memory. You own it.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Navigation</h4>
