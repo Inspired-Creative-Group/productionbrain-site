@@ -290,6 +290,15 @@
   25%{scale:1.035;text-shadow:0 0 26px rgba(232,0,13,.85)}
   50%{scale:1;text-shadow:0 0 18px rgba(232,0,13,.45)}
   75%{scale:1.025;text-shadow:0 0 24px rgba(232,0,13,.7)}}
+/* The Production Brain logo is where the wire starts: left of the first line on desktop, top of the line on phones.
+   Grey like the logo, turning red and back, over and over (Sandy, 2026-11-19). */
+.mm-can-list{position:relative}
+.mm-can-logo{position:absolute;left:-46px;top:1px;width:34px;height:35px;transform:translateY(-50%);
+  -webkit-mask:url(assets/pb-logo.svg) center/contain no-repeat;mask:url(assets/pb-logo.svg) center/contain no-repeat;
+  background:#a0a0a0;animation:mmCanLogo 4s ease-in-out infinite}
+.mm-can-list::after{content:'';position:absolute;left:-12px;top:0;width:12px;height:2px;background:rgba(163,147,125,.55)}   /* short wire from the logo to the first tick */
+@keyframes mmCanLogo{0%,100%{background:#a0a0a0}50%{background:var(--color-red)}}
+@media (min-width:1001px) and (max-width:1300px){ .mm-can-list{margin-left:46px} }   /* narrow laptops: the page margin is too thin for the logo, so the lines step in */
 @media (max-width:1000px){
   .mm-can{padding:8px 0 40px;background:#14110E}   /* phone: same ground as the hero list above, so the two lists read as one */
   .mm-can-item::after{box-shadow:0 0 0 3px #14110E !important}
@@ -304,9 +313,14 @@
   .mm-can-txt{max-width:93%}
   .mm-can-item.is-lit .mm-can-txt{transform:scale(1.06)}
   .mm-can-item::after{left:calc(-18px - 5px);top:calc(9px + .75em - 5px)}
+  .mm-can-list{padding-top:36px}
+  .mm-can-list::before{top:34px}
+  .mm-can-list::after{display:none}
+  .mm-can-logo{left:calc(-18px - 14px);top:0;width:28px;height:29px;transform:none}
 }
 @media (prefers-reduced-motion:reduce){
   .mm-can-item,.mm-can-item::before,.mm-can-item::after,.mm-can-txt{transition:none;animation:none}
+  .mm-can-logo{animation:none}
 }
 
 /* ── CARDS ───────────────────────────────────────────────────────────────
@@ -1062,6 +1076,7 @@
     <section class="mm-can" id="mm-can" aria-label="What the brain does">
         <div class="container">
           <ol class="mm-can-list">
+            <li class="mm-can-logo" aria-hidden="true"></li>
             <li class="mm-can-item"><span class="mm-can-txt">Save decisions once. Find them later.</span></li>
             <li class="mm-can-item"><span class="mm-can-txt">Pick up where a teammate left off.</span></li>
             <li class="mm-can-item"><span class="mm-can-txt">Pass work between connected AI tools without copy&#8209;paste.</span></li>
