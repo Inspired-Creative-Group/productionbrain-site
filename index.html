@@ -553,6 +553,24 @@
         #mm-proof .mm-proof-row img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid #2a2a2a;box-shadow:0 18px 44px rgba(0,0,0,.55)}
         #mm-proof .mm-proof-note{font-size:.85rem;color:var(--color-gray-400);margin:-1.5rem 0 0;text-align:right}
         @media (max-width:860px){ #mm-proof .mm-proof-row{grid-template-columns:1fr;gap:1.1rem;margin-bottom:2.5rem} #mm-proof .mm-proof-note{text-align:left;margin-top:-1rem} }
+        /* The Agent Deck promo (37 s, Juan's cut, approved 2026-11-19) leads the Proof section. Self-hosted, loads nothing until clicked,
+           plays with sound only on a click (Sandy, 2026-11-19). The cover comes back when it ends. */
+        #mm-proof .mm-pv{margin:0 0 3.5rem}
+        #mm-proof .mm-pv-stage{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;border:1px solid #2a2a2a;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+        #mm-proof .mm-pv-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
+        #mm-proof .mm-pv-cover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.6rem,1.6vw,1.1rem);
+          border:0;padding:0;margin:0;cursor:pointer;color:#fff;background:radial-gradient(ellipse at center,rgba(0,0,0,.15) 0%,rgba(0,0,0,.55) 100%);transition:opacity .3s ease}
+        #mm-proof .mm-pv-cover[hidden]{display:none}
+        #mm-proof .mm-pv-cover.is-gone{opacity:0;pointer-events:none}
+        #mm-proof .mm-pv-play{position:relative;display:grid;place-items:center;width:clamp(56px,8vw,104px);aspect-ratio:1;border-radius:50%;background:var(--color-red);
+          box-shadow:0 10px 44px rgba(232,0,13,.5);transition:transform .25s ease,box-shadow .25s ease}
+        #mm-proof .mm-pv-play svg{width:44%;margin-left:8%}
+        #mm-proof .mm-pv-play::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(232,0,13,.7);animation:mm-vsl-ring 2.4s ease-out infinite}
+        #mm-proof .mm-pv-cover:hover .mm-pv-play,#mm-proof .mm-pv-cover:focus-visible .mm-pv-play{transform:scale(1.07);box-shadow:0 12px 56px rgba(232,0,13,.65)}
+        #mm-proof .mm-pv-cover:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+        #mm-proof .mm-pv-len{font-family:var(--font-heading);font-weight:600;font-size:clamp(.72rem,1.1vw,.9rem);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.9)}
+        @media (max-width:860px){ #mm-proof .mm-pv{margin-bottom:2.5rem} #mm-proof .mm-pv-stage{border-radius:8px} }
+        @media (prefers-reduced-motion: reduce){ #mm-proof .mm-pv-play::after{animation:none} #mm-proof .mm-pv-cover,#mm-proof .mm-pv-play{transition:none} }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         /* The launch video section, right under the hero (Sandy, 2026-10-09) */
         /* The launch video: a cinema band right under the hero. The frame is as large as the screen allows
@@ -1300,6 +1318,17 @@
                 <span class="section-label">Proof</span>
                 <h2 class="section-title">The Agent Deck.<br><span class="text-accent"><span class="mm-proof-line">Every handoff on record.</span> <span class="mm-proof-line">Every job in view.</span></span></h2>
             </div>
+            <figure class="mm-pv">
+                <div class="mm-pv-stage">
+                    <video id="mmProofVideo" preload="none" playsinline poster="assets/proof/agent-deck-promo-poster.jpg" width="1920" height="1080" aria-label="The Agent Deck in action, 37 seconds">
+                        <source src="assets/proof/agent-deck-promo.mp4" type="video/mp4">
+                    </video>
+                    <button type="button" class="mm-pv-cover" id="mmProofPlay" aria-label="Play the Agent Deck video, 37 seconds, with sound">
+                        <span class="mm-pv-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+                        <span class="mm-pv-len">Watch · 0:37 · Sound on</span>
+                    </button>
+                </div>
+            </figure>
             <div class="mm-proof-rows">
                 <div class="mm-proof-row gsap-animate">
                     <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and agents that hold a key sign their handoffs, so we can see who passed what to whom and a fake one gets flagged.</p>
@@ -1321,6 +1350,30 @@
             </blockquote>
         </div>
     </section>
+    <script>
+      // Agent Deck promo: plays with sound only when clicked; the cover returns at the end. GA: agentdeck_play, agentdeck_complete.
+      (() => {
+        const v = document.getElementById('mmProofVideo'), cover = document.getElementById('mmProofPlay');
+        if (!v || !cover) return;
+        const send = n => { try { window.gtag && gtag('event', n, { video_title: 'Agent Deck promo' }); } catch (e) {} };
+        let started = false;
+        cover.addEventListener('click', () => {
+          v.controls = true;
+          cover.classList.add('is-gone');
+          setTimeout(() => { cover.hidden = true; }, 300);
+          const p = v.play();
+          if (p && p.catch) p.catch(() => {});   // if the browser refuses, its own controls are showing to tap
+          if (!started) { started = true; send('agentdeck_play'); }
+        });
+        v.addEventListener('ended', () => {
+          send('agentdeck_complete'); started = false;
+          if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+          if (v.webkitDisplayingFullscreen && v.webkitExitFullscreen) v.webkitExitFullscreen();
+          v.controls = false; v.load();          // back to the cover picture
+          cover.hidden = false; requestAnimationFrame(() => cover.classList.remove('is-gone'));
+        });
+      })();
+    </script>
 
     <!-- ═══════════════════════════════════════ -->
     <!-- THE VIDEO (launch VSL, Vimeo, plays only on theproductionbrain.ai). Moved below Proof on 2026-11-16: it tells the earlier story. -->
