@@ -509,6 +509,13 @@
         @media (max-width:1000px){
           .partners-hero-title.mm-hero-problem{font-size:clamp(1.9rem,8.6vw,4rem);line-height:1.03}
         }
+        /* iPhone sideways: the title stacks one sentence per line like portrait, sized to the short screen,
+           and the line under it reads as a subhead (about half the title) (Sandy, 2026-11-19) */
+        @media (max-width:1000px) and (orientation:landscape) and (max-height:500px){
+          .partners-hero-title .mm-h1-line{display:block}
+          .partners-hero-title.mm-hero-problem{font-size:clamp(2rem,12svh,3.4rem);line-height:1.03}
+          .mm-hero-answer{font-size:clamp(1.1rem,5.6svh,1.6rem);line-height:1.3;max-width:34ch}
+        }
         /* Proof section (2026-11-16): three plain lines beside one screen capture, then the quote. */
         #mm-proof{background:#0a0a0a}
         #mm-proof .mm-proof-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:2.5rem;align-items:center}
