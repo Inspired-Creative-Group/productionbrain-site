@@ -253,6 +253,62 @@
   .mm-marks svg{width:1.4em;height:1.4em}
 }
 
+/* ── WHAT IT DOES: the banner under the hero (Sandy, 2026-11-18) ─────────
+   Eight lines hang off one wire, the hero diagram's look (Plex Mono, brass).
+   Every line is visible from the start; a red signal only lights them in turn.
+   Desktop: two rows of four on a horizontal wire. Phone: one column on a
+   vertical line at the same x as the hero list's line, so it reads as its
+   continuation. */
+.mm-can{--mm-ink:#EFE9DE;--mm-faint:#9A9186;--mm-brass:#E0B978;--mm-line:#A3937D;
+  --mm-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  position:relative;background:#000;padding:clamp(.5rem,1.5vw,1.5rem) 0 clamp(2.75rem,4.5vw,4rem);font-family:var(--mm-mono)}   /* black: reads as the hero's bottom edge, no seam */
+.mm-can-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);row-gap:clamp(2rem,3.2vw,2.75rem)}
+.mm-can-item{position:relative;padding:22px 22px 0 0;font-size:clamp(14px,1.1vw,16px);line-height:1.5;
+  color:var(--mm-ink);letter-spacing:.01em;transition:color .5s ease}
+/* the wire: one segment per item, so a row of four reads as one line */
+.mm-can-item::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,var(--color-red) 0 50%,rgba(163,147,125,.55) 50% 100%) 100% 0/200% 100% no-repeat}
+/* the tick where the line hangs from the wire */
+.mm-can-item::after{content:'';position:absolute;left:0;top:-4px;width:10px;height:10px;border-radius:50%;
+  background:var(--mm-line);box-shadow:0 0 0 3px #000;transition:background .4s ease,box-shadow .4s ease}
+.mm-can-item.is-lit{color:#fff}
+.mm-can-item.is-lit::before{background-position:0 0;transition:background-position 1.1s cubic-bezier(.4,0,.2,1)}
+.mm-can-item.is-lit::after{background:var(--color-red);box-shadow:0 0 0 3px #000,0 0 14px 2px rgba(232,0,13,.7)}
+.mm-can-item.was-lit::before{background-position:0 0;opacity:.45}   /* the wire stays lit where the signal has passed */
+.mm-can-item.was-lit::after{background:var(--mm-brass)}
+/* the lit line zooms in and pulses as the signal reaches it; the others step back
+   (only while the signal runs, so with motion off every line stays full strength) (Sandy, 2026-11-18) */
+.mm-can-txt{display:inline-block;max-width:90%;transform-origin:0 50%;   /* 90%: room to zoom without touching the next column */
+  transition:transform .6s cubic-bezier(.34,1.4,.64,1),opacity .5s ease,text-shadow .5s ease}
+.mm-can.is-running .mm-can-item:not(.is-lit) .mm-can-txt{opacity:.5}
+.mm-can.is-running .mm-can-item.was-lit:not(.is-lit) .mm-can-txt{opacity:.7}
+.mm-can-item.is-lit .mm-can-txt{transform:scale(1.09);
+  text-shadow:0 0 18px rgba(232,0,13,.45);
+  animation:mmCanPulse 1.5s ease-in-out .55s 1 both}
+@keyframes mmCanPulse{
+  0%,100%{scale:1;text-shadow:0 0 18px rgba(232,0,13,.45)}
+  25%{scale:1.035;text-shadow:0 0 26px rgba(232,0,13,.85)}
+  50%{scale:1;text-shadow:0 0 18px rgba(232,0,13,.45)}
+  75%{scale:1.025;text-shadow:0 0 24px rgba(232,0,13,.7)}}
+@media (max-width:1000px){
+  .mm-can{padding:8px 0 40px;background:#14110E}   /* phone: same ground as the hero list above, so the two lists read as one */
+  .mm-can-item::after{box-shadow:0 0 0 3px #14110E !important}
+  .mm-can-item.is-lit::after{box-shadow:0 0 0 3px #14110E,0 0 14px 2px rgba(232,0,13,.7) !important}
+  .mm-can .container{padding:0 18px 0 calc(6.5% + 18px);max-width:none}
+  .mm-can-list{grid-template-columns:1fr;row-gap:0;position:relative}
+  .mm-can-list::before{content:'';position:absolute;left:calc(-18px - 1px);top:0;bottom:0;width:2px;background:var(--mm-line);opacity:.7}
+  .mm-can-item{padding:9px 0;font-size:15px}
+  .mm-can-item::before{left:-18px;right:auto;top:calc(9px + .75em - 1px);width:18px;
+    background:linear-gradient(90deg,var(--color-red) 0 50%,var(--mm-line) 50% 100%) 100% 0/200% 100% no-repeat}
+  .mm-can-item.is-lit::before{transition-duration:.5s}
+  .mm-can-txt{max-width:93%}
+  .mm-can-item.is-lit .mm-can-txt{transform:scale(1.06)}
+  .mm-can-item::after{left:calc(-18px - 5px);top:calc(9px + .75em - 5px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .mm-can-item,.mm-can-item::before,.mm-can-item::after,.mm-can-txt{transition:none;animation:none}
+}
+
 /* ── CARDS ───────────────────────────────────────────────────────────────
    Ported from the main ICG site's .value-prop-card / .pillar-card, which is
    where the treatment Juan pointed at lives (style.css, around line 786).
@@ -980,6 +1036,44 @@
     </section>
 
     <main id="main-content">
+
+    <!-- WHAT IT DOES: banner under the hero, Sandy's eight lines (2026-11-18). All visible by default; the script only lights them in turn. -->
+    <section class="mm-can" id="mm-can" aria-label="What the brain does">
+        <div class="container">
+          <ol class="mm-can-list">
+            <li class="mm-can-item"><span class="mm-can-txt">Save decisions once. Find them later.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Pick up where a teammate left off.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Pass work between connected AI tools without copy&#8209;paste.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">See who saved a decision and where work went next.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Catch conflicting or outdated notes.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Save and look things up from your phone or computer.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Keep your company’s memory on your own computer.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Run memory checks without spending cloud AI credits.</span></li>
+          </ol>
+        </div>
+    </section>
+    <script>
+    (function(){
+      var sec=document.getElementById('mm-can'); if(!sec) return;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var items=[].slice.call(sec.querySelectorAll('.mm-can-item')), i=-1, timer=null, onScreen=false, held=false;
+      function step(){
+        if(i>=0){ items[i].classList.remove('is-lit'); items[i].classList.add('was-lit'); }
+        i=(i+1)%items.length;
+        if(i===0) items.forEach(function(el){ el.classList.remove('was-lit'); });
+        items[i].classList.add('is-lit');
+      }
+      function run(){ if(timer||!onScreen||held||document.hidden) return; sec.classList.add('is-running'); step(); timer=setInterval(step,2600); }
+      function stop(){ clearInterval(timer); timer=null; }
+      new IntersectionObserver(function(e){ onScreen=e[0].isIntersecting; onScreen?run():stop(); },{threshold:.25}).observe(sec);
+      document.addEventListener('visibilitychange',function(){ document.hidden?stop():run(); });
+      /* pointing at a line holds the signal on it */
+      items.forEach(function(el,k){
+        el.addEventListener('mouseenter',function(){ held=true; stop(); if(i>=0) items[i].classList.remove('is-lit'); i=k; el.classList.add('is-lit'); });
+        el.addEventListener('mouseleave',function(){ held=false; run(); });
+      });
+    })();
+    </script>
 
     <!-- ═══════════════════════════════════════ -->
     <!-- PROBLEM (ICG stakes layout)              -->
