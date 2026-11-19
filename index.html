@@ -262,7 +262,7 @@
 .mm-can{--mm-ink:#EFE9DE;--mm-faint:#9A9186;--mm-brass:#E0B978;--mm-line:#A3937D;
   --mm-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   position:relative;background:#000;padding:clamp(.5rem,1.5vw,1.5rem) 0 clamp(2.75rem,4.5vw,4rem);font-family:var(--mm-mono)}   /* black: reads as the hero's bottom edge, no seam */
-.mm-can-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);row-gap:clamp(2rem,3.2vw,2.75rem)}
+.mm-can-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);row-gap:clamp(2rem,3.2vw,2.75rem)}
 .mm-can-item{position:relative;padding:22px 22px 0 0;font-size:clamp(14px,1.1vw,16px);line-height:1.5;
   color:var(--mm-ink);letter-spacing:.01em;transition:color .5s ease}
 /* the wire: one segment per item, so a row of four reads as one line */
@@ -1048,7 +1048,7 @@
 
     <main id="main-content">
 
-    <!-- WHAT IT DOES: banner under the hero, Sandy's eight lines (2026-11-18). All visible by default; the script only lights them in turn. -->
+    <!-- WHAT IT DOES: banner under the hero, Sandy's nine lines (2026-11-18; ninth added 2026-11-19, grid now 3x3 on desktop). All visible by default; the script only lights them in turn. -->
     <section class="mm-can" id="mm-can" aria-label="What the brain does">
         <div class="container">
           <ol class="mm-can-list">
@@ -1060,6 +1060,7 @@
             <li class="mm-can-item"><span class="mm-can-txt">Save and look things up from your phone or computer.</span></li>
             <li class="mm-can-item"><span class="mm-can-txt">Keep your company’s memory on your own computer.</span></li>
             <li class="mm-can-item"><span class="mm-can-txt">Run memory checks without spending cloud AI credits.</span></li>
+            <li class="mm-can-item"><span class="mm-can-txt">Have your autonomous workflows run overnight.</span></li>
           </ol>
         </div>
     </section>
