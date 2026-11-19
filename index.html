@@ -513,8 +513,11 @@
            and the line under it reads as a subhead (about half the title) (Sandy, 2026-11-19) */
         @media (max-width:1000px) and (orientation:landscape) and (max-height:500px){
           .partners-hero-title .mm-h1-line{display:block}
-          .partners-hero-title.mm-hero-problem{font-size:clamp(2rem,12svh,3.4rem);line-height:1.03}
-          .mm-hero-answer{font-size:clamp(1.1rem,5.6svh,1.6rem);line-height:1.3;max-width:34ch}
+          /* sized by width, not height (Safari's bars shrink the height); proportions as on a computer:
+             subhead about 0.4 of the title, its lines about as wide as the title's (Sandy, 2026-11-19) */
+          .partners-hero-title.mm-hero-problem{font-size:clamp(2.6rem,min(7.4vw,16.5svh),4.4rem);line-height:1.02;margin-bottom:0}
+          .mm-hero-answer{font-size:clamp(1.15rem,2.9vw,1.75rem);line-height:1.3;max-width:none;margin-top:.9rem;text-wrap:balance}
+          .partners-hero:has(.mm-hero-problem){padding-top:84px}   /* was 136px: less empty space under the top bar, so the subhead stays on the first screen */
         }
         /* Proof section (2026-11-16): three plain lines beside one screen capture, then the quote. */
         #mm-proof{background:#0a0a0a}
