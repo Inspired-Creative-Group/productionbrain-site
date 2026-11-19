@@ -555,7 +555,7 @@
         @media (max-width:860px){ #mm-proof .mm-proof-row{grid-template-columns:1fr;gap:1.1rem;margin-bottom:2.5rem} #mm-proof .mm-proof-note{text-align:left;margin-top:-1rem} }
         /* The Agent Deck promo (37 s, Juan's cut, approved 2026-11-19) leads the Proof section. Self-hosted, loads nothing until clicked,
            plays with sound only on a click (Sandy, 2026-11-19). The cover comes back when it ends. */
-        #mm-proof .mm-pv{margin:0 0 3.5rem}
+        #mm-proof .mm-pv{margin:.6rem 0 clamp(2rem,4vw,3rem)}   /* order (Sandy, 2026-11-19): label "Proof", the video, then the headline */
         #mm-proof .mm-pv-stage{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;border:1px solid #2a2a2a;box-shadow:0 24px 60px rgba(0,0,0,.6)}
         #mm-proof .mm-pv-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
         #mm-proof .mm-pv-cover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.6rem,1.6vw,1.1rem);
@@ -569,7 +569,7 @@
         #mm-proof .mm-pv-cover:hover .mm-pv-play,#mm-proof .mm-pv-cover:focus-visible .mm-pv-play{transform:scale(1.07);box-shadow:0 12px 56px rgba(232,0,13,.65)}
         #mm-proof .mm-pv-cover:focus-visible{outline:3px solid #fff;outline-offset:-6px}
         #mm-proof .mm-pv-len{font-family:var(--font-heading);font-weight:600;font-size:clamp(.72rem,1.1vw,.9rem);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.9)}
-        @media (max-width:860px){ #mm-proof .mm-pv{margin-bottom:2.5rem} #mm-proof .mm-pv-stage{border-radius:8px} }
+        @media (max-width:860px){ #mm-proof .mm-pv{margin-bottom:1.6rem} #mm-proof .mm-pv-stage{border-radius:8px} }
         @media (prefers-reduced-motion: reduce){ #mm-proof .mm-pv-play::after{animation:none} #mm-proof .mm-pv-cover,#mm-proof .mm-pv-play{transition:none} }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         /* The launch video section, right under the hero (Sandy, 2026-10-09) */
@@ -1316,19 +1316,19 @@
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Proof</span>
+                <figure class="mm-pv">
+                    <div class="mm-pv-stage">
+                        <video id="mmProofVideo" preload="none" playsinline poster="assets/proof/agent-deck-promo-poster.jpg" width="1920" height="1080" aria-label="The Agent Deck in action, 37 seconds">
+                            <source src="assets/proof/agent-deck-promo.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="mm-pv-cover" id="mmProofPlay" aria-label="Play the Agent Deck video, 37 seconds, with sound">
+                            <span class="mm-pv-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+                            <span class="mm-pv-len">Watch · 0:37 · Sound on</span>
+                        </button>
+                    </div>
+                </figure>
                 <h2 class="section-title">The Agent Deck.<br><span class="text-accent"><span class="mm-proof-line">Every handoff on record.</span> <span class="mm-proof-line">Every job in view.</span></span></h2>
             </div>
-            <figure class="mm-pv">
-                <div class="mm-pv-stage">
-                    <video id="mmProofVideo" preload="none" playsinline poster="assets/proof/agent-deck-promo-poster.jpg" width="1920" height="1080" aria-label="The Agent Deck in action, 37 seconds">
-                        <source src="assets/proof/agent-deck-promo.mp4" type="video/mp4">
-                    </video>
-                    <button type="button" class="mm-pv-cover" id="mmProofPlay" aria-label="Play the Agent Deck video, 37 seconds, with sound">
-                        <span class="mm-pv-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-                        <span class="mm-pv-len">Watch · 0:37 · Sound on</span>
-                    </button>
-                </div>
-            </figure>
             <div class="mm-proof-rows">
                 <div class="mm-proof-row gsap-animate">
                     <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and agents that hold a key sign their handoffs, so we can see who passed what to whom and a fake one gets flagged.</p>
