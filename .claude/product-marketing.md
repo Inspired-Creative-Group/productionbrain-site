@@ -14,7 +14,7 @@ Rewritten 2026-11-16 and 2026-11-17 for the message update (brief: vault `projec
 ## The offer (what the page sells today)
 One brain for the business, on a dedicated machine (a Mac Studio) in the client's studio, built by hand and maintained remotely by ICG over a private encrypted network. It keeps its own notes, checks itself every night for stale or contradicting facts, and never deletes. Build fee plus monthly maintenance; hardware bought by the client at Apple's price; 90-day refund of the build fee on standard pricing.
 
-**The page shows no prices** (since 2026-10-16). Prices are locked in the vault (`2026-10-04-production-brain-pricing-LOCKED`); what the page displays is Juan's call. Founding offer: one studio, free build, 30% off maintenance for the first year, no deadline.
+**The page shows no prices** (since 2026-10-16). Prices are locked in the vault (`2026-10-04-production-brain-pricing-LOCKED`); what the page displays is Juan's call. No free build and no founding offer since 2026-11-20 (Sandy): every setup is scoped and quoted after a first call. The page says "a setup fee quoted for your team"; no price is shown.
 
 **Not on the page:** the Cloud and Local tiers. Cloud has no design or price; Local's smaller model is untested.
 
@@ -46,4 +46,4 @@ Juan Valencia's: direct, warm, no filler, no em dashes, no AI tells, clarity ove
 The "Grok Bot Joins the Team" YouTube episode (out by 2026-11-20) sends viewers here with the one-brain story. Also LinkedIn messages from Juan, the launch video, the Volta founders network. Visitors are producers, not IT buyers.
 
 ## The one action
-"Apply for the free build" (form). A secondary link in the form asks for standard pricing.
+"Talk to us" (form, and every button that leads to it). No pricing toggle.
