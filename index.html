@@ -574,6 +574,21 @@
         #mm-proof .mm-pv-len{font-family:var(--font-heading);font-weight:600;font-size:clamp(.72rem,1.1vw,.9rem);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.9)}
         @media (max-width:860px){ #mm-proof .mm-pv{margin-bottom:1.6rem} #mm-proof .mm-pv-stage{border-radius:8px} }
         @media (prefers-reduced-motion: reduce){ #mm-proof .mm-pv-play::after{animation:none} #mm-proof .mm-pv-cover,#mm-proof .mm-pv-play{transition:none} }
+        /* Proof screenshots: click to see them full screen, computers only (Sandy, 2026-11-20). Phones keep plain images. */
+        @media (hover:hover) and (pointer:fine) and (min-width:861px){
+          #mm-proof .mm-proof-row img{cursor:zoom-in;transition:transform .25s ease,box-shadow .25s ease}
+          #mm-proof .mm-proof-row img:hover{transform:scale(1.015);box-shadow:0 24px 60px rgba(0,0,0,.7)}
+          #mm-proof .mm-proof-row img:focus-visible{outline:3px solid #fff;outline-offset:4px}
+        }
+        .mm-zoom{position:fixed;inset:0;width:100vw;height:100vh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;overflow:hidden}
+        .mm-zoom::backdrop{background:rgba(0,0,0,.92)}
+        .mm-zoom[open]{display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+        .mm-zoom img{display:block;max-width:94vw;max-height:88vh;width:auto;height:auto;border-radius:10px;border:1px solid #2a2a2a;box-shadow:0 30px 90px rgba(0,0,0,.8);animation:mmZoomIn .28s cubic-bezier(.2,.8,.2,1)}
+        .mm-zoom-close{position:fixed;top:1.25rem;right:1.25rem;display:flex;align-items:center;gap:.5rem;padding:.55rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.55);color:#fff;font-family:var(--font-heading);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s}
+        .mm-zoom-close:hover,.mm-zoom-close:focus-visible{background:var(--color-red);border-color:var(--color-red);outline:none}
+        .mm-zoom-close span{font-size:1.2rem;line-height:1;letter-spacing:0}
+        @keyframes mmZoomIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+        @media (prefers-reduced-motion: reduce){ #mm-proof .mm-proof-row img{transition:none} #mm-proof .mm-proof-row img:hover{transform:none} .mm-zoom img{animation:none} }
         .mm-video { max-width: 960px; margin: 2rem 0 0; }
         /* The launch video section, right under the hero (Sandy, 2026-10-09) */
         /* The launch video: a cinema band right under the hero. The frame is as large as the screen allows
@@ -1347,12 +1362,46 @@
                 </div>
                 <p class="mm-proof-note">Our own team at work. Private details changed.</p>
             </div>
+            <dialog class="mm-zoom" id="mmZoom" aria-label="Screenshot, full screen">
+                <img src="" alt="">
+                <button type="button" class="mm-zoom-close" aria-label="Close the full-screen view"><span aria-hidden="true">×</span> Close</button>
+            </dialog>
             <blockquote class="mm-quote gsap-animate">
                 <p>“I send a job to any agent, on any of our computers or in the cloud, and it comes back done. It’s like working with a real team of intelligent robots.”</p>
                 <cite>Sandy Peic, Creative Director, Inspired Creative Group</cite>
             </blockquote>
         </div>
     </section>
+    <script>
+      // Proof screenshots open full screen on a computer (Sandy, 2026-11-20). Not on phones or tablets.
+      // Closes on a click anywhere, the Close button, or Esc, and the picture goes back to its place.
+      (() => {
+        const dlg = document.getElementById('mmZoom');
+        const shots = document.querySelectorAll('#mm-proof .mm-proof-row img');
+        if (!dlg || !shots.length || typeof dlg.showModal !== 'function') return;
+        const big = dlg.querySelector('img');
+        const desk = window.matchMedia('(hover:hover) and (pointer:fine) and (min-width:861px)');
+        let from = null;
+        const setUp = () => shots.forEach(img => {
+          if (desk.matches) { img.tabIndex = 0; img.setAttribute('role', 'button'); img.setAttribute('aria-label', 'See full screen: ' + img.alt); }
+          else { img.removeAttribute('tabindex'); img.removeAttribute('role'); img.removeAttribute('aria-label'); }
+        });
+        const open = img => {
+          if (!desk.matches) return;
+          from = img; big.src = img.currentSrc || img.src; big.alt = img.alt;
+          document.documentElement.style.overflow = 'hidden';
+          dlg.showModal();
+        };
+        shots.forEach(img => {
+          img.addEventListener('click', () => open(img));
+          img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
+        });
+        dlg.addEventListener('click', () => dlg.close());
+        dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; if (from) from.focus({ preventScroll: true }); });
+        setUp();
+        (desk.addEventListener ? desk.addEventListener('change', setUp) : desk.addListener(setUp));
+      })();
+    </script>
     <script>
       // Agent Deck promo: plays with sound only when clicked; the cover returns at the end. GA: agentdeck_play, agentdeck_complete.
       (() => {
