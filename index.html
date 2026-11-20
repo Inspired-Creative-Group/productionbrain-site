@@ -583,7 +583,7 @@
         .mm-zoom{position:fixed;inset:0;width:100vw;height:100vh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;overflow:hidden}
         .mm-zoom::backdrop{background:rgba(0,0,0,.92)}
         .mm-zoom[open]{display:flex;align-items:center;justify-content:center;cursor:zoom-out}
-        .mm-zoom img{display:block;max-width:94vw;max-height:88vh;width:auto;height:auto;border-radius:10px;border:1px solid #2a2a2a;box-shadow:0 30px 90px rgba(0,0,0,.8);animation:mmZoomIn .28s cubic-bezier(.2,.8,.2,1)}
+        .mm-zoom img{display:block;width:min(94vw,calc(88vh * 1.6));height:auto;aspect-ratio:16/10;border-radius:10px;border:1px solid #2a2a2a;box-shadow:0 30px 90px rgba(0,0,0,.8);animation:mmZoomIn .28s cubic-bezier(.2,.8,.2,1)}
         .mm-zoom-close{position:fixed;top:1.25rem;right:1.25rem;display:flex;align-items:center;gap:.5rem;padding:.55rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.55);color:#fff;font-family:var(--font-heading);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s}
         .mm-zoom-close:hover,.mm-zoom-close:focus-visible{background:var(--color-red);border-color:var(--color-red);outline:none}
         .mm-zoom-close span{font-size:1.2rem;line-height:1;letter-spacing:0}
@@ -1350,15 +1350,15 @@
             <div class="mm-proof-rows">
                 <div class="mm-proof-row gsap-animate">
                     <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and agents that hold a key sign their handoffs, so we can see who passed what to whom and a fake one gets flagged.</p>
-                    <img src="assets/proof/proof-1-handoffs.jpg" alt="Agent Deck job chain: a job passed from Claude Code to Gregorio to Claudia and back, each handoff marked Signed, with a forged reply flagged Signature invalid." width="1600" height="1000" loading="lazy" decoding="async">
+                    <img src="assets/proof/proof-1-handoffs.jpg" data-full="assets/proof/proof-1-handoffs@2x.jpg" alt="Agent Deck job chain: a job passed from Claude Code to Gregorio to Claudia and back, each handoff marked Signed, with a forged reply flagged Signature invalid." width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="mm-proof-row gsap-animate">
                     <p><strong>What got done, and when.</strong> Work sessions on our production machine are recorded as they happen, each entry linked to the one before it. Every night an outside time-stamping service seals where the record ends, so a later change to anything already sealed would show.</p>
-                    <img src="assets/proof/proof-2-record.jpg" alt="The production record: numbered entries, each carrying the hash of the one before it, and last night's seal by DigiCert marked ok." width="1600" height="1000" loading="lazy" decoding="async">
+                    <img src="assets/proof/proof-2-record.jpg" data-full="assets/proof/proof-2-record@2x.jpg" alt="The production record: numbered entries, each carrying the hash of the one before it, and last night's seal by DigiCert marked ok." width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="mm-proof-row gsap-animate">
                     <p><strong>What's waiting for you.</strong> One live board shows every agent, on every computer, and every job that needs a person.</p>
-                    <img src="assets/proof/proof-3-board.jpg" alt="The Agent Deck live board: agents on set across two computers, one job waiting for a person's call, one agent standing by and jobs wrapped today." width="1600" height="1000" loading="lazy" decoding="async">
+                    <img src="assets/proof/proof-3-board.jpg" data-full="assets/proof/proof-3-board@2x.jpg" alt="The Agent Deck live board: agents on set across two computers, one job waiting for a person's call, one agent standing by and jobs wrapped today." width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <p class="mm-proof-note">Our own team at work. Private details changed.</p>
             </div>
@@ -1389,6 +1389,11 @@
         const open = img => {
           if (!desk.matches) return;
           from = img; big.src = img.currentSrc || img.src; big.alt = img.alt;
+          if (img.dataset.full) {            // sharp 3200 px version, loaded only here (computers), swapped in when ready
+            const hi = new Image(); const want = img.dataset.full;
+            hi.onload = () => { if (dlg.open && from === img) big.src = want; };
+            hi.src = want;
+          }
           document.documentElement.style.overflow = 'hidden';
           dlg.showModal();
         };
