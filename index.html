@@ -932,6 +932,8 @@
         @media (max-width:360px) { .nav .mm-nav-icg { display:none; } }
         .nav .mm-menu .nav-link { white-space:nowrap; }
         #mm-form { scroll-margin-top:96px; }
+        /* Tablets and phones: the form sits right under "Tell us about your team." (Sandy, 2026-11-20; the gap was 112px) */
+        @media (max-width:1024px) { #founding-offer .contact-grid { row-gap:1.5rem; } #founding-offer .contact-info .contact-text { margin-bottom:0; } }
         /* readable addresses (Sandy, 2026-10-02): /#the-challenge etc. The anchor is the section's first child, so it lands where the section did */
         .mm-anchor { position:absolute; top:0; left:0; width:1px; height:1px; overflow:hidden; pointer-events:none; }
         section:has(> .mm-anchor) { position:relative; }
