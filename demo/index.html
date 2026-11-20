@@ -14,6 +14,22 @@
     .back-to-site { display: inline-block; margin: 0 0 1.4rem; font: 500 13px/1.3 "IBM Plex Sans", system-ui, sans-serif; color: #F2EDE6; text-decoration: none;
                     padding: 7px 12px; border: 1px solid rgba(255,244,230,0.18); border-radius: 999px; }
     .back-to-site:hover, .back-to-site:focus-visible { border-color: #E8000D; color: #fff; }
+    /* The back button, made obvious (Sandy, 2026-11-20): a red pill at the top centre of the brain on computers,
+       centred at the top of the page on phones. The rail copy shows only on phones; the scene copy only on computers. */
+    .back-pill { display:inline-flex; align-items:center; gap:.5em; font:600 15px/1 "IBM Plex Sans", system-ui, sans-serif; color:#fff; text-decoration:none;
+                 background:#E8000D; padding:12px 20px; border-radius:999px; box-shadow:0 8px 28px rgba(232,0,13,.35), 0 2px 8px rgba(0,0,0,.5);
+                 transition:background .2s ease, transform .2s ease, box-shadow .2s ease; white-space:nowrap; }
+    .back-pill:hover, .back-pill:focus-visible { background:#c4000b; transform:translateY(-1px); box-shadow:0 12px 36px rgba(232,0,13,.5), 0 2px 8px rgba(0,0,0,.5); outline:none; }
+    .back-pill:focus-visible { outline:2px solid #fff; outline-offset:3px; }
+    .scene > .back-pill { position:absolute; top:18px; left:50%; transform:translateX(-50%); z-index:30; }
+    .scene > .back-pill:hover, .scene > .back-pill:focus-visible { transform:translateX(-50%) translateY(-1px); }
+    .rail-hero > .back-to-site { display:none; }
+    @media (min-width:761px) and (max-width:1279px) { .scene > .back-pill { top:150px; } }   /* below the "need a look" box and the buttons, which fill the top row here */
+    @media (max-width:760px) {
+      .scene > .back-pill { display:none; }
+      .rail-hero > .back-to-site { display:flex; justify-content:center; width:max-content; margin:0 auto 1.4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { .back-pill { transition:none; } }
     /* No opening title card: the page opens straight on the brain growing (Sandy, 2026-10-08).
        The element stays in the page because dist/app.js writes to it and removes it itself. */
     .splash { display: none !important; }
@@ -50,7 +66,7 @@
     <!-- The ledger rail: what this is, how much there is, where it comes from. -->
     <aside class="rail" id="rail">
       <div class="rail-hero">
-        <a class="back-to-site" href="/#inside-a-brain">&larr; Back to The Production Brain</a>
+        <a class="back-to-site back-pill" href="/#inside-a-brain">&larr; Back to The Production Brain</a>
         <div class="studio"><i></i><span class="studio-name" id="studio-name"></span></div>
         <h1 class="rail-title">Everything this studio knows.</h1>
         <p class="lede" id="lede"></p>
@@ -80,6 +96,7 @@
     <section class="scene" id="scene" aria-label="The graph">
       <div id="graph"></div>
       <div class="scene-vignette" aria-hidden="true"></div>
+      <a class="back-pill" href="/#inside-a-brain">&larr; Back to The Production Brain</a>
 
       <div class="attention" id="attention">
         <div class="row">

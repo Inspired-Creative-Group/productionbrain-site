@@ -826,6 +826,21 @@
         .footer .mm-footer-icg:hover span, .footer .mm-footer-icg:focus-visible span { color:#fff; text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--color-red); }
         .footer .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
         .footer .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
+        /* Footer navigation: a compact grid in page order instead of one long list (Sandy, 2026-11-20).
+           Computers: 3 columns of 4. Tablets and phones: 2 columns of 6. Read down each column. */
+        .footer .footer-grid { grid-template-columns: 2fr 2.4fr 1fr; }
+        .footer .mm-footer-nav-list { display:grid; grid-auto-flow:column; grid-template-rows:repeat(4,auto); grid-template-columns:repeat(3,max-content); column-gap:clamp(1.5rem,3vw,3rem); }
+        .footer .mm-footer-nav-list a { min-height:36px; white-space:nowrap; }
+        @media (max-width:1024px) {
+          .footer .footer-grid { grid-template-columns:1fr 1fr; }
+          .footer .footer-brand { grid-column:1 / -1; }
+          .footer .mm-footer-nav-list { grid-template-rows:repeat(6,auto); grid-template-columns:repeat(2,max-content); }
+        }
+        @media (max-width:768px) {
+          .footer .footer-grid { grid-template-columns:1fr; }
+          .footer .mm-footer-nav-list { column-gap:2.5rem; }
+          .footer .mm-footer-nav-list a { min-height:40px; }
+        }
         .footer .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
         /* Why it exists: a plain red outline around the video, no glow (Sandy, 2026-09-29) */
         /* How it arrives: rays converging on the machine, and the hero brain over it (Sandy, 2026-09-29) */
@@ -1854,9 +1869,11 @@
                     </a>
                     <p class="footer-tagline mm-footer-line">Your people. Your AI tools.<br>One team.</p>
                 </div>
-                <div class="footer-links">
+                <div class="footer-links mm-footer-nav">
                     <h4>Navigation</h4>
-                    <!-- Same items as the top menu, named after the section labels (Sandy, 2026-10-01) -->
+                    <!-- Same items as the top menu, named after the section labels (Sandy, 2026-10-01).
+                         A compact grid in page order, read down each column (Sandy, 2026-11-20; was one long list). -->
+                    <div class="mm-footer-nav-list">
                     <a href="#the-challenge">The challenge</a>
                     <a href="#the-cost">The gap</a>
                     <a href="#remembers">Remembers</a>
@@ -1869,6 +1886,7 @@
                     <a href="#integrations">Integrations</a>
                     <a href="#faq">FAQ</a>
                     <a href="#contact">Contact</a>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
