@@ -2447,6 +2447,12 @@
         var order = Object.keys(links).map(function(id) { return links[id]._watch; }).filter(Boolean)
             .filter(function(el, i, a) { return a.indexOf(el) === i; })
             .sort(function(a, b) { return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1; });
+        /* Safety net for fast scrolls (back to top can skip an observer update): in the hero, nothing is lit */
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (ticking) return; ticking = true;
+            requestAnimationFrame(function() { ticking = false; if (current && order[0] && order[0].getBoundingClientRect().top > innerHeight * 0.45) mark(null); });
+        }, { passive: true });
     })();
     </script>
     <script src="gsap-animations.js"></script>
