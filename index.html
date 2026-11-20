@@ -556,6 +556,7 @@
         /* The Agent Deck promo (37 s, Juan's cut, approved 2026-11-19) leads the Proof section. Self-hosted, loads nothing until clicked,
            plays with sound only on a click (Sandy, 2026-11-19). The cover comes back when it ends. */
         #mm-proof .section-header{margin-bottom:clamp(1.75rem,3.5vw,2.75rem)}
+        #mm-proof .mm-proof-intro{max-width:760px;margin:1.1rem 0 0;color:var(--color-gray-300);font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.55}
         /* Phones: less empty space between Recalls (the day story) and Proof, ~230px to ~120px (Sandy, 2026-11-19) */
         @media (max-width:760px){ #mm-case.statement{padding-bottom:4.5rem} #mm-proof{padding-top:2.5rem} }   /* tighter gap from the headline to "Who handed what to whom." (Sandy, 2026-11-19; was 6rem) */
         #mm-proof .mm-pv{margin:.6rem 0 clamp(2rem,4vw,3rem)}   /* order (Sandy, 2026-11-19): label "Proof", the video, then the headline */
@@ -1360,11 +1361,13 @@
                         </button>
                     </div>
                 </figure>
-                <h2 class="section-title">The Agent Deck.<br><span class="text-accent"><span class="mm-proof-line">Every handoff on record.</span> <span class="mm-proof-line">Every job in view.</span></span></h2>
+                <h2 class="section-title">The brain at work.<br><span class="text-accent"><span class="mm-proof-line">Every handoff on record.</span> <span class="mm-proof-line">Every job in view.</span></span></h2>
+                <!-- What the Agent Deck is, so it doesn't read as a second product; every client gets their own deck and dashboard (Sandy, 2026-11-20) -->
+                <p class="section-subtitle mm-proof-intro">This is the Agent Deck, the live board on our own brain. It shows every AI agent at work, on every computer, and every job waiting for a person. Every client gets their own deck, plus a dashboard of what their brain knows and flags.</p>
             </div>
             <div class="mm-proof-rows">
                 <div class="mm-proof-row gsap-animate">
-                    <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and agents that hold a key sign their handoffs, so we can see who passed what to whom and a fake one gets flagged.</p>
+                    <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and signed by agents that hold a key, so a fake one gets flagged.</p>
                     <img src="assets/proof/proof-1-handoffs.jpg" data-full="assets/proof/proof-1-handoffs@2x.jpg" alt="Agent Deck job chain: a job passed from Claude Code to Gregorio to Claudia and back, each handoff marked Signed, with a forged reply flagged Signature invalid." width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="mm-proof-row gsap-animate">
@@ -1619,7 +1622,7 @@
             <svg class="mm-ann-lines" aria-hidden="true"></svg>
             <div class="mm-ann mm-ann-l" data-dot="45,71" data-at="33,64"><strong>The Mac Studio</strong>Bought for you at Apple's price, or bring your own.</div>
             <div class="mm-ann mm-ann-l" data-dot="40.5,80" data-at="33,82"><strong>Your tools, connected</strong>Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</div>
-            <div class="mm-ann mm-ann-r" data-dot="58,70.5" data-at="73,64"><strong>The brain, installed</strong>Its own models and your team's memory, on the machine.</div>
+            <div class="mm-ann mm-ann-r" data-dot="58,70.5" data-at="73,61.5"><strong>The brain, installed</strong>Its own models, your team's memory, your own Agent Deck and dashboard.</div>
             <div class="mm-ann mm-ann-r" data-dot="66,79" data-at="73,82"><strong>Maintenance</strong>Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</div>
         </div>
         <div class="container">
@@ -1637,7 +1640,7 @@
             <p class="mm-get-label">What you get</p>
             <ol class="mm-steps mm-get">
                 <li><span class="mm-step-num">01</span><span class="mm-step-text"><strong>The Mac Studio</strong> Bought for you at Apple's price, or bring your own.</span></li>
-                <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed</strong> Its own models and your team's memory, on the machine.</span></li>
+                <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed</strong> Its own models, your team's memory, your own Agent Deck and dashboard.</span></li>
                 <li><span class="mm-step-num">03</span><span class="mm-step-text"><strong>Your tools, connected</strong> Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</span></li>
                 <li><span class="mm-step-num">04</span><span class="mm-step-text"><strong>Maintenance</strong> Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</span></li>
             </ol>

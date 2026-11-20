@@ -28,6 +28,7 @@ AI-forward multimedia producers and small studios (video, design, audio): solo p
 - Handoffs between AI agents with no copy-paste, across two computers (proven 2026-11-15).
 - Every agent signs its handoffs with its own key, and one handoff log is written only by the main machine, so no agent can rewrite it.
 - A live board (Agent Deck) shows every agent and handoff; its demo view hides private text.
+  - **Promise on the page since 2026-11-20 (Sandy):** every client gets their own Agent Deck and dashboard, set up with the brain. Built at install, not running for any client yet.
 - Local models, nightly self-checks, where every fact came from, encrypted off-site backups, restore tested (full restore 2026-11-08, weekly read-back check).
 - The business owns the machine and the files.
 
