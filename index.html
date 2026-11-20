@@ -37,18 +37,18 @@
     <meta property="og:description" content="Stop being the messenger for your AI tools. The Production Brain gives your company one memory that every AI shares, and you own it. Built and maintained by Inspired Creative Group.">
     <meta name="twitter:title" content="The Production Brain | Inspired Creative Group Inc.">
     <meta name="twitter:description" content="Stop being the messenger for your AI tools. The Production Brain gives your company one memory that every AI shares, and you own it. Built and maintained by Inspired Creative Group.">
-    <meta name="twitter:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261009">
+    <meta name="twitter:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261120">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Production Brain">
     <meta property="og:url" content="https://theproductionbrain.ai/">
-    <meta property="og:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261009">
-    <meta property="og:image:secure_url" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261009">
+    <meta property="og:image" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261120">
+    <meta property="og:image:secure_url" content="https://theproductionbrain.ai/assets/og-image.jpg?v=20261120">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Production Brain hero: stop being the messenger for your AI tools. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
+    <meta property="og:image:alt" content="The Production Brain hero: your people, your AI tools, one team. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:alt" content="The Production Brain hero: stop being the messenger for your AI tools. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
+    <meta name="twitter:image:alt" content="The Production Brain hero: your people, your AI tools, one team. A Mac Studio wired to what feeds it and the AI tools that ask and add.">
     <link rel="canonical" href="https://theproductionbrain.ai/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -556,9 +556,10 @@
         /* The Agent Deck promo (37 s, Juan's cut, approved 2026-11-19) leads the Proof section. Self-hosted, loads nothing until clicked,
            plays with sound only on a click (Sandy, 2026-11-19). The cover comes back when it ends. */
         #mm-proof .section-header{margin-bottom:clamp(1.75rem,3.5vw,2.75rem)}
+        #mm-proof .mm-proof-intro{max-width:760px;margin:1.1rem 0 0;color:var(--color-gray-300);font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.55}
         /* Phones: less empty space between Recalls (the day story) and Proof, ~230px to ~120px (Sandy, 2026-11-19) */
         @media (max-width:760px){ #mm-case.statement{padding-bottom:4.5rem} #mm-proof{padding-top:2.5rem} }   /* tighter gap from the headline to "Who handed what to whom." (Sandy, 2026-11-19; was 6rem) */
-        #mm-proof .mm-pv{margin:.6rem 0 clamp(2rem,4vw,3rem)}   /* order (Sandy, 2026-11-19): label "Proof", the video, then the headline */
+        #mm-proof .mm-pv{margin:0}   /* order (Sandy, 2026-11-19): label "Proof", the video, then the headline */
         #mm-proof .mm-pv-stage{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;border:1px solid #2a2a2a;box-shadow:0 24px 60px rgba(0,0,0,.6)}
         #mm-proof .mm-pv-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
         #mm-proof .mm-pv-cover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.6rem,1.6vw,1.1rem);
@@ -573,6 +574,22 @@
         #mm-proof .mm-pv-cover:focus-visible{outline:3px solid #fff;outline-offset:-6px}
         #mm-proof .mm-pv-len{font-family:var(--font-heading);font-weight:600;font-size:clamp(.72rem,1.1vw,.9rem);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.9)}
         @media (max-width:860px){ #mm-proof .mm-pv{margin-bottom:1.6rem} #mm-proof .mm-pv-stage{border-radius:8px} }
+        /* One card: video on top, message panel below (Sandy, 2026-11-20) */
+        #mm-proof .mm-pv-card{margin:.6rem 0 0;border:1px solid #2a2a2a;border-radius:12px;overflow:hidden;background:#0f0f0f;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+        #mm-proof .mm-pv-card .mm-pv-stage{border:0;border-radius:0;box-shadow:none}
+        #mm-proof .mm-pv-line{position:relative;height:3px;background:#2a2a2a}
+        #mm-proof .mm-pv-line span{position:absolute;inset:0 auto 0 0;width:var(--p,100%);background:var(--color-red);transition:width .25s linear}
+        #mm-proof .mm-pv-panel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center;
+          padding:clamp(1.6rem,3vw,2.6rem) clamp(1.5rem,3.5vw,3rem);background:linear-gradient(180deg,#161616 0%,#0f0f0f 100%)}
+        #mm-proof .mm-pv-panel .section-title{margin:0;font-size:clamp(1.9rem,3.4vw,3.1rem);line-height:1.02}
+        #mm-proof .mm-pv-panel .section-title .text-accent{display:block;margin-top:.35em;font-size:.6em;line-height:1.1}
+        #mm-proof .mm-pv-panel .mm-proof-line{display:block}
+        #mm-proof .mm-pv-panel .mm-proof-intro{margin:0;max-width:none;padding-left:clamp(1.25rem,2.5vw,2.25rem);border-left:1px solid #2e2e2e}
+        @media (max-width:860px){
+          #mm-proof .mm-pv-card{border-radius:8px}
+          #mm-proof .mm-pv-panel{grid-template-columns:1fr;gap:1.1rem;padding:1.4rem 1.25rem 1.5rem}
+          #mm-proof .mm-pv-panel .mm-proof-intro{padding-left:0;border-left:0}
+        }
         @media (prefers-reduced-motion: reduce){ #mm-proof .mm-pv-play::after{animation:none} #mm-proof .mm-pv-cover,#mm-proof .mm-pv-play{transition:none} }
         /* Proof screenshots: click to see them full screen, computers only (Sandy, 2026-11-20). Phones keep plain images. */
         @media (hover:hover) and (pointer:fine) and (min-width:861px){
@@ -826,6 +843,21 @@
         .footer .mm-footer-icg:hover span, .footer .mm-footer-icg:focus-visible span { color:#fff; text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--color-red); }
         .footer .mm-nav-words { display:flex; flex-direction:column; line-height:1.1; }
         .footer .mm-nav-name { font-family:var(--font-heading); font-weight:700; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; color:#fff; white-space:nowrap; }
+        /* Footer navigation: a compact grid in page order instead of one long list (Sandy, 2026-11-20).
+           Computers: 3 columns of 4. Tablets and phones: 2 columns of 6. Read down each column. */
+        .footer .footer-grid { grid-template-columns: 2fr 2.4fr 1fr; }
+        .footer .mm-footer-nav-list { display:grid; grid-auto-flow:column; grid-template-rows:repeat(4,auto); grid-template-columns:repeat(3,max-content); column-gap:clamp(1.5rem,3vw,3rem); }
+        .footer .mm-footer-nav-list a { min-height:36px; white-space:nowrap; }
+        @media (max-width:1024px) {
+          .footer .footer-grid { grid-template-columns:1fr 1fr; }
+          .footer .footer-brand { grid-column:1 / -1; }
+          .footer .mm-footer-nav-list { grid-template-rows:repeat(6,auto); grid-template-columns:repeat(2,max-content); }
+        }
+        @media (max-width:768px) {
+          .footer .footer-grid { grid-template-columns:1fr; }
+          .footer .mm-footer-nav-list { column-gap:2.5rem; }
+          .footer .mm-footer-nav-list a { min-height:40px; }
+        }
         .footer .mm-nav-by { font-family:var(--font-body); font-weight:400; font-size:.72rem; letter-spacing:.02em; color:#a0a0a0; white-space:nowrap; margin-top:.2rem; }
         /* Why it exists: a plain red outline around the video, no glow (Sandy, 2026-09-29) */
         /* How it arrives: rays converging on the machine, and the hero brain over it (Sandy, 2026-09-29) */
@@ -984,7 +1016,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn"><span class="mm-cta-long">Apply for the free build</span><span class="mm-cta-short">Apply</span></a></div>
+            <div class="mm-nav-actions"><button class="nav-toggle" id="navToggle" type="button" aria-label="Open the section menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button><a href="#founding-offer" class="btn btn-primary nav-cta-btn"><span class="mm-cta-long">Talk to us</span><span class="mm-cta-short">Talk to us</span></a></div>
         </div>
     </nav>
 
@@ -1269,7 +1301,7 @@
                 <p class="mm-calc-stat"><span>77%</span> of knowledge workers say their AI needs to know their company's history and decisions.</p>
                 <p class="mm-calc-stat"><span>21%</span> say it does.</p>
             </div>
-            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
+            <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Talk to us</a></div>
             <p class="mm-calc-note" id="mmCostNote">Source: <a href="https://www.atlassian.com/blog/ai-at-work/want-more-confidence-in-ai-give-it-more-context" target="_blank" rel="noopener">Atlassian Teamwork Lab</a>, 1,002 full-time US knowledge workers, July 28 to August 3, 2026.</p>
         </div>
     </section>
@@ -1334,6 +1366,9 @@
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Proof</span>
+                <!-- The video and its message as one card: the frame continues into a panel, a red line between them that
+                     fills with the video's progress while it plays (Sandy, 2026-11-20). -->
+                <div class="mm-pv-card">
                 <figure class="mm-pv">
                     <div class="mm-pv-stage">
                         <video id="mmProofVideo" preload="none" playsinline poster="assets/proof/agent-deck-promo-poster.jpg" width="1920" height="1080" aria-label="The Agent Deck in action, 37 seconds">
@@ -1345,11 +1380,17 @@
                         </button>
                     </div>
                 </figure>
-                <h2 class="section-title">The Agent Deck.<br><span class="text-accent"><span class="mm-proof-line">Every handoff on record.</span> <span class="mm-proof-line">Every job in view.</span></span></h2>
+                <div class="mm-pv-line" aria-hidden="true"><span id="mmProofLine"></span></div>
+                <div class="mm-pv-panel">
+                <h2 class="section-title">The brain at work.<br><span class="text-accent"><span class="mm-proof-line">Every handoff on record.</span> <span class="mm-proof-line">Every job in view.</span></span></h2>
+                <!-- What the Agent Deck is, so it doesn't read as a second product; every client gets their own deck and dashboard (Sandy, 2026-11-20) -->
+                <p class="section-subtitle mm-proof-intro">This is the Agent Deck, the live board on our own brain. It shows every AI agent at work, on every computer, and every job waiting for a person. Every client gets their own deck, plus a dashboard of what their brain knows and flags.</p>
+                </div>
+                </div>
             </div>
             <div class="mm-proof-rows">
                 <div class="mm-proof-row gsap-animate">
-                    <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and agents that hold a key sign their handoffs, so we can see who passed what to whom and a fake one gets flagged.</p>
+                    <p><strong>Who handed what to whom.</strong> Every handoff between our AI agents is logged, and signed by agents that hold a key, so a fake one gets flagged.</p>
                     <img src="assets/proof/proof-1-handoffs.jpg" data-full="assets/proof/proof-1-handoffs@2x.jpg" alt="Agent Deck job chain: a job passed from Claude Code to Gregorio to Claudia and back, each handoff marked Signed, with a forged reply flagged Signature invalid." width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="mm-proof-row gsap-animate">
@@ -1414,6 +1455,10 @@
         if (!v || !cover) return;
         const send = n => { try { window.gtag && gtag('event', n, { video_title: 'Agent Deck promo' }); } catch (e) {} };
         let started = false;
+        const line = document.getElementById('mmProofLine');   // the red line under the video follows its progress while it plays
+        const setLine = p => { if (line) line.style.setProperty('--p', p + '%'); };
+        v.addEventListener('timeupdate', () => { if (v.duration) setLine(Math.min(100, v.currentTime / v.duration * 100)); });
+        v.addEventListener('play', () => { if (v.currentTime < 0.3) setLine(0); });
         cover.addEventListener('click', () => {
           v.controls = true;
           cover.classList.add('is-gone');
@@ -1427,6 +1472,7 @@
           if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
           if (v.webkitDisplayingFullscreen && v.webkitExitFullscreen) v.webkitExitFullscreen();
           v.controls = false; v.load();          // back to the cover picture
+          setLine(100);
           cover.hidden = false; requestAnimationFrame(() => cover.classList.remove('is-gone'));
         });
       })();
@@ -1446,9 +1492,9 @@
                 <span class="mm-vsl-len">Watch &middot; 6:05</span>
                 <!-- End card: shown when the video finishes. The video's last line is "click the button below this video", so the button comes to them. -->
                 <div class="mm-vsl-end">
-                    <p class="mm-vsl-end-title">One company gets <span class="text-accent">a free build.</span></p>
-                    <a href="#founding-offer" class="btn btn-primary mm-vsl-end-apply" id="mmVslEndApply">Apply for the free build</a>
-                    <span class="mm-vsl-end-note">One spot only.</span>
+                    <p class="mm-vsl-end-title">We set it up <span class="text-accent">for your team.</span></p>
+                    <a href="#founding-offer" class="btn btn-primary mm-vsl-end-apply" id="mmVslEndApply">Talk to us</a>
+                    <span class="mm-vsl-end-note">We reply within a day.</span>
                     <button type="button" class="mm-vsl-again" id="mmVslAgain">&#8635; Watch again</button>
                 </div>
             </div>
@@ -1465,8 +1511,8 @@
                 <li><button type="button" class="mm-vsl-chap" data-t="319"><span>5:19</span>The offer</button></li>
             </ol>
             <div class="mm-cta-row mm-vsl-cta">
-                <a href="#founding-offer" class="btn btn-primary mm-apply" id="mmVslApply">Apply for the free build</a>
-                <span class="mm-vsl-note">One spot only.</span>
+                <a href="#founding-offer" class="btn btn-primary mm-apply" id="mmVslApply">Talk to us</a>
+                <span class="mm-vsl-note">We set it up for your team.</span>
             </div>
         </div>
     </section>
@@ -1604,7 +1650,7 @@
             <svg class="mm-ann-lines" aria-hidden="true"></svg>
             <div class="mm-ann mm-ann-l" data-dot="45,71" data-at="33,64"><strong>The Mac Studio</strong>Bought for you at Apple's price, or bring your own.</div>
             <div class="mm-ann mm-ann-l" data-dot="40.5,80" data-at="33,82"><strong>Your tools, connected</strong>Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</div>
-            <div class="mm-ann mm-ann-r" data-dot="58,70.5" data-at="73,64"><strong>The brain, installed</strong>Its own models and your team's memory, on the machine.</div>
+            <div class="mm-ann mm-ann-r" data-dot="58,70.5" data-at="73,61.5"><strong>The brain, installed</strong>Its own models, your team's memory, your own Agent Deck and dashboard.</div>
             <div class="mm-ann mm-ann-r" data-dot="66,79" data-at="73,82"><strong>Maintenance</strong>Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</div>
         </div>
         <div class="container">
@@ -1622,7 +1668,7 @@
             <p class="mm-get-label">What you get</p>
             <ol class="mm-steps mm-get">
                 <li><span class="mm-step-num">01</span><span class="mm-step-text"><strong>The Mac Studio</strong> Bought for you at Apple's price, or bring your own.</span></li>
-                <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed</strong> Its own models and your team's memory, on the machine.</span></li>
+                <li><span class="mm-step-num">02</span><span class="mm-step-text"><strong>The brain, installed</strong> Its own models, your team's memory, your own Agent Deck and dashboard.</span></li>
                 <li><span class="mm-step-num">03</span><span class="mm-step-text"><strong>Your tools, connected</strong> Your AI tools (Claude, Codex, Gemini) plus any document and file folders you choose.</span></li>
                 <li><span class="mm-step-num">04</span><span class="mm-step-text"><strong>Maintenance</strong> Updates, nightly checks, two encrypted backups and personalized support, all done remotely by us.</span></li>
             </ol>
@@ -1650,7 +1696,7 @@
                 </ol>
                 <p class="mm-plan-promise">Maintenance starts on day one. The maintenance subscription starts on day 91.</p>
                 <p class="mm-plan-promise">Not a fit after 90 days? We refund the build fee and cancel the subscription. You keep the Mac.</p>
-                <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Apply for the free build</a></div>
+                <div class="mm-cta-row"><a href="#founding-offer" class="btn btn-primary mm-apply">Talk to us</a></div>
             </div>
             <div class="section-header gsap-animate">
                 <h2 class="section-title">Your company's memory<br><span class="text-accent">belongs to your company.</span></h2>
@@ -1777,21 +1823,21 @@
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info gsap-animate">
-                    <span class="section-label mm-offer-badge">Founding offer</span>
-                    <h2 class="section-title">One company gets <span class="text-accent">a free build.</span></h2>
+                    <span class="section-label mm-offer-badge">Set up for you</span>
+                    <h2 class="section-title">We come in and <span class="text-accent">set it up for you.</span></h2>
                     <div class="mm-card mm-founding">
-                        <p><strong>You get:</strong> the full build, free. We install the brain, load the models and connect your tools.</p>
-                        <p><strong>You cover:</strong> the Mac at Apple's price, no markup, and the monthly maintenance fee with 30% off for the first year.</p>
-                        <p class="mm-offer-close">One spot only, chosen from the applicants.</p>
+                        <p><strong>You get:</strong> we learn how your team works, install the brain, load the models, connect your tools and set up the workflows you want automated.</p>
+                        <p><strong>You cover:</strong> the Mac at Apple's price, no markup, a setup fee quoted for your team, and monthly maintenance.</p>
+                        <p class="mm-offer-close">Every setup is scoped and quoted after a first call.</p>
                     </div>
-                    <span class="section-label mm-sub-label">Apply</span>
-                    <h3 class="mm-sub-title">Apply for the free build.</h3>
-                    <p class="contact-text">Your team, your tools. We reply within a day.</p>
+                    <span class="section-label mm-sub-label">Talk to us</span>
+                    <h3 class="mm-sub-title">Tell us about your team.</h3>
+                    <p class="contact-text">We reply within a day to set up a call.</p>
                 </div>
                 <div class="contact-form-wrap gsap-animate" id="mm-form">
                     <span id="contact" class="mm-anchor mm-anchor-form" aria-hidden="true"></span>
                     <form class="contact-form" id="partnersForm" action="https://formspree.io/f/mbdagppd" method="POST">
-                        <input type="hidden" name="_subject" value="Production Brain pricing request">
+                        <input type="hidden" name="_subject" value="Production Brain call request">
                         <input type="hidden" name="inquiry_type" value="Production Brain">
                         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-row">
@@ -1823,10 +1869,8 @@
                             <label for="mmTools">Which AI tools do you use?</label>
                             <input type="text" id="mmTools" name="tools" placeholder="Claude Code, ChatGPT, Cursor...">
                         </div>
-                        <label class="mm-check"><input type="checkbox" name="founding_application" value="yes" id="mmFoundingBox" checked> Apply for the founding spot (free build)</label>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
-                        <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Apply for the free build</button>
-                        <button type="button" class="mm-pricing-link" id="mmPricingLink">Or ask for standard pricing</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="partnerSubmitBtn">Talk to us</button>
                     </form>
                     <div class="form-success" id="partnerFormSuccess" style="display:none;">
                         <div class="form-success-icon">✓</div>
@@ -1856,9 +1900,11 @@
                     </a>
                     <p class="footer-tagline mm-footer-line">Your people. Your AI tools.<br>One team.</p>
                 </div>
-                <div class="footer-links">
+                <div class="footer-links mm-footer-nav">
                     <h4>Navigation</h4>
-                    <!-- Same items as the top menu, named after the section labels (Sandy, 2026-10-01) -->
+                    <!-- Same items as the top menu, named after the section labels (Sandy, 2026-10-01).
+                         A compact grid in page order, read down each column (Sandy, 2026-11-20; was one long list). -->
+                    <div class="mm-footer-nav-list">
                     <a href="#the-challenge">The challenge</a>
                     <a href="#the-cost">The gap</a>
                     <a href="#remembers">Remembers</a>
@@ -1871,6 +1917,7 @@
                     <a href="#integrations">Integrations</a>
                     <a href="#faq">FAQ</a>
                     <a href="#contact">Contact</a>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
@@ -1923,11 +1970,8 @@
         var form = document.getElementById('partnersForm');
         var success = document.getElementById('partnerFormSuccess');
         var submitBtn = document.getElementById('partnerSubmitBtn');
-        /* one ask: Apply by default; the secondary link switches the form to a plain pricing request (2026-10-03) */
-        var box = document.getElementById('mmFoundingBox'), plink = document.getElementById('mmPricingLink');
-        function btnLabel() { return box && !box.checked ? 'Request pricing' : 'Apply for the free build'; }
-        if (box) box.addEventListener('change', function() { submitBtn.textContent = btnLabel(); if (plink) plink.hidden = !box.checked; });
-        if (plink) plink.addEventListener('click', function() { box.checked = false; submitBtn.textContent = btnLabel(); plink.hidden = true; });
+        /* one ask: Talk to us. The free build and the pricing toggle were removed 2026-11-20 (Sandy). */
+        function btnLabel() { return 'Talk to us'; }
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1936,7 +1980,7 @@
                 fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } }).then(function(response) {
                     if (response.ok) {
                         form.style.display = 'none'; success.style.display = 'block';
-                        if (window.gtag) gtag('event', 'generate_lead', { form_type: box && !box.checked ? 'pricing_request' : 'founding_application', link_location: 'form', transport_type: 'beacon' });
+                        if (window.gtag) gtag('event', 'generate_lead', { form_type: 'call_request', link_location: 'form', transport_type: 'beacon' });
                         var cfToken = data.get('cf-turnstile-response') || '';
                         if (cfToken) {
                             var gasBody = new URLSearchParams({
